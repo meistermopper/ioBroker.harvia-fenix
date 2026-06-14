@@ -78,53 +78,20 @@ Der Adapter bildet die Cloud-Zustände Ihrer Sauna in strukturierten ioBroker-Da
 ---
 
 ## Änderungsprotokoll (Changelog)
-### 0.0.22 (2026-06-11)
-* (meistermopper) Abhängigkeitsprobleme behoben und devDependencies aktualisiert.
-* (iobroker-bot) Mindestanforderung für Node.js auf 22 aktualisiert (EOL Node.js 20).
+### 0.0.28 (2026-06-14)
+* (meistermopper) Verschiedene Repochecker-Probleme behoben und i18n-Unterstützung verbessert
+* (meistermopper) ESLint-Konfiguration und moderne Metadaten hinzugefügt
+
+### 0.0.21 (2026-06-09)
+* (meistermopper) Erneuter Release-Versuch aufgrund von Deployment-Problemen (v0.0.20 existiert bereits).
+
+### 0.0.20 (2026-06-09)
+* (meistermopper) Erneuter Release-Versuch aufgrund von Deployment-Problemen.
 
 ### 0.0.19 (2026-06-09)
 * (meistermopper) Letzte Korrekturen für das Reviewer-Feedback, i18n-Syntax und Lizenzformat korrigiert.
 
-### 0.0.18 (2026-06-09)
-* (meistermopper) Reviewer-Feedback umgesetzt, Abhängigkeiten aktualisiert und Trusted Publishing aktiviert.
-
-### 0.0.17 (2026-06-08)
-* (meistermopper) Ungültige Secret-Referenzen entfernt, um GitHub Action Warnungen zu beheben.
-
-### 0.0.16 (2026-06-08)
-* (meistermopper) Sentry-Integration deaktiviert, um Deployment-Fehler zu beheben.
-
-### 0.0.15 (2026-06-08)
-* (meistermopper) Weiterer Versuch, die Sentry-Authentifizierung zu beheben.
-
-### 0.0.14 (2026-06-08)
-* (meistermopper) Sentry-Authentifizierung korrigiert und neuen Release angestoßen.
-
-### 0.0.13 (2026-06-07)
-* (meistermopper) Fix Sentry Integration und kleinere Linting-Probleme.
-
-### 0.0.11 (2026-06-07)
-* (meistermopper) Hinzufügen von Dummy Unit Test und Beheben von CI-Testskripten
-
-### 0.0.10 (2026-06-07)
-* (meistermopper) TypeScript-Typsicherheit und Build-Prozess finalisiert.
-* (meistermopper) GitHub Actions Workflow und Sentry-Integration verbessert.
-
-### 0.0.9 (2026-06-07)
-* (meistermopper) Deutsche Dokumentation hinzugefügt und Erkennung des Fernsteuerungsstatus verbessert.
-* (meistermopper) Technisch: TypeScript-Typen und Build-Prozess korrigiert.
-
-### 0.0.8 (2026-06-06)
-* (meistermopper) Redundante Lizenzdatei entfernt und MIT-Inhalt hinzugefügt.
-
-### 0.0.7 (2026-06-06)
-* (meistermopper) Umfassende Dokumentation, Feature-Mapping und Sicherheitshinweise aktualisiert.
-
-### 0.0.4 (2026-06-06)
-* (meistermopper) Projektstruktur bereinigt und Dokumentation korrigiert.
-
-### 0.0.1 (2026-06-05)
-* (meistermopper) Erstveröffentlichung
+## [Ältere Einträge](CHANGELOG_OLD.md)
 
 ---
 
@@ -132,4 +99,6 @@ Der Adapter bildet die Cloud-Zustände Ihrer Sauna in strukturierten ioBroker-Da
 Harvia und MyHarvia 2 sind eingetragene Marken der Harvia Group. Dieser Adapter ist ein unabhängiges, gemeinschaftsbasiertes Open-Source-Projekt und wird weder offiziell von Harvia unterstützt, gesponsert noch betreut.
 
 ## Lizenz
-MIT License - Copyright (c) 2026 iobroker-community-adapters
+MIT License
+
+Copyright (c) 2026 meistermopper <meister.mopper@gmail.com>
