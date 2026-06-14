@@ -2,8 +2,6 @@
 	"common": {
 		"name": "harvia-fenix",
 		"version": "0.0.28",
-		"title": "Harvia-Fenix Sauna Control",
-		"desc": "Control Harvia Fenix sauna units via MyHarvia cloud",
 		"news": {
 			"0.0.28": {
 				"en": "Address various repochecker issues and improve i18n support",
@@ -12,7 +10,7 @@
 				"pt": "Enfrentar vários problemas de repochecker e melhorar o suporte i18n",
 				"nl": "Verschillende repochecker problemen aanpakken en i18n ondersteuning verbeteren",
 				"fr": "Répondre à divers problèmes de repochecker et améliorer le soutien i18n",
-				"it": "Indirizzo vari problemi di repochecker e migliorare il supporto i18n",
+				"it": "Indirizzo vari problemi di repochecker e migliorare ilサポート i18n",
 				"es": "Abordar varios problemas de repochecker y mejorar el soporte i18n",
 				"pl": "Rozwiązanie różnych problemów repochecker i poprawić obsługę i18n",
 				"uk": "Підтримка i18n",
@@ -30,32 +28,6 @@
 				"pl": "Ponowna próba wydania z powodu problemów z wdrożeniem (wersja 0.0.20 już istnieje).",
 				"uk": "Повторний випуск через проблеми з розгортанням (v0.0.20 вже існує).",
 				"zh-cn": "由于部署问题重试发布（v0.0.20 已存在）。"
-			},
-			"0.0.20": {
-				"en": "Retry release due to deployment issues.",
-				"de": "Release-Wiederholung aufgrund von Deployment-Problemen.",
-				"ru": "Повторный выпуск из-за проблем с развертыванием.",
-				"pt": "Repetir o lançamento devido a problemas de implementação.",
-				"nl": "Release herhalen vanwege implementatieproblemen.",
-				"fr": "Nouvelle tentative de publication en raison de problèmes de déploiement.",
-				"it": "Riprova il rilascio a causa di problemi di distribuzione.",
-				"es": "Reintentar el lanzamiento debido a problemas de despliegue.",
-				"pl": "Ponowna próba wydania z powodu problemów z wdrożeniem.",
-				"uk": "Повторний випуск через проблеми з розгортанням.",
-				"zh-cn": "由于部署问题重试发布。"
-			},
-			"0.0.19": {
-				"en": "Final fixes for reviewer feedback, corrected i18n syntax and license format.",
-				"de": "Letzte Korrekturen für das Reviewer-Feedback, i18n-Syntax und Lizenzformat korrigiert.",
-				"ru": "Обработка отзывов рецензентов, обновление зависимостей и включение доверенной публикации.",
-				"pt": "Aborda o feedback do revisor, atualiza as dependências e permite a publicação confiável.",
-				"nl": "Feedback van reviewers verwerken, afhankelijkheden bijwerken en vertrouwde publicatie inschakelen.",
-				"fr": "Prendre en compte les retours du réviseur, mettre à jour les dépendances et activer la publication sécurisée.",
-				"it": "Gestione del feedback del revisore, aggiornamento delle dipendenze e abilitazione della pubblicazione affidabile.",
-				"es": "Abordar los comentarios del revisor, actualizar las dependencias y habilitar la publicação de confiança.",
-				"pl": "Uwzględnienie opinii recenzenta, aktualizacja zależności i włączenie zaufanego publikowania.",
-				"uk": "Розгляд відгуків рецензентів, оновлення запежностей та ввімкнення довіреної публікації.",
-				"zh-cn": "解决审阅者反馈、更新依赖项并启用受信任的发布。"
 			}
 		},
 		"titleLang": {
@@ -71,7 +43,7 @@
 			"uk": "Керування сауною Harvia-Fenix",
 			"zh-cn": "Harvia-Fenix 桑拿控制"
 		},
-		"descLang": {
+		"desc": {
 			"en": "Control Harvia Fenix sauna units via MyHarvia cloud",
 			"de": "Steuerung von Harvia Fenix Sauna-Steuerungen über die MyHarvia Cloud",
 			"ru": "Управление саунами Harvia Fenix через облако MyHarvia",
