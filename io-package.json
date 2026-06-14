@@ -1,7 +1,7 @@
 {
 	"common": {
 		"name": "harvia-fenix",
-		"version": "0.0.22",
+		"version": "0.0.23",
 		"titleLang": {
 			"en": "Harvia-Fenix Sauna Control",
 			"de": "Harvia-Fenix Saunasteuerung",
@@ -29,6 +29,19 @@
 			"zh-cn": "通过 MyHarvia 云端控制 Harvia Fenix 桑拿房"
 		},
 		"news": {
+			"0.0.23": {
+				"en": "Prepare next release",
+				"de": "Bereiten Sie das nächste Release vor",
+				"ru": "Подготовьте следующий релиз",
+				"pt": "Preparar a próxima versão",
+				"nl": "Bereid de volgende release voor",
+				"fr": "Préparer la prochaine version",
+				"it": "Prepara il prossimo rilascio",
+				"es": "Preparar el próximo lanzamiento",
+				"pl": "Przygotować następne wydanie",
+				"uk": "Підготовка наступного випуску",
+				"zh-cn": "准备下次发布"
+			},
 			"0.0.22": {
 				"en": "Address various repochecker issues and improve i18n support\nAdd ESLint config and modern metadata",
 				"de": "Behebung verschiedener Repochecker-Probleme und Verbesserung der i18n-Unterstützung\nHinzufügen von ESLint config und modernen Metadaten",
