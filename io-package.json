@@ -1,7 +1,7 @@
 {
 	"common": {
 		"name": "harvia-fenix",
-		"version": "0.0.21",
+		"version": "0.0.22",
 		"titleLang": {
 			"en": "Harvia-Fenix Sauna Control",
 			"de": "Harvia-Fenix Saunasteuerung",
@@ -29,6 +29,19 @@
 			"zh-cn": "通过 MyHarvia 云端控制 Harvia Fenix 桑拿房"
 		},
 		"news": {
+			"0.0.22": {
+				"en": "Address various repochecker issues and prepare clean 0.0.22 release",
+				"de": "Beheben Sie verschiedene Repochecker-Probleme und bereiten Sie sauberes 0.0.22 Release vor",
+				"ru": "Устраните различные проблемы с репочекером и подготовьте чистый релиз 0.0.22",
+				"pt": "Endereçar vários problemas de repochecker e preparar versão limpa 0.0.22",
+				"nl": "Behandel verschillende repochecker problemen en bereid schone 0.022 release",
+				"fr": "Régler divers problèmes de repochecker et préparer propre 0.0.22 libération",
+				"it": "Indirizzo vari problemi di repochecker e preparare pulito 0.0.22 rilascio",
+				"es": "Dirija varios problemas de repochecker y preparar limpio 0.0.22 liberación",
+				"pl": "Adres różnych problemów repochecker i przygotować czyste wersji 0.0.22",
+				"uk": "Адреса різних репочекерних питань і підготувати чистий 0.0.22 реліз",
+				"zh-cn": "解决各种再检查者问题,准备干净的0.0.22释放"
+			},
 			"0.0.21": {
 				"en": "Retry release due to deployment issues (v0.0.20 already exists).",
 				"de": "Release-Wiederholung aufgrund von Deployment-Problemen (v0.0.20 existiert bereits).",
