@@ -1,35 +1,7 @@
 {
 	"common": {
 		"name": "harvia-fenix",
-		"version": "0.0.22",
-		"news": {
-			"0.0.22": {
-				"en": "Address various repochecker issues and improve i18n support",
-				"de": "Behebung verschiedener Repochecker-Probleme und Verbesserung der i18n-Unterstützung",
-				"ru": "Решение различных проблем репочекера и улучшение поддержки i18n",
-				"pt": "Enfrentar vários problemas de repochecker e melhorar o suporte i18n",
-				"nl": "Verschillende repochecker problemen aanpakken en i18n ondersteuning verbeteren",
-				"fr": "Répondre à divers problèmes de repochecker et améliorer le soutien i18n",
-				"it": "Indirizzo vari problemi di repochecker e migliorare il supporto i18n",
-				"es": "Abordar varios problemas de repochecker e mejorar el soporte i18n",
-				"pl": "Rozwiązanie verschiedenen repochecker problemen i poprawić obsługę i18n",
-				"uk": "Підтримка i18n",
-				"zh-cn": "解决各种重新检查器问题,改进i18n支持"
-			},
-			"0.0.21": {
-				"en": "Retry release due to deployment issues (v0.0.20 already exists).",
-				"de": "Release-Wiederholung aufgrund von Deployment-Problemen (v0.0.20 existiert bereits).",
-				"ru": "Повторный выпуск из-за проблем с развертыванием (v0.0.20 уже существует).",
-				"pt": "Repetir o lançamento devido a problemas de implementação (v0.0.20 já esiste).",
-				"nl": "Release herhalen vanwege implementatieproblemen (v0.0.20 besteht al).",
-				"fr": "Nouvelle tentative de publication en raison de problèmes de déploiement (la v0.0.20 esiste già).",
-				"it": "Riprova il rilascio a causa di problemi di distribuzione (la v0.0.20 esiste già).",
-				"es": "Reintentar el lanzamiento debido a problemas de despliegue (la v0.0.20 ya esiste).",
-				"pl": "Ponowna próba wydania z powodu problemów z wdrożeniem (wersja 0.0.20 już istnieje).",
-				"uk": "Повторний випуск через проблеми з розгортанням (v0.0.20 вже існує).",
-				"zh-cn": "Due to deployment issues retry release (v0.0.20 already exists)."
-			}
-		},
+		"version": "0.0.21",
 		"titleLang": {
 			"en": "Harvia-Fenix Sauna Control",
 			"de": "Harvia-Fenix Saunasteuerung",
@@ -55,6 +27,34 @@
 			"pl": "Sterowanie saunami Harvia Fenix za pomocą chmury MyHarvia",
 			"uk": "Керування саунами Harvia Fenix через хмару MyHarvia",
 			"zh-cn": "通过 MyHarvia 云端控制 Harvia Fenix 桑拿房"
+		},
+		"news": {
+			"0.0.21": {
+				"en": "Retry release due to deployment issues (v0.0.20 already exists).",
+				"de": "Release-Wiederholung aufgrund von Deployment-Problemen (v0.0.20 existiert bereits).",
+				"ru": "Повторный выпуск из-за проблем с развертыванием (v0.0.20 уже существует).",
+				"pt": "Repetir o lançamento devido a problemas de implementação (v0.0.20 já esiste).",
+				"nl": "Release herhalen vanwege implementatieproblemen (v0.0.20 besteht al).",
+				"fr": "Nouvelle tentative de publication en raison de problèmes de déploiement (la v0.0.20 esiste già).",
+				"it": "Riprova il rilascio a causa di problemi di distribuzione (la v0.0.20 esiste già).",
+				"es": "Reintentar el lanzamiento debido a problemas de despliegue (la v0.0.20 ya esiste).",
+				"pl": "Ponowna próba wydania z powodu problemów z wdrożeniem (wersja 0.0.20 już istnieje).",
+				"uk": "Повторний випуск через проблеми з розгортанням (v0.0.20 вже існує).",
+				"zh-cn": "Due to deployment issues retry release (v0.0.20 already exists)."
+			},
+			"0.0.20": {
+				"en": "Retry release due to deployment issues.",
+				"de": "Release-Wiederholung aufgrund von Deployment-Problemen.",
+				"ru": "Повторный выпуск из-за проблем с развертыванием.",
+				"pt": "Repetir o lançamento devido a problemas de implementação.",
+				"nl": "Release herhalen vanwege implementatieproblemen.",
+				"fr": "Nouvelle tentative de publication en raison de problèmes de déploiement.",
+				"it": "Riprova il rilascio a causa di problemi di distribuzione.",
+				"es": "Reintentar el lanzamiento debido a problemas de despliegue.",
+				"pl": "Ponowna próba wydania z powodu problemów z wdrożeniem.",
+				"uk": "Повторний випуск через проблеми з розгортанням.",
+				"zh-cn": "由于 deployment issue retry release."
+			}
 		},
 		"authors": ["meistermopper <meister.mopper@gmail.com>"],
 		"keywords": ["harvia", "fenix", "sauna", "myharvia", "cloud"],
@@ -102,10 +102,7 @@
 			"_id": "info",
 			"type": "channel",
 			"common": {
-				"name": {
-					"en": "Information",
-					"de": "Information"
-				}
+				"name": "Information"
 			},
 			"native": {}
 		},
@@ -114,10 +111,7 @@
 			"type": "state",
 			"common": {
 				"role": "indicator.connected",
-				"name": {
-					"en": "Device or service connected",
-					"de": "Gerät oder Dienst verbunden"
-				},
+				"name": "Device or service connected",
 				"type": "boolean",
 				"read": true,
 				"write": false,
@@ -130,10 +124,7 @@
 			"type": "state",
 			"common": {
 				"role": "indicator.reachable",
-				"name": {
-					"en": "Cloud connection status",
-					"de": "Cloud-Verbindungsstatus"
-				},
+				"name": "Cloud connection status",
 				"type": "boolean",
 				"read": true,
 				"write": false,
@@ -146,10 +137,7 @@
 			"type": "state",
 			"common": {
 				"role": "switch.power",
-				"name": {
-					"en": "Sauna heater power",
-					"de": "Saunaofen Leistung"
-				},
+				"name": "Sauna heater power",
 				"type": "boolean",
 				"read": true,
 				"write": true,
@@ -162,10 +150,7 @@
 			"type": "state",
 			"common": {
 				"role": "switch.light",
-				"name": {
-					"en": "Sauna light",
-					"de": "Saunalicht"
-				},
+				"name": "Sauna light",
 				"type": "boolean",
 				"read": true,
 				"write": true,
@@ -178,10 +163,7 @@
 			"type": "state",
 			"common": {
 				"role": "value.temperature",
-				"name": {
-					"en": "Current cabin temperature",
-					"de": "Aktuelle Kabinentemperatur"
-				},
+				"name": "Current cabin temperature",
 				"type": "number",
 				"unit": "°C",
 				"read": true,
@@ -195,10 +177,7 @@
 			"type": "state",
 			"common": {
 				"role": "level.temperature",
-				"name": {
-					"en": "Target temperature",
-					"de": "Zieltemperatur"
-				},
+				"name": "Target temperature",
 				"type": "number",
 				"unit": "°C",
 				"read": true,
@@ -212,10 +191,7 @@
 			"type": "state",
 			"common": {
 				"role": "sensor.door",
-				"name": {
-					"en": "Door safety circuit",
-					"de": "Tür-Sicherheitskreis"
-				},
+				"name": "Door safety circuit",
 				"type": "boolean",
 				"read": true,
 				"write": false,
@@ -228,10 +204,7 @@
 			"type": "state",
 			"common": {
 				"role": "indicator",
-				"name": {
-					"en": "Remote control authorized",
-					"de": "Fernbedienung autorisiert"
-				},
+				"name": "Remote control authorized",
 				"type": "boolean",
 				"read": true,
 				"write": false,
@@ -244,10 +217,7 @@
 			"type": "state",
 			"common": {
 				"role": "value",
-				"name": {
-					"en": "Total bathing hours",
-					"de": "Gesamtbadedauer"
-				},
+				"name": "Total bathing hours",
 				"type": "number",
 				"unit": "h",
 				"read": true,
@@ -261,10 +231,7 @@
 			"type": "state",
 			"common": {
 				"role": "value",
-				"name": {
-					"en": "Total sessions",
-					"de": "Gesamtzahl der Sitzungen"
-				},
+				"name": "Total sessions",
 				"type": "number",
 				"read": true,
 				"write": false,
@@ -277,10 +244,7 @@
 			"type": "state",
 			"common": {
 				"role": "text",
-				"name": {
-					"en": "Last error message",
-					"de": "Letzte Fehlermeldung"
-				},
+				"name": "Last error message",
 				"type": "string",
 				"read": true,
 				"write": false,
@@ -293,10 +257,7 @@
 			"type": "state",
 			"common": {
 				"role": "value.power",
-				"name": {
-					"en": "Current heater power",
-					"de": "Aktuelle Ofenleistung"
-				},
+				"name": "Current heater power",
 				"type": "number",
 				"unit": "kW",
 				"read": true,
@@ -310,10 +271,7 @@
 			"type": "state",
 			"common": {
 				"role": "value.temperature",
-				"name": {
-					"en": "Panel temperature",
-					"de": "Panel-Temperatur"
-				},
+				"name": "Panel temperature",
 				"type": "number",
 				"unit": "°C",
 				"read": true,
@@ -327,10 +285,7 @@
 			"type": "state",
 			"common": {
 				"role": "value",
-				"name": {
-					"en": "Total operating hours",
-					"de": "Gesamtbetriebsstunden"
-				},
+				"name": "Total operating hours",
 				"type": "number",
 				"unit": "h",
 				"read": true,

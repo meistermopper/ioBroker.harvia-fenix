@@ -83,7 +83,7 @@ The adapter maps your sauna's cloud states into structured ioBroker datapoints u
 ---
 
 ## Changelog
-### 0.0.22 (2026-06-14)
+### **WORK IN PROGRESS**
 * (meistermopper) Address various repochecker issues and improve i18n support
 * (meistermopper) Add ESLint config and modern metadata
 
@@ -91,6 +91,9 @@ The adapter maps your sauna's cloud states into structured ioBroker datapoints u
 * (meistermopper) Retry release due to deployment issues (v0.0.20 already exists).
 
 ### 0.0.20 (2026-06-09)
+* (meistermopper) Retry release due to deployment issues.
+
+### 0.0.19 (2026-06-09)
 * (meistermopper) Final fixes for reviewer feedback, corrected i18n syntax and license format.
 
 ## [Older changelog entries](CHANGELOG_OLD.md)

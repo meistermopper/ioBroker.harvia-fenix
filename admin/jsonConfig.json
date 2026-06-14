@@ -2,18 +2,12 @@
 	"type": "tabs",
 	"items": {
 		"main": {
-			"label": {
-				"en": "Login Settings",
-				"de": "Login-Einstellungen"
-			},
+			"label": "Login Settings",
 			"type": "panel",
 			"items": {
 				"username": {
 					"type": "text",
-					"label": {
-						"en": "Username / Email",
-						"de": "Benutzername / E-Mail"
-					},
+					"label": "Username / Email",
 					"xs": 12,
 					"sm": 6,
 					"md": 4,
@@ -22,10 +16,7 @@
 				},
 				"password": {
 					"type": "password",
-					"label": {
-						"en": "Password",
-						"de": "Passwort"
-					},
+					"label": "Password",
 					"xs": 12,
 					"sm": 6,
 					"md": 4,
@@ -34,14 +25,8 @@
 				},
 				"deviceId": {
 					"type": "text",
-					"label": {
-						"en": "Device ID",
-						"de": "Geräte-ID"
-					},
-					"help": {
-						"en": "Leave this field empty and start the adapter to find the ID automatically in the ioBroker log (Discovery).",
-						"de": "Lass dieses Feld leer und starte den Adapter, um die ID automatisch im Log zu finden (Discovery)."
-					},
+					"label": "Device ID",
+					"help": "Leave this field empty and start the adapter to find the ID automatically in the ioBroker log (Discovery).",
 					"xs": 12,
 					"sm": 6,
 					"md": 4,
@@ -50,10 +35,7 @@
 				},
 				"pollInterval": {
 					"type": "number",
-					"label": {
-						"en": "Polling Interval (seconds)",
-						"de": "Abfrageintervall (Sekunden)"
-					},
+					"label": "Polling Interval (seconds)",
 					"min": 30,
 					"max": 600,
 					"default": 60,
