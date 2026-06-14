@@ -100,6 +100,9 @@ The adapter maps your sauna's cloud states into structured ioBroker datapoints u
 * (meistermopper) Fixed dependency issues and updated devDependencies.
 * (iobroker-bot) Updated Node.js minimum requirement to 22 (EOL Node.js 20).
 
+### 0.0.21 (2026-06-09)
+* (meistermopper) Retry release due to deployment issues (v0.0.20 already exists).
+
 ## [Older changelog entries](CHANGELOG_OLD.md)
 
 ## Trademarks

@@ -1,5 +1,6 @@
 {
 	"plugins": ["iobroker", "license", "manual-review"],
+	"numChangelogEntries": 10,
 	"exec": {
 		"before_commit": "npm run build"
 	}
