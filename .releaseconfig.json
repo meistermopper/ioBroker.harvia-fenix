@@ -1,7 +1,7 @@
 {
-  "plugins": {
-    "changelog": {
-      "numChangelogEntries": 5
-    }
-  }
+	"plugins": {
+		"changelog": {
+			"numChangelogEntries": 5
+		}
+	}
 }
