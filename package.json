@@ -48,9 +48,7 @@
 	},
 	"main": "build/main.js",
 	"files": [
-		"admin/i18n",
-		"admin/*.json",
-		"admin/*.png",
+		"admin",
 		"build",
 		"io-package.json",
 		"LICENSE",
