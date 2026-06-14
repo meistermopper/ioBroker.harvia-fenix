@@ -89,6 +89,13 @@ The adapter maps your sauna's cloud states into structured ioBroker datapoints u
 * **NOT Supported:** **Harvia Xenio** series (e.g., Xenio WiFi / CX001WIFI). The Xenio series relies on a legacy hardware ecosystem and uses the older *"MyHarvia for Xenio"* app, which is fundamentally incompatible with the API utilized by this adapter.
 ---
 
+## To-Do
+* [ ] Await official permission from Harvia to use their original logo
+* [ ] Add adapter to the official ioBroker `latest` repository
+* [ ] Add adapter to the official ioBroker `stable` repository
+
+---
+
 ## Changelog
 ### **WORK IN PROGRESS**
 * (meistermopper) Prepare clean 0.0.23 release

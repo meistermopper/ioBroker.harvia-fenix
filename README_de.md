@@ -91,6 +91,13 @@ Der Adapter bildet die Cloud-Zustände Ihrer Sauna in strukturierten ioBroker-Da
 
 ---
 
+## To-Do
+* [ ] Auf offizielle Erlaubnis von Harvia zur Nutzung des Original-Logos warten
+* [ ] Aufnahme des Adapters in das offizielle ioBroker `latest` Repository
+* [ ] Aufnahme des Adapters in das offizielle ioBroker `stable` Repository
+
+---
+
 ## Änderungsprotokoll (Changelog)
 ### **WORK IN PROGRESS**
 * (meistermopper) Verschiedene Repochecker-Probleme behoben und i18n-Unterstützung verbessert
