@@ -1,11 +1,11 @@
 {
-    "Device ID": "ID urządzenia",
-    "Harvia Fenix Sauna Control": "Sterowanie sauną Harvia Fenix",
-    "Leave this field empty and start the adapter to find the ID automatically in the ioBroker log (Discovery).": "Pozostaw to pole puste i uruchom adapter, aby automatycznie znaleźć ID w logu ioBroker (Discovery).",
-    "Leave this field empty and start the adapter to find the ID automatically in the ioBroker log (Discovery). Note: The ID is not visible in the MyHarvia 2 app.": "Leave this field empty and start the adapter to find the ID automatically in the ioBroker log (Discovery). Note: The ID is not visible in the MyHarvia 2 app.",
-    "Login Settings": "Ustawienia logowania",
-    "Password": "Hasło",
-    "Polling Interval (seconds)": "Interwał odpytywania (sekundy)",
-    "Username / Email": "Nazwa użytkownika / E-mail",
-    "harvia-fenix adapter settings": "Ustawienia adaptera dla harvia-fenix"
+	"Device ID": "ID urządzenia",
+	"Harvia Fenix Sauna Control": "Sterowanie sauną Harvia Fenix",
+	"Leave this field empty and start the adapter to find the ID automatically in the ioBroker log (Discovery).": "Pozostaw to pole puste i uruchom adapter, aby automatycznie znaleźć ID w logu ioBroker (Discovery).",
+	"Leave this field empty and start the adapter to find the ID automatically in the ioBroker log (Discovery). Note: The ID is not visible in the MyHarvia 2 app.": "Leave this field empty and start the adapter to find the ID automatically in the ioBroker log (Discovery). Note: The ID is not visible in the MyHarvia 2 app.",
+	"Login Settings": "Ustawienia logowania",
+	"Password": "Hasło",
+	"Polling Interval (seconds)": "Interwał odpytywania (sekundy)",
+	"Username / Email": "Nazwa użytkownika / E-mail",
+	"harvia-fenix adapter settings": "Ustawienia adaptera dla harvia-fenix"
 }
