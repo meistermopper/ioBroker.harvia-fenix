@@ -3,19 +3,6 @@
 		"name": "harvia-fenix",
 		"version": "0.0.27",
 		"news": {
-			"0.0.27": {
-				"en": "Address repochecker issues and improve i18n support",
-				"de": "Repochecker-Probleme beheben und i18n-Unterstützung verbessern",
-				"ru": "Решение проблем репочекера и улучшение поддержки i18n",
-				"pt": "Resolver problemas de repochecker e melhorar o suporte i18n",
-				"nl": "Repochecker problemen oplossen en i18n ondersteuning verbeteren",
-				"fr": "Résoudre les problèmes de repochecker et améliorer le support i18n",
-				"it": "Risolvere i problemi di repochecker e migliorare il supporto i18n",
-				"es": "Resolver problemas de repochecker y mejorar el soporte i18n",
-				"pl": "Rozwiązywanie problemów z repocheckerem i poprawa obsługi i18n",
-				"uk": "Вирішення проблем репочекера та покращення підтримки i18n",
-				"zh-cn": "解决 repochecker 问题并改进 i18n 支持"
-			},
 			"0.0.21": {
 				"en": "Retry release due to deployment issues (v0.0.20 already exists).",
 				"de": "Release-Wiederholung aufgrund von Deployment-Problemen (v0.0.20 existiert bereits).",
@@ -101,8 +88,7 @@
 		"connectionType": "cloud",
 		"dataSource": "poll",
 		"adminUI": {
-			"config": "json",
-			"i18n": true
+			"config": "json"
 		},
 		"dependencies": [
 			{
