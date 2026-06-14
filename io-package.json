@@ -1,7 +1,7 @@
 {
 	"common": {
 		"name": "harvia-fenix",
-		"version": "0.0.21",
+		"version": "0.0.22",
 		"titleLang": {
 			"en": "Harvia-Fenix Sauna Control",
 			"de": "Harvia-Fenix Saunasteuerung",
@@ -29,6 +29,19 @@
 			"zh-cn": "通过 MyHarvia 云端控制 Harvia Fenix 桑拿房"
 		},
 		"news": {
+			"0.0.22": {
+				"en": "",
+				"de": "",
+				"ru": "",
+				"pt": "",
+				"nl": "",
+				"fr": "",
+				"it": "",
+				"es": "",
+				"pl": "",
+				"uk": "",
+				"zh-cn": ""
+			},
 			"0.0.21": {
 				"en": "Retry release due to deployment issues (v0.0.20 already exists).",
 				"de": "Release-Wiederholung aufgrund von Deployment-Problemen (v0.0.20 existiert bereits).",
