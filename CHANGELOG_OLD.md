@@ -1,22 +1,4 @@
 # Older changes
-## 0.0.20 (2026-06-09)
-* (meistermopper) Retry release due to deployment issues.
-
-## 0.0.19 (2026-06-09)
-* (meistermopper) Final fixes for reviewer feedback, corrected i18n syntax and license format.
-
-## 0.0.18 (2026-06-09)
-* (meistermopper) Address reviewer feedback, update dependencies and enable trusted publishing.
-
-## 0.0.17 (2026-06-08)
-* (meistermopper) Removed invalid secret references to fix GitHub Action warnings.
-
-## 0.0.16 (2026-06-08)
-* (meistermopper) Disable Sentry integration to fix deployment errors.
-
-## 0.0.15 (2026-06-08)
-* (meistermopper) Another attempt to fix Sentry authentication.
-
 ## 0.0.14 (2026-06-08)
 * (meistermopper) Fix Sentry authentication and trigger clean release.
 
