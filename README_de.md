@@ -6,6 +6,18 @@
 
 **[Click here for the English version of the documentation.](README.md)**
 
+[![NPM version](https://img.shields.io/npm/v/iobroker.harvia-fenix.svg)](https://www.npmjs.com/package/iobroker.harvia-fenix)
+[![Downloads](https://img.shields.io/npm/dm/iobroker.harvia-fenix.svg)](https://www.npmjs.com/package/iobroker.harvia-fenix)
+[![node](https://img.shields.io/node/v/iobroker.harvia-fenix.svg)](https://www.npmjs.com/package/iobroker.harvia-fenix)
+[![License](https://img.shields.io/npm/l/iobroker.harvia-fenix.svg)](https://github.com/meistermopper/ioBroker.harvia-fenix/blob/main/LICENSE)
+![Number of Installations](https://iobroker.live/badges/harvia-fenix-installed.svg)
+![Current version in latest repository](https://iobroker.live/badges/harvia-fenix-latest.svg)
+![Current version in stable repository](https://iobroker.live/badges/harvia-fenix-stable.svg)
+[![GitHub issues](https://img.shields.io/github/issues/meistermopper/ioBroker.harvia-fenix.svg)](https://github.com/meistermopper/ioBroker.harvia-fenix/issues)
+[![GitHub stars](https://img.shields.io/github/stars/meistermopper/ioBroker.harvia-fenix.svg)](https://github.com/meistermopper/ioBroker.harvia-fenix/stargazers)
+
+**Tests:** ![Test and Release](https://github.com/meistermopper/ioBroker.harvia-fenix/workflows/Test%20and%20Release/badge.svg)
+
 ### Ein ioBroker-Adapter zur Integration und Steuerung Ihrer **Harvia Fenix** Saunasteuerung über die MyHarvia Cloud-Infrastruktur.
 
 Für weitere Informationen über Harvia und deren Saunasteuerungen besuchen Sie bitte die [offizielle Harvia-Website](https://www.harvia.com).
