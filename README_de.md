@@ -78,7 +78,7 @@ Der Adapter bildet die Cloud-Zustände Ihrer Sauna in strukturierten ioBroker-Da
 ---
 
 ## Änderungsprotokoll (Changelog)
-### **IN ARBEIT**
+### 0.0.22 (2026-06-14)
 * (meistermopper) Verschiedene Repochecker-Probleme behoben und i18n-Unterstützung verbessert
 * (meistermopper) ESLint-Konfiguration und moderne Metadaten hinzugefügt
 
@@ -96,7 +96,7 @@ Der Adapter bildet die Cloud-Zustände Ihrer Sauna in strukturierten ioBroker-Da
 ---
 
 ## Markenhinweis
-Harvia und MyHarvia 2 sind eingetragene Marken der Harvia Group. Dieser Adapter is ein unabhängiges, gemeinschaftsbasiertes Open-Source-Projekt und wird weder offiziell von Harvia unterstützt, gesponsert noch betreut.
+Harvia und MyHarvia 2 sind eingetragene Marken der Harvia Group. Dieser Adapter ist ein unabhängiges, gemeinschaftsbasiertes Open-Source-Projekt und wird weder offiziell von Harvia unterstützt, gesponsert noch betreut.
 
 ## Lizenz
 MIT License
