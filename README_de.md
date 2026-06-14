@@ -78,6 +78,7 @@ Der Adapter bildet die Cloud-Zustände Ihrer Sauna in strukturierten ioBroker-Da
 ---
 
 ## Änderungsprotokoll (Changelog)
+### **WORK IN PROGRESS**
 ### 0.1.3 (2026-06-14)
 * (meistermopper) Verschiedene Repochecker-Probleme behoben und i18n-Unterstützung verbessert
 * (meistermopper) Redundante Admin-Dateien entfernt und Metadaten aktualisiert
