@@ -1,7 +1,7 @@
 {
 	"common": {
 		"name": "harvia-fenix",
-		"version": "0.1.4",
+		"version": "0.0.21",
 		"titleLang": {
 			"en": "Harvia-Fenix Sauna Control",
 			"de": "Harvia-Fenix Saunasteuerung",
@@ -13,7 +13,7 @@
 			"es": "Control de sauna Harvia-Fenix",
 			"pl": "Sterowanie sauną Harvia-Fenix",
 			"uk": "Керування сауною Harvia-Fenix",
-			"zh-cn": "Harvia-Fenix 桑拿 control"
+			"zh-cn": "Harvia-Fenix 桑拿控制"
 		},
 		"desc": {
 			"en": "Control Harvia Fenix sauna units via MyHarvia cloud",
@@ -22,39 +22,38 @@
 			"pt": "Controle as unidades de sauna Harvia Fenix via nuvem MyHarvia",
 			"nl": "Bestuur Harvia Fenix-sauna-units via de MyHarvia-cloud",
 			"fr": "Contrôlez les saunas Harvia Fenix via le cloud MyHarvia",
-			"it": "Controlla le unités sauna Harvia Fenix tramite il cloud MyHarvia",
+			"it": "Controlla le unità sauna Harvia Fenix tramite il cloud MyHarvia",
 			"es": "Controle las unidades de sauna Harvia Fenix a través de la nube MyHarvia",
 			"pl": "Sterowanie saunami Harvia Fenix za pomocą chmury MyHarvia",
-			"uk": "Керування саунами Harvia Fenix durch MyHarvia cloud",
+			"uk": "Керування саунами Harvia Fenix через хмару MyHarvia",
 			"zh-cn": "通过 MyHarvia 云端控制 Harvia Fenix 桑拿房"
 		},
-		"i18n": true,
 		"news": {
-			"0.1.4": {
-				"en": "Address various repochecker issues and improve i18n support\nRemove redundant admin files and update metadata",
-				"de": "Behebung verschiedener Repochecker-Probleme und Verbesserung der i18n-Unterstützung\nRedundante Admin-Dateien entfernen und Metadaten aktualisieren",
-				"ru": "Решение различных проблем репочекера und Verbesserung der i18n-Unterstützung\nУдалить резервные файлы администратора und obновить метаданные",
-				"pt": "Enfrentar mÃ¡rios problemas de repochecker e melhorar o suporte i18n\nRemover arquivos de administraÃ§Ã£o redundantes e atualizar metadados",
-				"nl": "Verschillende repochecker problemen aanpakken und i18n Unterstützung verbessern\nVerwijder redundante admin bestanden en update metadata",
-				"fr": "RÃ©pondre Ã  divers problÃ¨mes de repochecker e melhorar o suporte i18n\nSupprimer les fichiers administratifs redondants et mettre Ã  jour les mÃ©tadonnÃ©es",
-				"it": "Indirizzo vari problemi di repochecker e migliorare il supporto i18n\nRimuovere i file di amministrazione ridondanti e aggiornare i metadati",
-				"es": "Abordar various repochecker issues and improve i18n support\nEliminar archivos de administraciÃ³n redundantes e actualizar metadatos",
-				"pl": "RozwiÄ…zanie verschiedenen repochecker problemen i poprawiÄ‡ obsÅ‚ugÄ™ i18n\nUsuÅ„ zbÄ™dne pliki administratora i uaktualnij metadane",
-				"uk": "Підтримка i18n\nВидалити резервнi копiї та оновлення метаданих адmіністратора",
-				"zh-cn": "解决各种重新检查器问题,改进i18n支持\n删除冗余管理文件并更新元数据"
-			},
 			"0.0.21": {
 				"en": "Retry release due to deployment issues (v0.0.20 already exists).",
 				"de": "Release-Wiederholung aufgrund von Deployment-Problemen (v0.0.20 existiert bereits).",
-				"ru": "Повторный выпуск из-за проблем mit развертыванием (v0.0.20 bereits existiert).",
+				"ru": "Повторный выпуск из-за проблем с развертыванием (v0.0.20 уже существует).",
 				"pt": "Repetir o lançamento devido a problemas de implementação (v0.0.20 já esiste).",
 				"nl": "Release herhalen vanwege implementatieproblemen (v0.0.20 besteht al).",
 				"fr": "Nouvelle tentative de publication en raison de problèmes de déploiement (la v0.0.20 esiste già).",
 				"it": "Riprova il rilascio a causa di problemi di distribuzione (la v0.0.20 esiste già).",
-				"es": "Reintentar el lançamento devido a problemas de despliegue (la v0.0.20 ya esiste).",
-				"pl": "Ponowna próba wydania z powodu problemów z wdrożeniem (wersja 0.0.20 już existe).",
+				"es": "Reintentar el lanzamiento debido a problemas de despliegue (la v0.0.20 ya esiste).",
+				"pl": "Ponowna próba wydania z powodu problemów z wdrożeniem (wersja 0.0.20 już istnieje).",
 				"uk": "Повторний випуск через проблеми з розгортанням (v0.0.20 вже існує).",
 				"zh-cn": "Due to deployment issues retry release (v0.0.20 already exists)."
+			},
+			"0.0.20": {
+				"en": "Retry release due to deployment issues.",
+				"de": "Release-Wiederholung aufgrund von Deployment-Problemen.",
+				"ru": "Повторный выпуск из-за проблем с развертыванием.",
+				"pt": "Repetir o lançamento devido a problemas de implementação.",
+				"nl": "Release herhalen vanwege implementatieproblemen.",
+				"fr": "Nouvelle tentative de publication en raison de problèmes de déploiement.",
+				"it": "Riprova il rilascio a causa di problemi di distribuzione.",
+				"es": "Reintentar el lanzamiento debido a problemas de despliegue.",
+				"pl": "Ponowna próba wydania z powodu problemów z wdrożeniem.",
+				"uk": "Повторний випуск через проблеми з розгортанням.",
+				"zh-cn": "由于 deployment issue retry release."
 			}
 		},
 		"authors": ["meistermopper <meister.mopper@gmail.com>"],

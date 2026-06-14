@@ -1,11 +1,11 @@
 {
-	"Device ID": "Device ID",
-	"Harvia Fenix Sauna Control": "Harvia Fenix Sauna Control",
-	"Leave this field empty and start the adapter to find the ID automatically in the ioBroker log (Discovery). Note: The ID is not visible in the MyHarvia 2 app.": "Leave this field empty and start the adapter to find the ID automatically in the ioBroker log (Discovery). Note: The ID is not visible in the MyHarvia 2 app.",
-	"Leave this field empty and start the adapter to find the ID automatically in the ioBroker log (Discovery).": "Leave this field empty and start the adapter to find the ID automatically in the ioBroker log (Discovery).",
-	"Login Settings": "Login Settings",
-	"Password": "Password",
-	"Polling Interval (seconds)": "Polling Interval (seconds)",
-	"Username / Email": "Username / Email",
-	"harvia-fenix adapter settings": "Harvia Fenix adapter settings"
+    "Device ID": "Device ID",
+    "Harvia Fenix Sauna Control": "Harvia Fenix Sauna Control",
+    "Leave this field empty and start the adapter to find the ID automatically in the ioBroker log (Discovery).": "Leave this field empty and start the adapter to find the ID automatically in the ioBroker log (Discovery).",
+    "Leave this field empty and start the adapter to find the ID automatically in the ioBroker log (Discovery). Note: The ID is not visible in the MyHarvia 2 app.": "Leave this field empty and start the adapter to find the ID automatically in the ioBroker log (Discovery). Note: The ID is not visible in the MyHarvia 2 app.",
+    "Login Settings": "Login Settings",
+    "Password": "Password",
+    "Polling Interval (seconds)": "Polling Interval (seconds)",
+    "Username / Email": "Username / Email",
+    "harvia-fenix adapter settings": "Harvia Fenix adapter settings"
 }
