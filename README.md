@@ -85,24 +85,10 @@ The adapter maps your sauna's cloud states into structured ioBroker datapoints u
 ## Changelog
 ### 0.0.27 (2026-06-14)
 * (meistermopper) Address repochecker E2004 and E6029
-* (meistermopper) Improve i18n support and add ESLint config
-
-### 0.0.26 (2026-06-14)
+## Changelog
+### 0.0.28 (2026-06-14)
 * (meistermopper) Address various repochecker issues and improve i18n support
-
-### 0.0.25 (2026-06-13)
-* (meistermopper) Ensure formatting during release process
-
-### 0.0.24 (2026-06-13)
-* (meistermopper) Fix Biome linting and formatting for CI
-
-### 0.0.23 (2026-06-13)
-* (meistermopper) Update adapter-dev check to repochecker
-* (meistermopper) Fix license and metadata issues
-
-### 0.0.22 (2026-06-11)
-* (meistermopper) Fixed dependency issues and updated devDependencies.
-* (iobroker-bot) Updated Node.js minimum requirement to 22 (EOL Node.js 20).
+* (meistermopper) Add ESLint config and modern metadata
 
 ### 0.0.21 (2026-06-09)
 * (meistermopper) Retry release due to deployment issues (v0.0.20 already exists).

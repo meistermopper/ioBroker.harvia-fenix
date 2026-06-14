@@ -1,8 +1,23 @@
 {
 	"common": {
 		"name": "harvia-fenix",
-		"version": "0.0.27",
+		"version": "0.0.28",
+		"title": "Harvia-Fenix Sauna Control",
+		"desc": "Control Harvia Fenix sauna units via MyHarvia cloud",
 		"news": {
+			"0.0.28": {
+				"en": "Address various repochecker issues and improve i18n support",
+				"de": "Behebung verschiedener Repochecker-Probleme und Verbesserung der i18n-Unterstützung",
+				"ru": "Решение различных проблем репочекера и улучшение поддержки i18n",
+				"pt": "Enfrentar vários problemas de repochecker e melhorar o suporte i18n",
+				"nl": "Verschillende repochecker problemen aanpakken en i18n ondersteuning verbeteren",
+				"fr": "Répondre à divers problèmes de repochecker et améliorer le soutien i18n",
+				"it": "Indirizzo vari problemi di repochecker e migliorare il supporto i18n",
+				"es": "Abordar varios problemas de repochecker y mejorar el soporte i18n",
+				"pl": "Rozwiązanie różnych problemów repochecker i poprawić obsługę i18n",
+				"uk": "Підтримка i18n",
+				"zh-cn": "解决各种重新检查器问题,改进i18n支持"
+			},
 			"0.0.21": {
 				"en": "Retry release due to deployment issues (v0.0.20 already exists).",
 				"de": "Release-Wiederholung aufgrund von Deployment-Problemen (v0.0.20 existiert bereits).",
