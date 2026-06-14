@@ -28,7 +28,6 @@
 			"uk": "Керування саунами Harvia Fenix через хмару MyHarvia",
 			"zh-cn": "通过 MyHarvia 云端控制 Harvia Fenix 桑拿房"
 		},
-		"i18n": true,
 		"news": {
 			"0.1.0": {
 				"en": "Address various repochecker issues and improve i18n support\nRemove redundant admin files and update metadata",
@@ -42,19 +41,6 @@
 				"pl": "Rozwiązanie różnych problemów repochecker i poprawić obsługę i18n\nUsuń zbędne pliki administratora i uaktualnij metadane",
 				"uk": "Підтримка i18n\nВидалити резервні копії та оновлення метаданих адміністратора",
 				"zh-cn": "解决各种重新检查器问题,改进i18n支持\n删除冗余管理文件并更新元数据"
-			},
-			"0.0.24": {
-				"en": "Address various repochecker issues and improve i18n support",
-				"de": "Behebung verschiedener Repochecker-Probleme und Verbesserung der i18n-Unterstützung",
-				"ru": "Решение различных проблем репочекера und Verbesserung der i18n-Unterstützung",
-				"pt": "Enfrentar vários problemas de repochecker e melhorar o suporte i18n",
-				"nl": "Verschillende repochecker problemen aanpakken und i18n Unterstützung verbessern",
-				"fr": "Répondre à divers problèmes de repochecker e melhorar o suporte i18n",
-				"it": "Indirizzo vari problemi di repochecker e migliorare il supporto i18n",
-				"es": "Abordar various repochecker issues and improve i18n support",
-				"pl": "Rozwiązanie verschiedenen repochecker problemen i poprawić obsługę i18n",
-				"uk": "Підтримка i18n",
-				"zh-cn": "解决 various repochecker 问题, 改进 i18n 支持"
 			},
 			"0.0.21": {
 				"en": "Retry release due to deployment issues (v0.0.20 already exists).",
