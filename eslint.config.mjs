@@ -1,7 +1,7 @@
-import iobrokerConfig from "@iobroker/eslint-config";
+import config from "@iobroker/eslint-config";
 
 export default [
-	...iobrokerConfig,
+	...config,
 	{
 		ignores: ["build/**", "node_modules/**"],
 	},
