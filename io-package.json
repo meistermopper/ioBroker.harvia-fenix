@@ -26,24 +26,10 @@
 			"es": "Controle las unidades de sauna Harvia Fenix a través de la nube MyHarvia",
 			"pl": "Sterowanie saunami Harvia Fenix za pomocą chmury MyHarvia",
 			"uk": "Керування саунами Harvia Fenix через хмару MyHarvia",
-			"zh-cn": "通过 MyHarvia 云端控制 Harvia Fenix 桑拿房"
-		},
-		"i18n": true,
-		"news": {
-			"0.0.22": {
-				"en": "Address various repochecker issues and improve i18n support",
-				"de": "Behebung verschiedener Repochecker-Probleme und Verbesserung der i18n-Unterstützung",
-				"ru": "Решение различных проблем репочекера и улучшение поддержки i18n",
-				"pt": "Enfrentar vários problemas de repochecker e melhorar o suporte i18n",
-				"nl": "Verschillende repochecker problemen aanpakken en i18n ondersteuning verbeteren",
-				"fr": "Répondre à divers problèmes de repochecker et améliorer le soutien i18n",
-				"it": "Indirizzo vari problemi di repochecker e migliorare il supporto i18n",
-				"es": "Abordar varios problemas de repochecker e mejorar el soporte i18n",
-				"pl": "Rozwiązanie verschiedenen repochecker problemen i poprawić obsługę i18n",
-				"uk": "Підтримка i18n",
-				"zh-cn": "解决 various repochecker 问题, 改进 i18n 支持"
+				"zh-cn": "通过 MyHarvia 云端控制 Harvia Fenix 桑拿房"
 			},
-			"0.0.21": {
+			"news": {
+				"0.0.21": {
 				"en": "Retry release due to deployment issues (v0.0.20 already exists).",
 				"de": "Release-Wiederholung aufgrund von Deployment-Problemen (v0.0.20 existiert bereits).",
 				"ru": "Повторный выпуск из-за проблем с развертыванием (v0.0.20 уже существует).",
