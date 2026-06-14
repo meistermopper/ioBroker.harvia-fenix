@@ -71,7 +71,7 @@
 			"uk": "Керування сауною Harvia-Fenix",
 			"zh-cn": "Harvia-Fenix 桑拿控制"
 		},
-		"desc": {
+		"descLang": {
 			"en": "Control Harvia Fenix sauna units via MyHarvia cloud",
 			"de": "Steuerung von Harvia Fenix Sauna-Steuerungen über die MyHarvia Cloud",
 			"ru": "Управление саунами Harvia Fenix через облако MyHarvia",
