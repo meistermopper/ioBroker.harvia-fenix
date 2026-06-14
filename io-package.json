@@ -1,9 +1,9 @@
 {
 	"common": {
 		"name": "harvia-fenix",
-		"version": "0.0.28",
+		"version": "0.0.22",
 		"news": {
-			"0.0.28": {
+			"0.0.22": {
 				"en": "Address various repochecker issues and improve i18n support",
 				"de": "Behebung verschiedener Repochecker-Probleme und Verbesserung der i18n-Unterstützung",
 				"ru": "Решение различных проблем репочекера и улучшение поддержки i18n",
@@ -11,8 +11,8 @@
 				"nl": "Verschillende repochecker problemen aanpakken en i18n ondersteuning verbeteren",
 				"fr": "Répondre à divers problèmes de repochecker et améliorer le soutien i18n",
 				"it": "Indirizzo vari problemi di repochecker e migliorare il supporto i18n",
-				"es": "Abordar varios problemas de repochecker y mejorar el soporte i18n",
-				"pl": "Rozwiązanie różnych problemów repochecker i poprawić obsługę i18n",
+				"es": "Abordar varios problemas de repochecker e mejorar el soporte i18n",
+				"pl": "Rozwiązanie verschiedenen repochecker problemen i poprawić obsługę i18n",
 				"uk": "Підтримка i18n",
 				"zh-cn": "解决各种重新检查器问题,改进i18n支持"
 			},
@@ -21,7 +21,7 @@
 				"de": "Release-Wiederholung aufgrund von Deployment-Problemen (v0.0.20 existiert bereits).",
 				"ru": "Повторный выпуск из-за проблем с развертыванием (v0.0.20 уже существует).",
 				"pt": "Repetir o lançamento devido a problemas de implementação (v0.0.20 já esiste).",
-				"nl": "Release herhalen vanwege implementatieproblemen (v0.0.20 bestaat al).",
+				"nl": "Release herhalen vanwege implementatieproblemen (v0.0.20 besteht al).",
 				"fr": "Nouvelle tentative de publication en raison de problèmes de déploiement (la v0.0.20 esiste già).",
 				"it": "Riprova il rilascio a causa di problemi di distribuzione (la v0.0.20 esiste già).",
 				"es": "Reintentar el lanzamiento debido a problemas de despliegue (la v0.0.20 ya esiste).",

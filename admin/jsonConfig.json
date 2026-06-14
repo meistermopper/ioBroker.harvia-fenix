@@ -2,40 +2,58 @@
 	"type": "tabs",
 	"items": {
 		"main": {
-			"label": "Login Settings",
+			"label": {
+				"en": "Login Settings",
+				"de": "Login-Einstellungen"
+			},
 			"type": "panel",
 			"items": {
 				"username": {
 					"type": "text",
-					"label": "Username / Email",
+					"label": {
+						"en": "Username / Email",
+						"de": "Benutzername / E-Mail"
+					},
 					"xs": 12,
 					"sm": 6,
-					"md": 6,
-					"lg": 6,
-					"xl": 6
+					"md": 4,
+					"lg": 4,
+					"xl": 4
 				},
 				"password": {
 					"type": "password",
-					"label": "Password",
+					"label": {
+						"en": "Password",
+						"de": "Passwort"
+					},
 					"xs": 12,
 					"sm": 6,
-					"md": 6,
-					"lg": 6,
-					"xl": 6
+					"md": 4,
+					"lg": 4,
+					"xl": 4
 				},
 				"deviceId": {
 					"type": "text",
-					"label": "Device ID",
+					"label": {
+						"en": "Device ID",
+						"de": "Geräte-ID"
+					},
+					"help": {
+						"en": "Leave this field empty and start the adapter to find the ID automatically in the ioBroker log (Discovery).",
+						"de": "Lass dieses Feld leer und starte den Adapter, um die ID automatisch im Log zu finden (Discovery)."
+					},
 					"xs": 12,
-					"sm": 12,
-					"md": 12,
-					"lg": 12,
-					"xl": 12,
-					"help": "Leave this field empty and start the adapter to find the ID automatically in the ioBroker log (Discovery). Note: The ID is not visible in the MyHarvia 2 app."
+					"sm": 6,
+					"md": 4,
+					"lg": 4,
+					"xl": 4
 				},
 				"pollInterval": {
 					"type": "number",
-					"label": "Polling Interval (seconds)",
+					"label": {
+						"en": "Polling Interval (seconds)",
+						"de": "Abfrageintervall (Sekunden)"
+					},
 					"min": 30,
 					"max": 600,
 					"default": 60,
