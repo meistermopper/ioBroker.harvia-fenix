@@ -87,35 +87,6 @@ The adapter maps your sauna's cloud states into structured ioBroker datapoints u
 * (meistermopper) Address various repochecker issues and improve i18n support
 * (meistermopper) Remove redundant admin files and update metadata
 
-### 0.1.0 (2026-06-14)
-* (meistermopper) Internal version for testing and maintenance
-
-### 0.0.21 (2026-06-09)
-* (meistermopper) Retry release due to deployment issues (v0.0.20 already exists).
-
-### 0.0.20 (2026-06-09)
-* (meistermopper) Retry release due to deployment issues.
-
-### 0.0.19 (2026-06-09)
-* (meistermopper) Final fixes for reviewer feedback, corrected i18n syntax and license format.
-
-### 0.0.14 (2026-06-08)
-* (meistermopper) Fix Sentry authentication and trigger clean release.
-
-### 0.0.13 (2026-06-07)
-* (meistermopper) Fix Sentry integration and minor linting issues.
-
-### 0.0.11 (2026-06-07)
-* (meistermopper) Add dummy unit test and fix CI test scripts
-
-### 0.0.10 (2026-06-07)
-* (meistermopper) Finalize TypeScript type safety and build process.
-* (meistermopper) Improve GitHub Actions workflow and Sentry integration.
-
-### 0.0.9 (2026-06-07)
-* (meistermopper) Add German documentation and improve remote control status detection.
-* (meistermopper) Technical: Fix TypeScript types and build process.
-
 ## [Older changelog entries](CHANGELOG_OLD.md)
 
 ## Trademarks

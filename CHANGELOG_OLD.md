@@ -1,4 +1,37 @@
 # Older changes
+## 0.1.0 (2026-06-14)
+* (meistermopper) Internal version for testing and maintenance
+
+## 0.0.22 (2026-06-14)
+* (meistermopper) Address various repochecker issues and improve i18n support
+* (meistermopper) Add ESLint config and modern metadata
+
+## 0.0.21 (2026-06-09)
+* (meistermopper) Retry release due to deployment issues (v0.0.20 already exists).
+
+## 0.0.20 (2026-06-09)
+* (meistermopper) Retry release due to deployment issues.
+
+## 0.0.19 (2026-06-09)
+* (meistermopper) Final fixes for reviewer feedback, corrected i18n syntax and license format.
+
+## 0.0.14 (2026-06-08)
+* (meistermopper) Fix Sentry authentication and trigger clean release.
+
+## 0.0.13 (2026-06-07)
+* (meistermopper) Fix Sentry integration and minor linting issues.
+
+## 0.0.11 (2026-06-07)
+* (meistermopper) Add dummy unit test and fix CI test scripts
+
+## 0.0.10 (2026-06-07)
+* (meistermopper) Finalize TypeScript type safety and build process.
+* (meistermopper) Improve GitHub Actions workflow and Sentry integration.
+
+## 0.0.9 (2026-06-07)
+* (meistermopper) Add German documentation and improve remote control status detection.
+* (meistermopper) Technical: Fix TypeScript types and build process.
+
 ## 0.0.8 (2026-06-06)
 * (meistermopper) Fix license file redundancy and add MIT content.
 

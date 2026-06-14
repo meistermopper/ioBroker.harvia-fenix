@@ -69,16 +69,8 @@
 				"zh-cn": "由于 deployment issue retry release."
 			}
 		},
-		"authors": [
-			"meistermopper <meister.mopper@gmail.com>"
-		],
-		"keywords": [
-			"harvia",
-			"fenix",
-			"sauna",
-			"myharvia",
-			"cloud"
-		],
+		"authors": ["meistermopper <meister.mopper@gmail.com>"],
+		"keywords": ["harvia", "fenix", "sauna", "myharvia", "cloud"],
 		"licenseInformation": {
 			"type": "free",
 			"license": "MIT"
@@ -115,12 +107,8 @@
 		"deviceId": "",
 		"pollInterval": 60
 	},
-	"protectedNative": [
-		"password"
-	],
-	"encryptedNative": [
-		"password"
-	],
+	"protectedNative": ["password"],
+	"encryptedNative": ["password"],
 	"objects": [],
 	"instanceObjects": [
 		{
