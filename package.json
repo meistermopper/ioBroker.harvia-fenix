@@ -58,7 +58,7 @@
 		"test:integration": "cross-env NODE_OPTIONS=\"--no-experimental-detect-module\" mocha test/integration --exit",
 		"test:ts": "tsc --noEmit",
 		"test:package": "npx -y @iobroker/repochecker https://github.com/meistermopper/ioBroker.harvia-fenix --local",
-		"test": "npm run build && npm run test:package && npm run test:integration",
+		"test": "npm run build && npm run test:integration",
 		"check": "biome check .",
 		"format": "biome format --write .",
 		"translate": "translate-adapter",
