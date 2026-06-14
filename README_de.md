@@ -7,6 +7,9 @@
 **[Click here for the English version of the documentation.](README.md)**
 
 ### Ein ioBroker-Adapter zur Integration und Steuerung Ihrer **Harvia Fenix** Saunasteuerung über die MyHarvia Cloud-Infrastruktur.
+
+Für weitere Informationen über Harvia und deren Saunasteuerungen besuchen Sie bitte die [offizielle Harvia-Website](https://www.harvia.com).
+
 ---
 
 ## Voraussetzungen

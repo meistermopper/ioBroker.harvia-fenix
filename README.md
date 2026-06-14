@@ -18,6 +18,7 @@
 ### An ioBroker adapter to integrate and control your **Harvia Fenix** sauna control unit via the MyHarvia cloud infrastructure.
 
 For more information about Harvia and their sauna control units, please visit the [official Harvia website](https://www.harvia.com).
+
 ---
 ## Prerequisites
 
