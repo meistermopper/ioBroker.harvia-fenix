@@ -1,8 +1,21 @@
 {
 	"common": {
 		"name": "harvia-fenix",
-		"version": "0.0.26",
+		"version": "0.0.27",
 		"news": {
+			"0.0.27": {
+				"en": "Address repochecker E2004 and E6029\nImprove i18n support and add ESLint config",
+				"de": "Adress-Repochecker E2004 und E6029\nI18n-Unterstützung verbessern und ESLint config hinzufügen",
+				"ru": "Адресная аптека E2004 и E6029\nУлучшить поддержку i18n и добавить конфигурацию ESLint",
+				"pt": "Repochecker E2004 e E6029\nMelhorar o suporte i18n e adicionar a configuração ESLint",
+				"nl": "Adresbeslagcontroleur E2004 en E6029\nI18n-ondersteuning verbeteren en ESLint-configuratie toevoegen",
+				"fr": "Adresse : repochecker E2004 et E6029\nAméliorer le support i18n et ajouter la configuration ESLint",
+				"it": "Indirizzo repochecker E2004 e E6029\nMigliora il supporto i18n e aggiungi la configurazione ESLint",
+				"es": "Address repochecker E2004 and E6029\nMejorar el soporte i18n y añadir ESLint config",
+				"pl": "Adres repochecker E2004 i E6029\nPopraw obsługę i18n i dodaj konfigurację ESLint",
+				"uk": "Адреса репочекер E2004 та E6029\nПокращення i18n підтримка та додавання ESLint config",
+				"zh-cn": "E2004和E6029地址重新检查器\n改进 i18n 支持并添加 ESLint 配置"
+			},
 			"0.0.21": {
 				"en": "Retry release due to deployment issues (v0.0.20 already exists).",
 				"de": "Release-Wiederholung aufgrund von Deployment-Problemen (v0.0.20 existiert bereits).",
