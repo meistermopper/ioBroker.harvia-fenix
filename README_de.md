@@ -14,8 +14,7 @@
 ![Number of Installations](https://iobroker.live/badges/harvia-fenix-installed.svg)
 ![Current version in latest repository](https://iobroker.live/badges/harvia-fenix-latest.svg)
 ![Current version in stable repository](https://iobroker.live/badges/harvia-fenix-stable.svg)
-
-**Tests:** ![Test and Release](https://github.com/meistermopper/ioBroker.harvia-fenix/workflows/Test%20and%20Release/badge.svg)
+![Test and Release](https://github.com/meistermopper/ioBroker.harvia-fenix/workflows/Test%20and%20Release/badge.svg)
 
 ### Ein ioBroker-Adapter zur Integration und Steuerung der **Harvia Fenix** Saunasteuerung über die MyHarvia Cloud-Infrastruktur.
 

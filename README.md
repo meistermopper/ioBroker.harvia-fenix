@@ -14,10 +14,9 @@
 ![Number of Installations](https://iobroker.live/badges/harvia-fenix-installed.svg)
 ![Current version in latest repository](https://iobroker.live/badges/harvia-fenix-latest.svg)
 ![Current version in stable repository](https://iobroker.live/badges/harvia-fenix-stable.svg)
+![Test and Release](https://github.com/meistermopper/ioBroker.harvia-fenix/workflows/Test%20and%20Release/badge.svg)
 
 [![NPM](https://nodei.co/npm/iobroker.harvia-fenix.png?downloads=true)](https://nodei.co/npm/iobroker.harvia-fenix/)
-
-**Tests:** ![Test and Release](https://github.com/meistermopper/ioBroker.harvia-fenix/workflows/Test%20and%20Release/badge.svg)
 
 ### An ioBroker adapter to integrate and control your **Harvia Fenix** sauna control unit via the MyHarvia cloud infrastructure.
 
