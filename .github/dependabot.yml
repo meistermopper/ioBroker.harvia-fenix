@@ -5,10 +5,12 @@ updates:
   - package-ecosystem: 'npm'
     directory: '/'
     schedule:
-      interval: "monthly"
+      interval: "daily"
       time: "01:22"
       timezone: "Europe/Berlin"
     open-pull-requests-limit: 15
+    cooldown:
+      default: 7
     assignees:
       - meistermopper
     ignore:
@@ -18,9 +20,11 @@ updates:
   - package-ecosystem: 'github-actions'
     directory: '/'
     schedule:
-      interval: "monthly"
+      interval: "daily"
       time: "01:22"
       timezone: "Europe/Berlin"
     open-pull-requests-limit: 15
+    cooldown:
+      default: 7
     assignees:
       - 'meistermopper'

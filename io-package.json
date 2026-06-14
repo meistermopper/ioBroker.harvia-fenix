@@ -8,62 +8,23 @@
 				"de": "Formatierung während des Release-Prozesses sicherstellen",
 				"ru": "Обеспечение форматирования во время процесса выпуска",
 				"pt": "Garantir a formatação durante o processo de lançamento",
-				"nl": "Zorgen voor formatteren tijdens release proces",
+				"nl": "Zorgen voor formatteren während des Release-Prozesses",
 				"fr": "Assurer le formatage pendant le processus de libération",
-				"it": "Assicurare la formattazione durante il processo di rilascio",
-				"es": "Asegurar el formato durante el proceso de liberación",
-				"pl": "Zapewnienie formatowania podczas procesu wydania",
-				"uk": "Забезпечити форматування в процесі випуску",
+				"it": "Assicurare la formattazione während des Release-Prozesses sicherstellen",
+				"es": "Asegurar el formato durante el processo de liberación",
+				"pl": "Zapewnienie formatowania während des Release-Prozesses sicherstellen",
+				"uk": "Забезпечити формативання während des Release-Prozesses sicherstellen",
 				"zh-cn": "确保发布过程中的格式"
-			},
-			"0.0.24": {
-				"en": "Fix Biome linting and formatting for CI",
-				"de": "Fix Biome Linting und Formatierung für CI",
-				"ru": "Исправьте подкладку и форматирование Biome для CI",
-				"pt": "Corrigir o linting e formatação do Biome para o CI",
-				"nl": "Repareren Biome plinten en formatteren voor CI",
-				"fr": "Correction du linage et du formatage du biome pour CI",
-				"it": "Fissare linting Biome e la formattazione per CI",
-				"es": "Fijar el forro de bioma y el formato para CI",
-				"pl": "Fix Biome linting i formatowanie dla CI",
-				"uk": "Фіксація та форматування біоме для CI",
-				"zh-cn": "修复 CI 的生物衬垫和格式"
-			},
-			"0.0.23": {
-				"en": "Update adapter-dev check to repochecker\nFix license and metadata issues",
-				"de": "Aktualisieren Sie den Adapter-Dev-Check auf Repochecker\nFix Lizenz- und Metadatenprobleme",
-				"ru": "Обновление Adapter-dev check to repochecker\nИсправление проблем с лицензиями и метаданными",
-				"pt": "Atualizar a verificação do adaptador- dev para o repochecker\nCorrigir problemas de licença e metadados",
-				"nl": "Controleer adapter-dev bijwerken naar repochecker\nFix licentie en metagegevens problemen",
-				"fr": "Mettre à jour adaptateur-dev vérifier pour repochecker\nCorrection des problèmes de licence et de métadonnées",
-				"it": "Aggiornare il controllo adattatore-dev per il repochecker\nFissare i problemi di licenza e metadati",
-				"es": "Actualizar la comprobación del adaptador-dev para repochecker\nArreglar temas de licencia y metadatos",
-				"pl": "Aktualizuj sprawdzanie adaptera-dev do repochecker\nPopraw kwestie licencji i metadanych",
-				"uk": "Оновлення адаптера-розробки для репочекера\nВиправлення ліцензійних та метаданих",
-				"zh-cn": "更新适配器- dev 检查到再检查器\n解决许可证和元数据问题"
-			},
-			"0.0.22": {
-				"en": "Fixed dependency issues and updated devDependencies.",
-				"de": "Abhängigkeitsprobleme behoben und devDependencies aktualisiert.",
-				"ru": "Исправлены проблемы с зависимостями и обновлены devDependencies.",
-				"pt": "Problemas de dependência corrigidos e devDependencies atualizadas.",
-				"nl": "Afhankelijkheidsproblemen opgelost en devDependencies bijgewerkt.",
-				"fr": "Correction des problèmes de dépendance et mise à jour des devDependencies.",
-				"it": "Corretti i problemi di dipendenza e aggiornate le devDependencies.",
-				"es": "Problemas de dependencia corregidos y devDependencies actualizadas.",
-				"pl": "Naprawiono problemy z zależnościami i zaktualizowano devDependencies.",
-				"uk": "Виправлено проблеми з залежностями та оновлено дев-залежності.",
-				"zh-cn": "修复了依赖项问题并更新了 devDependencies。"
 			},
 			"0.0.21": {
 				"en": "Retry release due to deployment issues (v0.0.20 already exists).",
 				"de": "Release-Wiederholung aufgrund von Deployment-Problemen (v0.0.20 existiert bereits).",
 				"ru": "Повторный выпуск из-за проблем с развертыванием (v0.0.20 уже существует).",
-				"pt": "Repetir o lançamento devido a problemas de implementação (v0.0.20 já existe).",
+				"pt": "Repetir o lançamento devido a problemas de implementação (v0.0.20 já esiste).",
 				"nl": "Release herhalen vanwege implementatieproblemen (v0.0.20 bestaat al).",
-				"fr": "Nouvelle tentative de publication en raison de problèmes de déploiement (la v0.0.20 existe déjà).",
+				"fr": "Nouvelle tentative de publication en raison de problèmes de déploiement (la v0.0.20 esiste già).",
 				"it": "Riprova il rilascio a causa di problemi di distribuzione (la v0.0.20 esiste già).",
-				"es": "Reintentar el lanzamiento debido a problemas de despliegue (la v0.0.20 ya existe).",
+				"es": "Reintentar el lanzamiento debido a problemas de despliegue (la v0.0.20 ya esiste).",
 				"pl": "Ponowna próba wydania z powodu problemów z wdrożeniem (wersja 0.0.20 już istnieje).",
 				"uk": "Повторний випуск через проблеми з розгортанням (v0.0.20 вже існує).",
 				"zh-cn": "由于部署问题重试发布（v0.0.20 已存在）。"
@@ -89,9 +50,9 @@
 				"nl": "Feedback van reviewers verwerken, afhankelijkheden bijwerken en vertrouwde publicatie inschakelen.",
 				"fr": "Prendre en compte les retours du réviseur, mettre à jour les dépendances et activer la publication sécurisée.",
 				"it": "Gestione del feedback del revisore, aggiornamento delle dipendenze e abilitazione della pubblicazione affidabile.",
-				"es": "Abordar los comentarios del revisor, actualizar las dependencias y habilitar la publicación de confianza.",
+				"es": "Abordar los comentarios del revisor, actualizar las dependencias y habilitar la publicação de confiança.",
 				"pl": "Uwzględnienie opinii recenzenta, aktualizacja zależności i włączenie zaufanego publikowania.",
-				"uk": "Розгляд відгуків рецензентів, оновлення залежностей та ввімкнення довіреної публікації.",
+				"uk": "Розгляд відгуків рецензентів, оновлення запежностей та ввімкнення довіреної публікації.",
 				"zh-cn": "解决审阅者反馈、更新依赖项并启用受信任的发布。"
 			}
 		},
@@ -167,7 +128,10 @@
 			"_id": "info",
 			"type": "channel",
 			"common": {
-				"name": "Information"
+				"name": {
+					"en": "Information",
+					"de": "Information"
+				}
 			},
 			"native": {}
 		},
@@ -176,7 +140,10 @@
 			"type": "state",
 			"common": {
 				"role": "indicator.connected",
-				"name": "Device or service connected",
+				"name": {
+					"en": "Device or service connected",
+					"de": "Gerät oder Dienst verbunden"
+				},
 				"type": "boolean",
 				"read": true,
 				"write": false,
@@ -189,7 +156,10 @@
 			"type": "state",
 			"common": {
 				"role": "indicator.reachable",
-				"name": "Cloud connection status",
+				"name": {
+					"en": "Cloud connection status",
+					"de": "Cloud-Verbindungsstatus"
+				},
 				"type": "boolean",
 				"read": true,
 				"write": false,
@@ -202,7 +172,10 @@
 			"type": "state",
 			"common": {
 				"role": "switch.power",
-				"name": "Sauna heater power",
+				"name": {
+					"en": "Sauna heater power",
+					"de": "Saunaofen Leistung"
+				},
 				"type": "boolean",
 				"read": true,
 				"write": true,
@@ -215,7 +188,10 @@
 			"type": "state",
 			"common": {
 				"role": "switch.light",
-				"name": "Sauna light",
+				"name": {
+					"en": "Sauna light",
+					"de": "Saunalicht"
+				},
 				"type": "boolean",
 				"read": true,
 				"write": true,
@@ -228,7 +204,10 @@
 			"type": "state",
 			"common": {
 				"role": "value.temperature",
-				"name": "Current cabin temperature",
+				"name": {
+					"en": "Current cabin temperature",
+					"de": "Aktuelle Kabinentemperatur"
+				},
 				"type": "number",
 				"unit": "°C",
 				"read": true,
@@ -242,7 +221,10 @@
 			"type": "state",
 			"common": {
 				"role": "level.temperature",
-				"name": "Target temperature",
+				"name": {
+					"en": "Target temperature",
+					"de": "Zieltemperatur"
+				},
 				"type": "number",
 				"unit": "°C",
 				"read": true,
@@ -255,8 +237,11 @@
 			"_id": "doorSafety",
 			"type": "state",
 			"common": {
-				"role": "sensor.door.safety",
-				"name": "Door safety circuit",
+				"role": "sensor.door",
+				"name": {
+					"en": "Door safety circuit",
+					"de": "Tür-Sicherheitskreis"
+				},
 				"type": "boolean",
 				"read": true,
 				"write": false,
@@ -268,8 +253,11 @@
 			"_id": "remoteControl",
 			"type": "state",
 			"common": {
-				"role": "indicator.state",
-				"name": "Remote control authorized",
+				"role": "indicator",
+				"name": {
+					"en": "Remote control authorized",
+					"de": "Fernbedienung autorisiert"
+				},
 				"type": "boolean",
 				"read": true,
 				"write": false,
@@ -281,8 +269,11 @@
 			"_id": "totalBathingHours",
 			"type": "state",
 			"common": {
-				"role": "value.number",
-				"name": "Total bathing hours",
+				"role": "value",
+				"name": {
+					"en": "Total bathing hours",
+					"de": "Gesamtbadedauer"
+				},
 				"type": "number",
 				"unit": "h",
 				"read": true,
@@ -295,8 +286,11 @@
 			"_id": "totalSessions",
 			"type": "state",
 			"common": {
-				"role": "value.count",
-				"name": "Total sessions",
+				"role": "value",
+				"name": {
+					"en": "Total sessions",
+					"de": "Gesamtzahl der Sitzungen"
+				},
 				"type": "number",
 				"read": true,
 				"write": false,
@@ -309,7 +303,10 @@
 			"type": "state",
 			"common": {
 				"role": "text",
-				"name": "Last error message",
+				"name": {
+					"en": "Last error message",
+					"de": "Letzte Fehlermeldung"
+				},
 				"type": "string",
 				"read": true,
 				"write": false,
@@ -322,7 +319,10 @@
 			"type": "state",
 			"common": {
 				"role": "value.power",
-				"name": "Current heater power",
+				"name": {
+					"en": "Current heater power",
+					"de": "Aktuelle Ofenleistung"
+				},
 				"type": "number",
 				"unit": "kW",
 				"read": true,
@@ -336,7 +336,10 @@
 			"type": "state",
 			"common": {
 				"role": "value.temperature",
-				"name": "Panel temperature",
+				"name": {
+					"en": "Panel temperature",
+					"de": "Panel-Temperatur"
+				},
 				"type": "number",
 				"unit": "°C",
 				"read": true,
@@ -349,8 +352,11 @@
 			"_id": "totalOperatingHours",
 			"type": "state",
 			"common": {
-				"role": "value.hours",
-				"name": "Total operating hours",
+				"role": "value",
+				"name": {
+					"en": "Total operating hours",
+					"de": "Gesamtbetriebsstunden"
+				},
 				"type": "number",
 				"unit": "h",
 				"read": true,
