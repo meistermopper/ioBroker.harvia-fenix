@@ -28,20 +28,8 @@
 			"uk": "Керування саунами Harvia Fenix через хмару MyHarvia",
 			"zh-cn": "通过 MyHarvia 云端控制 Harvia Fenix 桑拿房"
 		},
+		"i18n": true,
 		"news": {
-			"0.0.22": {
-				"en": "Address various repochecker issues and improve i18n support\nAdd ESLint config and modern metadata",
-				"de": "Behebung verschiedener Repochecker-Probleme und Verbesserung der i18n-Unterstützung\nHinzufügen von ESLint config und modernen Metadaten",
-				"ru": "Решение различных проблем репочекера и улучшение поддержки i18n\nДобавить конфигурацию ESLint и современные метаданные",
-				"pt": "Enfrentar vários problemas de repochecker e melhorar o suporte i18n\nAdicionar configuração do ESLint e metadados modernos",
-				"nl": "Verschillende repochecker problemen aanpakken en i18n ondersteuning verbeteren\nESLint config en moderne metadata toevoegen",
-				"fr": "Répondre à divers problèmes de repochecker et améliorer le soutien i18n\nAjouter la configuration ESLint et les métadonnées modernes",
-				"it": "Indirizzo vari problemi di repochecker e migliorare il supporto i18n\nAggiungere la configurazione ESLint e i metadati moderni",
-				"es": "Abordar varios problemas de repochecker y mejorar el soporte i18n\nAñadir ESLint config y metadatos modernos",
-				"pl": "Rozwiązanie różnych problemów repochecker i poprawić obsługę i18n\nDodaj konfigurację ESLint i nowoczesne metadane",
-				"uk": "Підтримка i18n\nДодати налаштування ESLint та сучасні метадані",
-				"zh-cn": "解决各种重新检查器问题,改进i18n支持\n添加 ESLint 配置和现代元数据"
-			},
 			"0.0.21": {
 				"en": "Retry release due to deployment issues (v0.0.20 already exists).",
 				"de": "Release-Wiederholung aufgrund von Deployment-Problemen (v0.0.20 existiert bereits).",
