@@ -84,6 +84,8 @@ The adapter maps your sauna's cloud states into structured ioBroker datapoints u
 
 ## Changelog
 ### **WORK IN PROGRESS**
+* (meistermopper) Address repochecker E2004 and E6029
+* (meistermopper) Improve i18n support and add ESLint config
 ### 0.0.26 (2026-06-14)
 * (meistermopper) Address various repochecker issues and improve i18n support
 
