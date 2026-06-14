@@ -1,6 +1,6 @@
 {
 	"name": "iobroker.harvia-fenix",
-	"version": "0.0.22",
+	"version": "0.0.21",
 	"description": "ioBroker adapter for Harvia Fenix Sauna Control",
 	"type": "commonjs",
 	"author": {
@@ -57,7 +57,6 @@
 	"scripts": {
 		"test:integration": "cross-env NODE_OPTIONS=\"--no-experimental-detect-module\" mocha test/integration --exit",
 		"test:ts": "tsc --noEmit",
-		"test:package": "npx -y @iobroker/repochecker https://github.com/meistermopper/ioBroker.harvia-fenix --local",
 		"test": "npm run build && npm run test:integration",
 		"check": "biome check .",
 		"format": "biome format --write .",
