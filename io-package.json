@@ -26,10 +26,10 @@
 			"es": "Controle las unidades de sauna Harvia Fenix a través de la nube MyHarvia",
 			"pl": "Sterowanie saunami Harvia Fenix za pomocą chmury MyHarvia",
 			"uk": "Керування саунами Harvia Fenix через хмару MyHarvia",
-				"zh-cn": "通过 MyHarvia 云端控制 Harvia Fenix 桑拿房"
-			},
-			"news": {
-				"0.0.21": {
+			"zh-cn": "通过 MyHarvia 云端控制 Harvia Fenix 桑拿房"
+		},
+		"news": {
+			"0.0.21": {
 				"en": "Retry release due to deployment issues (v0.0.20 already exists).",
 				"de": "Release-Wiederholung aufgrund von Deployment-Problemen (v0.0.20 existiert bereits).",
 				"ru": "Повторный выпуск из-за проблем с развертыванием (v0.0.20 уже существует).",
