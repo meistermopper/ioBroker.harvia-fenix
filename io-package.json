@@ -1,7 +1,7 @@
 {
 	"common": {
 		"name": "harvia-fenix",
-		"version": "0.1.3",
+		"version": "0.1.4",
 		"titleLang": {
 			"en": "Harvia-Fenix Sauna Control",
 			"de": "Harvia-Fenix Saunasteuerung",
@@ -29,6 +29,19 @@
 			"zh-cn": "通过 MyHarvia 云端控制 Harvia Fenix 桑拿房"
 		},
 		"news": {
+			"0.1.4": {
+				"en": "Address various repochecker issues and improve i18n support\nRemove redundant admin files and update metadata",
+				"de": "Behebung verschiedener Repochecker-Probleme und Verbesserung der i18n-Unterstützung\nRedundante Admin-Dateien entfernen und Metadaten aktualisieren",
+				"ru": "Решение различных проблем репочекера и улучшение поддержки i18n\nУдалить резервные файлы администратора и обновить метаданные",
+				"pt": "Enfrentar vários problemas de repochecker e melhorar o suporte i18n\nRemover arquivos de administração redundantes e atualizar metadados",
+				"nl": "Verschillende repochecker problemen aanpakken en i18n ondersteuning verbeteren\nVerwijder redundante admin bestanden en update metadata",
+				"fr": "Répondre à divers problèmes de repochecker et améliorer le soutien i18n\nSupprimer les fichiers administratifs redondants et mettre à jour les métadonnées",
+				"it": "Indirizzo vari problemi di repochecker e migliorare il supporto i18n\nRimuovere i file di amministrazione ridondanti e aggiornare i metadati",
+				"es": "Abordar varios problemas de repochecker y mejorar el soporte i18n\nEliminar archivos de administración redundantes y actualizar metadatos",
+				"pl": "Rozwiązanie różnych problemów repochecker i poprawić obsługę i18n\nUsuń zbędne pliki administratora i uaktualnij metadane",
+				"uk": "Підтримка i18n\nВидалити резервні копії та оновлення метаданих адміністратора",
+				"zh-cn": "解决各种重新检查器问题,改进i18n支持\n删除冗余管理文件并更新元数据"
+			},
 			"0.1.3": {
 				"en": "Address various repochecker issues and improve i18n support\nRemove redundant admin files and update metadata",
 				"de": "Behebung verschiedener Repochecker-Probleme und Verbesserung der i18n-Unterstützung\nRedundante Admin-Dateien entfernen und Metadaten aktualisieren",
