@@ -1,7 +1,7 @@
 {
 	"common": {
 		"name": "harvia-fenix",
-		"version": "0.1.0",
+		"version": "0.1.1",
 		"titleLang": {
 			"en": "Harvia-Fenix Sauna Control",
 			"de": "Harvia-Fenix Saunasteuerung",
@@ -29,7 +29,7 @@
 			"zh-cn": "通过 MyHarvia 云端控制 Harvia Fenix 桑拿房"
 		},
 		"news": {
-			"0.1.0": {
+			"0.1.1": {
 				"en": "Address various repochecker issues and improve i18n support\nRemove redundant admin files and update metadata",
 				"de": "Behebung verschiedener Repochecker-Probleme und Verbesserung der i18n-Unterstützung\nRedundante Admin-Dateien entfernen und Metadaten aktualisieren",
 				"ru": "Решение различных проблем репочекера и улучшение поддержки i18n\nУдалить резервные файлы администратора и обновить метаданные",
