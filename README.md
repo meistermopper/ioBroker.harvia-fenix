@@ -123,7 +123,7 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 ---
 
 ## Changelog
-### **WORK IN PROGRESS**
+### 0.0.23 (2026-06-16)
 * (meistermopper) Prepare clean 0.0.23 release
 
 ### 0.0.22 (2026-06-14)
