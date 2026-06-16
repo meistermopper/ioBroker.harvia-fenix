@@ -67,7 +67,6 @@ Der Adapter bildet die Cloud-Zustände Ihrer Sauna in strukturierten ioBroker-Da
 | `heaterPower` | number | `value.power` | Nur Lesen | *Hinweis:* Dieses Objekt wird von der API bereitgestellt, liefert aber derzeit oft `0 kW`. |
 | `lightOn` | boolean | `switch.light` | Lesen/Schreiben | Schalter für die integrierte Saunabeleuchtung. |
 | `panelTemp` | number | `value.temperature` | Nur Lesen | Temperaturmesswert direkt an der physischen Steuereinheit (Panel). |
-| `remoteControl` | boolean | `indicator.state` | Nur Lesen | Zeigt an, ob die Fernstartfreigabe am Gerät aktuell aktiv ist. |
 | `targetTemp` | number | `level.temperature` | Lesen/Schreiben | Zieltemperatur-Sollwert für die Saunakabine (z. B. `90 °C`). |
 | `temp` | number | `value.temperature` | Nur Lesen | Die aktuelle Umgebungstemperatur in der Saunakabine (z. B. `17 °C`). |
 | `readyNotified10Min` | boolean | `indicator` | Nur Lesen | Wird `true`, wenn die Sauna noch ca. 10 Minuten von der Zieltemperatur entfernt ist (13°C unter Ziel). |
@@ -125,8 +124,9 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 ---
 
 ## Änderungsprotokoll (Changelog)
-### **WORK IN PROGRESS**
-* (meistermopper) ...
+### 0.0.25 (2026-06-16)
+* (meistermopper) `remoteControl` Datenpunkt entfernt (Fenix API Limitierung)
+* (meistermopper) Ghost-Loops im Polling-Prozess verhindert und Adapter-Cleanup verbessert
 
 ### 0.0.24 (2026-06-16)
 * (meistermopper) Benachrichtigungs-Datenpunkte für Vorheizen und Ziel-Erreicht hinzugefügt

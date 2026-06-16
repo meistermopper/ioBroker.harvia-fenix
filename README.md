@@ -68,7 +68,6 @@ The adapter maps your sauna's cloud states into structured ioBroker datapoints u
 | `heaterPower` | number | `value.power` | Read-only | *Note:* This object is provisioned by the MyHarvia API structure but is currently delivered as `0 kW` (unpopulated). It appears to be reserved for future hardware or app updates. |
 | `lightOn` | boolean | `switch.light` | Read/Write | Toggle to switch the integrated sauna lighting ON or OFF. |
 | `panelTemp` | number | `value.temperature` | Read-only | The temperature reading measured at the physical control panel unit. |
-| `remoteControl` | boolean | `indicator.state` | Read-only | Indicates if remote control authorization is currently active on the device. |
 | `targetTemp` | number | `level.temperature` | Read/Write | Target temperature setpoint for the sauna cabin (e.g., `90 °C`). |
 | `temp` | number | `value.temperature` | Read-only | The current ambient temperature inside the sauna cabin (e.g., `17 °C`). |
 | `readyNotified10Min` | boolean | `indicator` | Read-only | Turns `true` when the sauna is approximately 10 minutes away from reaching the target temperature (13°C below target). |
@@ -123,7 +122,11 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 ---
 
 ## Changelog
-### **WORK IN PROGRESS**
+### 0.0.25 (2026-06-16)
+* (meistermopper) Removed `remoteControl` state (Fenix API limitation)
+* (meistermopper) Prevented ghost loops in polling process and improved adapter cleanup
+
+### 0.0.24 (2026-06-16)
 * (meistermopper) Added notification states for pre-heating and target temperature reached
 * (meistermopper) Fixed `remoteControl` logic to correctly depend on `doorSafety`
 * (meistermopper) Implemented a robust and stable local testing pipeline

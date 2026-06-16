@@ -152,9 +152,6 @@ export class HarviaFenix extends utils.Adapter {
 		// Reset status states
 		await this.setState("info.connection", false, true);
 
-		// Create necessary state objects
-		await this.ensureObjects();
-
 		// Subscribe to writable states
 		this.subscribeStates("heatOn");
 		this.subscribeStates("lightOn");
@@ -165,141 +162,19 @@ export class HarviaFenix extends utils.Adapter {
 		await this.setState("heatOn", false, true);
 		await this.setState("lightOn", false, true);
 		await this.setState("doorSafety", false, true);
-		await this.setState("remoteControl", false, true);
 		await this.setState("errorMsg", "", true);
 		await this.setState("readyNotified10Min", false, true);
 		await this.setState("targetReachedNotified", false, true);
 
+		// Clean up removed states from previous versions
+		const oldRemoteObj = await this.getObjectAsync("remoteControl");
+		if (oldRemoteObj) {
+			await this.delObjectAsync("remoteControl");
+		}
+
 		// Start connection logic
 		await this.startCloudConnection();
 	};
-
-	private async ensureObjects(): Promise<void> {
-		const states = [
-			{
-				id: "online",
-				type: "boolean",
-				role: "indicator.reachable",
-				write: false,
-				def: false,
-			},
-			{
-				id: "heatOn",
-				type: "boolean",
-				role: "switch.power",
-				write: true,
-				def: false,
-			},
-			{
-				id: "lightOn",
-				type: "boolean",
-				role: "switch.light",
-				write: true,
-				def: false,
-			},
-			{
-				id: "temp",
-				type: "number",
-				role: "value.temperature",
-				unit: "°C",
-				write: false,
-				def: 0,
-			},
-			{
-				id: "targetTemp",
-				type: "number",
-				role: "level.temperature",
-				unit: "°C",
-				write: true,
-				def: 90,
-			},
-			{
-				id: "heaterPower",
-				type: "number",
-				role: "value.power",
-				unit: "kW",
-				write: false,
-				def: 0,
-			},
-			{
-				id: "doorSafety",
-				type: "boolean",
-				role: "sensor.door.safety",
-				write: false,
-				def: false,
-			},
-			{
-				id: "remoteControl",
-				type: "boolean",
-				role: "indicator.remote",
-				write: false,
-				def: false,
-			},
-			{ id: "errorMsg", type: "string", role: "text", write: false, def: "" },
-			{
-				id: "panelTemp",
-				type: "number",
-				role: "value.temperature",
-				unit: "°C",
-				write: false,
-				def: 0,
-			},
-			{
-				id: "totalBathingHours",
-				type: "number",
-				role: "value.hours",
-				unit: "h",
-				write: false,
-				def: 0,
-			},
-			{
-				id: "totalSessions",
-				type: "number",
-				role: "value.count",
-				write: false,
-				def: 0,
-			},
-			// In original script it was totalHours, we keep totalOperatingHours
-			{
-				id: "totalOperatingHours",
-				type: "number",
-				role: "value.hours",
-				unit: "h",
-				write: false,
-				def: 0,
-			},
-			{
-				id: "readyNotified10Min",
-				type: "boolean",
-				role: "indicator",
-				write: false,
-				def: false,
-			},
-			{
-				id: "targetReachedNotified",
-				type: "boolean",
-				role: "indicator",
-				write: false,
-				def: false,
-			},
-		];
-
-		for (const s of states) {
-			await this.setObjectNotExistsAsync(s.id, {
-				type: "state",
-				common: {
-					name: s.id,
-					type: s.type as ioBroker.CommonType,
-					role: s.role,
-					unit: s.unit,
-					read: true,
-					write: s.write,
-					def: s.def,
-				},
-				native: {},
-			});
-		}
-	}
 
 	/**
 	 * Robust check for truthy values from Harvia API
@@ -635,6 +510,8 @@ export class HarviaFenix extends utils.Adapter {
 				headers: { ...this.getCloudHeaders(), Accept: "application/json" },
 			});
 
+			if (this.isUnloading) return; // Prevent ghost execution if adapter stopped during request
+
 			let p: HarviaStatusData | undefined;
 
 			if (
@@ -742,29 +619,6 @@ export class HarviaFenix extends utils.Adapter {
 				} else {
 					const dsState = await this.getStateAsync("doorSafety");
 					if (dsState) isDoorSafe = !!dsState.val;
-				}
-
-				const rawRem = HarviaFenix.getApiValue(p, [
-					"remoteControl",
-					"remoteReady",
-					"onOffTrigger",
-					"remote_control",
-					"remote_ready",
-					"is_remote_ready",
-					"safetyRelay",
-					"remoteControlState",
-					"remote",
-					"isRemoteReady",
-					"remoteStart",
-					"remoteStartEnabled",
-					"remoteReadyState",
-				]);
-				if (rawRem !== undefined) {
-					let isRemoteReady = HarviaFenix.isTrue(rawRem);
-					if (!isDoorSafe) {
-						isRemoteReady = false;
-					}
-					await this.setState("remoteControl", isRemoteReady, true);
 				}
 
 				const rawHeat = HarviaFenix.getApiValue(p, [
@@ -985,6 +839,9 @@ export class HarviaFenix extends utils.Adapter {
 					const reason = resp.data.failureReason || "Unknown";
 					this.log.warn(`Cloud rejected command: ${reason}`);
 					await this.setState("errorMsg", `Cloud error: ${reason}`, true);
+					if (stateName === "heatOn") {
+						await this.setState("heatOn", false, true);
+					}
 				}
 			} else if (stateName === "targetTemp") {
 				const payload: HarviaSaunaCommand = {
@@ -1030,6 +887,15 @@ export class HarviaFenix extends utils.Adapter {
 				this.log.error(`Control error: ${detail}`);
 				const msg = err instanceof Error ? err.message : String(err);
 				await this.setState("errorMsg", `Error: ${msg}`, true);
+			}
+
+			if (axios.isAxiosError(err) && err.response?.status === 403) {
+				this.log.error(
+					"Action blocked (403 Forbidden). Remote start authorization (Safety Loop) at panel might not be active.",
+				);
+				if (stateName === "heatOn") {
+					await this.setState("heatOn", false, true);
+				}
 			}
 
 			// RE-LOGIN LOGIC: If token became invalid during runtime
@@ -1089,18 +955,6 @@ export class HarviaFenix extends utils.Adapter {
 		switch (stateId) {
 			case "heatOn": {
 				const val = HarviaFenix.isTrue(state.val);
-				const remoteReadyState = await this.getStateAsync("remoteControl");
-
-				if (val && !HarviaFenix.isTrue(remoteReadyState?.val)) {
-					this.log.warn("Remote start not ready (safety loop or panel lock)!");
-					await this.setState("heatOn", false, true); // Revert UI
-					await this.setState(
-						"errorMsg",
-						"Remote start not ready at panel!",
-						true,
-					);
-					return;
-				}
 				await this.setState("readyNotified10Min", false, true);
 				await this.setState("targetReachedNotified", false, true);
 				await this.setSaunaState("heatOn", val);

@@ -1,7 +1,7 @@
 {
   "common": {
     "name": "harvia-fenix",
-    "version": "0.0.24",
+    "version": "0.0.25",
     "titleLang": {
       "en": "Harvia-Fenix Sauna Control",
       "de": "Harvia-Fenix Saunasteuerung",
@@ -29,6 +29,19 @@
       "zh-cn": "通过 MyHarvia 云端控制 Harvia Fenix 桑拿房"
     },
     "news": {
+      "0.0.25": {
+        "en": "Removed remoteControl state (Harvia Fenix API limitation). Optimized API polling and error handling for ghost loops.",
+        "de": "Datenpunkt remoteControl entfernt (Harvia Fenix API Limitation). API-Polling und Fehlerbehandlung für Ghost-Loops optimiert.",
+        "ru": "Удален статус remoteControl (ограничение API Harvia Fenix). Оптимизирован опрос API и обработка ошибок для призрачных циклов.",
+        "pt": "Removido o estado remoteControl (limitação da API Harvia Fenix). Otimização da pesquisa da API e tratamento de erros para ghost loops.",
+        "nl": "Status remoteControl verwijderd (Harvia Fenix API beperking). API polling en foutafhandeling geoptimaliseerd.",
+        "fr": "Suppression de l'état remoteControl (limitation de l'API Harvia Fenix). Optimisation de l'interrogation de l'API et gestion des erreurs.",
+        "it": "Rimosso lo stato remoteControl (limitazione API Harvia Fenix). Ottimizzazione del polling API e della gestione degli errori.",
+        "es": "Estado remoteControl eliminado (limitación de la API de Harvia Fenix). Optimizado el polling de la API y el manejo de errores.",
+        "pl": "Usunięto stan remoteControl (ograniczenie API Harvia Fenix). Zoptymalizowano odpytywanie API i obsługę błędów.",
+        "uk": "Видалено стан remoteControl (обмеження API Harvia Fenix). Оптимізовано опитування API та обробку помилок.",
+        "zh-cn": "删除了 remoteControl 状态（Harvia Fenix API 限制）。优化了 API 轮询和重影循环错误处理。"
+      },
       "0.0.24": {
         "en": "Added notification states for pre-heating and target temperature reached\nFixed `remoteControl` logic to correctly depend on `doorSafety`\nImplemented a robust and stable local testing pipeline",
         "de": "Hinzugefügte Meldezustände für die Vorwärmung und die erreichte Zieltemperatur\nFixe `remoteControl`-Logik, um korrekt von `doorSafety` abhängig zu sein\nImplementierung einer robusten und stabilen lokalen Testpipeline",
@@ -243,19 +256,6 @@
       "common": {
         "role": "sensor.door",
         "name": "Door safety circuit",
-        "type": "boolean",
-        "read": true,
-        "write": false,
-        "def": false
-      },
-      "native": {}
-    },
-    {
-      "_id": "remoteControl",
-      "type": "state",
-      "common": {
-        "role": "indicator",
-        "name": "Remote control authorized",
         "type": "boolean",
         "read": true,
         "write": false,
