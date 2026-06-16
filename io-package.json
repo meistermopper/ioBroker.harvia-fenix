@@ -1,374 +1,399 @@
 {
-	"common": {
-		"name": "harvia-fenix",
-		"version": "0.0.23",
-		"titleLang": {
-			"en": "Harvia-Fenix Sauna Control",
-			"de": "Harvia-Fenix Saunasteuerung",
-			"ru": "Управление сауной Harvia-Fenix",
-			"pt": "Controle de Sauna Harvia-Fenix",
-			"nl": "Harvia-Fenix ​​saunabediening",
-			"fr": "Contrôle du sauna HarviaFenix",
-			"it": "Controllo sauna Harvia-Fenix",
-			"es": "Control de sauna Harvia-Fenix",
-			"pl": "Sterowanie sauną Harvia-Fenix",
-			"uk": "Керування сауною Harvia-Fenix",
-			"zh-cn": "Harvia-Fenix 桑拿控制"
-		},
-		"desc": {
-			"en": "Control Harvia Fenix sauna units via MyHarvia cloud",
-			"de": "Steuerung von Harvia Fenix Sauna-Steuerungen über die MyHarvia Cloud",
-			"ru": "Управление саунами Harvia Fenix через облако MyHarvia",
-			"pt": "Controle as unidades de sauna Harvia Fenix via nuvem MyHarvia",
-			"nl": "Bestuur Harvia Fenix-sauna-units via de MyHarvia-cloud",
-			"fr": "Contrôlez les saunas Harvia Fenix via le cloud MyHarvia",
-			"it": "Controlla le unità sauna Harvia Fenix tramite il cloud MyHarvia",
-			"es": "Controle las unidades de sauna Harvia Fenix a través de la nube MyHarvia",
-			"pl": "Sterowanie saunami Harvia Fenix za pomocą chmury MyHarvia",
-			"uk": "Керування саунами Harvia Fenix через хмару MyHarvia",
-			"zh-cn": "通过 MyHarvia 云端控制 Harvia Fenix 桑拿房"
-		},
-		"news": {
-			"0.0.23": {
-				"en": "Prepare clean 0.0.23 release",
-				"de": "Bereiten Sie saubere 0.0.23 Release",
-				"ru": "Приготовьте чистый 0.0.23 выпуск",
-				"pt": "Preparar liberação limpa 0.0.23",
-				"nl": "Bereid schone 0,0.23 afgifte",
-				"fr": "Préparation propre 0.0.23 libération",
-				"it": "Preparare il rilascio pulito 0.0.23",
-				"es": "Prepare limpio 0.0.23 liberación",
-				"pl": "Przygotowanie czystej wersji 0.0.23",
-				"uk": "Приготувати чистий 0.0.23 реліз",
-				"zh-cn": "准备清除 0.0.23 释放"
-			},
-			"0.0.22": {
-				"en": "Prepare clean 0.0.22 release",
-				"de": "Bereiten Sie saubere 0.0.22 Release",
-				"ru": "Приготовьте чистый 0.0.22 выпуск",
-				"pt": "Preparar liberação limpa 0.0.22",
-				"nl": "Bereid een schone afgifte van 0,022",
-				"fr": "Préparation propre 0.0.22 libération",
-				"it": "Preparare il rilascio pulito 0.0.22",
-				"es": "Prepare limpio 0.0.22 liberación",
-				"pl": "Przygotowanie czystej wersji 0.0.22",
-				"uk": "Приготувати чистий 0.0.22 реліз",
-				"zh-cn": "准备清除 0.022 释放"
-			},
-			"0.0.21": {
-				"en": "Retry release due to deployment issues (v0.0.20 already exists).",
-				"de": "Release-Wiederholung aufgrund von Deployment-Problemen (v0.0.20 existiert bereits).",
-				"ru": "Повторный выпуск из-за проблем с развертыванием (v0.0.20 уже существует).",
-				"pt": "Repetir o lançamento devido a problemas de implementação (v0.0.20 já esiste).",
-				"nl": "Release herhalen vanwege implementatieproblemen (v0.0.20 besteht al).",
-				"fr": "Nouvelle tentative de publication en raison de problèmes de déploiement (la v0.0.20 esiste già).",
-				"it": "Riprova il rilascio a causa di problemi di distribuzione (la v0.0.20 esiste già).",
-				"es": "Reintentar el lanzamiento debido a problemas de despliegue (la v0.0.20 ya esiste).",
-				"pl": "Ponowna próba wydania z powodu problemów z wdrożeniem (wersja 0.0.20 już istnieje).",
-				"uk": "Повторний випуск через проблеми з розгортанням (v0.0.20 вже існує).",
-				"zh-cn": "Due to deployment issues retry release (v0.0.20 already exists)."
-			},
-			"0.0.20": {
-				"en": "Retry release due to deployment issues.",
-				"de": "Release-Wiederholung aufgrund von Deployment-Problemen.",
-				"ru": "Повторный выпуск из-за проблем с развертыванием.",
-				"pt": "Repetir o lançamento devido a problemas de implementação.",
-				"nl": "Release herhalen vanwege implementatieproblemen.",
-				"fr": "Nouvelle tentative de publication en raison de problèmes de déploiement.",
-				"it": "Riprova il rilascio a causa di problemi di distribuzione.",
-				"es": "Reintentar el lanzamiento debido a problemas de despliegue.",
-				"pl": "Ponowna próba wydania z powodu problemów z wdrożeniem.",
-				"uk": "Повторний випуск через проблеми з розгортанням.",
-				"zh-cn": "由于 deployment issue retry release."
-			}
-		},
-		"authors": ["meistermopper <meister.mopper@gmail.com>"],
-		"keywords": ["harvia", "fenix", "sauna", "myharvia", "cloud"],
-		"licenseInformation": {
-			"type": "free",
-			"license": "MIT"
-		},
-		"platform": "Javascript/Node.js",
-		"icon": "harvia.png",
-		"enabled": true,
-		"extIcon": "https://raw.githubusercontent.com/meistermopper/ioBroker.harvia-fenix/main/admin/harvia.png",
-		"readme": "https://github.com/meistermopper/ioBroker.harvia-fenix/blob/main/README.md",
-		"loglevel": "info",
-		"tier": 3,
-		"mode": "daemon",
-		"type": "household",
-		"compact": true,
-		"connectionType": "cloud",
-		"dataSource": "poll",
-		"adminUI": {
-			"config": "json"
-		},
-		"dependencies": [
-			{
-				"js-controller": ">=6.0.11"
-			}
-		],
-		"globalDependencies": [
-			{
-				"admin": ">=7.6.20"
-			}
-		]
-	},
-	"native": {
-		"username": "",
-		"password": "",
-		"deviceId": "",
-		"pollInterval": 60
-	},
-	"protectedNative": ["password"],
-	"encryptedNative": ["password"],
-	"objects": [],
-	"instanceObjects": [
-		{
-			"_id": "info",
-			"type": "channel",
-			"common": {
-				"name": "Information"
-			},
-			"native": {}
-		},
-		{
-			"_id": "info.connection",
-			"type": "state",
-			"common": {
-				"role": "indicator.connected",
-				"name": "Device or service connected",
-				"type": "boolean",
-				"read": true,
-				"write": false,
-				"def": false
-			},
-			"native": {}
-		},
-		{
-			"_id": "online",
-			"type": "state",
-			"common": {
-				"role": "indicator.reachable",
-				"name": "Cloud connection status",
-				"type": "boolean",
-				"read": true,
-				"write": false,
-				"def": false
-			},
-			"native": {}
-		},
-		{
-			"_id": "heatOn",
-			"type": "state",
-			"common": {
-				"role": "switch.power",
-				"name": "Sauna heater power",
-				"type": "boolean",
-				"read": true,
-				"write": true,
-				"def": false
-			},
-			"native": {}
-		},
-		{
-			"_id": "lightOn",
-			"type": "state",
-			"common": {
-				"role": "switch.light",
-				"name": "Sauna light",
-				"type": "boolean",
-				"read": true,
-				"write": true,
-				"def": false
-			},
-			"native": {}
-		},
-		{
-			"_id": "temp",
-			"type": "state",
-			"common": {
-				"role": "value.temperature",
-				"name": "Current cabin temperature",
-				"type": "number",
-				"unit": "°C",
-				"read": true,
-				"write": false,
-				"def": 0
-			},
-			"native": {}
-		},
-		{
-			"_id": "targetTemp",
-			"type": "state",
-			"common": {
-				"role": "level.temperature",
-				"name": "Target temperature",
-				"type": "number",
-				"unit": "°C",
-				"read": true,
-				"write": true,
-				"def": 90
-			},
-			"native": {}
-		},
-		{
-			"_id": "doorSafety",
-			"type": "state",
-			"common": {
-				"role": "sensor.door",
-				"name": "Door safety circuit",
-				"type": "boolean",
-				"read": true,
-				"write": false,
-				"def": false
-			},
-			"native": {}
-		},
-		{
-			"_id": "remoteControl",
-			"type": "state",
-			"common": {
-				"role": "indicator",
-				"name": "Remote control authorized",
-				"type": "boolean",
-				"read": true,
-				"write": false,
-				"def": false
-			},
-			"native": {}
-		},
-		{
-			"_id": "totalBathingHours",
-			"type": "state",
-			"common": {
-				"role": "value",
-				"name": "Total bathing hours",
-				"type": "number",
-				"unit": "h",
-				"read": true,
-				"write": false,
-				"def": 0
-			},
-			"native": {}
-		},
-		{
-			"_id": "totalSessions",
-			"type": "state",
-			"common": {
-				"role": "value",
-				"name": "Total sessions",
-				"type": "number",
-				"read": true,
-				"write": false,
-				"def": 0
-			},
-			"native": {}
-		},
-		{
-			"_id": "errorMsg",
-			"type": "state",
-			"common": {
-				"role": "text",
-				"name": "Last error message",
-				"type": "string",
-				"read": true,
-				"write": false,
-				"def": ""
-			},
-			"native": {}
-		},
-		{
-			"_id": "heaterPower",
-			"type": "state",
-			"common": {
-				"role": "value.power",
-				"name": "Current heater power",
-				"type": "number",
-				"unit": "kW",
-				"read": true,
-				"write": false,
-				"def": 0
-			},
-			"native": {}
-		},
-		{
-			"_id": "panelTemp",
-			"type": "state",
-			"common": {
-				"role": "value.temperature",
-				"name": "Panel temperature",
-				"type": "number",
-				"unit": "°C",
-				"read": true,
-				"write": false,
-				"def": 0
-			},
-			"native": {}
-		},
-		{
-			"_id": "totalOperatingHours",
-			"type": "state",
-			"common": {
-				"role": "value",
-				"name": "Total operating hours",
-				"type": "number",
-				"unit": "h",
-				"read": true,
-				"write": false,
-				"def": 0
-			},
-			"native": {}
-		},
-		{
-			"_id": "readyNotified10Min",
-			"type": "state",
-			"common": {
-				"role": "indicator",
-				"name": {
-					"en": "10-minute pre-warning sent",
-					"de": "10-Minuten-Vorwarnung gesendet",
-					"ru": "Отправлено 10-минутное предупреждение",
-					"pt": "Aviso prévio de 10 minutos enviado",
-					"nl": "10 minuten waarschuwing vooraf verzonden",
-					"fr": "Pré-avertissement de 10 minutes envoyé",
-					"it": "Preavviso di 10 minuti inviato",
-					"es": "Aviso previo de 10 minutos enviado",
-					"pl": "Wysłano 10-minutowe ostrzeżenie",
-					"uk": "Відправлено 10-хвилинне попередження",
-					"zh-cn": "已发送 10 分钟预警"
-				},
-				"type": "boolean",
-				"read": true,
-				"write": false,
-				"def": false
-			},
-			"native": {}
-		},
-		{
-			"_id": "targetReachedNotified",
-			"type": "state",
-			"common": {
-				"role": "indicator",
-				"name": {
-					"en": "Target temperature reached",
-					"de": "Zieltemperatur erreicht",
-					"ru": "Целевая температура достигнута",
-					"pt": "Temperatura alvo atingida",
-					"nl": "Doeltemperatuur bereikt",
-					"fr": "Température cible atteinte",
-					"it": "Temperatura target raggiunta",
-					"es": "Temperatura objetivo alcanzada",
-					"pl": "Osiągnięto temperaturę docelową",
-					"uk": "Цільова температура досягнута",
-					"zh-cn": "已达到目标温度"
-				},
-				"type": "boolean",
-				"read": true,
-				"write": false,
-				"def": false
-			},
-			"native": {}
-		}
-	]
+  "common": {
+    "name": "harvia-fenix",
+    "version": "0.0.24",
+    "titleLang": {
+      "en": "Harvia-Fenix Sauna Control",
+      "de": "Harvia-Fenix Saunasteuerung",
+      "ru": "Управление сауной Harvia-Fenix",
+      "pt": "Controle de Sauna Harvia-Fenix",
+      "nl": "Harvia-Fenix ​​saunabediening",
+      "fr": "Contrôle du sauna HarviaFenix",
+      "it": "Controllo sauna Harvia-Fenix",
+      "es": "Control de sauna Harvia-Fenix",
+      "pl": "Sterowanie sauną Harvia-Fenix",
+      "uk": "Керування сауною Harvia-Fenix",
+      "zh-cn": "Harvia-Fenix 桑拿控制"
+    },
+    "desc": {
+      "en": "Control Harvia Fenix sauna units via MyHarvia cloud",
+      "de": "Steuerung von Harvia Fenix Sauna-Steuerungen über die MyHarvia Cloud",
+      "ru": "Управление саунами Harvia Fenix через облако MyHarvia",
+      "pt": "Controle as unidades de sauna Harvia Fenix via nuvem MyHarvia",
+      "nl": "Bestuur Harvia Fenix-sauna-units via de MyHarvia-cloud",
+      "fr": "Contrôlez les saunas Harvia Fenix via le cloud MyHarvia",
+      "it": "Controlla le unità sauna Harvia Fenix tramite il cloud MyHarvia",
+      "es": "Controle las unidades de sauna Harvia Fenix a través de la nube MyHarvia",
+      "pl": "Sterowanie saunami Harvia Fenix za pomocą chmury MyHarvia",
+      "uk": "Керування саунами Harvia Fenix через хмару MyHarvia",
+      "zh-cn": "通过 MyHarvia 云端控制 Harvia Fenix 桑拿房"
+    },
+    "news": {
+      "0.0.24": {
+        "en": "Added notification states for pre-heating and target temperature reached\nFixed `remoteControl` logic to correctly depend on `doorSafety`\nImplemented a robust and stable local testing pipeline",
+        "de": "Hinzugefügte Meldezustände für die Vorwärmung und die erreichte Zieltemperatur\nFixe `remoteControl`-Logik, um korrekt von `doorSafety` abhängig zu sein\nImplementierung einer robusten und stabilen lokalen Testpipeline",
+        "ru": "Дополнительные состояния уведомления для предварительного нагрева и достигнутой целевой температуры\nФиксированная логика «удаленного контроля», чтобы правильно зависеть от «безопасности дверей»\nРеализован надежный и стабильный локальный испытательный трубопровод",
+        "pt": "Estados de notificação adicionais para pré-aquecimento e temperatura alvo atingida\nFixo `remoteControl' lógica para depender corretamente de `doorSafety`\nImplementou um gasoduto de testes local robusto e estável",
+        "nl": "Toegevoegde meldingstoestanden voor voorverwarming en bereikte doeltemperatuur\nVaste \nImplementeerde een robuuste en stabiele lokale testleiding",
+        "fr": "États de notification ajoutés pour préchauffage et température cible atteinte\nCorrection de la logique `remoteControl` pour dépendre correctement de `doorSafety`\nMise en place d'un pipeline d'essai local robuste et stable",
+        "it": "Aggiunti gli stati di notifica per il preriscaldamento e la temperatura di destinazione raggiunta\nFisso `remoteControl` logica per dipendere correttamente da `doorSafety`\nImplementato un tubo di prova locale robusto e stabile",
+        "es": "Estado de notificación adicional para precalentamiento y temperatura objetivo alcanzado\nLógica de `remoteControl` fija para depender correctamente de `doorSafety`\nImplementado un sólido y estable gasoducto local de pruebas",
+        "pl": "Dodano stany powiadamiania dla ogrzewania wstępnego i temperatury docelowej\nNaprawiono logikę 'RemoteControl', aby prawidłowo zależała od 'DoorSafety'\nWdrożenie solidnego i stabilnego lokalnego rurociągu badawczego",
+        "uk": "Додані стани сповіщення для попереднього нагрівання та цільової температури\nВиправлено логіку `remoteControl для коректної роботи залежно від `doorSafety`\nВпровадження надійного та стабільного локального випробувального трубопроводу",
+        "zh-cn": "预热状态和目标温度达到的新增通知状态\n正确依赖`门安全 ' 的固定`远程控制 ' 逻辑\n* 执行健全和稳定的当地测试管道"
+      },
+      "0.0.23": {
+        "en": "Prepare clean 0.0.23 release",
+        "de": "Bereiten Sie saubere 0.0.23 Release",
+        "ru": "Приготовьте чистый 0.0.23 выпуск",
+        "pt": "Preparar liberação limpa 0.0.23",
+        "nl": "Bereid schone 0,0.23 afgifte",
+        "fr": "Préparation propre 0.0.23 libération",
+        "it": "Preparare il rilascio pulito 0.0.23",
+        "es": "Prepare limpio 0.0.23 liberación",
+        "pl": "Przygotowanie czystej wersji 0.0.23",
+        "uk": "Приготувати чистий 0.0.23 реліз",
+        "zh-cn": "准备清除 0.0.23 释放"
+      },
+      "0.0.22": {
+        "en": "Prepare clean 0.0.22 release",
+        "de": "Bereiten Sie saubere 0.0.22 Release",
+        "ru": "Приготовьте чистый 0.0.22 выпуск",
+        "pt": "Preparar liberação limpa 0.0.22",
+        "nl": "Bereid een schone afgifte van 0,022",
+        "fr": "Préparation propre 0.0.22 libération",
+        "it": "Preparare il rilascio pulito 0.0.22",
+        "es": "Prepare limpio 0.0.22 liberación",
+        "pl": "Przygotowanie czystej wersji 0.0.22",
+        "uk": "Приготувати чистий 0.0.22 реліз",
+        "zh-cn": "准备清除 0.022 释放"
+      },
+      "0.0.21": {
+        "en": "Retry release due to deployment issues (v0.0.20 already exists).",
+        "de": "Release-Wiederholung aufgrund von Deployment-Problemen (v0.0.20 existiert bereits).",
+        "ru": "Повторный выпуск из-за проблем с развертыванием (v0.0.20 уже существует).",
+        "pt": "Repetir o lançamento devido a problemas de implementação (v0.0.20 já esiste).",
+        "nl": "Release herhalen vanwege implementatieproblemen (v0.0.20 besteht al).",
+        "fr": "Nouvelle tentative de publication en raison de problèmes de déploiement (la v0.0.20 esiste già).",
+        "it": "Riprova il rilascio a causa di problemi di distribuzione (la v0.0.20 esiste già).",
+        "es": "Reintentar el lanzamiento debido a problemas de despliegue (la v0.0.20 ya esiste).",
+        "pl": "Ponowna próba wydania z powodu problemów z wdrożeniem (wersja 0.0.20 już istnieje).",
+        "uk": "Повторний випуск через проблеми з розгортанням (v0.0.20 вже існує).",
+        "zh-cn": "Due to deployment issues retry release (v0.0.20 already exists)."
+      },
+      "0.0.20": {
+        "en": "Retry release due to deployment issues.",
+        "de": "Release-Wiederholung aufgrund von Deployment-Problemen.",
+        "ru": "Повторный выпуск из-за проблем с развертыванием.",
+        "pt": "Repetir o lançamento devido a problemas de implementação.",
+        "nl": "Release herhalen vanwege implementatieproblemen.",
+        "fr": "Nouvelle tentative de publication en raison de problèmes de déploiement.",
+        "it": "Riprova il rilascio a causa di problemi di distribuzione.",
+        "es": "Reintentar el lanzamiento debido a problemas de despliegue.",
+        "pl": "Ponowna próba wydania z powodu problemów z wdrożeniem.",
+        "uk": "Повторний випуск через проблеми з розгортанням.",
+        "zh-cn": "由于 deployment issue retry release."
+      }
+    },
+    "authors": [
+      "meistermopper <meister.mopper@gmail.com>"
+    ],
+    "keywords": [
+      "harvia",
+      "fenix",
+      "sauna",
+      "myharvia",
+      "cloud"
+    ],
+    "licenseInformation": {
+      "type": "free",
+      "license": "MIT"
+    },
+    "platform": "Javascript/Node.js",
+    "icon": "harvia.png",
+    "enabled": true,
+    "extIcon": "https://raw.githubusercontent.com/meistermopper/ioBroker.harvia-fenix/main/admin/harvia.png",
+    "readme": "https://github.com/meistermopper/ioBroker.harvia-fenix/blob/main/README.md",
+    "loglevel": "info",
+    "tier": 3,
+    "mode": "daemon",
+    "type": "household",
+    "compact": true,
+    "connectionType": "cloud",
+    "dataSource": "poll",
+    "adminUI": {
+      "config": "json"
+    },
+    "dependencies": [
+      {
+        "js-controller": ">=6.0.11"
+      }
+    ],
+    "globalDependencies": [
+      {
+        "admin": ">=7.6.20"
+      }
+    ]
+  },
+  "native": {
+    "username": "",
+    "password": "",
+    "deviceId": "",
+    "pollInterval": 60
+  },
+  "protectedNative": [
+    "password"
+  ],
+  "encryptedNative": [
+    "password"
+  ],
+  "objects": [],
+  "instanceObjects": [
+    {
+      "_id": "info",
+      "type": "channel",
+      "common": {
+        "name": "Information"
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.connection",
+      "type": "state",
+      "common": {
+        "role": "indicator.connected",
+        "name": "Device or service connected",
+        "type": "boolean",
+        "read": true,
+        "write": false,
+        "def": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "online",
+      "type": "state",
+      "common": {
+        "role": "indicator.reachable",
+        "name": "Cloud connection status",
+        "type": "boolean",
+        "read": true,
+        "write": false,
+        "def": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "heatOn",
+      "type": "state",
+      "common": {
+        "role": "switch.power",
+        "name": "Sauna heater power",
+        "type": "boolean",
+        "read": true,
+        "write": true,
+        "def": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "lightOn",
+      "type": "state",
+      "common": {
+        "role": "switch.light",
+        "name": "Sauna light",
+        "type": "boolean",
+        "read": true,
+        "write": true,
+        "def": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "temp",
+      "type": "state",
+      "common": {
+        "role": "value.temperature",
+        "name": "Current cabin temperature",
+        "type": "number",
+        "unit": "°C",
+        "read": true,
+        "write": false,
+        "def": 0
+      },
+      "native": {}
+    },
+    {
+      "_id": "targetTemp",
+      "type": "state",
+      "common": {
+        "role": "level.temperature",
+        "name": "Target temperature",
+        "type": "number",
+        "unit": "°C",
+        "read": true,
+        "write": true,
+        "def": 90
+      },
+      "native": {}
+    },
+    {
+      "_id": "doorSafety",
+      "type": "state",
+      "common": {
+        "role": "sensor.door",
+        "name": "Door safety circuit",
+        "type": "boolean",
+        "read": true,
+        "write": false,
+        "def": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "remoteControl",
+      "type": "state",
+      "common": {
+        "role": "indicator",
+        "name": "Remote control authorized",
+        "type": "boolean",
+        "read": true,
+        "write": false,
+        "def": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "totalBathingHours",
+      "type": "state",
+      "common": {
+        "role": "value",
+        "name": "Total bathing hours",
+        "type": "number",
+        "unit": "h",
+        "read": true,
+        "write": false,
+        "def": 0
+      },
+      "native": {}
+    },
+    {
+      "_id": "totalSessions",
+      "type": "state",
+      "common": {
+        "role": "value",
+        "name": "Total sessions",
+        "type": "number",
+        "read": true,
+        "write": false,
+        "def": 0
+      },
+      "native": {}
+    },
+    {
+      "_id": "errorMsg",
+      "type": "state",
+      "common": {
+        "role": "text",
+        "name": "Last error message",
+        "type": "string",
+        "read": true,
+        "write": false,
+        "def": ""
+      },
+      "native": {}
+    },
+    {
+      "_id": "heaterPower",
+      "type": "state",
+      "common": {
+        "role": "value.power",
+        "name": "Current heater power",
+        "type": "number",
+        "unit": "kW",
+        "read": true,
+        "write": false,
+        "def": 0
+      },
+      "native": {}
+    },
+    {
+      "_id": "panelTemp",
+      "type": "state",
+      "common": {
+        "role": "value.temperature",
+        "name": "Panel temperature",
+        "type": "number",
+        "unit": "°C",
+        "read": true,
+        "write": false,
+        "def": 0
+      },
+      "native": {}
+    },
+    {
+      "_id": "totalOperatingHours",
+      "type": "state",
+      "common": {
+        "role": "value",
+        "name": "Total operating hours",
+        "type": "number",
+        "unit": "h",
+        "read": true,
+        "write": false,
+        "def": 0
+      },
+      "native": {}
+    },
+    {
+      "_id": "readyNotified10Min",
+      "type": "state",
+      "common": {
+        "role": "indicator",
+        "name": {
+          "en": "10-minute pre-warning sent",
+          "de": "10-Minuten-Vorwarnung gesendet",
+          "ru": "Отправлено 10-минутное предупреждение",
+          "pt": "Aviso prévio de 10 minutos enviado",
+          "nl": "10 minuten waarschuwing vooraf verzonden",
+          "fr": "Pré-avertissement de 10 minutes envoyé",
+          "it": "Preavviso di 10 minuti inviato",
+          "es": "Aviso previo de 10 minutos enviado",
+          "pl": "Wysłano 10-minutowe ostrzeżenie",
+          "uk": "Відправлено 10-хвилинне попередження",
+          "zh-cn": "已发送 10 分钟预警"
+        },
+        "type": "boolean",
+        "read": true,
+        "write": false,
+        "def": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "targetReachedNotified",
+      "type": "state",
+      "common": {
+        "role": "indicator",
+        "name": {
+          "en": "Target temperature reached",
+          "de": "Zieltemperatur erreicht",
+          "ru": "Целевая температура достигнута",
+          "pt": "Temperatura alvo atingida",
+          "nl": "Doeltemperatuur bereikt",
+          "fr": "Température cible atteinte",
+          "it": "Temperatura target raggiunta",
+          "es": "Temperatura objetivo alcanzada",
+          "pl": "Osiągnięto temperaturę docelową",
+          "uk": "Цільова температура досягнута",
+          "zh-cn": "已达到目标温度"
+        },
+        "type": "boolean",
+        "read": true,
+        "write": false,
+        "def": false
+      },
+      "native": {}
+    }
+  ]
 }
