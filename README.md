@@ -124,15 +124,10 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 
 ## Changelog
 ### **WORK IN PROGRESS**
-* (meistermopper) ...
-
-### 0.0.24 (2026-06-16)
 * (meistermopper) Added notification states for pre-heating and target temperature reached
 * (meistermopper) Fixed `remoteControl` logic to correctly depend on `doorSafety`
 * (meistermopper) Implemented a robust and stable local testing pipeline
-
-### 0.0.23 (2026-06-16)
-* (meistermopper) Prepare clean 0.0.23 release
+* (meistermopper) Fixed release pipeline and code formatting issues
 
 ### 0.0.22 (2026-06-14)
 * (meistermopper) Prepare clean 0.0.22 release
