@@ -1,5 +1,10 @@
 import { expect } from "chai";
-import { HarviaFenix } from "./main";
+
+// The adapter-core module is mocked, so we can use the main adapter class for testing static methods.
+// We use require here to import the CommonJS module export correctly.
+import mainExport = require("./main");
+
+const HarviaFenix = mainExport.HarviaFenix;
 
 describe("HarviaFenix utility methods", () => {
 	describe("isTrue", () => {

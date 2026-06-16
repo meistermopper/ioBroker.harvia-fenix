@@ -306,6 +306,56 @@
 				"def": 0
 			},
 			"native": {}
+		},
+		{
+			"_id": "readyNotified10Min",
+			"type": "state",
+			"common": {
+				"role": "indicator",
+				"name": {
+					"en": "10-minute pre-warning sent",
+					"de": "10-Minuten-Vorwarnung gesendet",
+					"ru": "Отправлено 10-минутное предупреждение",
+					"pt": "Aviso prévio de 10 minutos enviado",
+					"nl": "10 minuten waarschuwing vooraf verzonden",
+					"fr": "Pré-avertissement de 10 minutes envoyé",
+					"it": "Preavviso di 10 minuti inviato",
+					"es": "Aviso previo de 10 minutos enviado",
+					"pl": "Wysłano 10-minutowe ostrzeżenie",
+					"uk": "Відправлено 10-хвилинне попередження",
+					"zh-cn": "已发送 10 分钟预警"
+				},
+				"type": "boolean",
+				"read": true,
+				"write": false,
+				"def": false
+			},
+			"native": {}
+		},
+		{
+			"_id": "targetReachedNotified",
+			"type": "state",
+			"common": {
+				"role": "indicator",
+				"name": {
+					"en": "Target temperature reached",
+					"de": "Zieltemperatur erreicht",
+					"ru": "Целевая температура достигнута",
+					"pt": "Temperatura alvo atingida",
+					"nl": "Doeltemperatuur bereikt",
+					"fr": "Température cible atteinte",
+					"it": "Temperatura target raggiunta",
+					"es": "Temperatura objetivo alcanzada",
+					"pl": "Osiągnięto temperaturę docelową",
+					"uk": "Цільова температура досягнута",
+					"zh-cn": "已达到目标温度"
+				},
+				"type": "boolean",
+				"read": true,
+				"write": false,
+				"def": false
+			},
+			"native": {}
 		}
 	]
 }

@@ -1,7 +1,11 @@
 {
-	"plugins": {
-		"changelog": {
-			"numChangelogEntries": 5
-		}
-	}
+	"plugins": [
+		"manual-review",
+		"iobroker",
+		"changelog",
+		"license",
+		"package",
+		"version",
+		"git"
+	]
 }

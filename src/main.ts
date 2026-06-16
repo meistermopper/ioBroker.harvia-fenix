@@ -167,6 +167,8 @@ export class HarviaFenix extends utils.Adapter {
 		await this.setState("doorSafety", false, true);
 		await this.setState("remoteControl", false, true);
 		await this.setState("errorMsg", "", true);
+		await this.setState("readyNotified10Min", false, true);
+		await this.setState("targetReachedNotified", false, true);
 
 		// Start connection logic
 		await this.startCloudConnection();
@@ -265,6 +267,20 @@ export class HarviaFenix extends utils.Adapter {
 				unit: "h",
 				write: false,
 				def: 0,
+			},
+			{
+				id: "readyNotified10Min",
+				type: "boolean",
+				role: "indicator",
+				write: false,
+				def: false,
+			},
+			{
+				id: "targetReachedNotified",
+				type: "boolean",
+				role: "indicator",
+				write: false,
+				def: false,
 			},
 		];
 
@@ -710,48 +726,122 @@ export class HarviaFenix extends utils.Adapter {
 					p,
 				);
 
-				// Update Boolean States
-				await this.updateBooleanState(
+				// --- CUSTOM BOOLEAN & LOGIC STATES ---
+				const rawDoor = HarviaFenix.getApiValue(p, [
+					"doorSafetyState",
+					"doorSafety",
+					"door",
+					"door_closed",
+					"door_safety_state",
+					"door_safety",
+				]);
+				let isDoorSafe = true;
+				if (rawDoor !== undefined) {
+					isDoorSafe = HarviaFenix.isTrue(rawDoor);
+					await this.setState("doorSafety", isDoorSafe, true);
+				} else {
+					const dsState = await this.getStateAsync("doorSafety");
+					if (dsState) isDoorSafe = !!dsState.val;
+				}
+
+				const rawRem = HarviaFenix.getApiValue(p, [
+					"remoteControl",
+					"remoteReady",
+					"onOffTrigger",
+					"remote_control",
+					"remote_ready",
+					"is_remote_ready",
+					"safetyRelay",
+					"remoteControlState",
+					"remote",
+					"isRemoteReady",
+					"remoteStart",
+					"remoteStartEnabled",
+					"remoteReadyState",
+				]);
+				if (rawRem !== undefined) {
+					let isRemoteReady = HarviaFenix.isTrue(rawRem);
+					if (!isDoorSafe) {
+						isRemoteReady = false;
+					}
+					await this.setState("remoteControl", isRemoteReady, true);
+				}
+
+				const rawHeat = HarviaFenix.getApiValue(p, [
 					"heatOn",
-					["heatOn", "heatState", "heat", "heater", "heat_on", "is_heating"],
-					p,
-				);
+					"heatState",
+					"heat",
+					"heater",
+					"heat_on",
+					"is_heating",
+				]);
+				if (rawHeat !== undefined) {
+					const isHeatOn = HarviaFenix.isTrue(rawHeat);
+					const prevHeatOnState = await this.getStateAsync("heatOn");
+					if (prevHeatOnState && !!prevHeatOnState.val !== isHeatOn) {
+						await this.setState("readyNotified10Min", false, true);
+						await this.setState("targetReachedNotified", false, true);
+					}
+					await this.setState("heatOn", isHeatOn, true);
+				}
+
 				await this.updateBooleanState(
 					"lightOn",
 					["lightOn", "lightState", "light", "light_on"],
 					p,
 				);
-				await this.updateBooleanState(
-					"remoteControl",
-					[
-						"remoteControl",
-						"remoteReady",
-						"onOffTrigger",
-						"remote_control",
-						"remote_ready",
-						"is_remote_ready",
-						"safetyRelay",
-						"remoteControlState",
-						"remote",
-						"isRemoteReady",
-						"remoteStart",
-						"remoteStartEnabled",
-						"remoteReadyState",
-					],
-					p,
-				);
-				await this.updateBooleanState(
-					"doorSafety",
-					[
-						"doorSafetyState",
-						"doorSafety",
-						"door",
-						"door_closed",
-						"door_safety_state",
-						"door_safety",
-					],
-					p,
-				);
+
+				// --- NOTIFICATION LOGIC ---
+				const heatOnState = await this.getStateAsync("heatOn");
+				const heatOn = heatOnState ? !!heatOnState.val : false;
+
+				const currentTempState = await this.getStateAsync("temp");
+				const currentTemp =
+					currentTempState && typeof currentTempState.val === "number"
+						? currentTempState.val
+						: 0;
+
+				const targetTempState = await this.getStateAsync("targetTemp");
+				const targetTemp =
+					targetTempState && typeof targetTempState.val === "number"
+						? targetTempState.val
+						: 90;
+
+				if (heatOn && currentTemp > 20) {
+					const notified10MinState =
+						await this.getStateAsync("readyNotified10Min");
+					const notified10Min = notified10MinState
+						? !!notified10MinState.val
+						: false;
+
+					const notifiedReadyState = await this.getStateAsync(
+						"targetReachedNotified",
+					);
+					const notifiedReady = notifiedReadyState
+						? !!notifiedReadyState.val
+						: false;
+
+					if (
+						!notified10Min &&
+						currentTemp >= targetTemp - 13 &&
+						currentTemp < targetTemp
+					) {
+						await this.setState("readyNotified10Min", true, true);
+						this.log.info(
+							`🧖 Die Sauna erreicht in ca. 10 Minuten ihre Zieltemperatur (${targetTemp}°C).`,
+						);
+					}
+
+					if (!notifiedReady && currentTemp >= targetTemp) {
+						if (!notified10Min) {
+							await this.setState("readyNotified10Min", true, true);
+						}
+						await this.setState("targetReachedNotified", true, true);
+						this.log.info(
+							`♨️ Die Sauna hat ihre Zieltemperatur von ${targetTemp}°C erreicht und ist bereit!`,
+						);
+					}
+				}
 
 				await this.setState("online", true, true);
 			} else {
@@ -1011,6 +1101,8 @@ export class HarviaFenix extends utils.Adapter {
 					);
 					return;
 				}
+				await this.setState("readyNotified10Min", false, true);
+				await this.setState("targetReachedNotified", false, true);
 				await this.setSaunaState("heatOn", val);
 				break;
 			}
@@ -1046,10 +1138,18 @@ export class HarviaFenix extends utils.Adapter {
 	};
 }
 
+type AdapterExport = {
+	(options: Partial<utils.AdapterOptions> | undefined): HarviaFenix;
+	HarviaFenix: typeof HarviaFenix;
+};
+
 if (require.main !== module) {
 	// Export the constructor in compact mode
-	module.exports = (options: Partial<utils.AdapterOptions> | undefined) =>
-		new HarviaFenix(options);
+	const adapterExport = ((options: Partial<utils.AdapterOptions> | undefined) =>
+		new HarviaFenix(options)) as AdapterExport;
+	// Add the class to the export for testing purposes
+	adapterExport.HarviaFenix = HarviaFenix;
+	module.exports = adapterExport;
 } else {
 	// otherwise start the instance directly
 	(() => new HarviaFenix())();

@@ -71,9 +71,35 @@ The adapter maps your sauna's cloud states into structured ioBroker datapoints u
 | `remoteControl` | boolean | `indicator.state` | Read-only | Indicates if remote control authorization is currently active on the device. |
 | `targetTemp` | number | `level.temperature` | Read/Write | Target temperature setpoint for the sauna cabin (e.g., `90 °C`). |
 | `temp` | number | `value.temperature` | Read-only | The current ambient temperature inside the sauna cabin (e.g., `17 °C`). |
+| `readyNotified10Min` | boolean | `indicator` | Read-only | Turns `true` when the sauna is approximately 10 minutes away from reaching the target temperature (13°C below target). |
+| `targetReachedNotified` | boolean | `indicator` | Read-only | Turns `true` when the sauna has successfully reached the configured target temperature. |
 | `totalBathingHours` | number | `value.number` | Read-only | Total historical cumulative hours the sauna has been actively used (`h`). |
 | `totalOperatingHours`| number | `value.hours` | Read-only | Total system operational running hours (`h`). |
 | `totalSessions` | number | `value.count` | Read-only | Counter for the total number of individual sauna heating sessions executed. |
+---
+
+## Notifications & Automations
+
+The adapter automatically calculates the heating progress and provides two indicator datapoints specifically designed for triggering push notifications (e.g., via Telegram, Pushover, or Alexa).
+
+You can simply use a basic ioBroker script (JavaScript or Blockly) that listens to these states changing to `true`:
+
+```javascript
+// Trigger for the 10-minute pre-warning
+on({ id: 'harvia-fenix.0.readyNotified10Min', change: 'ne', val: true }, function () {
+    const targetTemp = getState('harvia-fenix.0.targetTemp').val;
+    sendTo('telegram.0', 'send', { text: `🧖 The sauna will reach its target temperature (${targetTemp}°C) in about 10 minutes.` });
+});
+
+// Trigger when the sauna is fully ready
+on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, function () {
+    const targetTemp = getState('harvia-fenix.0.targetTemp').val;
+    sendTo('telegram.0', 'send', { text: `♨️ The sauna has reached the target temperature of ${targetTemp}°C and is ready!` });
+});
+```
+
+*Note: These states will automatically reset to `false` when the heater is turned off or when a new heating session starts.*
+
 ---
 
 ## ⚠️ CRITICAL SAFETY WARNING & DISCLAIMER
