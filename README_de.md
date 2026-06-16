@@ -126,6 +126,9 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 
 ## Änderungsprotokoll (Changelog)
 ### **WORK IN PROGRESS**
+* (meistermopper) ...
+
+### 0.0.24 (2026-06-16)
 * (meistermopper) Benachrichtigungs-Datenpunkte für Vorheizen und Ziel-Erreicht hinzugefügt
 * (meistermopper) Logik für `remoteControl` korrigiert, sodass sie von `doorSafety` abhängt
 * (meistermopper) Eine robuste und stabile lokale Test-Pipeline implementiert
