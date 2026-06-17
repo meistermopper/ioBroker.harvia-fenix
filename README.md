@@ -122,6 +122,9 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 ---
 
 ## Changelog
+### **WORK IN PROGRESS**
+* (meistermopper) Preparing 0.0.26 release
+
 ### 0.0.25 (2026-06-16)
 * (meistermopper) Removed `remoteControl` state (Fenix API limitation)
 * (meistermopper) Prevented ghost loops in polling process and improved adapter cleanup
