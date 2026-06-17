@@ -1,5 +1,0 @@
-chore: release v0.0.24
-
-* (meistermopper) Added notification states for pre-heating and target temperature reached
-* (meistermopper) Fixed `remoteControl` logic to correctly depend on `doorSafety`
-* (meistermopper) Implemented a robust and stable local testing pipeline
