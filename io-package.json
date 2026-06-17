@@ -1,7 +1,7 @@
 {
 	"common": {
 		"name": "harvia-fenix",
-		"version": "0.0.25",
+		"version": "0.0.26",
 		"titleLang": {
 			"en": "Harvia-Fenix Sauna Control",
 			"de": "Harvia-Fenix Saunasteuerung",
@@ -29,6 +29,19 @@
 			"zh-cn": "通过 MyHarvia 云端控制 Harvia Fenix 桑拿房"
 		},
 		"news": {
+			"0.0.26": {
+				"en": "Preparing 0.0.26 release",
+				"de": "Herstellung von 0.0.26 Release",
+				"ru": "Подготовка 0,0.26 выпуска",
+				"pt": "Preparação da libertação 0.0.26",
+				"nl": "Voorbereiding van afgifte van 0,0.26",
+				"fr": "Préparation de la libération 0.0.26",
+				"it": "Preparazione del rilascio 0.0.26",
+				"es": "Preparación de la versión 0.0.26",
+				"pl": "Przygotowanie wersji 0.0.26",
+				"uk": "Підготовка 0.0.26 реліз",
+				"zh-cn": "准备 0.026 发布"
+			},
 			"0.0.25": {
 				"en": "Removed remoteControl state (Harvia Fenix API limitation). Optimized API polling and error handling for ghost loops.",
 				"de": "Datenpunkt remoteControl entfernt (Harvia Fenix API Limitation). API-Polling und Fehlerbehandlung für Ghost-Loops optimiert.",

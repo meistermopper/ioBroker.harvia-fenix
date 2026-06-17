@@ -122,7 +122,7 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 ---
 
 ## Changelog
-### **WORK IN PROGRESS**
+### 0.0.26 (2026-06-17)
 * (meistermopper) Preparing 0.0.26 release
 
 ### 0.0.25 (2026-06-16)
@@ -140,9 +140,6 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 
 ### 0.0.21 (2026-06-09)
 * (meistermopper) Retry release due to deployment issues (v0.0.20 already exists).
-
-### 0.0.20 (2026-06-09)
-* (meistermopper) Retry release due to deployment issues.
 
 ## [Older changelog entries](CHANGELOG_OLD.md)
 
