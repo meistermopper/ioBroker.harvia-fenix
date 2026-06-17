@@ -42,32 +42,6 @@
 				"uk": "Видалено стан remoteControl (обмеження API Harvia Fenix). Оптимізовано опитування API та обробку помилок.",
 				"zh-cn": "删除了 remoteControl 状态（Harvia Fenix API 限制）。优化了 API 轮询和重影循环错误处理。"
 			},
-			"0.0.24": {
-				"en": "Added notification states for pre-heating and target temperature reached\nFixed `remoteControl` logic to correctly depend on `doorSafety`\nImplemented a robust and stable local testing pipeline",
-				"de": "Hinzugefügte Meldezustände für die Vorwärmung und die erreichte Zieltemperatur\nFixe `remoteControl`-Logik, um korrekt von `doorSafety` abhängig zu sein\nImplementierung einer robusten und stabilen lokalen Testpipeline",
-				"ru": "Дополнительные состояния уведомления для предварительного нагрева и достигнутой целевой температуры\nФиксированная логика «удаленного контроля», чтобы правильно зависеть от «безопасности дверей»\nРеализован надежный и стабильный локальный испытательный трубопровод",
-				"pt": "Estados de notificação adicionais para pré-aquecimento e temperatura alvo atingida\nFixo `remoteControl' lógica para depender corretamente de `doorSafety`\nImplementou um gasoduto de testes local robusto e estável",
-				"nl": "Toegevoegde meldingstoestanden voor voorverwarming en bereikte doeltemperatuur\nVaste \nImplementeerde een robuuste en stabiele lokale testleiding",
-				"fr": "États de notification ajoutés pour préchauffage et température cible atteinte\nCorrection de la logique `remoteControl` pour dépendre correctement de `doorSafety`\nMise en place d'un pipeline d'essai local robuste et stable",
-				"it": "Aggiunti gli stati di notifica per il preriscaldamento e la temperatura di destinazione raggiunta\nFisso `remoteControl` logica per dipendere correttamente da `doorSafety`\nImplementato un tubo di prova locale robusto e stabile",
-				"es": "Estado de notificación adicional para precalentamiento y temperatura objetivo alcanzado\nLógica de `remoteControl` fija para depender correctamente de `doorSafety`\nImplementado un sólido y estable gasoducto local de pruebas",
-				"pl": "Dodano stany powiadamiania dla ogrzewania wstępnego i temperatury docelowej\nNaprawiono logikę 'RemoteControl', aby prawidłowo zależała od 'DoorSafety'\nWdrożenie solidnego i stabilnego lokalnego rurociągu badawczego",
-				"uk": "Додані стани сповіщення для попереднього нагрівання та цільової температури\nВиправлено логіку `remoteControl для коректної роботи залежно від `doorSafety`\nВпровадження надійного та стабільного локального випробувального трубопроводу",
-				"zh-cn": "预热状态和目标温度达到的新增通知状态\n正确依赖`门安全 ' 的固定`远程控制 ' 逻辑\n* 执行健全和稳定的当地测试管道"
-			},
-			"0.0.23": {
-				"en": "Prepare clean 0.0.23 release",
-				"de": "Bereiten Sie saubere 0.0.23 Release",
-				"ru": "Приготовьте чистый 0.0.23 выпуск",
-				"pt": "Preparar liberação limpa 0.0.23",
-				"nl": "Bereid schone 0,0.23 afgifte",
-				"fr": "Préparation propre 0.0.23 libération",
-				"it": "Preparare il rilascio pulito 0.0.23",
-				"es": "Prepare limpio 0.0.23 liberación",
-				"pl": "Przygotowanie czystej wersji 0.0.23",
-				"uk": "Приготувати чистий 0.0.23 реліз",
-				"zh-cn": "准备清除 0.0.23 释放"
-			},
 			"0.0.22": {
 				"en": "Prepare clean 0.0.22 release",
 				"de": "Bereiten Sie saubere 0.0.22 Release",
