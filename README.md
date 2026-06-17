@@ -144,6 +144,8 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 ### 0.0.20 (2026-06-09)
 * (meistermopper) Retry release due to deployment issues.
 
+[Older changelogs can be found there](CHANGELOG_OLD.md)
+
 ## [Older changelog entries](CHANGELOG_OLD.md)
 
 ## Trademarks
