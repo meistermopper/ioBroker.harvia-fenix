@@ -31,7 +31,16 @@
 		"news": {
 			"0.0.27": {
 				"en": "Corrected adapter category to 'climate-control' for repository compliance.",
-				"de": "Adapter-Kategorie für Repository-Konformität auf 'climate-control' korrigiert."
+				"de": "Adapter-Kategorie für Repository-Konformität auf 'climate-control' korrigiert.",
+				"ru": "Категория адаптера исправлена на 'climate-control' для соответствия репозиторию.",
+				"pt": "Categoria do adaptador corrigida para 'climate-control' por conformidade com o repositório.",
+				"nl": "Adaptercategorie gecorrigeerd naar 'climate-control' voor repository-conformiteit.",
+				"fr": "Catégorie d'adaptateur corrigée en 'climate-control' pour la conformité du référentiel.",
+				"it": "Categoria dell'adattatore corretta in 'climate-control' per la conformità del repository.",
+				"es": "Categoría de adaptador corregida a 'climate-control' para cumplimiento del repositorio.",
+				"pl": "Kategoria adaptera poprawiona na 'climate-control' dla zgodności z repozytorium.",
+				"uk": "Категорія адаптера виправлена на 'climate-control' для відповідності репозиторію.",
+				"zh-cn": "已将适配器类别更正为 'climate-control' 以符合存储库要求。"
 			},
 			"0.0.26": {
 				"en": "Preparing 0.0.26 release",
