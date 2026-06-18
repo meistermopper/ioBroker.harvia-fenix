@@ -136,18 +136,6 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 * (meistermopper) Removed `remoteControl` state (Fenix API limitation)
 * (meistermopper) Prevented ghost loops in polling process and improved adapter cleanup
 
-### 0.0.24 (2026-06-16)
-* (meistermopper) Added notification states for pre-heating and target temperature reached
-* (meistermopper) Fixed `remoteControl` logic to correctly depend on `doorSafety`
-* (meistermopper) Implemented a robust and stable local testing pipeline
-* (meistermopper) Fixed release pipeline and code formatting issues
-
-### 0.0.22 (2026-06-14)
-* (meistermopper) Prepare clean 0.0.22 release
-
-### 0.0.21 (2026-06-09)
-* (meistermopper) Retry release due to deployment issues (v0.0.20 already exists).
-
 ## [Older changelog entries](CHANGELOG_OLD.md)
 
 ## Trademarks

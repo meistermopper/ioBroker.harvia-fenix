@@ -1,8 +1,19 @@
 // This script configures and runs Mocha programmatically to avoid all CLI issues.
 
-const Mocha = require("mocha");
 const path = require("node:path");
 const fs = require("node:fs");
+
+// 0. Resolve Mocha dynamically
+// Since the ioBroker Bot requires removing 'mocha' from devDependencies,
+// we resolve it directly from the @iobroker/testing package dependencies.
+let Mocha;
+try {
+	Mocha = require("mocha");
+} catch {
+	Mocha = require(
+		require.resolve("mocha", { paths: [require.resolve("@iobroker/testing")] }),
+	);
+}
 
 // 1. Mock @iobroker/adapter-core to prevent the "Cannot find js-controller" error.
 // Since we only test static utility methods, we don't need the real ioBroker engine.

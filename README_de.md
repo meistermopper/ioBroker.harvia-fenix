@@ -134,11 +134,6 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 * (meistermopper) `remoteControl` Datenpunkt entfernt (Fenix API Limitierung)
 * (meistermopper) Ghost-Loops im Polling-Prozess verhindert und Adapter-Cleanup verbessert
 
-### 0.0.24 (2026-06-16)
-* (meistermopper) Benachrichtigungs-Datenpunkte für Vorheizen und Ziel-Erreicht hinzugefügt
-* (meistermopper) Logik für `remoteControl` korrigiert, sodass sie von `doorSafety` abhängt
-* (meistermopper) Eine robuste und stabile lokale Test-Pipeline implementiert
-
 ## [Ältere Einträge](CHANGELOG_OLD.md)
 
 ---
