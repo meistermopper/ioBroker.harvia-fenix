@@ -55,11 +55,11 @@
 		"README_de.md"
 	],
 	"scripts": {
-		"test:integration": "cross-env NODE_OPTIONS=\"--no-experimental-detect-module\" iobroker-mocha test/integration --exit",
+		"test:integration": "cross-env NODE_OPTIONS=\"--no-experimental-detect-module\" node test/run-mocha.js test/integration --exit",
 		"test:unit": "node test/run-unit-tests.js",
 		"test:ts": "tsc --noEmit",
 		"test:package": "echo \"Bypassing Repochecker in CI to unblock deployment\"",
-		"test:package:local": "iobroker-mocha test/package.js --exit",
+		"test:package:local": "node test/run-mocha.js test/package.js --exit",
 		"test": "npm run build && npm run test:unit && npm run test:integration",
 		"check": "biome check .",
 		"format": "biome format --write .",
