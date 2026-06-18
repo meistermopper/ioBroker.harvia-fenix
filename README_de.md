@@ -124,6 +124,12 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 ---
 
 ## Änderungsprotokoll (Changelog)
+### 0.0.27 (2026-06-18)
+* (meistermopper) Adapter-Kategorie für Repository-Konformität auf 'climate-control' korrigiert
+
+### 0.0.26 (2026-06-17)
+* (meistermopper) Vorbereitung für Release 0.0.26
+
 ### 0.0.25 (2026-06-16)
 * (meistermopper) `remoteControl` Datenpunkt entfernt (Fenix API Limitierung)
 * (meistermopper) Ghost-Loops im Polling-Prozess verhindert und Adapter-Cleanup verbessert

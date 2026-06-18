@@ -1,7 +1,7 @@
 {
   "common": {
     "name": "harvia-fenix",
-    "version": "0.0.26",
+    "version": "0.0.27",
     "titleLang": {
       "en": "Harvia-Fenix Sauna Control",
       "de": "Harvia-Fenix Saunasteuerung",
@@ -29,6 +29,10 @@
       "zh-cn": "通过 MyHarvia 云端控制 Harvia Fenix 桑拿房"
     },
     "news": {
+      "0.0.27": {
+        "en": "Corrected adapter category to 'climate-control' for repository compliance.",
+        "de": "Adapter-Kategorie für Repository-Konformität auf 'climate-control' korrigiert."
+      },
       "0.0.26": {
         "en": "Preparing 0.0.26 release",
         "de": "Herstellung von 0.0.26 Release",
@@ -117,7 +121,7 @@
     "loglevel": "info",
     "tier": 3,
     "mode": "daemon",
-    "type": "household",
+    "type": "climate-control",
     "compact": true,
     "connectionType": "cloud",
     "dataSource": "poll",
