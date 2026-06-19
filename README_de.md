@@ -19,15 +19,15 @@
 
 ### Ein ioBroker-Adapter zur Integration und Steuerung der **Harvia Fenix** Saunasteuerung über die MyHarvia Cloud-Infrastruktur.
 
-Für weitere Informationen über Harvia und deren Saunasteuerungen besuchen Sie bitte die [offizielle Harvia-Website](https://www.harvia.com).
+Für weitere Informationen über Harvia und deren Saunasteuerungen besuche bitte die [offizielle Harvia-Website](https://www.harvia.com).
 
 ---
 
 ## Voraussetzungen
 
-Um diesen Adapter zu nutzen, benötigen Sie:
+Um diesen Adapter zu nutzen, benötigst du:
 1. Ein registriertes Konto in der offiziellen **MyHarvia 2** Smartphone-App.
-2. Ihre gültigen Login-Daten:
+2. Gültigen Login-Daten:
    * **E-Mail-Adresse**
    * **Passwort**
 
@@ -38,7 +38,7 @@ Um diesen Adapter zu nutzen, benötigen Sie:
 ## Gerätekonfiguration & Multi-Geräte-Unterstützung
 
 ### Automatische Erkennung (Discovery)
-Wenn Sie das Feld **Geräte-ID** in den Adapter-Einstellungen leer lassen, sucht der Adapter beim Start automatisch nach Geräten, die mit Ihrem Konto verknüpft sind. Er verwendet das erste gefundene Gerät als aktive Einheit. Die erkannte ID wird im ioBroker-Log ausgegeben.
+Wenn du das Feld **Geräte-ID** in den Adapter-Einstellungen leer lässt, sucht der Adapter beim Start automatisch nach Geräten, die mit deinem Konto verknüpft sind. Er verwendet das erste gefundene Gerät als aktive Einheit. Die erkannte ID wird im ioBroker-Log ausgegeben.
 
 ### Manuelle Geräte-ID
 Für die meisten Benutzer mit einer einzigen Sauna ist die automatische Erkennung ausreichend. Es wird jedoch empfohlen, die erkannte ID aus dem Log zu kopieren und in die Konfiguration einzufügen, um eine stabile Verbindung zur spezifischen Hardware zu gewährleisten.
@@ -46,16 +46,16 @@ Für die meisten Benutzer mit einer einzigen Sauna ist die automatische Erkennun
 *Hinweis: Derzeit wird die Geräte-ID in der MyHarvia 2 App-Oberfläche nirgends angezeigt.*
 
 ### Mehrere Saunen
-Wenn Ihr MyHarvia-Konto mehrere Steuereinheiten verwaltet (z. B. eine zu Hause und eine im Ferienhaus):
-1. Erstellen Sie für jede Sauna eine eigene Instanz des Adapters (z. B. `harvia-fenix.0` und `harvia-fenix.1`).
-2. Geben Sie die spezifische **Geräte-ID** für jede Einheit manuell in der jeweiligen Instanz-Konfiguration ein.
-Dies ermöglicht es Ihnen, beide Saunen unabhängig voneinander mit eigenen Datenpunkten zu überwachen und zu steuern.
+Wenn dein MyHarvia-Konto mehrere Steuereinheiten verwaltet (z. B. eine zu Hause und eine im Ferienhaus):
+1. Erstelle für jede Sauna eine eigene Instanz des Adapters (z. B. `harvia-fenix.0` und `harvia-fenix.1`).
+2. Gib die spezifische **Geräte-ID** für jede Einheit manuell in der jeweiligen Instanz-Konfiguration ein.
+Dies ermöglicht es, beide Saunen unabhängig voneinander mit eigenen Datenpunkten zu überwachen und zu steuern.
 
 ---
 
 ## Funktionen & Datenpunkte
 
-Der Adapter bildet die Cloud-Zustände Ihrer Sauna in strukturierten ioBroker-Datenpunkten unter `harvia-fenix.0.*` ab.
+Der Adapter bildet die Cloud-Zustände deiner Sauna in strukturierten ioBroker-Datenpunkten unter `harvia-fenix.0.*` ab.
 
 ### Verfügbare Datenpunkte
 | Datenpunkt | Typ | Rolle | Zugriff | Beschreibung |
