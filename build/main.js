@@ -119,6 +119,7 @@ class HarviaFenix extends utils.Adapter {
         await this.setState("heatOn", false, true);
         await this.setState("lightOn", false, true);
         await this.setState("doorSafety", false, true);
+        await this.setState("remoteReady", false, true);
         await this.setState("errorMsg", "", true);
         await this.setState("readyNotified10Min", false, true);
         await this.setState("targetReachedNotified", false, true);
@@ -465,6 +466,14 @@ class HarviaFenix extends utils.Adapter {
                     await this.setState("heatOn", isHeatOn, true);
                 }
                 await this.updateBooleanState("lightOn", ["lightOn", "lightState", "light", "light_on"], p);
+                const rawRemoteReady = HarviaFenix.getApiValue(p, [
+                    "onOffTrigger",
+                    "remoteReadyState",
+                    "remoteReady",
+                ]);
+                if (rawRemoteReady !== undefined) {
+                    await this.setState("remoteReady", HarviaFenix.isTrue(rawRemoteReady), true);
+                }
                 // --- NOTIFICATION LOGIC ---
                 const heatOnState = await this.getStateAsync("heatOn");
                 const heatOn = heatOnState ? !!heatOnState.val : false;
@@ -607,6 +616,9 @@ class HarviaFenix extends utils.Adapter {
                     await this.setState("errorMsg", `Cloud error: ${reason}`, true);
                     if (stateName === "heatOn") {
                         await this.setState("heatOn", false, true);
+                        if (value) {
+                            await this.setState("remoteReady", false, true);
+                        }
                     }
                 }
             }
@@ -652,20 +664,32 @@ class HarviaFenix extends utils.Adapter {
                 const msg = err instanceof Error ? err.message : String(err);
                 await this.setState("errorMsg", `Error: ${msg}`, true);
             }
+            let willRetry = false;
+            if (!isRetry &&
+                axios_1.default.isAxiosError(err) &&
+                (err.response?.status === 401 || err.response?.status === 403)) {
+                willRetry = true;
+            }
             if (axios_1.default.isAxiosError(err) && err.response?.status === 403) {
                 this.log.error("Action blocked (403 Forbidden). Remote start authorization (Safety Loop) at panel might not be active.");
-                if (stateName === "heatOn") {
-                    await this.setState("heatOn", false, true);
-                }
+            }
+            if (stateName === "heatOn" && value && !willRetry) {
+                await this.setState("heatOn", false, true);
+                await this.setState("remoteReady", false, true);
             }
             // RE-LOGIN LOGIC: If token became invalid during runtime
             // Automatic re-login on expired token (HTTP 401)
-            if (axios_1.default.isAxiosError(err) &&
-                (err.response?.status === 401 || err.response?.status === 403)) {
+            if (willRetry) {
                 this.log.warn("Token expired or unauthorized during control, triggering re-login...");
                 if (await this.login()) {
                     // Repeat command once after successful login
                     await this.setSaunaState(stateName, value, true);
+                }
+                else {
+                    if (stateName === "heatOn" && value) {
+                        await this.setState("heatOn", false, true);
+                        await this.setState("remoteReady", false, true);
+                    }
                 }
             }
         }
@@ -707,6 +731,15 @@ class HarviaFenix extends utils.Adapter {
         switch (stateId) {
             case "heatOn": {
                 const val = HarviaFenix.isTrue(state.val);
+                if (val) {
+                    const remoteReadyState = await this.getStateAsync("remoteReady");
+                    if (!remoteReadyState?.val) {
+                        this.log.warn("Fernstart nicht bereit. Befehl wird nicht an die Cloud gesendet.");
+                        await this.setState("heatOn", false, true);
+                        await this.setState("errorMsg", "Fernstart am Panel nicht bereit!", true);
+                        return;
+                    }
+                }
                 await this.setState("readyNotified10Min", false, true);
                 await this.setState("targetReachedNotified", false, true);
                 await this.setSaunaState("heatOn", val);
