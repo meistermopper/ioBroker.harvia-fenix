@@ -101,6 +101,15 @@ interface HarviaCommandResponse {
 	failureReason?: string;
 }
 
+interface HarviaDeviceState {
+	state?: {
+		remoteAllowed?: number | boolean | string;
+	};
+	connectionState?: {
+		connected?: boolean;
+	};
+}
+
 export class HarviaFenix extends utils.Adapter {
 	private client: AxiosInstance;
 	private idToken = "";
@@ -162,15 +171,15 @@ export class HarviaFenix extends utils.Adapter {
 		await this.setState("heatOn", false, true);
 		await this.setState("lightOn", false, true);
 		await this.setState("doorSafety", false, true);
-		await this.setState("remoteReady", false, true);
+		await this.setState("remoteControl", false, true);
 		await this.setState("errorMsg", "", true);
 		await this.setState("readyNotified10Min", false, true);
 		await this.setState("targetReachedNotified", false, true);
 
 		// Clean up removed states from previous versions
-		const oldRemoteObj = await this.getObjectAsync("remoteControl");
-		if (oldRemoteObj) {
-			await this.delObjectAsync("remoteControl");
+		const oldRemoteReadyObj = await this.getObjectAsync("remoteReady");
+		if (oldRemoteReadyObj) {
+			await this.delObjectAsync("remoteReady");
 		}
 
 		// Start connection logic
@@ -493,6 +502,10 @@ export class HarviaFenix extends utils.Adapter {
 			}
 
 			const url = `${this.dataBaseUrl.replace(/\/$/, "")}/data/latest-data`;
+			const baseUrl = this.deviceBaseUrl.replace(/\/$/, "");
+			const devicesUrl = baseUrl.endsWith("/devices")
+				? baseUrl
+				: `${baseUrl}/devices`;
 
 			const deviceId = this.activeDeviceId || this.config.deviceId;
 			if (!deviceId) {
@@ -506,10 +519,16 @@ export class HarviaFenix extends utils.Adapter {
 
 			this.log.debug(`Poll Status: ${url} (ID: ${deviceId})`);
 
-			const response = await this.client.get<Record<string, unknown>>(url, {
-				params: { deviceId },
-				headers: { ...this.getCloudHeaders(), Accept: "application/json" },
-			});
+			const [response, deviceStateResponse] = await Promise.all([
+				this.client.get<Record<string, unknown>>(url, {
+					params: { deviceId },
+					headers: { ...this.getCloudHeaders(), Accept: "application/json" },
+				}),
+				this.client.get<Record<string, unknown>>(`${devicesUrl}/state`, {
+					params: { deviceId },
+					headers: { ...this.getCloudHeaders(), Accept: "application/json" },
+				}),
+			]);
 
 			if (this.isUnloading) return; // Prevent ghost execution if adapter stopped during request
 
@@ -530,6 +549,27 @@ export class HarviaFenix extends utils.Adapter {
 					p = response.data.data as HarviaStatusData;
 				} else {
 					p = response.data as unknown as HarviaStatusData;
+				}
+			}
+
+			let deviceState: HarviaDeviceState | undefined;
+			if (
+				deviceStateResponse.data &&
+				typeof deviceStateResponse.data === "object" &&
+				!Array.isArray(deviceStateResponse.data)
+			) {
+				this.log.debug(
+					`Device State Response: ${JSON.stringify(deviceStateResponse.data)}`,
+				);
+
+				if (
+					deviceStateResponse.data.data &&
+					typeof deviceStateResponse.data.data === "object" &&
+					!Array.isArray(deviceStateResponse.data.data)
+				) {
+					deviceState = deviceStateResponse.data.data;
+				} else {
+					deviceState = deviceStateResponse.data;
 				}
 			}
 
@@ -646,18 +686,28 @@ export class HarviaFenix extends utils.Adapter {
 					p,
 				);
 
-				const rawRemoteReady = HarviaFenix.getApiValue(p, [
-					"onOffTrigger",
-					"remoteReadyState",
-					"remoteReady",
-				]);
-				if (rawRemoteReady !== undefined) {
-					await this.setState(
-						"remoteReady",
-						HarviaFenix.isTrue(rawRemoteReady),
-						true,
-					);
+				// --- REMOTECONTROL & ONLINE LOGIC ---
+				let isRemoteReady = false;
+				if (
+					deviceState &&
+					deviceState.state &&
+					deviceState.state.remoteAllowed !== undefined
+				) {
+					isRemoteReady =
+						deviceState.state.remoteAllowed === 1 ||
+						deviceState.state.remoteAllowed === true ||
+						deviceState.state.remoteAllowed === "1" ||
+						deviceState.state.remoteAllowed === "true";
 				}
+				// Fallback safety link: open door blocks remote start
+				if (!isDoorSafe) {
+					isRemoteReady = false;
+				}
+				await this.setState("remoteControl", isRemoteReady, true);
+
+				// Online status from deviceState.connectionState.connected
+				const isOnline = !!deviceState?.connectionState?.connected;
+				await this.setState("online", isOnline, true);
 
 				// --- NOTIFICATION LOGIC ---
 				const heatOnState = await this.getStateAsync("heatOn");
@@ -710,8 +760,6 @@ export class HarviaFenix extends utils.Adapter {
 						);
 					}
 				}
-
-				await this.setState("online", true, true);
 			} else {
 				this.log.warn(
 					`Unexpected data structure during status poll: ${JSON.stringify(response.data)}`,
@@ -856,7 +904,7 @@ export class HarviaFenix extends utils.Adapter {
 					if (stateName === "heatOn") {
 						await this.setState("heatOn", false, true);
 						if (value) {
-							await this.setState("remoteReady", false, true);
+							await this.setState("remoteControl", false, true);
 						}
 					}
 				}
@@ -923,7 +971,7 @@ export class HarviaFenix extends utils.Adapter {
 
 			if (stateName === "heatOn" && value && !willRetry) {
 				await this.setState("heatOn", false, true);
-				await this.setState("remoteReady", false, true);
+				await this.setState("remoteControl", false, true);
 			}
 
 			// RE-LOGIN LOGIC: If token became invalid during runtime
@@ -938,7 +986,7 @@ export class HarviaFenix extends utils.Adapter {
 				} else {
 					if (stateName === "heatOn" && value) {
 						await this.setState("heatOn", false, true);
-						await this.setState("remoteReady", false, true);
+						await this.setState("remoteControl", false, true);
 					}
 				}
 			}
@@ -986,8 +1034,8 @@ export class HarviaFenix extends utils.Adapter {
 			case "heatOn": {
 				const val = HarviaFenix.isTrue(state.val);
 				if (val) {
-					const remoteReadyState = await this.getStateAsync("remoteReady");
-					if (!remoteReadyState?.val) {
+					const remoteControlState = await this.getStateAsync("remoteControl");
+					if (!remoteControlState?.val) {
 						this.log.warn(
 							"Fernstart nicht bereit. Befehl wird nicht an die Cloud gesendet.",
 						);

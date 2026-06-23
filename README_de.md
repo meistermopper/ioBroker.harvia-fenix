@@ -62,7 +62,7 @@ Der Adapter bildet die Cloud-Zustände deiner Sauna in strukturierten ioBroker-D
 |---|---|---|---|---|
 | `online` | boolean | `indicator.reachable` | Nur Lesen | Verbindungsstatus der Steuereinheit zur Cloud. |
 | `doorSafety` | boolean | `indicator.safety` | Nur Lesen | Status der Türsicherung (z. B. `true`, wenn die Tür sicher geschlossen ist). |
-| `remoteReady` | boolean | `indicator` | Nur Lesen | Status der Fernstart-Bereitschaft. Wenn `false`, wird ein Starten des Ofens lokal blockiert. |
+| `remoteControl` | boolean | `indicator` | Nur Lesen | Status der Fernstart-Bereitschaft. Wenn `false`, wird ein Starten des Ofens lokal blockiert. |
 | `errorMsg` | string | `text` | Nur Lesen | Aktuelle Fehlermeldungen oder Statustexte des Ofens. |
 | `heatOn` | boolean | `switch.power` | Lesen/Schreiben | Hauptschalter, um den Saunaofen EIN (`true`) oder AUS (`false`) zu schalten. |
 | `heaterPower` | number | `value.power` | Nur Lesen | *Hinweis:* Dieses Objekt wird von der API bereitgestellt, liefert aber derzeit oft `0 kW`. |
@@ -125,6 +125,11 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 ---
 
 ## Änderungsprotokoll (Changelog)
+
+### 0.0.29 (2026-06-23)
+* (meistermopper) `remoteControl` Datenpunkt wieder eingeführt unter Verwendung einer kombinierten Abfrage der `latest-data` & `devices/state` API-Endpunkte
+* (meistermopper) Verbindungsstatus korrigiert (nutzt `connectionState.connected` vom Gerätestatus)
+
 ### 0.0.28 (2026-06-21)
 * (meistermopper) Wiedereinführung des `remoteReady`-Datenpunkts mit Selbstkorrektur-Logik
 

@@ -1,7 +1,7 @@
 {
 	"common": {
 		"name": "harvia-fenix",
-		"version": "0.0.28",
+		"version": "0.0.29",
 		"titleLang": {
 			"en": "Harvia-Fenix Sauna Control",
 			"de": "Harvia-Fenix Saunasteuerung",
@@ -29,6 +29,19 @@
 			"zh-cn": "通过 MyHarvia 云端控制 Harvia Fenix 桑拿房"
 		},
 		"news": {
+			"0.0.29": {
+				"en": "Re-introduced remoteControl state with dynamic multi-endpoint logic.",
+				"de": "Wiedereinführung des remoteControl-Datenpunkts mit dynamischer Multi-Endpunkt-Logik.",
+				"ru": "Вновь введено состояние remoteControl с динамической логикой нескольких конечных точек.",
+				"pt": "Estado remoteControl reintroduzido com lógica dinâmica de múltiplos endpoints.",
+				"nl": "Re-introduced remoteControl state met dynamische multi-endpoint logica.",
+				"fr": "Réintroduction de l'état remoteControl avec logique dynamique multi-points d'accès.",
+				"it": "Reintrodotto lo stato remoteControl con logica dinamica multi-endpoint.",
+				"es": "Estado remoteControl reintroducido con lógica dinámica de múltiples endpoints.",
+				"pl": "Ponowne wprowadzenie stanu remoteControl z dynamiczną logiką wielu punktów końcowych.",
+				"uk": "Знову введено стан remoteControl з динамічною логікою кількох кінцевих точок.",
+				"zh-cn": "重新引入了具有动态多端点逻辑的 remoteControl 状态。"
+			},
 			"0.0.28": {
 				"en": "Re-introduced remoteReady state with self-correction logic.",
 				"de": "Wiedereinführung des remoteReady-Datenpunkts mit Selbstkorrektur-Logik.",
@@ -397,7 +410,7 @@
 			"native": {}
 		},
 		{
-			"_id": "remoteReady",
+			"_id": "remoteControl",
 			"type": "state",
 			"common": {
 				"role": "indicator",

@@ -63,7 +63,7 @@ The adapter maps your sauna's cloud states into structured ioBroker datapoints u
 |---|---|---|---|---|
 | `online` | boolean | `indicator.reachable` | Read-only | Connection state of the control unit to the cloud. |
 | `doorSafety` | boolean | `indicator.safety` | Read-only | Safety loop status (e.g., `true` if the door is secure / safe to run). |
-| `remoteReady` | boolean | `indicator` | Read-only | Remote start readiness status. If `false`, starting the heater is blocked locally. |
+| `remoteControl` | boolean | `indicator` | Read-only | Remote start readiness status. If `false`, starting the heater is blocked locally. |
 | `errorMsg` | string | `text` | Read-only | Current error messages or status text from the heater. |
 | `heatOn` | boolean | `switch.power` | Read/Write | Main toggle to switch the sauna heater ON (`true`) or OFF (`false`). |
 | `heaterPower` | number | `value.power` | Read-only | *Note:* This object is provisioned by the MyHarvia API structure but is currently delivered as `0 kW` (unpopulated). It appears to be reserved for future hardware or app updates. |
@@ -125,7 +125,10 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 ## Changelog
 
 ### **WORK IN PROGRESS**
-- (ioBroker-Bot) Adapter requires admin >= 7.8.23 now.
+
+### 0.0.29 (2026-06-23)
+* (meistermopper) Re-introduced `remoteControl` state with reliable combined multi-endpoint API logic (latest-data & devices/state)
+* (meistermopper) Fix online status to use connectionState.connected from device state
 
 ### 0.0.28 (2026-06-21)
 * (meistermopper) Re-introduced `remoteReady` state with self-correction logic

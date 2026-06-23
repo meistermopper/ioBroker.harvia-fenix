@@ -119,14 +119,14 @@ class HarviaFenix extends utils.Adapter {
         await this.setState("heatOn", false, true);
         await this.setState("lightOn", false, true);
         await this.setState("doorSafety", false, true);
-        await this.setState("remoteReady", false, true);
+        await this.setState("remoteControl", false, true);
         await this.setState("errorMsg", "", true);
         await this.setState("readyNotified10Min", false, true);
         await this.setState("targetReachedNotified", false, true);
         // Clean up removed states from previous versions
-        const oldRemoteObj = await this.getObjectAsync("remoteControl");
-        if (oldRemoteObj) {
-            await this.delObjectAsync("remoteControl");
+        const oldRemoteReadyObj = await this.getObjectAsync("remoteReady");
+        if (oldRemoteReadyObj) {
+            await this.delObjectAsync("remoteReady");
         }
         // Start connection logic
         await this.startCloudConnection();
@@ -375,6 +375,10 @@ class HarviaFenix extends utils.Adapter {
                 return;
             }
             const url = `${this.dataBaseUrl.replace(/\/$/, "")}/data/latest-data`;
+            const baseUrl = this.deviceBaseUrl.replace(/\/$/, "");
+            const devicesUrl = baseUrl.endsWith("/devices")
+                ? baseUrl
+                : `${baseUrl}/devices`;
             const deviceId = this.activeDeviceId || this.config.deviceId;
             if (!deviceId) {
                 return;
@@ -384,10 +388,16 @@ class HarviaFenix extends utils.Adapter {
                 this.firstPoll = false;
             }
             this.log.debug(`Poll Status: ${url} (ID: ${deviceId})`);
-            const response = await this.client.get(url, {
-                params: { deviceId },
-                headers: { ...this.getCloudHeaders(), Accept: "application/json" },
-            });
+            const [response, deviceStateResponse] = await Promise.all([
+                this.client.get(url, {
+                    params: { deviceId },
+                    headers: { ...this.getCloudHeaders(), Accept: "application/json" },
+                }),
+                this.client.get(`${devicesUrl}/state`, {
+                    params: { deviceId },
+                    headers: { ...this.getCloudHeaders(), Accept: "application/json" },
+                }),
+            ]);
             if (this.isUnloading)
                 return; // Prevent ghost execution if adapter stopped during request
             let p;
@@ -402,6 +412,20 @@ class HarviaFenix extends utils.Adapter {
                 }
                 else {
                     p = response.data;
+                }
+            }
+            let deviceState;
+            if (deviceStateResponse.data &&
+                typeof deviceStateResponse.data === "object" &&
+                !Array.isArray(deviceStateResponse.data)) {
+                this.log.debug(`Device State Response: ${JSON.stringify(deviceStateResponse.data)}`);
+                if (deviceStateResponse.data.data &&
+                    typeof deviceStateResponse.data.data === "object" &&
+                    !Array.isArray(deviceStateResponse.data.data)) {
+                    deviceState = deviceStateResponse.data.data;
+                }
+                else {
+                    deviceState = deviceStateResponse.data;
                 }
             }
             if (p &&
@@ -466,14 +490,25 @@ class HarviaFenix extends utils.Adapter {
                     await this.setState("heatOn", isHeatOn, true);
                 }
                 await this.updateBooleanState("lightOn", ["lightOn", "lightState", "light", "light_on"], p);
-                const rawRemoteReady = HarviaFenix.getApiValue(p, [
-                    "onOffTrigger",
-                    "remoteReadyState",
-                    "remoteReady",
-                ]);
-                if (rawRemoteReady !== undefined) {
-                    await this.setState("remoteReady", HarviaFenix.isTrue(rawRemoteReady), true);
+                // --- REMOTECONTROL & ONLINE LOGIC ---
+                let isRemoteReady = false;
+                if (deviceState &&
+                    deviceState.state &&
+                    deviceState.state.remoteAllowed !== undefined) {
+                    isRemoteReady =
+                        deviceState.state.remoteAllowed === 1 ||
+                            deviceState.state.remoteAllowed === true ||
+                            deviceState.state.remoteAllowed === "1" ||
+                            deviceState.state.remoteAllowed === "true";
                 }
+                // Fallback safety link: open door blocks remote start
+                if (!isDoorSafe) {
+                    isRemoteReady = false;
+                }
+                await this.setState("remoteControl", isRemoteReady, true);
+                // Online status from deviceState.connectionState.connected
+                const isOnline = !!deviceState?.connectionState?.connected;
+                await this.setState("online", isOnline, true);
                 // --- NOTIFICATION LOGIC ---
                 const heatOnState = await this.getStateAsync("heatOn");
                 const heatOn = heatOnState ? !!heatOnState.val : false;
@@ -508,7 +543,6 @@ class HarviaFenix extends utils.Adapter {
                         this.log.info(`♨️ Die Sauna hat ihre Zieltemperatur von ${targetTemp}°C erreicht und ist bereit!`);
                     }
                 }
-                await this.setState("online", true, true);
             }
             else {
                 this.log.warn(`Unexpected data structure during status poll: ${JSON.stringify(response.data)}`);
@@ -617,7 +651,7 @@ class HarviaFenix extends utils.Adapter {
                     if (stateName === "heatOn") {
                         await this.setState("heatOn", false, true);
                         if (value) {
-                            await this.setState("remoteReady", false, true);
+                            await this.setState("remoteControl", false, true);
                         }
                     }
                 }
@@ -675,7 +709,7 @@ class HarviaFenix extends utils.Adapter {
             }
             if (stateName === "heatOn" && value && !willRetry) {
                 await this.setState("heatOn", false, true);
-                await this.setState("remoteReady", false, true);
+                await this.setState("remoteControl", false, true);
             }
             // RE-LOGIN LOGIC: If token became invalid during runtime
             // Automatic re-login on expired token (HTTP 401)
@@ -688,7 +722,7 @@ class HarviaFenix extends utils.Adapter {
                 else {
                     if (stateName === "heatOn" && value) {
                         await this.setState("heatOn", false, true);
-                        await this.setState("remoteReady", false, true);
+                        await this.setState("remoteControl", false, true);
                     }
                 }
             }
@@ -732,8 +766,8 @@ class HarviaFenix extends utils.Adapter {
             case "heatOn": {
                 const val = HarviaFenix.isTrue(state.val);
                 if (val) {
-                    const remoteReadyState = await this.getStateAsync("remoteReady");
-                    if (!remoteReadyState?.val) {
+                    const remoteControlState = await this.getStateAsync("remoteControl");
+                    if (!remoteControlState?.val) {
                         this.log.warn("Fernstart nicht bereit. Befehl wird nicht an die Cloud gesendet.");
                         await this.setState("heatOn", false, true);
                         await this.setState("errorMsg", "Fernstart am Panel nicht bereit!", true);
