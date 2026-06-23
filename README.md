@@ -123,6 +123,8 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 ---
 
 ## Changelog
+### **WORK IN PROGRESS**
+
 ### 0.1.0 (2026-06-23)
 * (meistermopper) Initial stable beta release
 * (meistermopper) Re-introduced `remoteControl` state with dynamic multi-endpoint API polling logic
