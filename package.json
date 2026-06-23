@@ -68,7 +68,8 @@
 		"build": "npm run format && node -e \"require('fs').rmSync('build', { recursive: true, force: true })\" && tsc -p tsconfig.build.json",
 		"watch": "tsc -p tsconfig.build.json --watch",
 		"lint": "biome check .",
-		"release": "release-script --addPlaceholder"
+		"release": "release-script --addPlaceholder",
+		"manage-changelogs": "node scripts/manage-changelogs.js"
 	},
 	"bugs": "https://github.com/meistermopper/ioBroker.harvia-fenix/issues",
 	"readmeFilename": "README.md",

@@ -9,6 +9,6 @@
 		"git"
 	],
 	"exec": {
-		"before_commit": "npm run format"
+		"before_commit": "npm run manage-changelogs && npm run format"
 	}
 }
