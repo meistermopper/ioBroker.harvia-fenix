@@ -1,4 +1,8 @@
 # Older changes
+## 0.0.25 (2026-06-16)
+* (meistermopper) Removed `remoteControl` state (Fenix API limitation)
+* (meistermopper) Prevented ghost loops in polling process and improved adapter cleanup
+
 ## 0.0.24 (2026-06-16)
 * (meistermopper) Added notification states for pre-heating and target temperature reached
 * (meistermopper) Fixed `remoteControl` logic to correctly depend on `doorSafety`

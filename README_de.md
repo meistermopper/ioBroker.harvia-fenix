@@ -126,6 +126,13 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 
 ## Änderungsprotokoll (Changelog)
 
+### 0.1.0 (2026-06-23)
+* (meistermopper) Erste stabile Beta-Version
+* (meistermopper) `remoteControl` Datenpunkt wieder eingeführt mit dynamischer Multi-Endpunkt-Abfrage
+* (meistermopper) Polling-Intervalle und Verbindungsstatus-Management optimiert
+* (meistermopper) Automatische Changelog-Rotation eingerichtet, um die Readmes sauber zu halten
+* (meistermopper) Codebasis auf den neuesten Stand des Adapter-Creators refaktoriert
+
 ### 0.0.29 (2026-06-23)
 * (meistermopper) `remoteControl` Datenpunkt wieder eingeführt unter Verwendung einer kombinierten Abfrage der `latest-data` & `devices/state` API-Endpunkte
 * (meistermopper) Verbindungsstatus korrigiert (nutzt `connectionState.connected` vom Gerätestatus)
@@ -138,10 +145,6 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 
 ### 0.0.26 (2026-06-17)
 * (meistermopper) Vorbereitung für Release 0.0.26
-
-### 0.0.25 (2026-06-16)
-* (meistermopper) `remoteControl` Datenpunkt entfernt (Fenix API Limitierung)
-* (meistermopper) Ghost-Loops im Polling-Prozess verhindert und Adapter-Cleanup verbessert
 
 ## [Ältere Einträge](CHANGELOG_OLD.md)
 
