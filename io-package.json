@@ -55,19 +55,6 @@
 				"uk": "Знову введено стан remoteControl з динамічною логікою кількох кінцевих точок.",
 				"zh-cn": "重新引入了具有动态多端点逻辑的 remoteControl 状态。"
 			},
-			"0.0.28": {
-				"en": "Re-introduced remoteReady state with self-correction logic.",
-				"de": "Wiedereinführung des remoteReady-Datenpunkts mit Selbstkorrektur-Logik.",
-				"ru": "Вновь введен статус remoteReady с логикой автокоррекции.",
-				"pt": "Reintroduzido o estado remoteReady com lógica de autocorreção.",
-				"nl": "Opnieuw introduceren van de remoteReady status met zelfcorrectie logica.",
-				"fr": "Réintroduction de l'état remoteReady avec logique d'auto-correction.",
-				"it": "Reintrodotto lo stato remoteReady con logica di autocorrezione.",
-				"es": "Reintroducción del estado remoteReady con lógica de autocorrección.",
-				"pl": "Ponowne wprowadzenie stanu remoteReady z logiką autokorekty.",
-				"uk": "Знову введено стан remoteReady з логікою автокорекції.",
-				"zh-cn": "重新引入了具有自纠错逻辑 der remoteReady 状态。"
-			},
 			"0.0.27": {
 				"en": "Corrected adapter category to 'climate-control' for repository compliance.",
 				"de": "Adapter-Kategorie für Repository-Konformität auf 'climate-control' korrigiert.",
