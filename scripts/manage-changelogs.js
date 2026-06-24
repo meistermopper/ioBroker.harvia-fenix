@@ -1,5 +1,5 @@
-const fs = require("fs");
-const path = require("path");
+const fs = require("node:fs");
+const path = require("node:path");
 
 const readmePath = path.join(__dirname, "../README.md");
 const readmeDePath = path.join(__dirname, "../README_de.md");
@@ -46,7 +46,7 @@ function migrateToChangelogOld(moveBlocks) {
 			block.lines[headerIndex] = block.lines[headerIndex].replace(/^###/, "##");
 		}
 
-		newEntriesText += "\n" + block.lines.join("\n").trim() + "\n";
+		newEntriesText += `\n${block.lines.join("\n").trim()}\n`;
 	}
 
 	if (newEntriesText) {
