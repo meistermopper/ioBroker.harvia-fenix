@@ -152,9 +152,6 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 ### 0.0.27 (2026-06-18)
 * (meistermopper) Adapter-Kategorie für Repository-Konformität auf 'climate-control' korrigiert
 
-### 0.0.26 (2026-06-17)
-* (meistermopper) Vorbereitung für Release 0.0.26
-
 ## [Ältere Einträge](CHANGELOG_OLD.md)
 
 ---

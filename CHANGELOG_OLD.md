@@ -1,4 +1,7 @@
 # Older changes
+## 0.0.27 (2026-06-18)
+* (meistermopper) Corrected adapter category to 'climate-control' for repository compliance
+
 ## 0.0.26 (2026-06-17)
 * (meistermopper) Preparing 0.0.26 release
 

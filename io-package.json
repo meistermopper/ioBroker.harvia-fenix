@@ -1,425 +1,437 @@
 {
-	"common": {
-		"name": "harvia-fenix",
-		"version": "0.1.1",
-		"titleLang": {
-			"en": "Harvia-Fenix Sauna Control",
-			"de": "Harvia-Fenix Saunasteuerung",
-			"ru": "Управление сауной Harvia-Fenix",
-			"pt": "Controle de Sauna Harvia-Fenix",
-			"nl": "Harvia-Fenix ​​saunabediening",
-			"fr": "Contrôle du sauna HarviaFenix",
-			"it": "Controllo sauna Harvia-Fenix",
-			"es": "Control de sauna Harvia-Fenix",
-			"pl": "Sterowanie sauną Harvia-Fenix",
-			"uk": "Керування сауною Harvia-Fenix",
-			"zh-cn": "Harvia-Fenix 桑拿控制"
-		},
-		"desc": {
-			"en": "Control Harvia Fenix sauna units via MyHarvia cloud",
-			"de": "Steuerung von Harvia Fenix Sauna-Steuerungen über die MyHarvia Cloud",
-			"ru": "Управление саунами Harvia Fenix через облако MyHarvia",
-			"pt": "Controle as unidades de sauna Harvia Fenix via nuvem MyHarvia",
-			"nl": "Bestuur Harvia Fenix-sauna-units via de MyHarvia-cloud",
-			"fr": "Contrôlez les saunas Harvia Fenix via le cloud MyHarvia",
-			"it": "Controlla le unità sauna Harvia Fenix tramite il cloud MyHarvia",
-			"es": "Controle las unidades de sauna Harvia Fenix a través de la nube MyHarvia",
-			"pl": "Sterowanie saunami Harvia Fenix za pomocą chmury MyHarvia",
-			"uk": "Керування саунами Harvia Fenix через хмару MyHarvia",
-			"zh-cn": "通过 MyHarvia 云端控制 Harvia Fenix 桑拿房"
-		},
-		"news": {
-			"0.1.1": {
-				"en": "Fixed repochecker E254 error by removing unpublished version 0.0.28 from news in io-package.json\nUpdated @iobroker/adapter-core dependency to ^3.4.1\nAdded minimum Node.js requirement to Prerequisites section of READMEs",
-				"de": "Der Fehler E254 im Repochecker wurde behoben, indem die unveröffentlichte Version 0.0.28 aus den News in der Datei io-package.json entfernt wurde.\nDie Abhängigkeit von @iobroker/adapter-core wurde auf Version ^3.4.1 aktualisiert.\nDie Mindestanforderung für Node.js wurde dem Abschnitt „Voraussetzungen“ der README-Dateien hinzugefügt.",
-				"ru": "Исправлена ошибка repochecker E254 путем удаления неопубликованной версии 0.0.28 из раздела news в файле io-package.json.\nОбновлена зависимость @iobroker/adapter-core до версии ^3.4.1\nВ раздел «Предварительные требования» файла README добавлено минимальное требование к Node.js.",
-				"pt": "Corrigido o erro E254 do repochecker removendo a versão não publicada 0.0.28 da seção de notícias no arquivo io-package.json.\nDependência @iobroker/adapter-core atualizada para ^3.4.1\nAdicionado o requisito mínimo de Node.js à seção de pré-requisitos dos arquivos README.",
-				"nl": "De E254-fout van repochecker is verholpen door de niet-gepubliceerde versie 0.0.28 uit het nieuwsgedeelte in io-package.json te verwijderen.\nDe afhankelijkheid @iobroker/adapter-core is bijgewerkt naar ^3.4.1.\nDe minimale Node.js-vereiste is toegevoegd aan de sectie 'Vereisten' in de README-bestanden.",
-				"fr": "Correction de l'erreur E254 de repochecker : suppression de la version non publiée 0.0.28 des actualités dans io-package.json\nDépendance @iobroker/adapter-core mise à jour vers ^3.4.1\nAjout d'une exigence minimale en Node.js à la section Prérequis des fichiers README.",
-				"it": "Risolto l'errore E254 di repochecker rimuovendo la versione non pubblicata 0.0.28 dalla sezione news nel file io-package.json.\nDipendenza @iobroker/adapter-core aggiornata a ^3.4.1\nAggiunto il requisito minimo di Node.js alla sezione Prerequisiti dei file README.",
-				"es": "Se corrigió el error E254 de repochecker eliminando la versión no publicada 0.0.28 de news en io-package.json.\nSe actualizó la dependencia @iobroker/adapter-core a ^3.4.1\nSe agregó el requisito mínimo de Node.js a la sección de Prerrequisitos de los archivos README.",
-				"pl": "Naprawiono błąd E254 programu repochecker poprzez usunięcie nieopublikowanej wersji 0.0.28 z wiadomości w pliku io-package.json\nZaktualizowano zależność @iobroker/adapter-core do ^3.4.1\nDodano minimalne wymagania Node.js do sekcji „Wymagania wstępne” w plikach README",
-				"uk": "Виправлено помилку E254 перевірки репозиторії шляхом видалення неопублікованої версії 0.0.28 з новин у io-package.json\nОновлено залежність @iobroker/adapter-core до ^3.4.1.\nДодано мінімальну вимогу Node.js до розділу «Попередні вимоги» файлів README.",
-				"zh-cn": "通过从 io-package.json 的 news 中移除未发布的版本 0.0.28，修复了 repochecker E254 错误。\n已将 @iobroker/adapter-core 依赖项更新至 ^3.4.1\n在README文件的“先决条件”部分添加了最低Node.js要求。"
-			},
-			"0.1.0": {
-				"en": "Initial stable beta release\nRe-introduced `remoteControl` state with dynamic multi-endpoint API polling logic\nOptimized polling rate limits and connection state management\nConfigured automated changelog rotation to keep READMEs clean\nRefactored codebase using the latest adapter creator standards",
-				"de": "Erste stabile Beta-Version\nDer Status `remoteControl` wurde mit dynamischer Multi-Endpoint-API-Abfragelogik wieder eingeführt.\nOptimierte Abfrageratenbegrenzungen und Verbindungsstatusverwaltung\nDie automatische Rotation der Änderungsprotokolle wurde konfiguriert, um die README-Dateien übersichtlich zu halten.\nDie Codebasis wurde unter Verwendung der neuesten Adapter-Creator-Standards refaktoriert.",
-				"ru": "Первый стабильный бета-релиз\nВновь введено состояние `remoteControl` с логикой динамического опроса API с использованием нескольких конечных точек.\nОптимизированы ограничения частоты опроса и управление состоянием соединения.\nНастроена автоматическая ротация списка изменений для поддержания чистоты файлов README.\nПереработан код с использованием новейших стандартов создания адаптеров.",
-				"pt": "Lançamento inicial da versão beta estável\nReintroduzimos o estado `remoteControl` com lógica de polling de API multi-endpoint dinâmica.\nLimites de taxa de sondagem otimizados e gerenciamento do estado da conexão\nConfigurei a rotação automática do changelog para manter os arquivos README organizados.\nCódigo-fonte refatorado usando os padrões mais recentes do criador de adaptadores.",
-				"nl": "Eerste stabiele bètaversie\nDe `remoteControl`-status is opnieuw geïntroduceerd met dynamische API-pollinglogica voor meerdere eindpunten.\nGeoptimaliseerde pollingfrequentielimieten en beheer van de verbindingsstatus\nAutomatische rotatie van wijzigingslogboeken geconfigureerd om README-bestanden schoon te houden.\nDe codebase is geherstructureerd met behulp van de nieuwste adapter creator-standaarden.",
-				"fr": "Version bêta stable initiale\nRéintroduction de l'état `remoteControl` avec une logique d'interrogation dynamique de l'API multi-points de terminaison\nOptimisation des limites de fréquence d'interrogation et de la gestion de l'état de la connexion\nRotation automatisée des journaux de modifications configurée pour maintenir les fichiers README propres\nCode source remanié selon les dernières normes de création d'adaptateurs",
-				"it": "Versione beta stabile iniziale\nReintrodotto lo stato `remoteControl` con logica di polling API multi-endpoint dinamica.\nLimiti di frequenza di polling e gestione dello stato della connessione ottimizzati.\nConfigurazione della rotazione automatica del registro delle modifiche per mantenere puliti i file README.\nCodice sorgente ristrutturato utilizzando i più recenti standard per la creazione di adattatori.",
-				"es": "Versión beta estable inicial\nSe reintrodujo el estado `remoteControl` con lógica de sondeo de API multi-endpoint dinámica.\nLímites de frecuencia de sondeo optimizados y gestión del estado de la conexión\nSe configuró la rotación automática del registro de cambios para mantener limpios los archivos README.\nSe ha refactorizado el código base utilizando los estándares más recientes para la creación de adaptadores.",
-				"pl": "Pierwsza stabilna wersja beta\nPonownie wprowadzono stan `remoteControl` z dynamiczną logiką sondowania wielopunktowego interfejsu API\nZoptymalizowane limity częstotliwości sondowania i zarządzanie stanem połączenia\nSkonfigurowano automatyczną rotację rejestru zmian, aby zachować czystość plików README\nPrzebudowa bazy kodu przy użyciu najnowszych standardów tworzenia adapterów",
-				"uk": "Початковий стабільний бета-реліз\nПовторно введено стан `remoteControl` з динамічною логікою опитування API кількох кінцевих точок.\nОптимізовані обмеження частоти опитування та управління станом з'єднання\nНалаштовано автоматичну ротацію журналу змін для підтримки чистоти файлів README\nРефакторовано кодову базу з використанням найновіших стандартів для створення адаптерів",
-				"zh-cn": "初始稳定测试版\n重新引入了带有动态多端点 API 轮询逻辑的 `remoteControl` 状态\n优化轮询速率限制和连接状态管理\n配置了自动变更日志轮换，以保持 README 文件的整洁。\n使用最新的适配器创建器标准重构了代码库"
-			},
-			"0.0.29": {
-				"en": "Re-introduced remoteControl state with dynamic multi-endpoint logic.",
-				"de": "Wiedereinführung des remoteControl-Datenpunkts mit dynamischer Multi-Endpunkt-Logik.",
-				"ru": "Вновь введено состояние remoteControl с динамической логикой нескольких конечных точек.",
-				"pt": "Estado remoteControl reintroduzido com lógica dinâmica de múltiplos endpoints.",
-				"nl": "Re-introduced remoteControl state met dynamische multi-endpoint logica.",
-				"fr": "Réintroduction de l'état remoteControl avec logique dynamique multi-points d'accès.",
-				"it": "Reintrodotto lo stato remoteControl con logica dinamica multi-endpoint.",
-				"es": "Estado remoteControl reintroducido con lógica dinámica de múltiples endpoints.",
-				"pl": "Ponowne wprowadzenie stanu remoteControl z dynamiczną logiką wielu punktów końcowych.",
-				"uk": "Знову введено стан remoteControl з динамічною логікою кількох кінцевих точок.",
-				"zh-cn": "重新引入了具有动态多端点逻辑的 remoteControl 状态。"
-			},
-			"0.0.27": {
-				"en": "Corrected adapter category to 'climate-control' for repository compliance.",
-				"de": "Adapter-Kategorie für Repository-Konformität auf 'climate-control' korrigiert.",
-				"ru": "Категория адаптера исправлена на 'climate-control' для соответствия репозиторию.",
-				"pt": "Categoria do adaptador corrigida para 'climate-control' por conformidade com o repositório.",
-				"nl": "Adaptercategorie gecorrigeerd naar 'climate-control' voor repository-conformiteit.",
-				"fr": "Catégorie d'adaptateur corrigée en 'climate-control' pour la conformité du référentiel.",
-				"it": "Categoria dell'adattatore corretta in 'climate-control' per la conformità del repository.",
-				"es": "Categoría de adaptador corregida a 'climate-control' para cumplimiento del repositorio.",
-				"pl": "Kategoria adaptera poprawiona na 'climate-control' dla zgodności z repozytorium.",
-				"uk": "Категорія адаптера виправлена на 'climate-control' для відповідності репозиторію.",
-				"zh-cn": "已将适配器类别更正为 'climate-control' 以符合存储库要求。"
-			},
-			"0.0.26": {
-				"en": "Preparing 0.0.26 release",
-				"de": "Herstellung von 0.0.26 Release",
-				"ru": "Подготовка 0,0.26 выпуска",
-				"pt": "Preparação da libertação 0.0.26",
-				"nl": "Voorbereiding van afgifte van 0,0.26",
-				"fr": "Préparation de la libération 0.0.26",
-				"it": "Preparazione del rilascio 0.0.26",
-				"es": "Preparación de la versión 0.0.26",
-				"pl": "Przygotowanie wersji 0.0.26",
-				"uk": "Підготовка 0.0.26 реліз",
-				"zh-cn": "准备 0.026 发布"
-			},
-			"0.0.25": {
-				"en": "Removed remoteControl state (Harvia Fenix API limitation). Optimized API polling and error handling for ghost loops.",
-				"de": "Datenpunkt remoteControl entfernt (Harvia Fenix API Limitation). API-Polling und Fehlerbehandlung für Ghost-Loops optimiert.",
-				"ru": "Удален статус remoteControl (ограничение API Harvia Fenix). Оптимизирован опрос API и обработка ошибок для призрачных циклов.",
-				"pt": "Removido o estado remoteControl (limitação da API Harvia Fenix). Otimização da pesquisa da API e tratamento de erros para ghost loops.",
-				"nl": "Status remoteControl verwijderd (Harvia Fenix API beperking). API polling en foutafhandeling geoptimaliseerd.",
-				"fr": "Suppression de l'état remoteControl (limitation de l'API Harvia Fenix). Optimisation de l'interrogation de l'API et gestion des erreurs.",
-				"it": "Rimosso lo stato remoteControl (limitazione API Harvia Fenix). Ottimizzazione del polling API e della gestione degli errori.",
-				"es": "Estado remoteControl eliminado (limitación de la API de Harvia Fenix). Optimizado el polling de la API y el manejo de errores.",
-				"pl": "Usunięto stan remoteControl (ograniczenie API Harvia Fenix). Zoptymalizowano odpytywanie API i obsługę błędów.",
-				"uk": "Видалено стан remoteControl (обмеження API Harvia Fenix). Оптимізовано опитування API та обробку помилок.",
-				"zh-cn": "删除了 remoteControl 状态（Harvia Fenix API 限制）。优化了 API 轮询和重影循环错误处理。"
-			},
-			"0.0.22": {
-				"en": "Prepare clean 0.0.22 release",
-				"de": "Bereiten Sie saubere 0.0.22 Release",
-				"ru": "Приготовьте чистый 0.0.22 выпуск",
-				"pt": "Preparar liberação limpa 0.0.22",
-				"nl": "Bereid een schone afgifte van 0,022",
-				"fr": "Préparation propre 0.0.22 libération",
-				"it": "Preparare il rilascio pulito 0.0.22",
-				"es": "Prepare limpio 0.0.22 liberación",
-				"pl": "Przygotowanie czystej wersji 0.0.22",
-				"uk": "Приготувати чистий 0.0.22 реліз",
-				"zh-cn": "准备清除 0.022 释放"
-			}
-		},
-		"authors": ["meistermopper <meister.mopper@gmail.com>"],
-		"keywords": ["harvia", "fenix", "sauna", "myharvia", "cloud"],
-		"licenseInformation": {
-			"type": "free",
-			"license": "MIT"
-		},
-		"platform": "Javascript/Node.js",
-		"icon": "harvia.png",
-		"enabled": true,
-		"extIcon": "https://raw.githubusercontent.com/meistermopper/ioBroker.harvia-fenix/main/admin/harvia.png",
-		"readme": "https://github.com/meistermopper/ioBroker.harvia-fenix/blob/main/README.md",
-		"loglevel": "info",
-		"tier": 3,
-		"mode": "daemon",
-		"type": "climate-control",
-		"compact": true,
-		"connectionType": "cloud",
-		"dataSource": "poll",
-		"adminUI": {
-			"config": "json"
-		},
-		"dependencies": [
-			{
-				"js-controller": ">=6.0.11"
-			}
-		],
-		"globalDependencies": [
-			{
-				"admin": ">=7.8.23"
-			}
-		]
-	},
-	"native": {
-		"username": "",
-		"password": "",
-		"deviceId": "",
-		"pollInterval": 60
-	},
-	"protectedNative": ["password"],
-	"encryptedNative": ["password"],
-	"objects": [],
-	"instanceObjects": [
-		{
-			"_id": "info",
-			"type": "channel",
-			"common": {
-				"name": "Information"
-			},
-			"native": {}
-		},
-		{
-			"_id": "info.connection",
-			"type": "state",
-			"common": {
-				"role": "indicator.connected",
-				"name": "Device or service connected",
-				"type": "boolean",
-				"read": true,
-				"write": false,
-				"def": false
-			},
-			"native": {}
-		},
-		{
-			"_id": "online",
-			"type": "state",
-			"common": {
-				"role": "indicator.reachable",
-				"name": "Cloud connection status",
-				"type": "boolean",
-				"read": true,
-				"write": false,
-				"def": false
-			},
-			"native": {}
-		},
-		{
-			"_id": "heatOn",
-			"type": "state",
-			"common": {
-				"role": "switch.power",
-				"name": "Sauna heater power",
-				"type": "boolean",
-				"read": true,
-				"write": true,
-				"def": false
-			},
-			"native": {}
-		},
-		{
-			"_id": "lightOn",
-			"type": "state",
-			"common": {
-				"role": "switch.light",
-				"name": "Sauna light",
-				"type": "boolean",
-				"read": true,
-				"write": true,
-				"def": false
-			},
-			"native": {}
-		},
-		{
-			"_id": "temp",
-			"type": "state",
-			"common": {
-				"role": "value.temperature",
-				"name": "Current cabin temperature",
-				"type": "number",
-				"unit": "°C",
-				"read": true,
-				"write": false,
-				"def": 0
-			},
-			"native": {}
-		},
-		{
-			"_id": "targetTemp",
-			"type": "state",
-			"common": {
-				"role": "level.temperature",
-				"name": "Target temperature",
-				"type": "number",
-				"unit": "°C",
-				"read": true,
-				"write": true,
-				"def": 90
-			},
-			"native": {}
-		},
-		{
-			"_id": "doorSafety",
-			"type": "state",
-			"common": {
-				"role": "sensor.door",
-				"name": "Door safety circuit",
-				"type": "boolean",
-				"read": true,
-				"write": false,
-				"def": false
-			},
-			"native": {}
-		},
-		{
-			"_id": "totalBathingHours",
-			"type": "state",
-			"common": {
-				"role": "value",
-				"name": "Total bathing hours",
-				"type": "number",
-				"unit": "h",
-				"read": true,
-				"write": false,
-				"def": 0
-			},
-			"native": {}
-		},
-		{
-			"_id": "totalSessions",
-			"type": "state",
-			"common": {
-				"role": "value",
-				"name": "Total sessions",
-				"type": "number",
-				"read": true,
-				"write": false,
-				"def": 0
-			},
-			"native": {}
-		},
-		{
-			"_id": "errorMsg",
-			"type": "state",
-			"common": {
-				"role": "text",
-				"name": "Last error message",
-				"type": "string",
-				"read": true,
-				"write": false,
-				"def": ""
-			},
-			"native": {}
-		},
-		{
-			"_id": "heaterPower",
-			"type": "state",
-			"common": {
-				"role": "value.power",
-				"name": "Current heater power",
-				"type": "number",
-				"unit": "kW",
-				"read": true,
-				"write": false,
-				"def": 0
-			},
-			"native": {}
-		},
-		{
-			"_id": "panelTemp",
-			"type": "state",
-			"common": {
-				"role": "value.temperature",
-				"name": "Panel temperature",
-				"type": "number",
-				"unit": "°C",
-				"read": true,
-				"write": false,
-				"def": 0
-			},
-			"native": {}
-		},
-		{
-			"_id": "totalOperatingHours",
-			"type": "state",
-			"common": {
-				"role": "value",
-				"name": "Total operating hours",
-				"type": "number",
-				"unit": "h",
-				"read": true,
-				"write": false,
-				"def": 0
-			},
-			"native": {}
-		},
-		{
-			"_id": "readyNotified10Min",
-			"type": "state",
-			"common": {
-				"role": "indicator",
-				"name": {
-					"en": "10-minute pre-warning sent",
-					"de": "10-Minuten-Vorwarnung gesendet",
-					"ru": "Отправлено 10-минутное предупреждение",
-					"pt": "Aviso prévio de 10 minutos enviado",
-					"nl": "10 minuten waarschuwing vooraf verzonden",
-					"fr": "Pré-avertissement de 10 minutes envoyé",
-					"it": "Preavviso di 10 minuti inviato",
-					"es": "Aviso previo de 10 minutos enviado",
-					"pl": "Wysłano 10-minutowe ostrzeżenie",
-					"uk": "Відправлено 10-хвилинне попередження",
-					"zh-cn": "已发送 10 分钟预警"
-				},
-				"type": "boolean",
-				"read": true,
-				"write": false,
-				"def": false
-			},
-			"native": {}
-		},
-		{
-			"_id": "targetReachedNotified",
-			"type": "state",
-			"common": {
-				"role": "indicator",
-				"name": {
-					"en": "Target temperature reached",
-					"de": "Zieltemperatur erreicht",
-					"ru": "Целевая температура достигнута",
-					"pt": "Temperatura alvo atingida",
-					"nl": "Doeltemperatuur bereikt",
-					"fr": "Température cible atteinte",
-					"it": "Temperatura target raggiunta",
-					"es": "Temperatura objetivo alcanzada",
-					"pl": "Osiągnięto temperaturę docelową",
-					"uk": "Цільова температура досягнута",
-					"zh-cn": "已达到目标温度"
-				},
-				"type": "boolean",
-				"read": true,
-				"write": false,
-				"def": false
-			},
-			"native": {}
-		},
-		{
-			"_id": "remoteControl",
-			"type": "state",
-			"common": {
-				"role": "indicator",
-				"name": {
-					"en": "Remote start ready",
-					"de": "Bereit für Fernstart",
-					"ru": "Готов к дистанционному запуску",
-					"pt": "Partida remota pronta",
-					"nl": "Klaar voor start op afstand",
-					"fr": "Démarrage à distance prêt",
-					"it": "Pronto per l'avvio remoto",
-					"es": "Inicio remoto listo",
-					"pl": "Gotowy do zdalnego startu",
-					"uk": "Готовий до дистанційного запуску",
-					"zh-cn": "远程启动就绪"
-				},
-				"type": "boolean",
-				"read": true,
-				"write": false,
-				"def": false
-			},
-			"native": {}
-		}
-	]
+  "common": {
+    "name": "harvia-fenix",
+    "version": "0.1.2",
+    "titleLang": {
+      "en": "Harvia-Fenix Sauna Control",
+      "de": "Harvia-Fenix Saunasteuerung",
+      "ru": "Управление сауной Harvia-Fenix",
+      "pt": "Controle de Sauna Harvia-Fenix",
+      "nl": "Harvia-Fenix ​​saunabediening",
+      "fr": "Contrôle du sauna HarviaFenix",
+      "it": "Controllo sauna Harvia-Fenix",
+      "es": "Control de sauna Harvia-Fenix",
+      "pl": "Sterowanie sauną Harvia-Fenix",
+      "uk": "Керування сауною Harvia-Fenix",
+      "zh-cn": "Harvia-Fenix 桑拿控制"
+    },
+    "desc": {
+      "en": "Control Harvia Fenix sauna units via MyHarvia cloud",
+      "de": "Steuerung von Harvia Fenix Sauna-Steuerungen über die MyHarvia Cloud",
+      "ru": "Управление саунами Harvia Fenix через облако MyHarvia",
+      "pt": "Controle as unidades de sauna Harvia Fenix via nuvem MyHarvia",
+      "nl": "Bestuur Harvia Fenix-sauna-units via de MyHarvia-cloud",
+      "fr": "Contrôlez les saunas Harvia Fenix via le cloud MyHarvia",
+      "it": "Controlla le unità sauna Harvia Fenix tramite il cloud MyHarvia",
+      "es": "Controle las unidades de sauna Harvia Fenix a través de la nube MyHarvia",
+      "pl": "Sterowanie saunami Harvia Fenix za pomocą chmury MyHarvia",
+      "uk": "Керування саунами Harvia Fenix через хмару MyHarvia",
+      "zh-cn": "通过 MyHarvia 云端控制 Harvia Fenix 桑拿房"
+    },
+    "news": {
+      "0.1.2": {
+        "en": "docs: update German translation of the changelog in README_de.md",
+        "de": "Dokumentation: Aktualisierung der deutschen Übersetzung des Änderungsprotokolls in README_de.md",
+        "ru": "docs: обновлен немецкий перевод списка изменений в файле README_de.md",
+        "pt": "docs: atualizar a tradução alemã do changelog em README_de.md",
+        "nl": "docs: update de Duitse vertaling van het wijzigingslogboek in README_de.md",
+        "fr": "Documentation : mettre à jour la traduction allemande du journal des modifications dans README_de.md",
+        "it": "Documentazione: aggiornata la traduzione tedesca del registro delle modifiche in README_de.md",
+        "es": "Documentación: actualizar la traducción al alemán del registro de cambios en README_de.md",
+        "pl": "dokumenty: aktualizacja niemieckiego tłumaczenia dziennika zmian w README_de.md",
+        "uk": "документація: оновлено німецький переклад журналу змін у README_de.md",
+        "zh-cn": "文档：更新 README_de.md 文件中的德语更新日志翻译"
+      },
+      "0.1.1": {
+        "en": "Fixed repochecker E254 error by removing unpublished version 0.0.28 from news in io-package.json\nUpdated @iobroker/adapter-core dependency to ^3.4.1\nAdded minimum Node.js requirement to Prerequisites section of READMEs",
+        "de": "Der Fehler E254 im Repochecker wurde behoben, indem die unveröffentlichte Version 0.0.28 aus den News in der Datei io-package.json entfernt wurde.\nDie Abhängigkeit von @iobroker/adapter-core wurde auf Version ^3.4.1 aktualisiert.\nDie Mindestanforderung für Node.js wurde dem Abschnitt „Voraussetzungen“ der README-Dateien hinzugefügt.",
+        "ru": "Исправлена ошибка repochecker E254 путем удаления неопубликованной версии 0.0.28 из раздела news в файле io-package.json.\nОбновлена зависимость @iobroker/adapter-core до версии ^3.4.1\nВ раздел «Предварительные требования» файла README добавлено минимальное требование к Node.js.",
+        "pt": "Corrigido o erro E254 do repochecker removendo a versão não publicada 0.0.28 da seção de notícias no arquivo io-package.json.\nDependência @iobroker/adapter-core atualizada para ^3.4.1\nAdicionado o requisito mínimo de Node.js à seção de pré-requisitos dos arquivos README.",
+        "nl": "De E254-fout van repochecker is verholpen door de niet-gepubliceerde versie 0.0.28 uit het nieuwsgedeelte in io-package.json te verwijderen.\nDe afhankelijkheid @iobroker/adapter-core is bijgewerkt naar ^3.4.1.\nDe minimale Node.js-vereiste is toegevoegd aan de sectie 'Vereisten' in de README-bestanden.",
+        "fr": "Correction de l'erreur E254 de repochecker : suppression de la version non publiée 0.0.28 des actualités dans io-package.json\nDépendance @iobroker/adapter-core mise à jour vers ^3.4.1\nAjout d'une exigence minimale en Node.js à la section Prérequis des fichiers README.",
+        "it": "Risolto l'errore E254 di repochecker rimuovendo la versione non pubblicata 0.0.28 dalla sezione news nel file io-package.json.\nDipendenza @iobroker/adapter-core aggiornata a ^3.4.1\nAggiunto il requisito minimo di Node.js alla sezione Prerequisiti dei file README.",
+        "es": "Se corrigió el error E254 de repochecker eliminando la versión no publicada 0.0.28 de news en io-package.json.\nSe actualizó la dependencia @iobroker/adapter-core a ^3.4.1\nSe agregó el requisito mínimo de Node.js a la sección de Prerrequisitos de los archivos README.",
+        "pl": "Naprawiono błąd E254 programu repochecker poprzez usunięcie nieopublikowanej wersji 0.0.28 z wiadomości w pliku io-package.json\nZaktualizowano zależność @iobroker/adapter-core do ^3.4.1\nDodano minimalne wymagania Node.js do sekcji „Wymagania wstępne” w plikach README",
+        "uk": "Виправлено помилку E254 перевірки репозиторії шляхом видалення неопублікованої версії 0.0.28 з новин у io-package.json\nОновлено залежність @iobroker/adapter-core до ^3.4.1.\nДодано мінімальну вимогу Node.js до розділу «Попередні вимоги» файлів README.",
+        "zh-cn": "通过从 io-package.json 的 news 中移除未发布的版本 0.0.28，修复了 repochecker E254 错误。\n已将 @iobroker/adapter-core 依赖项更新至 ^3.4.1\n在README文件的“先决条件”部分添加了最低Node.js要求。"
+      },
+      "0.1.0": {
+        "en": "Initial stable beta release\nRe-introduced `remoteControl` state with dynamic multi-endpoint API polling logic\nOptimized polling rate limits and connection state management\nConfigured automated changelog rotation to keep READMEs clean\nRefactored codebase using the latest adapter creator standards",
+        "de": "Erste stabile Beta-Version\nDer Status `remoteControl` wurde mit dynamischer Multi-Endpoint-API-Abfragelogik wieder eingeführt.\nOptimierte Abfrageratenbegrenzungen und Verbindungsstatusverwaltung\nDie automatische Rotation der Änderungsprotokolle wurde konfiguriert, um die README-Dateien übersichtlich zu halten.\nDie Codebasis wurde unter Verwendung der neuesten Adapter-Creator-Standards refaktoriert.",
+        "ru": "Первый стабильный бета-релиз\nВновь введено состояние `remoteControl` с логикой динамического опроса API с использованием нескольких конечных точек.\nОптимизированы ограничения частоты опроса и управление состоянием соединения.\nНастроена автоматическая ротация списка изменений для поддержания чистоты файлов README.\nПереработан код с использованием новейших стандартов создания адаптеров.",
+        "pt": "Lançamento inicial da versão beta estável\nReintroduzimos o estado `remoteControl` com lógica de polling de API multi-endpoint dinâmica.\nLimites de taxa de sondagem otimizados e gerenciamento do estado da conexão\nConfigurei a rotação automática do changelog para manter os arquivos README organizados.\nCódigo-fonte refatorado usando os padrões mais recentes do criador de adaptadores.",
+        "nl": "Eerste stabiele bètaversie\nDe `remoteControl`-status is opnieuw geïntroduceerd met dynamische API-pollinglogica voor meerdere eindpunten.\nGeoptimaliseerde pollingfrequentielimieten en beheer van de verbindingsstatus\nAutomatische rotatie van wijzigingslogboeken geconfigureerd om README-bestanden schoon te houden.\nDe codebase is geherstructureerd met behulp van de nieuwste adapter creator-standaarden.",
+        "fr": "Version bêta stable initiale\nRéintroduction de l'état `remoteControl` avec une logique d'interrogation dynamique de l'API multi-points de terminaison\nOptimisation des limites de fréquence d'interrogation et de la gestion de l'état de la connexion\nRotation automatisée des journaux de modifications configurée pour maintenir les fichiers README propres\nCode source remanié selon les dernières normes de création d'adaptateurs",
+        "it": "Versione beta stabile iniziale\nReintrodotto lo stato `remoteControl` con logica di polling API multi-endpoint dinamica.\nLimiti di frequenza di polling e gestione dello stato della connessione ottimizzati.\nConfigurazione della rotazione automatica del registro delle modifiche per mantenere puliti i file README.\nCodice sorgente ristrutturato utilizzando i più recenti standard per la creazione di adattatori.",
+        "es": "Versión beta estable inicial\nSe reintrodujo el estado `remoteControl` con lógica de sondeo de API multi-endpoint dinámica.\nLímites de frecuencia de sondeo optimizados y gestión del estado de la conexión\nSe configuró la rotación automática del registro de cambios para mantener limpios los archivos README.\nSe ha refactorizado el código base utilizando los estándares más recientes para la creación de adaptadores.",
+        "pl": "Pierwsza stabilna wersja beta\nPonownie wprowadzono stan `remoteControl` z dynamiczną logiką sondowania wielopunktowego interfejsu API\nZoptymalizowane limity częstotliwości sondowania i zarządzanie stanem połączenia\nSkonfigurowano automatyczną rotację rejestru zmian, aby zachować czystość plików README\nPrzebudowa bazy kodu przy użyciu najnowszych standardów tworzenia adapterów",
+        "uk": "Початковий стабільний бета-реліз\nПовторно введено стан `remoteControl` з динамічною логікою опитування API кількох кінцевих точок.\nОптимізовані обмеження частоти опитування та управління станом з'єднання\nНалаштовано автоматичну ротацію журналу змін для підтримки чистоти файлів README\nРефакторовано кодову базу з використанням найновіших стандартів для створення адаптерів",
+        "zh-cn": "初始稳定测试版\n重新引入了带有动态多端点 API 轮询逻辑的 `remoteControl` 状态\n优化轮询速率限制和连接状态管理\n配置了自动变更日志轮换，以保持 README 文件的整洁。\n使用最新的适配器创建器标准重构了代码库"
+      },
+      "0.0.29": {
+        "en": "Re-introduced remoteControl state with dynamic multi-endpoint logic.",
+        "de": "Wiedereinführung des remoteControl-Datenpunkts mit dynamischer Multi-Endpunkt-Logik.",
+        "ru": "Вновь введено состояние remoteControl с динамической логикой нескольких конечных точек.",
+        "pt": "Estado remoteControl reintroduzido com lógica dinâmica de múltiplos endpoints.",
+        "nl": "Re-introduced remoteControl state met dynamische multi-endpoint logica.",
+        "fr": "Réintroduction de l'état remoteControl avec logique dynamique multi-points d'accès.",
+        "it": "Reintrodotto lo stato remoteControl con logica dinamica multi-endpoint.",
+        "es": "Estado remoteControl reintroducido con lógica dinámica de múltiples endpoints.",
+        "pl": "Ponowne wprowadzenie stanu remoteControl z dynamiczną logiką wielu punktów końcowych.",
+        "uk": "Знову введено стан remoteControl з динамічною логікою кількох кінцевих точок.",
+        "zh-cn": "重新引入了具有动态多端点逻辑的 remoteControl 状态。"
+      },
+      "0.0.27": {
+        "en": "Corrected adapter category to 'climate-control' for repository compliance.",
+        "de": "Adapter-Kategorie für Repository-Konformität auf 'climate-control' korrigiert.",
+        "ru": "Категория адаптера исправлена на 'climate-control' для соответствия репозиторию.",
+        "pt": "Categoria do adaptador corrigida para 'climate-control' por conformidade com o repositório.",
+        "nl": "Adaptercategorie gecorrigeerd naar 'climate-control' voor repository-conformiteit.",
+        "fr": "Catégorie d'adaptateur corrigée en 'climate-control' pour la conformité du référentiel.",
+        "it": "Categoria dell'adattatore corretta in 'climate-control' per la conformità del repository.",
+        "es": "Categoría de adaptador corregida a 'climate-control' para cumplimiento del repositorio.",
+        "pl": "Kategoria adaptera poprawiona na 'climate-control' dla zgodności z repozytorium.",
+        "uk": "Категорія адаптера виправлена на 'climate-control' для відповідності репозиторію.",
+        "zh-cn": "已将适配器类别更正为 'climate-control' 以符合存储库要求。"
+      },
+      "0.0.26": {
+        "en": "Preparing 0.0.26 release",
+        "de": "Herstellung von 0.0.26 Release",
+        "ru": "Подготовка 0,0.26 выпуска",
+        "pt": "Preparação da libertação 0.0.26",
+        "nl": "Voorbereiding van afgifte van 0,0.26",
+        "fr": "Préparation de la libération 0.0.26",
+        "it": "Preparazione del rilascio 0.0.26",
+        "es": "Preparación de la versión 0.0.26",
+        "pl": "Przygotowanie wersji 0.0.26",
+        "uk": "Підготовка 0.0.26 реліз",
+        "zh-cn": "准备 0.026 发布"
+      },
+      "0.0.25": {
+        "en": "Removed remoteControl state (Harvia Fenix API limitation). Optimized API polling and error handling for ghost loops.",
+        "de": "Datenpunkt remoteControl entfernt (Harvia Fenix API Limitation). API-Polling und Fehlerbehandlung für Ghost-Loops optimiert.",
+        "ru": "Удален статус remoteControl (ограничение API Harvia Fenix). Оптимизирован опрос API и обработка ошибок для призрачных циклов.",
+        "pt": "Removido o estado remoteControl (limitação da API Harvia Fenix). Otimização da pesquisa da API e tratamento de erros para ghost loops.",
+        "nl": "Status remoteControl verwijderd (Harvia Fenix API beperking). API polling en foutafhandeling geoptimaliseerd.",
+        "fr": "Suppression de l'état remoteControl (limitation de l'API Harvia Fenix). Optimisation de l'interrogation de l'API et gestion des erreurs.",
+        "it": "Rimosso lo stato remoteControl (limitazione API Harvia Fenix). Ottimizzazione del polling API e della gestione degli errori.",
+        "es": "Estado remoteControl eliminado (limitación de la API de Harvia Fenix). Optimizado el polling de la API y el manejo de errores.",
+        "pl": "Usunięto stan remoteControl (ograniczenie API Harvia Fenix). Zoptymalizowano odpytywanie API i obsługę błędów.",
+        "uk": "Видалено стан remoteControl (обмеження API Harvia Fenix). Оптимізовано опитування API та обробку помилок.",
+        "zh-cn": "删除了 remoteControl 状态（Harvia Fenix API 限制）。优化了 API 轮询和重影循环错误处理。"
+      }
+    },
+    "authors": [
+      "meistermopper <meister.mopper@gmail.com>"
+    ],
+    "keywords": [
+      "harvia",
+      "fenix",
+      "sauna",
+      "myharvia",
+      "cloud"
+    ],
+    "licenseInformation": {
+      "type": "free",
+      "license": "MIT"
+    },
+    "platform": "Javascript/Node.js",
+    "icon": "harvia.png",
+    "enabled": true,
+    "extIcon": "https://raw.githubusercontent.com/meistermopper/ioBroker.harvia-fenix/main/admin/harvia.png",
+    "readme": "https://github.com/meistermopper/ioBroker.harvia-fenix/blob/main/README.md",
+    "loglevel": "info",
+    "tier": 3,
+    "mode": "daemon",
+    "type": "climate-control",
+    "compact": true,
+    "connectionType": "cloud",
+    "dataSource": "poll",
+    "adminUI": {
+      "config": "json"
+    },
+    "dependencies": [
+      {
+        "js-controller": ">=6.0.11"
+      }
+    ],
+    "globalDependencies": [
+      {
+        "admin": ">=7.8.23"
+      }
+    ]
+  },
+  "native": {
+    "username": "",
+    "password": "",
+    "deviceId": "",
+    "pollInterval": 60
+  },
+  "protectedNative": [
+    "password"
+  ],
+  "encryptedNative": [
+    "password"
+  ],
+  "objects": [],
+  "instanceObjects": [
+    {
+      "_id": "info",
+      "type": "channel",
+      "common": {
+        "name": "Information"
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.connection",
+      "type": "state",
+      "common": {
+        "role": "indicator.connected",
+        "name": "Device or service connected",
+        "type": "boolean",
+        "read": true,
+        "write": false,
+        "def": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "online",
+      "type": "state",
+      "common": {
+        "role": "indicator.reachable",
+        "name": "Cloud connection status",
+        "type": "boolean",
+        "read": true,
+        "write": false,
+        "def": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "heatOn",
+      "type": "state",
+      "common": {
+        "role": "switch.power",
+        "name": "Sauna heater power",
+        "type": "boolean",
+        "read": true,
+        "write": true,
+        "def": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "lightOn",
+      "type": "state",
+      "common": {
+        "role": "switch.light",
+        "name": "Sauna light",
+        "type": "boolean",
+        "read": true,
+        "write": true,
+        "def": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "temp",
+      "type": "state",
+      "common": {
+        "role": "value.temperature",
+        "name": "Current cabin temperature",
+        "type": "number",
+        "unit": "°C",
+        "read": true,
+        "write": false,
+        "def": 0
+      },
+      "native": {}
+    },
+    {
+      "_id": "targetTemp",
+      "type": "state",
+      "common": {
+        "role": "level.temperature",
+        "name": "Target temperature",
+        "type": "number",
+        "unit": "°C",
+        "read": true,
+        "write": true,
+        "def": 90
+      },
+      "native": {}
+    },
+    {
+      "_id": "doorSafety",
+      "type": "state",
+      "common": {
+        "role": "sensor.door",
+        "name": "Door safety circuit",
+        "type": "boolean",
+        "read": true,
+        "write": false,
+        "def": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "totalBathingHours",
+      "type": "state",
+      "common": {
+        "role": "value",
+        "name": "Total bathing hours",
+        "type": "number",
+        "unit": "h",
+        "read": true,
+        "write": false,
+        "def": 0
+      },
+      "native": {}
+    },
+    {
+      "_id": "totalSessions",
+      "type": "state",
+      "common": {
+        "role": "value",
+        "name": "Total sessions",
+        "type": "number",
+        "read": true,
+        "write": false,
+        "def": 0
+      },
+      "native": {}
+    },
+    {
+      "_id": "errorMsg",
+      "type": "state",
+      "common": {
+        "role": "text",
+        "name": "Last error message",
+        "type": "string",
+        "read": true,
+        "write": false,
+        "def": ""
+      },
+      "native": {}
+    },
+    {
+      "_id": "heaterPower",
+      "type": "state",
+      "common": {
+        "role": "value.power",
+        "name": "Current heater power",
+        "type": "number",
+        "unit": "kW",
+        "read": true,
+        "write": false,
+        "def": 0
+      },
+      "native": {}
+    },
+    {
+      "_id": "panelTemp",
+      "type": "state",
+      "common": {
+        "role": "value.temperature",
+        "name": "Panel temperature",
+        "type": "number",
+        "unit": "°C",
+        "read": true,
+        "write": false,
+        "def": 0
+      },
+      "native": {}
+    },
+    {
+      "_id": "totalOperatingHours",
+      "type": "state",
+      "common": {
+        "role": "value",
+        "name": "Total operating hours",
+        "type": "number",
+        "unit": "h",
+        "read": true,
+        "write": false,
+        "def": 0
+      },
+      "native": {}
+    },
+    {
+      "_id": "readyNotified10Min",
+      "type": "state",
+      "common": {
+        "role": "indicator",
+        "name": {
+          "en": "10-minute pre-warning sent",
+          "de": "10-Minuten-Vorwarnung gesendet",
+          "ru": "Отправлено 10-минутное предупреждение",
+          "pt": "Aviso prévio de 10 minutos enviado",
+          "nl": "10 minuten waarschuwing vooraf verzonden",
+          "fr": "Pré-avertissement de 10 minutes envoyé",
+          "it": "Preavviso di 10 minuti inviato",
+          "es": "Aviso previo de 10 minutos enviado",
+          "pl": "Wysłano 10-minutowe ostrzeżenie",
+          "uk": "Відправлено 10-хвилинне попередження",
+          "zh-cn": "已发送 10 分钟预警"
+        },
+        "type": "boolean",
+        "read": true,
+        "write": false,
+        "def": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "targetReachedNotified",
+      "type": "state",
+      "common": {
+        "role": "indicator",
+        "name": {
+          "en": "Target temperature reached",
+          "de": "Zieltemperatur erreicht",
+          "ru": "Целевая температура достигнута",
+          "pt": "Temperatura alvo atingida",
+          "nl": "Doeltemperatuur bereikt",
+          "fr": "Température cible atteinte",
+          "it": "Temperatura target raggiunta",
+          "es": "Temperatura objetivo alcanzada",
+          "pl": "Osiągnięto temperaturę docelową",
+          "uk": "Цільова температура досягнута",
+          "zh-cn": "已达到目标温度"
+        },
+        "type": "boolean",
+        "read": true,
+        "write": false,
+        "def": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "remoteControl",
+      "type": "state",
+      "common": {
+        "role": "indicator",
+        "name": {
+          "en": "Remote start ready",
+          "de": "Bereit für Fernstart",
+          "ru": "Готов к дистанционному запуску",
+          "pt": "Partida remota pronta",
+          "nl": "Klaar voor start op afstand",
+          "fr": "Démarrage à distance prêt",
+          "it": "Pronto per l'avvio remoto",
+          "es": "Inicio remoto listo",
+          "pl": "Gotowy do zdalnego startu",
+          "uk": "Готовий до дистанційного запуску",
+          "zh-cn": "远程启动就绪"
+        },
+        "type": "boolean",
+        "read": true,
+        "write": false,
+        "def": false
+      },
+      "native": {}
+    }
+  ]
 }

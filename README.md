@@ -124,7 +124,7 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 ---
 
 ## Changelog
-### **WORK IN PROGRESS**
+### 0.1.2 (2026-06-24)
 * (meistermopper) docs: update German translation of the changelog in README_de.md
 
 ### 0.1.1 (2026-06-24)
@@ -145,9 +145,6 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 
 ### 0.0.28 (2026-06-21)
 * (meistermopper) Re-introduced `remoteReady` state with self-correction logic
-
-### 0.0.27 (2026-06-18)
-* (meistermopper) Corrected adapter category to 'climate-control' for repository compliance
 
 ## [Older changelog entries](CHANGELOG_OLD.md)
 
