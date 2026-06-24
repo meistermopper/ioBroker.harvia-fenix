@@ -128,7 +128,7 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 ## Änderungsprotokoll (Changelog)
 
 ### **WORK IN PROGRESS**
-* (meistermopper) Biome-Formatierung korrigiert
+* (meistermopper) docs: Deutsche Übersetzung des Änderungsprotokolls in README_de.md aktualisiert
 
 ### 0.1.1 (2026-06-24)
 * (meistermopper) Der Fehler E254 im Repochecker wurde behoben, indem die unveröffentlichte Version 0.0.28 aus den News in der Datei io-package.json entfernt wurde.
