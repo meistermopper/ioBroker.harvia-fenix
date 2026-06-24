@@ -125,6 +125,7 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 
 ## Changelog
 ### **WORK IN PROGRESS**
+* (meistermopper) Fix biome formatting
 
 ### 0.1.1 (2026-06-24)
 * (meistermopper) Fixed repochecker E254 error by removing unpublished version 0.0.28 from news in io-package.json
