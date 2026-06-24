@@ -27,8 +27,9 @@ For more information about Harvia and their sauna control units, please visit th
 ## Prerequisites
 
 To use this adapter, you need:
-1. A registered account within the official **MyHarvia 2** smartphone application.
-2. Your valid login credentials:
+1. **Node.js >= 22**
+2. A registered account within the official **MyHarvia 2** smartphone application.
+3. Your valid login credentials:
    * **Email Address**
    * **Password**
 

@@ -26,8 +26,9 @@ Für weitere Informationen über Harvia und deren Saunasteuerungen besuche bitte
 ## Voraussetzungen
 
 Um diesen Adapter zu nutzen, benötigst du:
-1. Ein registriertes Konto in der offiziellen **MyHarvia 2** Smartphone-App.
-2. Gültigen Login-Daten:
+1. **Node.js >= 22**
+2. Ein registriertes Konto in der offiziellen **MyHarvia 2** Smartphone-App.
+3. Gültigen Login-Daten:
    * **E-Mail-Adresse**
    * **Passwort**
 
