@@ -124,7 +124,7 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 ---
 
 ## Changelog
-### **WORK IN PROGRESS**
+### 0.1.1 (2026-06-24)
 * (meistermopper) Fixed repochecker E254 error by removing unpublished version 0.0.28 from news in io-package.json
 * (meistermopper) Updated @iobroker/adapter-core dependency to ^3.4.1
 * (meistermopper) Added minimum Node.js requirement to Prerequisites section of READMEs
@@ -145,9 +145,6 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 
 ### 0.0.27 (2026-06-18)
 * (meistermopper) Corrected adapter category to 'climate-control' for repository compliance
-
-### 0.0.26 (2026-06-17)
-* (meistermopper) Preparing 0.0.26 release
 
 ## [Older changelog entries](CHANGELOG_OLD.md)
 

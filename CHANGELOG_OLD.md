@@ -1,4 +1,7 @@
 # Older changes
+## 0.0.26 (2026-06-17)
+* (meistermopper) Preparing 0.0.26 release
+
 ## 0.0.25 (2026-06-16)
 * (meistermopper) Removed `remoteControl` state (Fenix API limitation)
 * (meistermopper) Prevented ghost loops in polling process and improved adapter cleanup
