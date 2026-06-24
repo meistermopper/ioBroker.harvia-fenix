@@ -127,7 +127,7 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 
 ## Änderungsprotokoll (Changelog)
 
-### **WORK IN PROGRESS**
+### 0.1.2 (2026-06-24)
 * (meistermopper) docs: Deutsche Übersetzung des Änderungsprotokolls in README_de.md aktualisiert
 
 ### 0.1.1 (2026-06-24)
