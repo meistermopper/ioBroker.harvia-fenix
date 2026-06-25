@@ -144,6 +144,9 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 ---
 
 ## Changelog
+### **WORK IN PROGRESS**
+* (meistermopper) Add manual partnerId and shared/guest accounts support, improve unloading checks, update docs
+
 ### 0.1.2 (2026-06-24)
 * (meistermopper) docs: update German translation of the changelog in README_de.md
 
