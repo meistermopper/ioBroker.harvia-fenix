@@ -65,11 +65,16 @@ Wenn ein anderer Benutzer (der Hauptnutzer/Besitzer) seine Sauna in der MyHarvia
 2. Wenn der Adapter die Geräteabfrage mit deiner Gast-Partner-ID durchführt, liefert die Harvia-API eine leere Liste zurück (`{"devices":[]}`) und die Sauna wird nicht gefunden.
 3. Um die freigegebene Sauna zu finden und zu steuern, müssen die API-Anfragen **mit der Partner-ID des Besitzers** gesendet werden.
 
+#### Wie findet man die Partner-ID des Besitzers?
+Es gibt zwei einfache Wege, die Partner-ID des Besitzers zu ermitteln:
+1. **Standard-App:** Wenn der Besitzer die offizielle, normale **MyHarvia 2** Smartphone-App nutzt, lautet die Partner-ID **`ORG/prod:0:6656:0`**.
+2. **Aus dem ioBroker-Log:** Wenn der Besitzer den `harvia-fenix` Adapter bereits nutzt, kann er beim Starten des Adapters in das ioBroker-Log schauen. Dort wird eine Zeile wie folgt ausgegeben:
+   `Using partner ID from user token: ORG/prod:0:XXXX`
+   Der Besitzer kann diese ID kopieren und dem Gast-Nutzer mitteilen.
+
 #### So richtest du ein geteiltes/freigegebenes Konto ein:
 1. Trage deine **eigenen Zugangsdaten** (deine E-Mail-Adresse und dein Passwort) in den Adapter-Einstellungen ein.
-2. Trage die **Partner-ID des Hauptnutzers/Besitzers** in das Feld **Partner-ID (Optional)** ein.
-   * *Verwendet der Besitzer die normale MyHarvia 2 App, trage dort Folgendes ein:* `ORG/prod:0:6656:0`.
-   * *Verwendet der Besitzer eine andere angepasste oder regionale Version, kann dieser seine Partner-ID aus dem ioBroker-Log auslesen und dir mitteilen.*
+2. Trage die **Partner-ID des Hauptnutzers/Besitzers** in das Feld **Partner-ID (Optional)** ein (siehe oben, wie man diese findet).
 3. Wenn du das Feld **Geräte-ID** leer lässt, sucht der Adapter automatisch mit den Gast-Anmeldedaten, aber unter Verwendung der Partner-ID des Besitzers, nach der geteilten Sauna und findet diese.
 
 ---

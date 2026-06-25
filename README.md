@@ -66,11 +66,16 @@ If another user (the owner/primary user) has shared their sauna with you in the 
 2. If the adapter queries the devices list under your guest Partner ID, the Harvia Cloud API will return an empty list (`{"devices":[]}`), and you will not see the sauna.
 3. To discover and control the shared sauna, the API requests **must be made using the Owner's Partner ID** instead.
 
+#### How to find the Owner's Partner ID?
+There are two ways to determine the owner's Partner ID:
+1. **Standard App:** If the owner is using the official, standard **MyHarvia 2** mobile application, the Partner ID is **`ORG/prod:0:6656:0`**.
+2. **From the ioBroker Log:** If the owner already runs the `harvia-fenix` adapter, they can check their ioBroker startup log. Upon startup, the adapter prints a line like:
+   `Using partner ID from user token: ORG/prod:0:XXXX`
+   The owner can simply copy this ID and share it with the guest user.
+
 #### How to configure a Shared/Guest Account
 1. Enter your **own Username / Email** and **Password** (the guest credentials) in the adapter settings.
-2. Enter the **owner's Partner ID** in the **Partner ID (Optional)** field.
-   * *If the owner uses the standard MyHarvia 2 app, enter:* `ORG/prod:0:6656:0`.
-   * *If the owner uses a custom or localized partner version, ask the owner to look at their ioBroker startup logs where their detected Partner ID is printed, and copy it.*
+2. Enter the **owner's Partner ID** in the **Partner ID (Optional)** field (see above on how to find it).
 3. If you leave the **Device ID** field empty, the adapter will search for the shared device using the owner's Partner ID and find it automatically.
 
 ---
