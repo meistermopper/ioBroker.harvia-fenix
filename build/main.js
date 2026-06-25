@@ -97,10 +97,10 @@ class HarviaFenix extends utils.Adapter {
     /**
      * Centralized headers for Harvia Cloud API
      */
-    getCloudHeaders() {
+    getCloudHeaders(partnerId) {
         return {
             Authorization: `Bearer ${this.idToken}`,
-            "x-harvia-partner-id": this.partnerId,
+            "x-harvia-partner-id": partnerId || this.partnerId,
             "x-harvia-app-id": CLIENT_ID,
         };
     }
@@ -199,7 +199,10 @@ class HarviaFenix extends utils.Adapter {
             this.authUrl = `${ep.generics.https}/auth/token`;
             const partnerId = response.data.Config?.PartnerOrganizationId ||
                 response.data.endpoints?.Config?.PartnerOrganizationId;
-            if (partnerId) {
+            if (this.config.partnerId) {
+                this.partnerId = this.config.partnerId;
+            }
+            else if (partnerId) {
                 this.partnerId = partnerId;
             }
             this.log.info(`API configuration loaded: Data=${this.dataBaseUrl}, Device=${this.deviceBaseUrl}, Partner=${this.partnerId}`);
@@ -211,6 +214,8 @@ class HarviaFenix extends utils.Adapter {
         }
     }
     async login() {
+        if (this.isUnloading)
+            return false;
         if (this.loginPromise) {
             return this.loginPromise;
         }
@@ -238,6 +243,30 @@ class HarviaFenix extends utils.Adapter {
                 client_id: CLIENT_ID,
             });
             this.idToken = response.data.idToken.trim(); // JWT-Token trimmed
+            // Decode JWT to extract partner ID or debug info
+            try {
+                const parts = this.idToken.split(".");
+                if (parts.length > 1) {
+                    const payload = JSON.parse(Buffer.from(parts[1], "base64").toString("utf8"));
+                    this.log.debug(`Decoded token payload: ${JSON.stringify(payload)}`);
+                    if (this.config.partnerId) {
+                        this.partnerId = this.config.partnerId;
+                        this.log.info(`Using manually configured partner ID: ${this.partnerId}`);
+                    }
+                    else {
+                        const jwtOrg = payload["custom:org"];
+                        if (jwtOrg) {
+                            this.partnerId = jwtOrg.startsWith("ORG/")
+                                ? jwtOrg
+                                : `ORG/${jwtOrg}`;
+                            this.log.info(`Using partner ID from user token: ${this.partnerId}`);
+                        }
+                    }
+                }
+            }
+            catch (_e) {
+                // Ignore
+            }
             await this.setState("info.connection", true, true);
             return true;
         }
@@ -248,12 +277,20 @@ class HarviaFenix extends utils.Adapter {
         }
     }
     async startCloudConnection() {
+        if (this.isUnloading)
+            return;
         if (await this.login()) {
+            if (this.isUnloading)
+                return;
             await this.discoverDevices();
+            if (this.isUnloading)
+                return;
             void this.updateStatus(); // Start first poll
             this.loginInterval = this.setInterval(() => void this.login(), 50 * 60 * 1000);
         }
         else {
+            if (this.isUnloading)
+                return;
             this.log.warn("Initial login failed. Retrying in 5 minutes...");
             this.updateInterval = this.setTimeout(() => this.startCloudConnection(), 5 * 60 * 1000);
         }
@@ -270,33 +307,43 @@ class HarviaFenix extends utils.Adapter {
                 const userBase = this.usersBaseUrl.replace(/\/$/, "");
                 endpointsToTry.push(userBase.endsWith("/devices") ? userBase : `${userBase}/devices`);
             }
+            const partnerIdsToTry = [this.partnerId];
+            if (this.partnerId !== "ORG/prod:0:6656:0") {
+                partnerIdsToTry.push("ORG/prod:0:6656:0");
+            }
             let devices = [];
-            for (const url of endpointsToTry) {
-                this.log.info(`Searching for devices at: ${url}`);
-                try {
-                    const response = await this.client.get(url, {
-                        headers: this.getCloudHeaders(),
-                    });
-                    this.log.debug(`Discovery Response: ${JSON.stringify(response.data)}`);
-                    const rawData = response.data;
-                    const discoveryData = rawData.data ?? rawData;
-                    if (Array.isArray(discoveryData)) {
-                        devices = discoveryData;
+            for (const partnerId of partnerIdsToTry) {
+                for (const url of endpointsToTry) {
+                    this.log.info(`Searching for devices at: ${url} (Partner: ${partnerId})`);
+                    try {
+                        const response = await this.client.get(url, {
+                            headers: this.getCloudHeaders(partnerId),
+                        });
+                        this.log.debug(`Discovery Response: ${JSON.stringify(response.data)}`);
+                        const rawData = response.data;
+                        const discoveryData = rawData.data ?? rawData;
+                        if (Array.isArray(discoveryData)) {
+                            devices = discoveryData;
+                        }
+                        else if (discoveryData &&
+                            typeof discoveryData === "object" &&
+                            !Array.isArray(discoveryData) && // Ensure it's not an array mistakenly cast to object
+                            "devices" in discoveryData &&
+                            Array.isArray(discoveryData.devices)) {
+                            devices = discoveryData
+                                .devices;
+                        }
+                        if (devices.length > 0) {
+                            this.partnerId = partnerId;
+                            break;
+                        }
                     }
-                    else if (discoveryData &&
-                        typeof discoveryData === "object" &&
-                        !Array.isArray(discoveryData) && // Ensure it's not an array mistakenly cast to object
-                        "devices" in discoveryData &&
-                        Array.isArray(discoveryData.devices)) {
-                        devices = discoveryData
-                            .devices;
+                    catch (_e) {
+                        this.log.debug(`Discovery at ${url} with partner ${partnerId} failed, trying next...`);
                     }
-                    if (devices.length > 0)
-                        break;
                 }
-                catch {
-                    this.log.debug(`Discovery at ${url} failed, trying next...`);
-                }
+                if (devices.length > 0)
+                    break;
             }
             if (devices.length > 0) {
                 this.log.info(`Harvia Cloud: ${devices.length} device(s) found.`);
@@ -370,6 +417,8 @@ class HarviaFenix extends utils.Adapter {
         }
     }
     async updateStatus() {
+        if (this.isUnloading)
+            return;
         try {
             if (!this.idToken || !this.dataBaseUrl) {
                 return;
@@ -601,6 +650,8 @@ class HarviaFenix extends utils.Adapter {
         }
     }
     async setSaunaState(stateName, value, isRetry = false) {
+        if (this.isUnloading)
+            return;
         if (!this.idToken || !this.deviceBaseUrl) {
             return;
         }
@@ -743,7 +794,7 @@ class HarviaFenix extends utils.Adapter {
             this.loginInterval && this.clearInterval(this.loginInterval);
             callback();
         }
-        catch {
+        catch (_e) {
             callback();
         }
     };

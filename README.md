@@ -53,6 +53,26 @@ If your MyHarvia account manages multiple control units (e.g., one at home and o
 2. Manually enter the specific **Device ID** for each unit in its respective instance configuration.
 This allows you to monitor and control both saunas independently with their own set of datapoints.
 
+### Shared / Guest Accounts & The Partner ID
+
+#### What is the Partner ID?
+The MyHarvia cloud infrastructure separates devices, users, and apps into different "partner organizations". For instance, the official **MyHarvia 2** smartphone application maps to the partner ID `ORG/prod:0:6656:0`. 
+
+Normally, when a user logs in, the adapter decodes their JSON Web Token (JWT) payload and automatically extracts the Partner ID from the `custom:org` field. It then queries the Harvia cloud API using this ID to discover connected devices.
+
+#### The Shared/Guest Account Issue
+If another user (the owner/primary user) has shared their sauna with you in the MyHarvia 2 app:
+1. Your account token is associated with a different guest Partner ID (e.g. `ORG/prod:0:6749` or a custom ID).
+2. If the adapter queries the devices list under your guest Partner ID, the Harvia Cloud API will return an empty list (`{"devices":[]}`), and you will not see the sauna.
+3. To discover and control the shared sauna, the API requests **must be made using the Owner's Partner ID** instead.
+
+#### How to configure a Shared/Guest Account
+1. Enter your **own Username / Email** and **Password** (the guest credentials) in the adapter settings.
+2. Enter the **owner's Partner ID** in the **Partner ID (Optional)** field.
+   * *If the owner uses the standard MyHarvia 2 app, enter:* `ORG/prod:0:6656:0`.
+   * *If the owner uses a custom or localized partner version, ask the owner to look at their ioBroker startup logs where their detected Partner ID is printed, and copy it.*
+3. If you leave the **Device ID** field empty, the adapter will search for the shared device using the owner's Partner ID and find it automatically.
+
 ---
 
 ## Features & State Points

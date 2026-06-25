@@ -17,3 +17,6 @@ build/
 # ioBroker specific
 iobroker-data/
 .commitinfo
+
+# ioBroker dev-server temporary data
+.dev-server/

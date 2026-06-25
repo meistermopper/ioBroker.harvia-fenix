@@ -33,6 +33,22 @@
 					"lg": 4,
 					"xl": 4
 				},
+				"partnerId": {
+					"type": "text",
+					"label": {
+						"en": "Partner ID (Optional)",
+						"de": "Partner-ID (Optional)"
+					},
+					"help": {
+						"en": "Only needed for shared/guest accounts. Enter the Owner's Partner ID here (e.g. ORG/prod:0:1234).",
+						"de": "Nur für freigegebene/geteilte Konten nötig. Tragen Sie hier die Partner-ID des Hauptnutzers ein (z. B. ORG/prod:0:1234)."
+					},
+					"xs": 12,
+					"sm": 6,
+					"md": 4,
+					"lg": 4,
+					"xl": 4
+				},
 				"pollInterval": {
 					"type": "number",
 					"label": "Polling Interval (seconds)",

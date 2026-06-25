@@ -8,6 +8,7 @@ declare global {
 			password: string;
 			deviceId: string;
 			pollInterval: number;
+			partnerId: string;
 		}
 	}
 }

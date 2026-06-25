@@ -52,6 +52,26 @@ Wenn dein MyHarvia-Konto mehrere Steuereinheiten verwaltet (z. B. eine zu Hause 
 2. Gib die spezifische **Geräte-ID** für jede Einheit manuell in der jeweiligen Instanz-Konfiguration ein.
 Dies ermöglicht es, beide Saunen unabhängig voneinander mit eigenen Datenpunkten zu überwachen und zu steuern.
 
+### Geteilte / Freigegebene Konten (Gäste) & die Partner-ID
+
+#### Was ist die Partner-ID?
+Die MyHarvia-Cloud-Infrastruktur unterteilt Geräte, Benutzer und Apps in verschiedene „Partner-Organisationen“ (Partner Organizations). Beispielsweise entspricht die offizielle **MyHarvia 2** Smartphone-App der Partner-ID `ORG/prod:0:6656:0`. 
+
+Normalerweise liest der Adapter beim Login das JSON-Web-Token (JWT) des Benutzers aus und extrahiert die Partner-ID automatisch aus dem Feld `custom:org`. Anschließend fragt er die Harvia-Cloud-API mit dieser ID ab, um verbundene Geräte zu finden.
+
+#### Das Problem bei geteilten/freigegebenen Konten
+Wenn ein anderer Benutzer (der Hauptnutzer/Besitzer) seine Sauna in der MyHarvia 2 App für dich freigegeben hat:
+1. Ist dein Gast-Konto mit einer anderen Partner-ID verknüpft (z. B. `ORG/prod:0:6749` oder einer anderen individuellen ID).
+2. Wenn der Adapter die Geräteabfrage mit deiner Gast-Partner-ID durchführt, liefert die Harvia-API eine leere Liste zurück (`{"devices":[]}`) und die Sauna wird nicht gefunden.
+3. Um die freigegebene Sauna zu finden und zu steuern, müssen die API-Anfragen **mit der Partner-ID des Besitzers** gesendet werden.
+
+#### So richtest du ein geteiltes/freigegebenes Konto ein:
+1. Trage deine **eigenen Zugangsdaten** (deine E-Mail-Adresse und dein Passwort) in den Adapter-Einstellungen ein.
+2. Trage die **Partner-ID des Hauptnutzers/Besitzers** in das Feld **Partner-ID (Optional)** ein.
+   * *Verwendet der Besitzer die normale MyHarvia 2 App, trage dort Folgendes ein:* `ORG/prod:0:6656:0`.
+   * *Verwendet der Besitzer eine andere angepasste oder regionale Version, kann dieser seine Partner-ID aus dem ioBroker-Log auslesen und dir mitteilen.*
+3. Wenn du das Feld **Geräte-ID** leer lässt, sucht der Adapter automatisch mit den Gast-Anmeldedaten, aber unter Verwendung der Partner-ID des Besitzers, nach der geteilten Sauna und findet diese.
+
 ---
 
 ## Funktionen & Datenpunkte

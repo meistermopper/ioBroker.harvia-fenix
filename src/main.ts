@@ -146,10 +146,10 @@ export class HarviaFenix extends utils.Adapter {
 	/**
 	 * Centralized headers for Harvia Cloud API
 	 */
-	private getCloudHeaders(): Record<string, string> {
+	private getCloudHeaders(partnerId?: string): Record<string, string> {
 		return {
 			Authorization: `Bearer ${this.idToken}`,
-			"x-harvia-partner-id": this.partnerId,
+			"x-harvia-partner-id": partnerId || this.partnerId,
 			"x-harvia-app-id": CLIENT_ID,
 		};
 	}
@@ -275,7 +275,9 @@ export class HarviaFenix extends utils.Adapter {
 				response.data.Config?.PartnerOrganizationId ||
 				response.data.endpoints?.Config?.PartnerOrganizationId;
 
-			if (partnerId) {
+			if (this.config.partnerId) {
+				this.partnerId = this.config.partnerId;
+			} else if (partnerId) {
 				this.partnerId = partnerId;
 			}
 
@@ -292,6 +294,7 @@ export class HarviaFenix extends utils.Adapter {
 	}
 
 	private async login(): Promise<boolean> {
+		if (this.isUnloading) return false;
 		if (this.loginPromise) {
 			return this.loginPromise;
 		}
@@ -327,6 +330,36 @@ export class HarviaFenix extends utils.Adapter {
 				},
 			);
 			this.idToken = response.data.idToken.trim(); // JWT-Token trimmed
+
+			// Decode JWT to extract partner ID or debug info
+			try {
+				const parts = this.idToken.split(".");
+				if (parts.length > 1) {
+					const payload = JSON.parse(
+						Buffer.from(parts[1], "base64").toString("utf8"),
+					);
+					this.log.debug(`Decoded token payload: ${JSON.stringify(payload)}`);
+					if (this.config.partnerId) {
+						this.partnerId = this.config.partnerId;
+						this.log.info(
+							`Using manually configured partner ID: ${this.partnerId}`,
+						);
+					} else {
+						const jwtOrg = payload["custom:org"];
+						if (jwtOrg) {
+							this.partnerId = jwtOrg.startsWith("ORG/")
+								? jwtOrg
+								: `ORG/${jwtOrg}`;
+							this.log.info(
+								`Using partner ID from user token: ${this.partnerId}`,
+							);
+						}
+					}
+				}
+			} catch (_e) {
+				// Ignore
+			}
+
 			await this.setState("info.connection", true, true);
 			return true;
 		} catch (err) {
@@ -339,14 +372,18 @@ export class HarviaFenix extends utils.Adapter {
 	}
 
 	private async startCloudConnection(): Promise<void> {
+		if (this.isUnloading) return;
 		if (await this.login()) {
+			if (this.isUnloading) return;
 			await this.discoverDevices();
+			if (this.isUnloading) return;
 			void this.updateStatus(); // Start first poll
 			this.loginInterval = this.setInterval(
 				() => void this.login(),
 				50 * 60 * 1000,
 			);
 		} else {
+			if (this.isUnloading) return;
 			this.log.warn("Initial login failed. Retrying in 5 minutes...");
 			this.updateInterval = this.setTimeout(
 				() => this.startCloudConnection(),
@@ -374,41 +411,56 @@ export class HarviaFenix extends utils.Adapter {
 				);
 			}
 
+			const partnerIdsToTry = [this.partnerId];
+			if (this.partnerId !== "ORG/prod:0:6656:0") {
+				partnerIdsToTry.push("ORG/prod:0:6656:0");
+			}
+
 			let devices: HarviaDevice[] = [];
 
-			for (const url of endpointsToTry) {
-				this.log.info(`Searching for devices at: ${url}`);
-				try {
-					const response = await this.client.get<
-						{ devices: HarviaDevice[] } | HarviaDevice[]
-					>(url, {
-						headers: this.getCloudHeaders(),
-					});
-
-					this.log.debug(
-						`Discovery Response: ${JSON.stringify(response.data)}`,
+			for (const partnerId of partnerIdsToTry) {
+				for (const url of endpointsToTry) {
+					this.log.info(
+						`Searching for devices at: ${url} (Partner: ${partnerId})`,
 					);
+					try {
+						const response = await this.client.get<
+							{ devices: HarviaDevice[] } | HarviaDevice[]
+						>(url, {
+							headers: this.getCloudHeaders(partnerId),
+						});
 
-					const rawData = response.data as unknown as Record<string, unknown>;
-					const discoveryData: unknown = rawData.data ?? rawData;
+						this.log.debug(
+							`Discovery Response: ${JSON.stringify(response.data)}`,
+						);
 
-					if (Array.isArray(discoveryData)) {
-						devices = discoveryData as HarviaDevice[];
-					} else if (
-						discoveryData &&
-						typeof discoveryData === "object" &&
-						!Array.isArray(discoveryData) && // Ensure it's not an array mistakenly cast to object
-						"devices" in discoveryData &&
-						Array.isArray((discoveryData as Record<string, unknown>).devices)
-					) {
-						devices = (discoveryData as Record<string, unknown>)
-							.devices as HarviaDevice[];
+						const rawData = response.data as unknown as Record<string, unknown>;
+						const discoveryData: unknown = rawData.data ?? rawData;
+
+						if (Array.isArray(discoveryData)) {
+							devices = discoveryData as HarviaDevice[];
+						} else if (
+							discoveryData &&
+							typeof discoveryData === "object" &&
+							!Array.isArray(discoveryData) && // Ensure it's not an array mistakenly cast to object
+							"devices" in discoveryData &&
+							Array.isArray((discoveryData as Record<string, unknown>).devices)
+						) {
+							devices = (discoveryData as Record<string, unknown>)
+								.devices as HarviaDevice[];
+						}
+
+						if (devices.length > 0) {
+							this.partnerId = partnerId;
+							break;
+						}
+					} catch (_e) {
+						this.log.debug(
+							`Discovery at ${url} with partner ${partnerId} failed, trying next...`,
+						);
 					}
-
-					if (devices.length > 0) break;
-				} catch {
-					this.log.debug(`Discovery at ${url} failed, trying next...`);
 				}
+				if (devices.length > 0) break;
 			}
 
 			if (devices.length > 0) {
@@ -496,6 +548,7 @@ export class HarviaFenix extends utils.Adapter {
 	}
 
 	private async updateStatus(): Promise<void> {
+		if (this.isUnloading) return;
 		try {
 			if (!this.idToken || !this.dataBaseUrl) {
 				return;
@@ -842,6 +895,7 @@ export class HarviaFenix extends utils.Adapter {
 		value: string | number | boolean | null,
 		isRetry = false,
 	): Promise<void> {
+		if (this.isUnloading) return;
 		if (!this.idToken || !this.deviceBaseUrl) {
 			return;
 		}
@@ -1006,7 +1060,7 @@ export class HarviaFenix extends utils.Adapter {
 			this.updateInterval && this.clearTimeout(this.updateInterval);
 			this.loginInterval && this.clearInterval(this.loginInterval);
 			callback();
-		} catch {
+		} catch (_e) {
 			callback();
 		}
 	};
