@@ -1,4 +1,7 @@
 # Older changes
+## 0.0.28 (2026-06-21)
+* (meistermopper) Re-introduced `remoteReady` state with self-correction logic
+
 ## 0.0.27 (2026-06-18)
 * (meistermopper) Corrected adapter category to 'climate-control' for repository compliance
 

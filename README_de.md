@@ -146,6 +146,7 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 ---
 
 ## Änderungsprotokoll (Changelog)
+
 ### **WORK IN PROGRESS**
 * (meistermopper) Manuelle Partner-ID und Unterstützung für geteilte/freigegebene Konten hinzugefügt, Entladevorgang-Prüfungen verbessert, Dokumentation aktualisiert
 
@@ -170,9 +171,6 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 
 ### 0.0.28 (2026-06-21)
 * (meistermopper) Wiedereinführung des `remoteReady`-Datenpunkts mit Selbstkorrektur-Logik
-
-### 0.0.27 (2026-06-18)
-* (meistermopper) Adapter-Kategorie für Repository-Konformität auf 'climate-control' korrigiert
 
 ## [Ältere Einträge](CHANGELOG_OLD.md)
 

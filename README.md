@@ -144,7 +144,7 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 ---
 
 ## Changelog
-### **WORK IN PROGRESS**
+### 0.2.0 (2026-06-25)
 * (meistermopper) Add manual partnerId and shared/guest accounts support, improve unloading checks, update docs
 
 ### 0.1.2 (2026-06-24)
@@ -165,9 +165,6 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 ### 0.0.29 (2026-06-23)
 * (meistermopper) Re-introduced `remoteControl` state with reliable combined multi-endpoint API logic (latest-data & devices/state)
 * (meistermopper) Fix online status to use connectionState.connected from device state
-
-### 0.0.28 (2026-06-21)
-* (meistermopper) Re-introduced `remoteReady` state with self-correction logic
 
 ## [Older changelog entries](CHANGELOG_OLD.md)
 
