@@ -21,4 +21,4 @@ iobroker-data/
 .dev-server/
 
 # CLI-Kommandos
-COMMANDS.md
+devServerCli.md
