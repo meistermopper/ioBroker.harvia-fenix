@@ -20,3 +20,6 @@ iobroker-data/
 
 # ioBroker dev-server temporary data
 .dev-server/
+
+# CLI-Kommandos
+commands.txt
