@@ -347,6 +347,9 @@ class HarviaFenix extends utils.Adapter {
             }
             if (devices.length > 0) {
                 this.log.info(`Harvia Cloud: ${devices.length} device(s) found.`);
+                if (devices.length > 1 && !this.config.deviceId) {
+                    this.log.warn(`Multiple devices (${devices.length}) found in your Harvia account, but no Device ID is specified in the adapter configuration! The adapter will default to the first discovered device. Please configure a specific Device ID for each instance to avoid control conflicts.`);
+                }
                 for (const d of devices) {
                     const actualId = d.deviceId || d.id || d.name;
                     this.log.info(`Found device: ${d.name} (ID: ${actualId}, Type: ${d.type ?? "Fenix"})`);

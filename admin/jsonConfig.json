@@ -25,8 +25,14 @@
 				},
 				"deviceId": {
 					"type": "text",
-					"label": "Device ID",
-					"help": "Leave this field empty and start the adapter to find the ID automatically in the ioBroker log (Discovery).",
+					"label": {
+						"en": "Device ID (Optional)",
+						"de": "Geräte-ID (Optional)"
+					},
+					"help": {
+						"en": "Leave empty for auto-discovery. IMPORTANT: If you run multiple instances for different saunas, you MUST enter the correct Device ID here for each instance.",
+						"de": "Leer lassen für automatische Erkennung. WICHTIG: Wenn Sie mehrere Instanzen für verschiedene Saunen nutzen, MÜSSEN Sie hier für jede Instanz die korrekte Geräte-ID eintragen."
+					},
 					"xs": 12,
 					"sm": 6,
 					"md": 4,
@@ -51,7 +57,14 @@
 				},
 				"pollInterval": {
 					"type": "number",
-					"label": "Polling Interval (seconds)",
+					"label": {
+						"en": "Polling Interval (seconds)",
+						"de": "Abfrageintervall (Sekunden)"
+					},
+					"help": {
+						"en": "Minimum 30s, default 60s. Note: When running multiple instances, do not set this too low to avoid Harvia Cloud rate limiting (HTTP 429).",
+						"de": "Mindestens 30s, Standard 60s. Hinweis: Bei mehreren Instanzen das Intervall nicht zu kurz wählen, um Cloud-Sperren (HTTP 429) zu vermeiden."
+					},
 					"min": 30,
 					"max": 600,
 					"default": 60,
