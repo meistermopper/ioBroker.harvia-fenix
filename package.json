@@ -72,6 +72,10 @@
 		"release": "release-script --addPlaceholder",
 		"manage-changelogs": "node scripts/manage-changelogs.js"
 	},
+	"publishConfig": {
+		"access": "public",
+		"provenance": true
+	},
 	"bugs": "https://github.com/meistermopper/ioBroker.harvia-fenix/issues",
 	"readmeFilename": "README.md",
 	"overrides": {
