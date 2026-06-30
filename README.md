@@ -149,7 +149,7 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 ---
 
 ## Changelog
-### **WORK IN PROGRESS**
+### 0.2.1 (2026-06-30)
 * (meistermopper) Fix jsonConfig.json schema validation and add missing translations
 * (meistermopper) Update axios and biome dependencies
 
@@ -170,10 +170,6 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 * (meistermopper) Optimized polling rate limits and connection state management
 * (meistermopper) Configured automated changelog rotation to keep READMEs clean
 * (meistermopper) Refactored codebase using the latest adapter creator standards
-
-### 0.0.29 (2026-06-23)
-* (meistermopper) Re-introduced `remoteControl` state with reliable combined multi-endpoint API logic (latest-data & devices/state)
-* (meistermopper) Fix online status to use connectionState.connected from device state
 
 ## [Older changelog entries](CHANGELOG_OLD.md)
 

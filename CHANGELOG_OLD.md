@@ -1,4 +1,8 @@
 # Older changes
+## 0.0.29 (2026-06-23)
+* (meistermopper) Re-introduced `remoteControl` state with reliable combined multi-endpoint API logic (latest-data & devices/state)
+* (meistermopper) Fix online status to use connectionState.connected from device state
+
 ## 0.0.28 (2026-06-21)
 * (meistermopper) Re-introduced `remoteReady` state with self-correction logic
 

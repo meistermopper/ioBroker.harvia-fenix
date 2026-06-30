@@ -151,6 +151,7 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 ---
 
 ## Änderungsprotokoll (Changelog)
+
 ### **WORK IN PROGRESS**
 * (meistermopper) Fehler in jsonConfig.json behoben und Übersetzungen hinzugefügt
 * (meistermopper) Abhängigkeiten axios und biome aktualisiert
@@ -176,9 +177,6 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 ### 0.0.29 (2026-06-23)
 * (meistermopper) `remoteControl` Datenpunkt wieder eingeführt unter Verwendung einer kombinierten Abfrage der `latest-data` & `devices/state` API-Endpunkte
 * (meistermopper) Verbindungsstatus korrigiert (nutzt `connectionState.connected` vom Gerätestatus)
-
-### 0.0.28 (2026-06-21)
-* (meistermopper) Wiedereinführung des `remoteReady`-Datenpunkts mit Selbstkorrektur-Logik
 
 ## [Ältere Einträge](CHANGELOG_OLD.md)
 
