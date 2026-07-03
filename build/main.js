@@ -251,7 +251,7 @@ class HarviaFenix extends utils.Adapter {
                     this.log.debug(`Decoded token payload: ${JSON.stringify(payload)}`);
                     if (this.config.partnerId) {
                         this.partnerId = this.config.partnerId;
-                        this.log.info(`Using manually configured partner ID: ${this.partnerId}`);
+                        this.log.debug(`Using manually configured partner ID: ${this.partnerId}`);
                     }
                     else {
                         const jwtOrg = payload["custom:org"];
@@ -259,7 +259,7 @@ class HarviaFenix extends utils.Adapter {
                             this.partnerId = jwtOrg.startsWith("ORG/")
                                 ? jwtOrg
                                 : `ORG/${jwtOrg}`;
-                            this.log.info(`Using partner ID from user token: ${this.partnerId}`);
+                            this.log.debug(`Using partner ID from user token: ${this.partnerId}`);
                         }
                     }
                 }
