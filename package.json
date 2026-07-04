@@ -43,7 +43,7 @@
 		"@types/node": "^22.13.0",
 		"cross-env": "^10.1.0",
 		"husky": "^9.1.7",
-		"lint-staged": "^17.0.8",
+		"@iobroker/eslint-config": "^2.3.4",
 		"source-map-support": "^0.5.21",
 		"ts-node": "^10.9.2",
 		"typescript": "^6.0.3"
@@ -61,12 +61,11 @@
 		"test:integration": "cross-env NODE_OPTIONS=\"--no-experimental-detect-module\" node test/run-mocha.js test/integration --exit",
 		"test:unit": "node test/run-unit-tests.js",
 		"test:ts": "tsc --noEmit",
-		"test:package": "echo \"Bypassing Repochecker in CI to unblock deployment\"",
-		"test:package:local": "node test/run-mocha.js test/package.js --exit",
+		"test:package": "node test/run-mocha.js test/package.js --exit",
 		"test": "npm run build && npm run test:unit && npm run test:integration",
 		"check": "biome check .",
 		"format": "biome format --write .",
-		"test:local": "npm run lint && npm run test:ts && npm run test:package:local && npm test",
+		"test:local": "npm run lint && npm run test:ts && npm run test:package && npm test",
 		"translate": "translate-adapter",
 		"build": "npm run format && node -e \"require('fs').rmSync('build', { recursive: true, force: true })\" && tsc -p tsconfig.build.json",
 		"watch": "tsc -p tsconfig.build.json --watch",
@@ -74,13 +73,6 @@
 		"release": "release-script --addPlaceholder",
 		"manage-changelogs": "node scripts/manage-changelogs.js",
 		"prepare": "husky"
-	},
-	"lint-staged": {
-		"*": "biome format --write --no-errors-on-unmatched"
-	},
-	"publishConfig": {
-		"access": "public",
-		"provenance": true
 	},
 	"bugs": "https://github.com/meistermopper/ioBroker.harvia-fenix/issues",
 	"readmeFilename": "README.md",
