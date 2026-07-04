@@ -585,14 +585,14 @@ class HarviaFenix extends utils.Adapter {
                         currentTemp >= targetTemp - 13 &&
                         currentTemp < targetTemp) {
                         await this.setState("readyNotified10Min", true, true);
-                        this.log.info(`🧖 Die Sauna erreicht in ca. 10 Minuten ihre Zieltemperatur (${targetTemp}°C).`);
+                        this.log.info(`🧖 The sauna will reach its target temperature (${targetTemp}°C) in approximately 10 minutes.`);
                     }
                     if (!notifiedReady && currentTemp >= targetTemp) {
                         if (!notified10Min) {
                             await this.setState("readyNotified10Min", true, true);
                         }
                         await this.setState("targetReachedNotified", true, true);
-                        this.log.info(`♨️ Die Sauna hat ihre Zieltemperatur von ${targetTemp}°C erreicht und ist bereit!`);
+                        this.log.info(`♨️ The sauna has reached its target temperature of ${targetTemp}°C and is ready!`);
                     }
                 }
             }
@@ -628,7 +628,8 @@ class HarviaFenix extends utils.Adapter {
         finally {
             // Only schedule next poll if adapter is not unloading
             if (!this.isUnloading) {
-                const interval = (this.config.pollInterval || 60) * 1000;
+                const rawInterval = this.config.pollInterval || 60;
+                const interval = Math.max(30, Math.min(600, rawInterval)) * 1000;
                 this.updateInterval = this.setTimeout(() => this.updateStatus(), interval);
             }
         }
@@ -822,9 +823,9 @@ class HarviaFenix extends utils.Adapter {
                 if (val) {
                     const remoteControlState = await this.getStateAsync("remoteControl");
                     if (!remoteControlState?.val) {
-                        this.log.warn("Fernstart nicht bereit. Befehl wird nicht an die Cloud gesendet.");
+                        this.log.warn("Remote start not ready. Command will not be sent to the cloud.");
                         await this.setState("heatOn", false, true);
-                        await this.setState("errorMsg", "Fernstart am Panel nicht bereit!", true);
+                        await this.setState("errorMsg", "Remote start not enabled on panel!", true);
                         return;
                     }
                 }

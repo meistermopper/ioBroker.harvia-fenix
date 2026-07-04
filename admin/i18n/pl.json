@@ -1,11 +1,11 @@
 {
-	"Device ID": "ID urządzenia",
-	"Harvia Fenix Sauna Control": "Sterowanie sauną Harvia Fenix",
-	"Leave this field empty and start the adapter to find the ID automatically in the ioBroker log (Discovery).": "Pozostaw to pole puste i uruchom adapter, aby automatycznie znaleźć ID w logu ioBroker (Discovery).",
-	"Leave this field empty and start the adapter to find the ID automatically in the ioBroker log (Discovery). Note: The ID is not visible in the MyHarvia 2 app.": "Pozostaw to pole puste i uruchom adapter, aby automatycznie odnalazł identyfikator w logu ioBroker (Discovery). Uwaga: identyfikator nie jest widoczny w aplikacji MyHarvia 2.",
+	"Device ID (Optional)": "ID urządzenia (Opcjonalnie)",
+	"Device ID Help": "Pozostaw puste do automatycznego wykrywania. WAŻNE: Jeśli uruchamiasz wiele instancji dla różnych saun, MUSISZ tutaj wprowadzić prawidłowy identyfikator urządzenia dla każdej instancji.",
 	"Login Settings": "Ustawienia logowania",
+	"Partner ID (Optional)": "ID partnera (Opcjonalnie)",
+	"Partner ID Help": "Wymagane tylko dla kont współdzielonych/gości. Wprowadź tutaj ID partnera właściciela (np. ORG/prod:0:1234).",
 	"Password": "Hasło",
 	"Polling Interval (seconds)": "Interwał odpytywania (sekundy)",
-	"Username / Email": "Nazwa użytkownika / E-mail",
-	"harvia-fenix adapter settings": "Ustawienia adaptera dla harvia-fenix"
+	"Polling Interval Help": "Minimum 30s, domyślnie 60s. Uwaga: Przy uruchamianiu wielu instancji nie ustawiaj zbyt niskiej wartości, aby uniknąć ograniczenia szybkości Harvia Cloud (HTTP 429).",
+	"Username / Email": "Nazwa użytkownika / E-mail"
 }

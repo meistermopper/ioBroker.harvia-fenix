@@ -804,7 +804,7 @@ export class HarviaFenix extends utils.Adapter {
 					) {
 						await this.setState("readyNotified10Min", true, true);
 						this.log.info(
-							`🧖 Die Sauna erreicht in ca. 10 Minuten ihre Zieltemperatur (${targetTemp}°C).`,
+							`🧖 The sauna will reach its target temperature (${targetTemp}°C) in approximately 10 minutes.`,
 						);
 					}
 
@@ -814,7 +814,7 @@ export class HarviaFenix extends utils.Adapter {
 						}
 						await this.setState("targetReachedNotified", true, true);
 						this.log.info(
-							`♨️ Die Sauna hat ihre Zieltemperatur von ${targetTemp}°C erreicht und ist bereit!`,
+							`♨️ The sauna has reached its target temperature of ${targetTemp}°C and is ready!`,
 						);
 					}
 				}
@@ -855,7 +855,8 @@ export class HarviaFenix extends utils.Adapter {
 		} finally {
 			// Only schedule next poll if adapter is not unloading
 			if (!this.isUnloading) {
-				const interval = (this.config.pollInterval || 60) * 1000;
+				const rawInterval = this.config.pollInterval || 60;
+				const interval = Math.max(30, Math.min(600, rawInterval)) * 1000;
 				this.updateInterval = this.setTimeout(
 					() => this.updateStatus(),
 					interval,
@@ -1096,12 +1097,12 @@ export class HarviaFenix extends utils.Adapter {
 					const remoteControlState = await this.getStateAsync("remoteControl");
 					if (!remoteControlState?.val) {
 						this.log.warn(
-							"Fernstart nicht bereit. Befehl wird nicht an die Cloud gesendet.",
+							"Remote start not ready. Command will not be sent to the cloud.",
 						);
 						await this.setState("heatOn", false, true);
 						await this.setState(
 							"errorMsg",
-							"Fernstart am Panel nicht bereit!",
+							"Remote start not enabled on panel!",
 							true,
 						);
 						return;

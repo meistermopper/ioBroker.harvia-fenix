@@ -26,14 +26,8 @@
 				},
 				"deviceId": {
 					"type": "text",
-					"label": {
-						"en": "Device ID (Optional)",
-						"de": "Geräte-ID (Optional)"
-					},
-					"help": {
-						"en": "Leave empty for auto-discovery. IMPORTANT: If you run multiple instances for different saunas, you MUST enter the correct Device ID here for each instance.",
-						"de": "Leer lassen für automatische Erkennung. WICHTIG: Wenn Sie mehrere Instanzen für verschiedene Saunen nutzen, MÜSSEN Sie hier für jede Instanz die korrekte Geräte-ID eintragen."
-					},
+					"label": "Device ID (Optional)",
+					"help": "Device ID Help",
 					"xs": 12,
 					"sm": 6,
 					"md": 4,
@@ -42,14 +36,8 @@
 				},
 				"partnerId": {
 					"type": "text",
-					"label": {
-						"en": "Partner ID (Optional)",
-						"de": "Partner-ID (Optional)"
-					},
-					"help": {
-						"en": "Only needed for shared/guest accounts. Enter the Owner's Partner ID here (e.g. ORG/prod:0:1234).",
-						"de": "Nur für freigegebene/geteilte Konten nötig. Tragen Sie hier die Partner-ID des Hauptnutzers ein (z. B. ORG/prod:0:1234)."
-					},
+					"label": "Partner ID (Optional)",
+					"help": "Partner ID Help",
 					"xs": 12,
 					"sm": 6,
 					"md": 4,
@@ -58,14 +46,8 @@
 				},
 				"pollInterval": {
 					"type": "number",
-					"label": {
-						"en": "Polling Interval (seconds)",
-						"de": "Abfrageintervall (Sekunden)"
-					},
-					"help": {
-						"en": "Minimum 30s, default 60s. Note: When running multiple instances, do not set this too low to avoid Harvia Cloud rate limiting (HTTP 429).",
-						"de": "Mindestens 30s, Standard 60s. Hinweis: Bei mehreren Instanzen das Intervall nicht zu kurz wählen, um Cloud-Sperren (HTTP 429) zu vermeiden."
-					},
+					"label": "Polling Interval (seconds)",
+					"help": "Polling Interval Help",
 					"min": 30,
 					"max": 600,
 					"default": 60,

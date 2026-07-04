@@ -1,11 +1,11 @@
 {
-	"Device ID": "ID dispositivo",
-	"Harvia Fenix Sauna Control": "Controllo sauna Harvia Fenix",
-	"Leave this field empty and start the adapter to find the ID automatically in the ioBroker log (Discovery).": "Lascia questo campo vuoto e avvia l'adattatore per trovare l'ID automaticamente nel log di ioBroker (Discovery).",
-	"Leave this field empty and start the adapter to find the ID automatically in the ioBroker log (Discovery). Note: The ID is not visible in the MyHarvia 2 app.": "Lascia questo campo vuoto e avvia l'adattatore per trovare automaticamente l'ID nel registro di ioBroker (Discovery). Nota: l'ID non è visibile nell'app MyHarvia 2.",
+	"Device ID (Optional)": "ID dispositivo (Opzionale)",
+	"Device ID Help": "Lasciare vuoto per il rilevamento automatico. IMPORTANTE: Se si eseguono più istanze per diverse saune, è NECESSARIO inserire l'ID dispositivo corretto qui per ogni istanza.",
 	"Login Settings": "Impostazioni di accesso",
+	"Partner ID (Optional)": "ID partner (Opzionale)",
+	"Partner ID Help": "Necessario solo per account condivisi/ospiti. Inserire qui l'ID partner del proprietario (es. ORG/prod:0:1234).",
 	"Password": "Password",
 	"Polling Interval (seconds)": "Intervallo di polling (secondi)",
-	"Username / Email": "Nome utente / E-mail",
-	"harvia-fenix adapter settings": "Impostazioni adattatore per harvia-fenix"
+	"Polling Interval Help": "Minimo 30s, predefinito 60s. Nota: Quando si eseguono più istanze, non impostare un valore troppo basso per evitare la limitazione della velocità di Harvia Cloud (HTTP 429).",
+	"Username / Email": "Nome utente / E-mail"
 }

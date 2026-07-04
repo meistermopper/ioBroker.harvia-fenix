@@ -1,11 +1,11 @@
 {
-	"Device ID": "Ідентифікатор пристрою",
-	"Harvia Fenix Sauna Control": "Керування сауною Harvia Fenix",
-	"Leave this field empty and start the adapter to find the ID automatically in the ioBroker log (Discovery).": "Залиште це поле порожнім і запустіть адаптер, щоб автоматично знайти ідентифікатор у журналі ioBroker (Discovery).",
-	"Leave this field empty and start the adapter to find the ID automatically in the ioBroker log (Discovery). Note: The ID is not visible in the MyHarvia 2 app.": "Залиште це поле порожнім і запустіть адаптер, щоб автоматично знайти ідентифікатор у журналі ioBroker (Discovery). Примітка: ідентифікатор не відображається в додатку MyHarvia 2.",
+	"Device ID (Optional)": "Ідентифікатор пристрою (Необов'язково)",
+	"Device ID Help": "Залиште порожнім для автоматичного виявлення. ВАЖЛИВО: Якщо ви запускаєте кілька екземплярів для різних саун, ви ПОВИННІ ввести правильний ідентифікатор пристрою тут для кожного екземпляра.",
 	"Login Settings": "Налаштування входу",
+	"Partner ID (Optional)": "ID партнера (Необов'язково)",
+	"Partner ID Help": "Потрібно лише для спільних/гостьових облікових записів. Введіть тут ID партнера власника (напр. ORG/prod:0:1234).",
 	"Password": "Пароль",
 	"Polling Interval (seconds)": "Інтервал опитування (секунди)",
-	"Username / Email": "Ім'я користувача / Електронна пошта",
-	"harvia-fenix adapter settings": "Налаштування адаптера для harvia-fenix"
+	"Polling Interval Help": "Мінімум 30с, за замовчуванням 60с. Примітка: При запуску кількох екземплярів не встановлюйте занадто низьке значення, щоб уникнути обмеження швидкості Harvia Cloud (HTTP 429).",
+	"Username / Email": "Ім'я користувача / Електронна пошта"
 }
