@@ -71,6 +71,8 @@
 		"watch": "tsc -p tsconfig.build.json --watch",
 		"lint": "biome check .",
 		"release": "release-script --addPlaceholder",
+		"release-before-check": "node scripts/check-wip.js && npm run test:local",
+		"release-before-commit": "npm run manage-changelogs && npm run format && git add -A",
 		"manage-changelogs": "node scripts/manage-changelogs.js"
 	},
 	"bugs": "https://github.com/meistermopper/ioBroker.harvia-fenix/issues",

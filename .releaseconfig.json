@@ -9,7 +9,7 @@
 		"git"
 	],
 	"exec": {
-		"before_check": "node scripts/check-wip.js && npm run test:local",
-		"before_commit": "npm run manage-changelogs && npm run format && git add -A"
+		"before_check": "npm run release-before-check",
+		"before_commit": "npm run release-before-commit"
 	}
 }
