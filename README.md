@@ -150,6 +150,10 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 
 ## Changelog
 ### **WORK IN PROGRESS**
+* (meistermopper) Fix German log messages and states (translate to English)
+* (meistermopper) Remove prepare script from package.json
+* (meistermopper) Add boundary check validation for pollInterval in main.ts
+* (meistermopper) Move inline jsonConfig translations to standard i18n files and fix missing translations
 
 ### 0.2.1 (2026-06-30)
 * (meistermopper) Fix jsonConfig.json schema validation and add missing translations

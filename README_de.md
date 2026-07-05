@@ -153,6 +153,12 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 ## Änderungsprotokoll (Changelog)
 
 ### **WORK IN PROGRESS**
+* (meistermopper) Deutsche Log-Nachrichten und States korrigiert (auf Englisch übersetzt)
+* (meistermopper) prepare-Skript aus der package.json entfernt
+* (meistermopper) Plausibilitätsprüfung für pollInterval in main.ts hinzugefügt
+* (meistermopper) Inline-Übersetzungen in jsonConfig in Standard-i18n-Dateien ausgelagert und fehlende Übersetzungen behoben
+
+### 0.2.1 (2026-06-30)
 * (meistermopper) Fehler in jsonConfig.json behoben und Übersetzungen hinzugefügt
 * (meistermopper) Abhängigkeiten axios und biome aktualisiert
 
