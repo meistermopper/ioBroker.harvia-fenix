@@ -180,10 +180,6 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 * (meistermopper) Automatische Changelog-Rotation eingerichtet, um die Readmes sauber zu halten
 * (meistermopper) Codebasis auf den neuesten Stand des Adapter-Creators refaktoriert
 
-### 0.0.29 (2026-06-23)
-* (meistermopper) `remoteControl` Datenpunkt wieder eingeführt unter Verwendung einer kombinierten Abfrage der `latest-data` & `devices/state` API-Endpunkte
-* (meistermopper) Verbindungsstatus korrigiert (nutzt `connectionState.connected` vom Gerätestatus)
-
 ## [Ältere Einträge](CHANGELOG_OLD.md)
 
 ---

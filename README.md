@@ -149,7 +149,7 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 ---
 
 ## Changelog
-### **WORK IN PROGRESS**
+### 0.2.2 (2026-07-05)
 * (meistermopper) Fix German log messages and states (translate to English)
 * (meistermopper) Remove prepare script from package.json
 * (meistermopper) Add boundary check validation for pollInterval in main.ts
@@ -169,13 +169,6 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 * (meistermopper) Fixed repochecker E254 error by removing unpublished version 0.0.28 from news in io-package.json
 * (meistermopper) Updated @iobroker/adapter-core dependency to ^3.4.1
 * (meistermopper) Added minimum Node.js requirement to Prerequisites section of READMEs
-
-### 0.1.0 (2026-06-23)
-* (meistermopper) Initial stable beta release
-* (meistermopper) Re-introduced `remoteControl` state with dynamic multi-endpoint API polling logic
-* (meistermopper) Optimized polling rate limits and connection state management
-* (meistermopper) Configured automated changelog rotation to keep READMEs clean
-* (meistermopper) Refactored codebase using the latest adapter creator standards
 
 ## [Older changelog entries](CHANGELOG_OLD.md)
 

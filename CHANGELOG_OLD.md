@@ -1,4 +1,11 @@
 # Older changes
+## 0.1.0 (2026-06-23)
+* (meistermopper) Initial stable beta release
+* (meistermopper) Re-introduced `remoteControl` state with dynamic multi-endpoint API polling logic
+* (meistermopper) Optimized polling rate limits and connection state management
+* (meistermopper) Configured automated changelog rotation to keep READMEs clean
+* (meistermopper) Refactored codebase using the latest adapter creator standards
+
 ## 0.0.29 (2026-06-23)
 * (meistermopper) Re-introduced `remoteControl` state with reliable combined multi-endpoint API logic (latest-data & devices/state)
 * (meistermopper) Fix online status to use connectionState.connected from device state

@@ -1,7 +1,7 @@
 {
 	"common": {
 		"name": "harvia-fenix",
-		"version": "0.2.1",
+		"version": "0.2.2",
 		"titleLang": {
 			"en": "Harvia-Fenix Sauna Control",
 			"de": "Harvia-Fenix Saunasteuerung",
@@ -29,6 +29,19 @@
 			"zh-cn": "通过 MyHarvia 云端控制 Harvia Fenix 桑拿房"
 		},
 		"news": {
+			"0.2.2": {
+				"en": "Fix German log messages and states (translate to English)\nRemove prepare script from package.json\nAdd boundary check validation for pollInterval in main.ts\nMove inline jsonConfig translations to standard i18n files and fix missing translations",
+				"de": "Deutsche Logmeldungen und Statusmeldungen korrigieren (ins Englische übersetzen)\nEntfernen Sie das Vorbereitungsskript aus der package.json-Datei.\nFüge in main.ts eine Validierung zur Überprüfung der Grenzen für pollInterval hinzu.\nVerschieben Sie die Inline-Übersetzungen von jsonConfig in Standard-i18n-Dateien und beheben Sie fehlende Übersetzungen.",
+				"ru": "Исправлены сообщения и состояния журнала на немецком языке (переведены на английский).\nУдалите скрипт подготовки из файла package.json.\nДобавьте проверку границы интервала опроса (pollInterval) в файл main.ts.\nПереместить встроенные переводы jsonConfig в стандартные файлы i18n и исправить отсутствующие переводы.",
+				"pt": "Corrigir mensagens e estados de registro em alemão (traduzir para inglês)\nRemova o script de preparação do package.json\nAdicionar validação de verificação de limite para pollInterval em main.ts\nMova as traduções inline do jsonConfig para arquivos i18n padrão e corrija as traduções ausentes.",
+				"nl": "Duitse logberichten en statussen corrigeren (vertalen naar het Engels)\nVerwijder het voorbereidingsscript uit package.json.\nVoeg een grenscontrolevalidatie toe voor pollInterval in main.ts.\nVerplaats inline jsonConfig-vertalingen naar standaard i18n-bestanden en corrigeer ontbrekende vertalingen.",
+				"fr": "Correction des messages et états de journalisation en allemand (traduction en anglais)\nSupprimez le script de préparation du fichier package.json\nAjouter une validation de vérification des limites pour pollInterval dans main.ts\nDéplacez les traductions intégrées de jsonConfig vers des fichiers i18n standard et corrigez les traductions manquantes.",
+				"it": "Correggere i messaggi di log e gli stati in tedesco (tradurre in inglese)\nRimuovere lo script prepare dal file package.json\nAggiungi la convalida del controllo dei limiti per pollInterval in main.ts\nSpostare le traduzioni inline di jsonConfig in file i18n standard e correggere le traduzioni mancanti.",
+				"es": "Corregir mensajes y estados de registro en alemán (traducir al inglés)\nEliminar el script de preparación del archivo package.json.\nAgregue la validación de comprobación de límites para pollInterval en main.ts\nTrasladar las traducciones en línea de jsonConfig a archivos i18n estándar y corregir las traducciones faltantes.",
+				"pl": "Napraw niemieckie komunikaty i stany dziennika (przetłumacz na język angielski)\nUsuń skrypt przygotowawczy z pliku package.json\nDodaj walidację kontroli granic dla pollInterval w main.ts\nPrzenieś tłumaczenia jsonConfig do standardowych plików i18n i napraw brakujące tłumaczenia",
+				"uk": "Виправлено повідомлення та стани журналів німецькою мовою (перекласти на англійську)\nВидалити скрипт підготовки з package.json\nДодано перевірку меж для pollInterval у main.ts\nПеренести вбудовані переклади jsonConfig до стандартних файлів i18n та виправити відсутні переклади",
+				"zh-cn": "修复德语日志消息和状态（翻译成英语）\n从 package.json 中移除 prepare 脚本\n在 main.ts 中为 pollInterval 添加边界检查验证。\n将内联 jsonConfig 翻译移至标准 i18n 文件，并修复缺失的翻译。"
+			},
 			"0.2.1": {
 				"en": "Fix jsonConfig.json schema validation and add missing translations\nUpdate axios and biome dependencies",
 				"de": "JsonConfig.json-Schemavalidierung beheben und fehlende Übersetzungen hinzufügen\nAktualisieren von Axios und Biom-Abhängigkeiten",
@@ -106,19 +119,6 @@
 				"pl": "Ponowne wprowadzenie stanu remoteControl z dynamiczną logiką wielu punktów końcowych.",
 				"uk": "Знову введено стан remoteControl з динамічною логікою кількох кінцевих точок.",
 				"zh-cn": "重新引入了具有动态多端点逻辑的 remoteControl 状态。"
-			},
-			"0.0.27": {
-				"en": "Corrected adapter category to 'climate-control' for repository compliance.",
-				"de": "Adapter-Kategorie für Repository-Konformität auf 'climate-control' korrigiert.",
-				"ru": "Категория адаптера исправлена на 'climate-control' для соответствия репозиторию.",
-				"pt": "Categoria do adaptador corrigida para 'climate-control' por conformidade com o repositório.",
-				"nl": "Adaptercategorie gecorrigeerd naar 'climate-control' voor repository-conformiteit.",
-				"fr": "Catégorie d'adaptateur corrigée en 'climate-control' pour la conformité du référentiel.",
-				"it": "Categoria dell'adattatore corretta in 'climate-control' per la conformità del repository.",
-				"es": "Categoría de adaptador corregida a 'climate-control' para cumplimiento del repositorio.",
-				"pl": "Kategoria adaptera poprawiona na 'climate-control' dla zgodności z repozytorium.",
-				"uk": "Категорія адаптера виправлена на 'climate-control' для відповідності репозиторію.",
-				"zh-cn": "已将适配器类别更正为 'climate-control' 以符合存储库要求。"
 			}
 		},
 		"authors": ["meistermopper <meister.mopper@gmail.com>"],
