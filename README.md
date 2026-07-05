@@ -149,6 +149,8 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 ---
 
 ## Changelog
+### **WORK IN PROGRESS**
+
 ### 0.2.2 (2026-07-05)
 * (meistermopper) Fix German log messages and states (translate to English)
 * (meistermopper) Remove prepare script from package.json
