@@ -60,7 +60,7 @@
 		"README_de.md"
 	],
 	"scripts": {
-		"test:integration": "cross-env NODE_OPTIONS=\"--no-experimental-detect-module\" mocha test/integration --exit",
+		"test:integration": "cross-env NODE_OPTIONS=\"--no-experimental-detect-module\" npm_config_engine_strict=false mocha test/integration --exit",
 		"test:unit": "node test/run-unit-tests.js",
 		"test:ts": "tsc --noEmit",
 		"test:package": "mocha test/package --exit",
