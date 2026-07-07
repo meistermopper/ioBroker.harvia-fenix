@@ -20,3 +20,8 @@ iobroker-data/
 
 # CLI-Kommandos
 devServerCli.md
+
+# Environment variables
+.env
+.env.local
+.env.*.local
