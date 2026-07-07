@@ -7,7 +7,7 @@
 	},
 	"files": {
 		"ignoreUnknown": true,
-		"includes": ["**", "!build"]
+		"includes": ["**", "!build", "!.vscode", "!.env", "!.env.example"]
 	},
 	"linter": {
 		"enabled": true,
