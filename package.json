@@ -37,7 +37,7 @@
 		"@alcalzone/release-script-plugin-version": "^5.2.0",
 		"@biomejs/biome": "^2.5.1",
 		"@commitlint/cli": "^19.6.1",
-		"@commitlint/config-conventional": "^19.6.0",
+		"@commitlint/config-conventional": "^21.2.0",
 		"@iobroker/adapter-dev": "^1.4.0",
 		"@iobroker/dev-server": "^0.8.0",
 		"@iobroker/eslint-config": "^2.0.2",
