@@ -149,7 +149,7 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 ---
 
 ## Changelog
-### **WORK IN PROGRESS**
+### 0.2.4 (2026-07-08)
 * (meistermopper) Use npm install in workflow to prevent lockfile sync issues
 
 ### 0.2.3 (2026-07-08)
@@ -167,9 +167,6 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 
 ### 0.2.0 (2026-06-25)
 * (meistermopper) Add manual partnerId and shared/guest accounts support, improve unloading checks, update docs
-
-### 0.1.2 (2026-06-24)
-* (meistermopper) docs: update German translation of the changelog in README_de.md
 
 ## [Older changelog entries](CHANGELOG_OLD.md)
 

@@ -1,7 +1,7 @@
 {
 	"common": {
 		"name": "harvia-fenix",
-		"version": "0.2.3",
+		"version": "0.2.4",
 		"titleLang": {
 			"en": "Harvia-Fenix Sauna Control",
 			"de": "Harvia-Fenix Saunasteuerung",
@@ -29,6 +29,19 @@
 			"zh-cn": "通过 MyHarvia 云端控制 Harvia Fenix 桑拿房"
 		},
 		"news": {
+			"0.2.4": {
+				"en": "Use npm install in workflow to prevent lockfile sync issues",
+				"de": "Verwenden Sie npm install im Workflow, um Probleme mit der Sperrdateisynchronisierung zu vermeiden.",
+				"ru": "Используйте команду `npm install` в рабочем процессе, чтобы предотвратить проблемы с синхронизацией файла блокировки.",
+				"pt": "Use `npm install` no fluxo de trabalho para evitar problemas de sincronização do arquivo de bloqueio.",
+				"nl": "Gebruik `npm install` in de workflow om synchronisatieproblemen met het lockbestand te voorkomen.",
+				"fr": "Utilisez npm install dans le flux de travail pour éviter les problèmes de synchronisation des fichiers de verrouillage",
+				"it": "Utilizzare `npm install` nel flusso di lavoro per prevenire problemi di sincronizzazione del file di blocco.",
+				"es": "Utilice npm install en el flujo de trabajo para evitar problemas de sincronización de archivos de bloqueo.",
+				"pl": "Użyj npm install w przepływie pracy, aby zapobiec problemom z synchronizacją plików blokady",
+				"uk": "Використовуйте npm install у робочому процесі, щоб запобігти проблемам із синхронізацією файлів блокування",
+				"zh-cn": "在工作流中使用 npm install 可以防止锁定文件同步问题。"
+			},
 			"0.2.3": {
 				"en": "Update dependencies (eslint-config, commitlint) and regenerate package-lock.json",
 				"de": "Aktualisiere die Abhängigkeiten (eslint-config, commitlint) und generiere package-lock.json neu.",
@@ -106,19 +119,6 @@
 				"pl": "Naprawiono błąd E254 programu repochecker poprzez usunięcie nieopublikowanej wersji 0.0.28 z wiadomości w pliku io-package.json\nZaktualizowano zależność @iobroker/adapter-core do ^3.4.1\nDodano minimalne wymagania Node.js do sekcji „Wymagania wstępne” w plikach README",
 				"uk": "Виправлено помилку E254 перевірки репозиторії шляхом видалення неопублікованої версії 0.0.28 з новин у io-package.json\nОновлено залежність @iobroker/adapter-core до ^3.4.1.\nДодано мінімальну вимогу Node.js до розділу «Попередні вимоги» файлів README.",
 				"zh-cn": "通过从 io-package.json 的 news 中移除未发布的版本 0.0.28，修复了 repochecker E254 错误。\n已将 @iobroker/adapter-core 依赖项更新至 ^3.4.1\n在README文件的“先决条件”部分添加了最低Node.js要求。"
-			},
-			"0.1.0": {
-				"en": "Initial stable beta release\nRe-introduced `remoteControl` state with dynamic multi-endpoint API polling logic\nOptimized polling rate limits and connection state management\nConfigured automated changelog rotation to keep READMEs clean\nRefactored codebase using the latest adapter creator standards",
-				"de": "Erste stabile Beta-Version\nDer Status `remoteControl` wurde mit dynamischer Multi-Endpoint-API-Abfragelogik wieder eingeführt.\nOptimierte Abfrageratenbegrenzungen und Verbindungsstatusverwaltung\nDie automatische Rotation der Änderungsprotokolle wurde konfiguriert, um die README-Dateien übersichtlich zu halten.\nDie Codebasis wurde unter Verwendung der neuesten Adapter-Creator-Standards refaktoriert.",
-				"ru": "Первый стабильный бета-релиз\nВновь введено состояние `remoteControl` с логикой динамического опроса API с использованием нескольких конечных точек.\nОптимизированы ограничения частоты опроса и управление состоянием соединения.\nНастроена автоматическая ротация списка изменений для поддержания чистоты файлов README.\nПереработан код с использованием новейших стандартов создания адаптеров.",
-				"pt": "Lançamento inicial da versão beta estável\nReintroduzimos o estado `remoteControl` com lógica de polling de API multi-endpoint dinâmica.\nLimites de taxa de sondagem otimizados e gerenciamento do estado da conexão\nConfigurei a rotação automática do changelog para manter os arquivos README organizados.\nCódigo-fonte refatorado usando os padrões mais recentes do criador de adaptadores.",
-				"nl": "Eerste stabiele bètaversie\nDe `remoteControl`-status is opnieuw geïntroduceerd met dynamische API-pollinglogica voor meerdere eindpunten.\nGeoptimaliseerde pollingfrequentielimieten en beheer van de verbindingsstatus\nAutomatische rotatie van wijzigingslogboeken geconfigureerd om README-bestanden schoon te houden.\nDe codebase is geherstructureerd met behulp van de nieuwste adapter creator-standaarden.",
-				"fr": "Version bêta stable initiale\nRéintroduction de l'état `remoteControl` avec une logique d'interrogation dynamique de l'API multi-points de terminaison\nOptimisation des limites de fréquence d'interrogation et de la gestion de l'état de la connexion\nRotation automatisée des journaux de modifications configurée pour maintenir les fichiers README propres\nCode source remanié selon les dernières normes de création d'adaptateurs",
-				"it": "Versione beta stabile iniziale\nReintrodotto lo stato `remoteControl` con logica di polling API multi-endpoint dinamica.\nLimiti di frequenza di polling e gestione dello stato della connessione ottimizzati.\nConfigurazione della rotazione automatica del registro delle modifiche per mantenere puliti i file README.\nCodice sorgente ristrutturato utilizzando i più recenti standard per la creazione di adattatori.",
-				"es": "Versión beta estable inicial\nSe reintrodujo el estado `remoteControl` con lógica de sondeo de API multi-endpoint dinámica.\nLímites de frecuencia de sondeo optimizados y gestión del estado de la conexión\nSe configuró la rotación automática del registro de cambios para mantener limpios los archivos README.\nSe ha refactorizado el código base utilizando los estándares más recientes para la creación de adaptadores.",
-				"pl": "Pierwsza stabilna wersja beta\nPonownie wprowadzono stan `remoteControl` z dynamiczną logiką sondowania wielopunktowego interfejsu API\nZoptymalizowane limity częstotliwości sondowania i zarządzanie stanem połączenia\nSkonfigurowano automatyczną rotację rejestru zmian, aby zachować czystość plików README\nPrzebudowa bazy kodu przy użyciu najnowszych standardów tworzenia adapterów",
-				"uk": "Початковий стабільний бета-реліз\nПовторно введено стан `remoteControl` з динамічною логікою опитування API кількох кінцевих точок.\nОптимізовані обмеження частоти опитування та управління станом з'єднання\nНалаштовано автоматичну ротацію журналу змін для підтримки чистоти файлів README\nРефакторовано кодову базу з використанням найновіших стандартів для створення адаптерів",
-				"zh-cn": "初始稳定测试版\n重新引入了带有动态多端点 API 轮询逻辑的 `remoteControl` 状态\n优化轮询速率限制和连接状态管理\n配置了自动变更日志轮换，以保持 README 文件的整洁。\n使用最新的适配器创建器标准重构了代码库"
 			}
 		},
 		"authors": ["meistermopper <meister.mopper@gmail.com>"],

@@ -174,11 +174,6 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 ### 0.1.2 (2026-06-24)
 * (meistermopper) docs: Deutsche Übersetzung des Änderungsprotokolls in README_de.md aktualisiert
 
-### 0.1.1 (2026-06-24)
-* (meistermopper) Der Fehler E254 im Repochecker wurde behoben, indem die unveröffentlichte Version 0.0.28 aus den News in der Datei io-package.json entfernt wurde.
-* (meistermopper) Die Abhängigkeit von @iobroker/adapter-core wurde auf Version ^3.4.1 aktualisiert.
-* (meistermopper) Die Mindestanforderung für Node.js wurde dem Abschnitt „Voraussetzungen“ der README-Dateien hinzugefügt.
-
 ## [Ältere Einträge](CHANGELOG_OLD.md)
 
 ---
