@@ -149,6 +149,8 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 ---
 
 ## Changelog
+### **WORK IN PROGRESS**
+
 ### 0.2.4 (2026-07-08)
 * (meistermopper) Use npm install in workflow to prevent lockfile sync issues
 
