@@ -149,7 +149,7 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 ---
 
 ## Changelog
-### **WORK IN PROGRESS**
+### 0.2.3 (2026-07-08)
 * (meistermopper) Update dependencies (eslint-config, commitlint) and regenerate package-lock.json
 
 ### 0.2.2 (2026-07-05)
@@ -167,11 +167,6 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 
 ### 0.1.2 (2026-06-24)
 * (meistermopper) docs: update German translation of the changelog in README_de.md
-
-### 0.1.1 (2026-06-24)
-* (meistermopper) Fixed repochecker E254 error by removing unpublished version 0.0.28 from news in io-package.json
-* (meistermopper) Updated @iobroker/adapter-core dependency to ^3.4.1
-* (meistermopper) Added minimum Node.js requirement to Prerequisites section of READMEs
 
 ## [Older changelog entries](CHANGELOG_OLD.md)
 

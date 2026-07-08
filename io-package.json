@@ -1,7 +1,7 @@
 {
 	"common": {
 		"name": "harvia-fenix",
-		"version": "0.2.2",
+		"version": "0.2.3",
 		"titleLang": {
 			"en": "Harvia-Fenix Sauna Control",
 			"de": "Harvia-Fenix Saunasteuerung",
@@ -29,6 +29,19 @@
 			"zh-cn": "通过 MyHarvia 云端控制 Harvia Fenix 桑拿房"
 		},
 		"news": {
+			"0.2.3": {
+				"en": "Update dependencies (eslint-config, commitlint) and regenerate package-lock.json",
+				"de": "Aktualisiere die Abhängigkeiten (eslint-config, commitlint) und generiere package-lock.json neu.",
+				"ru": "Обновите зависимости (eslint-config, commitlint) и перегенерируйте файл package-lock.json.",
+				"pt": "Atualize as dependências (eslint-config, commitlint) e regenere o arquivo package-lock.json.",
+				"nl": "Werk de afhankelijkheden bij (eslint-config, commitlint) en genereer package-lock.json opnieuw.",
+				"fr": "Mettez à jour les dépendances (eslint-config, commitlint) et régénérez package-lock.json",
+				"it": "Aggiorna le dipendenze (eslint-config, commitlint) e rigenera il file package-lock.json.",
+				"es": "Actualiza las dependencias (eslint-config, commitlint) y regenera el archivo package-lock.json.",
+				"pl": "Zaktualizuj zależności (eslint-config, commitlint) i ponownie wygeneruj package-lock.json",
+				"uk": "Оновіть залежності (eslint-config, commitlint) та перегенеруйте package-lock.json",
+				"zh-cn": "更新依赖项（eslint-config、commitlint）并重新生成 package-lock.json 文件。"
+			},
 			"0.2.2": {
 				"en": "Fix German log messages and states (translate to English)\nRemove prepare script from package.json\nAdd boundary check validation for pollInterval in main.ts\nMove inline jsonConfig translations to standard i18n files and fix missing translations",
 				"de": "Deutsche Logmeldungen und Statusmeldungen korrigieren (ins Englische übersetzen)\nEntfernen Sie das Vorbereitungsskript aus der package.json-Datei.\nFüge in main.ts eine Validierung zur Überprüfung der Grenzen für pollInterval hinzu.\nVerschieben Sie die Inline-Übersetzungen von jsonConfig in Standard-i18n-Dateien und beheben Sie fehlende Übersetzungen.",
@@ -106,19 +119,6 @@
 				"pl": "Pierwsza stabilna wersja beta\nPonownie wprowadzono stan `remoteControl` z dynamiczną logiką sondowania wielopunktowego interfejsu API\nZoptymalizowane limity częstotliwości sondowania i zarządzanie stanem połączenia\nSkonfigurowano automatyczną rotację rejestru zmian, aby zachować czystość plików README\nPrzebudowa bazy kodu przy użyciu najnowszych standardów tworzenia adapterów",
 				"uk": "Початковий стабільний бета-реліз\nПовторно введено стан `remoteControl` з динамічною логікою опитування API кількох кінцевих точок.\nОптимізовані обмеження частоти опитування та управління станом з'єднання\nНалаштовано автоматичну ротацію журналу змін для підтримки чистоти файлів README\nРефакторовано кодову базу з використанням найновіших стандартів для створення адаптерів",
 				"zh-cn": "初始稳定测试版\n重新引入了带有动态多端点 API 轮询逻辑的 `remoteControl` 状态\n优化轮询速率限制和连接状态管理\n配置了自动变更日志轮换，以保持 README 文件的整洁。\n使用最新的适配器创建器标准重构了代码库"
-			},
-			"0.0.29": {
-				"en": "Re-introduced remoteControl state with dynamic multi-endpoint logic.",
-				"de": "Wiedereinführung des remoteControl-Datenpunkts mit dynamischer Multi-Endpunkt-Logik.",
-				"ru": "Вновь введено состояние remoteControl с динамической логикой нескольких конечных точек.",
-				"pt": "Estado remoteControl reintroduzido com lógica dinâmica de múltiplos endpoints.",
-				"nl": "Re-introduced remoteControl state met dynamische multi-endpoint logica.",
-				"fr": "Réintroduction de l'état remoteControl avec logique dynamique multi-points d'accès.",
-				"it": "Reintrodotto lo stato remoteControl con logica dinamica multi-endpoint.",
-				"es": "Estado remoteControl reintroducido con lógica dinámica de múltiples endpoints.",
-				"pl": "Ponowne wprowadzenie stanu remoteControl z dynamiczną logiką wielu punktów końcowych.",
-				"uk": "Знову введено стан remoteControl з динамічною логікою кількох кінцевих точок.",
-				"zh-cn": "重新引入了具有动态多端点逻辑的 remoteControl 状态。"
 			}
 		},
 		"authors": ["meistermopper <meister.mopper@gmail.com>"],

@@ -176,13 +176,6 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 * (meistermopper) Die Abhängigkeit von @iobroker/adapter-core wurde auf Version ^3.4.1 aktualisiert.
 * (meistermopper) Die Mindestanforderung für Node.js wurde dem Abschnitt „Voraussetzungen“ der README-Dateien hinzugefügt.
 
-### 0.1.0 (2026-06-23)
-* (meistermopper) Erste stabile Beta-Version
-* (meistermopper) `remoteControl` Datenpunkt wieder eingeführt mit dynamischer Multi-Endpunkt-Abfrage
-* (meistermopper) Polling-Intervalle und Verbindungsstatus-Management optimiert
-* (meistermopper) Automatische Changelog-Rotation eingerichtet, um die Readmes sauber zu halten
-* (meistermopper) Codebasis auf den neuesten Stand des Adapter-Creators refaktoriert
-
 ## [Ältere Einträge](CHANGELOG_OLD.md)
 
 ---
