@@ -153,6 +153,9 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 ## Änderungsprotokoll (Changelog)
 
 ### **WORK IN PROGRESS**
+* (meistermopper) Abhängigkeiten aktualisiert (eslint-config, commitlint) und package-lock.json korrigiert
+
+### 0.2.2 (2026-07-05)
 * (meistermopper) Deutsche Log-Nachrichten und States korrigiert (auf Englisch übersetzt)
 * (meistermopper) prepare-Skript aus der package.json entfernt
 * (meistermopper) Plausibilitätsprüfung für pollInterval in main.ts hinzugefügt

@@ -150,6 +150,7 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 
 ## Changelog
 ### **WORK IN PROGRESS**
+* (meistermopper) Update dependencies (eslint-config, commitlint) and regenerate package-lock.json
 
 ### 0.2.2 (2026-07-05)
 * (meistermopper) Fix German log messages and states (translate to English)
