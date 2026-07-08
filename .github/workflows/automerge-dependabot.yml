@@ -1,21 +1,69 @@
-# Automatically merge Dependabot PRs when version comparison is within the range
-# that is configured in .github/auto-merge.yml
+# ==============================================================================
+# WORKFLOW: Auto-Merge Dependabot PRs
+# ==============================================================================
+# Beschreibung:
+# Dieser Workflow prüft automatisch von Dependabot erstellte Pull Requests (PRs).
+# Er wertet aus, ob das jeweilige Dependency-Update den definierten Regelungen
+# in der Konfigurationsdatei (.github/auto-merge.yml) entspricht.
+#
+# Wenn die Regeln zutreffen, wird der PR automatisch zusammengeführt (gemergt).
+# Wenn die Regeln nicht zutreffen oder ein Fehler auftritt, wird das Ergebnis 
+# als Kommentar direkt im Pull Request dokumentiert.
+# ==============================================================================
 
 name: Auto-Merge Dependabot PRs
 
 on:
-  # WARNING: This needs to be run in the PR base, DO NOT build untrusted code in this action
-  # details under https://github.blog/changelog/2021-02-19-github-actions-workflows-triggered-by-dependabot-prs-will-run-with-read-only-permissions/
+  # WICHTIG: 'pull_request_target' führt den Workflow im Kontext des Ziel-Branches 
+  # (Base Repository) aus. Dadurch erhält die Action Zugriff auf das GITHUB_TOKEN 
+  # mit Schreibrechten, ohne dass unüberprüfter Code aus Forks ein Sicherheitsrisiko
+  # darstellt (sofern kein Fremdcode direkt ausgeführt wird).
   pull_request_target:
+
+# ------------------------------------------------------------------------------
+# BERECHTIGUNGEN (PERMISSIONS)
+# ------------------------------------------------------------------------------
+# Standardmäßig haben Workflows oft nur Leserechte. Damit das Skript Kommentare 
+# schreiben und den PR tatsächlich mergen kann, müssen die Schreibrechte für das 
+# GITHUB_TOKEN hier explizit vergeben werden.
+permissions:
+  # Erlaubt das Lesen und Schreiben von Repository-Inhalten (nötig für Git-Merges)
+  contents: write
+  
+  # Erlaubt das Verwalten von Pull Requests (nötig zum automatischen Mergen/Schließen)
+  pull-requests: write
+  
+  # Erlaubt das Erstellen von Kommentaren (Pull Requests basieren intern auf der Issues-API,
+  # daher ist dieses Recht zwingend notwendig, um den Status-Kommentar im PR zu posten)
+  issues: write
 
 jobs:
   auto-merge:
+    # Sicherheitsprüfung: Der Job wird nur dann gestartet, wenn der Pull Request
+    # auch wirklich vom offiziellen Dependabot erstellt wurde.
     if: github.actor == 'dependabot[bot]'
+    
+    # Laufzeitumgebung für den Runner festlegen
     runs-on: ubuntu-latest
+
     steps:
+      # ------------------------------------------------------------------------
+      # SCHRITT 1: Repository-Inhalt auschecken
+      # ------------------------------------------------------------------------
+      # Verwendet die offizielle GitHub Checkout Action, um den Code des Repositories 
+      # für die nachfolgenden Skripte bereitzustellen.
       - name: Checkout code
         uses: actions/checkout@v7
+
+      # ------------------------------------------------------------------------
+      # SCHRITT 2: Dependabot Auto-Merge Prüfung durchführen
+      # ------------------------------------------------------------------------
+      # Führt die ioBroker-spezifische Auto-Merge-Logik aus. Das Skript prüft 
+      # die .github/auto-merge.yml, gleicht das Paket mit den Regeln ab und 
+      # entscheidet über den Merge. Anschließend wird das Ergebnis per API im PR gepostet.
       - name: Check if PR should be auto-merged
         uses: iobroker-bot-orga/action-automerge-dependabot@v1
         with:
+          # Übergabe des systemeigenen Secrets 'GITHUB_TOKEN' zur Authentifizierung 
+          # bei den GitHub-API-Aufrufen (Kommentar schreiben, PR mergen etc.).
           github-token: "${{ secrets.GITHUB_TOKEN }}"
