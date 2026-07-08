@@ -153,6 +153,8 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 ## Änderungsprotokoll (Changelog)
 
 ### **WORK IN PROGRESS**
+
+### 0.2.4 (2026-07-08)
 * (meistermopper) npm install im Workflow einkommentiert, um Lockfile-Sync-Probleme zu beheben
 
 ### 0.2.3 (2026-07-08)
