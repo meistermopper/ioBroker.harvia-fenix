@@ -42,19 +42,6 @@
 				"uk": "Використовуйте npm install у робочому процесі, щоб запобігти проблемам із синхронізацією файлів блокування",
 				"zh-cn": "在工作流中使用 npm install 可以防止锁定文件同步问题。"
 			},
-			"0.2.3": {
-				"en": "Update dependencies (eslint-config, commitlint) and regenerate package-lock.json",
-				"de": "Aktualisiere die Abhängigkeiten (eslint-config, commitlint) und generiere package-lock.json neu.",
-				"ru": "Обновите зависимости (eslint-config, commitlint) и перегенерируйте файл package-lock.json.",
-				"pt": "Atualize as dependências (eslint-config, commitlint) e regenere o arquivo package-lock.json.",
-				"nl": "Werk de afhankelijkheden bij (eslint-config, commitlint) en genereer package-lock.json opnieuw.",
-				"fr": "Mettez à jour les dépendances (eslint-config, commitlint) et régénérez package-lock.json",
-				"it": "Aggiorna le dipendenze (eslint-config, commitlint) e rigenera il file package-lock.json.",
-				"es": "Actualiza las dependencias (eslint-config, commitlint) y regenera el archivo package-lock.json.",
-				"pl": "Zaktualizuj zależności (eslint-config, commitlint) i ponownie wygeneruj package-lock.json",
-				"uk": "Оновіть залежності (eslint-config, commitlint) та перегенеруйте package-lock.json",
-				"zh-cn": "更新依赖项（eslint-config、commitlint）并重新生成 package-lock.json 文件。"
-			},
 			"0.2.2": {
 				"en": "Fix German log messages and states (translate to English)\nRemove prepare script from package.json\nAdd boundary check validation for pollInterval in main.ts\nMove inline jsonConfig translations to standard i18n files and fix missing translations",
 				"de": "Deutsche Logmeldungen und Statusmeldungen korrigieren (ins Englische übersetzen)\nEntfernen Sie das Vorbereitungsskript aus der package.json-Datei.\nFüge in main.ts eine Validierung zur Überprüfung der Grenzen für pollInterval hinzu.\nVerschieben Sie die Inline-Übersetzungen von jsonConfig in Standard-i18n-Dateien und beheben Sie fehlende Übersetzungen.",
