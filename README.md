@@ -149,6 +149,9 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 ---
 
 ## Changelog
+### **WORK IN PROGRESS**
+* (meistermopper) Use npm install in workflow to prevent lockfile sync issues
+
 ### 0.2.3 (2026-07-08)
 * (meistermopper) Update dependencies (eslint-config, commitlint) and regenerate package-lock.json
 
