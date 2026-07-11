@@ -28,11 +28,11 @@ Für weitere Informationen über Harvia und deren Saunasteuerungen besuche bitte
 Um diesen Adapter zu nutzen, benötigst du:
 1. **Node.js >= 22**
 2. Ein registriertes Konto in der offiziellen **MyHarvia 2** Smartphone-App.
-3. Gültigen Login-Daten:
+3. Gültige Login-Daten:
    * **E-Mail-Adresse**
    * **Passwort**
 
-*Hinweis: Wir empfehlen, ein separates Konto für ioBroker in der Harvia 2 App einzurichten und diese Zugangsdaten in der Instanz zu verwenden.*
+*Hinweis: Es wird ein separates Konto für ioBroker in der Harvia 2 App empfohlen und diese Zugangsdaten in der Instanz zu verwenden.*
 
 ---
 
