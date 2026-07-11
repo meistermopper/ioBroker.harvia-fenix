@@ -143,6 +143,19 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 
 ---
 
+## Fehlerbehebung (Troubleshooting)
+
+### Häufige API-Fehler & Statusmeldungen in `errorMsg`:
+
+* **`Action blocked (403 Forbidden). Remote start authorization (Safety Loop) at panel might not be active.`**
+  * **Ursache:** Die europäische Sicherheitsnorm schreibt vor, dass ein Fernstart nur aktiv sein darf, wenn der Sicherheitskreis/Türsensor geschlossen ist und der Fernstart physisch am Saunapanel scharf geschaltet wurde.
+  * **Lösung:** Schließe die Saunatür und drücke am physischen Harvia-Bedienfeld die **Fernstart**-Taste. Das Fernstart-Symbol auf dem Display muss leuchten. Erst danach ist die Steuerung über den Adapter freigegeben.
+* **`Cloud lock: Device busy, command discarded.` (Als Debug-Log)**
+  * **Ursache:** Die Harvia-API blockiert Befehle, wenn sie in zu schneller Folge gesendet werden (z. B. durch schnelles Klicken in der Vis), um die Hardware zu schützen.
+  * **Lösung:** Warte einige Sekunden zwischen den Befehlen. Der Adapter verwirft zu schnelle Klicks automatisch, um eine API-Sperre zu verhindern.
+
+---
+
 ## To-Do
 * [ ] Auf offizielle Erlaubnis von Harvia zur Nutzung des Original-Logos warten
 * [ ] Aufnahme des Adapters in das offizielle ioBroker `latest` Repository

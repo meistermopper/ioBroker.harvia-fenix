@@ -102,6 +102,7 @@ The adapter maps your sauna's cloud states into structured ioBroker datapoints u
 | `totalBathingHours` | number | `value.number` | Read-only | Total historical cumulative hours the sauna has been actively used (`h`). |
 | `totalOperatingHours`| number | `value.hours` | Read-only | Total system operational running hours (`h`). |
 | `totalSessions` | number | `value.count` | Read-only | Counter for the total number of individual sauna heating sessions executed. |
+
 ---
 
 ## Notifications & Automations
@@ -133,12 +134,27 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 **Remote operation of a sauna heater is subject to strict safety regulations!** According to the European safety standard **EN 60335-2-53** in conjunction with **EN 60335-1**, fire protection measures are mandatory for remote control setups. The sauna cabin must be equipped with an approved door sensor or a safety switch-off system. This ensures that the heater cannot be started remotely or via a timer if a flammable object (e.g., a towel) has been left on or near the heater.
 
 * **No Liability:** The developer of this adapter assumes absolutely no responsibility, warranty, or liability for any damages, fires, injuries, or legal issues resulting from the use or misconfiguration of this software. You operate this integration entirely at your own risk.
+
 ---
 
 ## Compatibility Note
 
 * **Supported:** **Harvia Fenix** control units managed via the **MyHarvia 2** mobile application.
 * **NOT Supported:** **Harvia Xenio** series (e.g., Xenio WiFi / CX001WIFI). The Xenio series relies on a legacy hardware ecosystem and uses the older *"MyHarvia for Xenio"* app, which is fundamentally incompatible with the API utilized by this adapter.
+
+---
+
+## Troubleshooting
+
+### Common API Errors & Status Messages in `errorMsg`:
+
+* **`Action blocked (403 Forbidden). Remote start authorization (Safety Loop) at panel might not be active.`**
+  * **Cause:** The European safety standard requires that remote starting can only be activated if the safety loop/door sensor is closed and remote start has been physically armed at the sauna panel.
+  * **Solution:** Close the sauna door and press the **Remote Start / Fernstart** button on your physical Harvia control panel. The remote icon on the screen must be active. Once done, you can control the sauna via the adapter.
+* **`Cloud lock: Device busy, command discarded.` (Logged as debug)**
+  * **Cause:** Harvia's API rate-limits commands if they are sent in rapid succession (e.g. rapid clicking in the UI) to protect the hardware.
+  * **Solution:** Wait a few seconds between commands. The adapter automatically discards commands that are sent too quickly to prevent API blocking.
+
 ---
 
 ## To-Do
