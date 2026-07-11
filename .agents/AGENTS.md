@@ -1,0 +1,41 @@
+# ioBroker Development Rules for harvia-fenix
+
+This file defines style guidelines, constraints, and general instructions for AI agents working on the `iobroker.harvia-fenix` codebase to ensure 100% ioBroker conformity, safety, and stability.
+
+## 1. Asynchronous Error Handling (Crash Prevention)
+- **Constraint:** All asynchronous API calls, network requests (e.g., Axios), and database operations must be wrapped in `try/catch` blocks or have `.catch()` handlers. Unhandled promise rejections must be avoided at all costs to prevent crash loops.
+- **Example:**
+  ```typescript
+  try {
+      const response = await this.client.get("/devices");
+  } catch (error: any) {
+      this.log.error(`API Call failed: ${error.message}`);
+  }
+  ```
+- **Event Handlers:** Ensure main entry points like `onReady`, `onStateChange`, and `onUnload` capture all internal errors and log them cleanly instead of crashing the process.
+
+## 2. Object & State Management
+- **Rule:** Never call `this.setState()` or `this.setStateAsync()` on states that do not exist in the ioBroker object database.
+- **Static States:** If a state is static, it must be defined in [io-package.json](file:///c:/Users/thoma/dev/Harvia_Fenix/iobroker.harvia-fenix/io-package.json) under `instanceObjects` first.
+- **Dynamic States:** If states are created dynamically (e.g., during polling or device discovery), you MUST call `this.setObjectNotExistsAsync()` before calling `this.setStateAsync()`.
+- **Strict Metadata:** Every new object configuration must contain a valid `common` section specifying:
+  - `type` (e.g., `'string'`, `'number'`, `'boolean'`)
+  - `role` (must be a standard ioBroker role like `'value.temperature'`, `'switch.power'`, etc.)
+  - `read` and `write` flags
+  - `def` (default value corresponding to the data type)
+
+## 3. The `ack` Flag Protocol
+- **Sensor/Cloud Updates (`ack: true`):** When updating states with values received from the Harvia API or hardware status, always set `ack: true` to indicate that the state represents the confirmed current value.
+  - *Example:* `await this.setStateAsync("temp", currentVal, true);`
+- **User Commands (`ack: false`):** When reacting to state changes triggered by the user (where `state.ack === false` in `onStateChange`), perform the required API action. Upon success, update the state with `ack: true` to confirm the command execution.
+
+## 4. Resource Lifecycle Management (Memory Cleanups)
+- **Constraint:** All active intervals, timeouts, and event listeners must be properly cleaned up in the `onUnload` method of the adapter.
+- **Timers:** Prefer using `this.setTimeout()` or `this.setInterval()` instead of global node functions, or keep references and clear them explicitly during unload to prevent memory leaks.
+
+## 5. Local Code Verification
+- **Workflow:** Before finishing any code modification or pushing, run:
+  ```bash
+  npm run test:local
+  ```
+  This command runs `biome check`, TypeScript compilation (`tsc --noEmit`), and the package/unit/integration tests. Make sure all checks pass.

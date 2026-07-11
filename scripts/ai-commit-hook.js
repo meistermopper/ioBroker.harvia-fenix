@@ -1,8 +1,8 @@
-const { execSync } = require("node:child_process");
-const fs = require("node:fs");
+const { execSync } = require('node:child_process');
+const fs = require('node:fs');
 
 // Lädt eine lokale .env-Datei (nativ verfügbar ab Node 20.12.0)
-if (typeof process.loadEnvFile === "function") {
+if (typeof process.loadEnvFile === 'function') {
 	try {
 		process.loadEnvFile();
 	} catch {
@@ -17,7 +17,7 @@ const commitSource = process.argv[3];
 
 if (!commitMsgFile) {
 	console.error(
-		"[AI-Commit-Hook] Fehler: Kein Pfad zur Commit-Nachrichtendatei übergeben.",
+		'[AI-Commit-Hook] Fehler: Kein Pfad zur Commit-Nachrichtendatei übergeben.',
 	);
 	process.exit(1);
 }
@@ -27,9 +27,9 @@ if (!commitMsgFile) {
  */
 function getGitDiff() {
 	try {
-		return execSync("git diff --cached").toString();
+		return execSync('git diff --cached').toString();
 	} catch {
-		console.error("[AI-Commit-Hook] Fehler beim Abrufen des Git-Diffs.");
+		console.error('[AI-Commit-Hook] Fehler beim Abrufen des Git-Diffs.');
 		process.exit(1);
 	}
 }
@@ -43,10 +43,10 @@ async function generateCommitMessage(diff) {
 		// Falls kein Key gesetzt ist, warnen wir den Benutzer, brechen den Commit
 		// aber nicht ab, damit man wie gewohnt manuell committen kann.
 		console.warn(
-			"\n⚠️ [AI-Commit-Hook] Warnung: Die Umgebungsvariable GEMINI_API_KEY ist nicht gesetzt!",
+			'\n⚠️ [AI-Commit-Hook] Warnung: Die Umgebungsvariable GEMINI_API_KEY ist nicht gesetzt!',
 		);
 		console.warn(
-			"Bitte erstelle einen kostenlosen Key im Google AI Studio, um automatische Commit-Nachrichten zu aktivieren.\n",
+			'Bitte erstelle einen kostenlosen Key im Google AI Studio, um automatische Commit-Nachrichten zu aktivieren.\n',
 		);
 		return null;
 	}
@@ -75,8 +75,8 @@ ${diff}`;
 	const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
 
 	const response = await fetch(url, {
-		method: "POST",
-		headers: { "Content-Type": "application/json" },
+		method: 'POST',
+		headers: { 'Content-Type': 'application/json' },
 		body: JSON.stringify({
 			contents: [{ parts: [{ text: prompt }] }],
 		}),
@@ -97,7 +97,7 @@ ${diff}`;
  */
 function formatCommitMessage(msg) {
 	if (!msg) return msg;
-	const lines = msg.split("\n");
+	const lines = msg.split('\n');
 	if (lines.length === 0) return msg;
 
 	// 1. Header (Zeile 1) anpassen: Erstes Zeichen des Subjects klein schreiben
@@ -105,7 +105,7 @@ function formatCommitMessage(msg) {
 	const headerMatch = header.match(/^([a-z]+)(?:\(([^)]+)\))?:\s*(.*)$/);
 	if (headerMatch) {
 		const type = headerMatch[1];
-		const scope = headerMatch[2] ? `(${headerMatch[2]})` : "";
+		const scope = headerMatch[2] ? `(${headerMatch[2]})` : '';
 		let subject = headerMatch[3].trim();
 		if (subject.length > 0) {
 			subject = subject[0].toLowerCase() + subject.slice(1);
@@ -115,13 +115,16 @@ function formatCommitMessage(msg) {
 
 	// Helper zum Umbrechen von Text
 	const wrapText = (text, maxLength) => {
-		const words = text.split(" ");
+		const words = text.split(' ');
 		const resultLines = [];
-		let currentLine = "";
+		let currentLine = '';
 
 		for (const word of words) {
-			if ((currentLine + (currentLine ? " " : "") + word).length <= maxLength) {
-				currentLine += (currentLine ? " " : "") + word;
+			if (
+				(currentLine + (currentLine ? ' ' : '') + word).length <=
+				maxLength
+			) {
+				currentLine += (currentLine ? ' ' : '') + word;
 			} else {
 				if (currentLine) {
 					resultLines.push(currentLine);
@@ -139,12 +142,12 @@ function formatCommitMessage(msg) {
 	const formattedLines = [lines[0]];
 	for (let i = 1; i < lines.length; i++) {
 		const line = lines[i];
-		if (line.trim() === "") {
-			formattedLines.push("");
+		if (line.trim() === '') {
+			formattedLines.push('');
 			continue;
 		}
-		if (line.trim().startsWith("- ")) {
-			const content = line.substring(line.indexOf("- ") + 2).trim();
+		if (line.trim().startsWith('- ')) {
+			const content = line.substring(line.indexOf('- ') + 2).trim();
 			const wrapped = wrapText(content, 70); // 72 - 2 Zeichen für "- "
 			wrapped.forEach((wLine, index) => {
 				if (index === 0) {
@@ -161,25 +164,25 @@ function formatCommitMessage(msg) {
 		}
 	}
 
-	return formattedLines.join("\n");
+	return formattedLines.join('\n');
 }
 
 async function main() {
 	// Wenn der Commit aus einer speziellen Quelle kommt (z. B. ein Merge, ein Amend, oder via Git -m),
 	// überschreiben wir nichts.
-	if (commitSource && commitSource !== "") {
+	if (commitSource && commitSource !== '') {
 		return;
 	}
 
 	// Prüfen, ob der Benutzer bereits eine Nachricht in das VS Code Textfeld eingetragen hat.
 	// Wir lesen die Datei ein und ignorieren alle Git-Kommentare (Zeilen mit #).
-	let existingContent = "";
+	let existingContent = '';
 	if (fs.existsSync(commitMsgFile)) {
 		existingContent = fs
-			.readFileSync(commitMsgFile, "utf-8")
-			.split("\n")
-			.filter((line) => !line.trim().startsWith("#"))
-			.join("\n")
+			.readFileSync(commitMsgFile, 'utf-8')
+			.split('\n')
+			.filter((line) => !line.trim().startsWith('#'))
+			.join('\n')
 			.trim();
 	}
 
@@ -194,19 +197,21 @@ async function main() {
 	}
 
 	console.log(
-		"[AI-Commit-Hook] Generiere professionelle Commit-Nachricht via Gemini...",
+		'[AI-Commit-Hook] Generiere professionelle Commit-Nachricht via Gemini...',
 	);
 	try {
 		const commitMsg = await generateCommitMessage(diff);
 		if (commitMsg) {
 			const formattedMsg = formatCommitMessage(commitMsg);
 			// Schreiben die generierte Nachricht direkt in die Datei, die Git für den Commit verwendet
-			fs.writeFileSync(commitMsgFile, formattedMsg, "utf-8");
-			console.log("[AI-Commit-Hook] Commit-Nachricht erfolgreich eingefügt.");
+			fs.writeFileSync(commitMsgFile, formattedMsg, 'utf-8');
+			console.log(
+				'[AI-Commit-Hook] Commit-Nachricht erfolgreich eingefügt.',
+			);
 		}
 	} catch (err) {
 		console.error(
-			"\n❌ [AI-Commit-Hook] Fehler bei der Generierung:",
+			'\n❌ [AI-Commit-Hook] Fehler bei der Generierung:',
 			err.message,
 		);
 		// Wir lassen den Commit weiterlaufen (als Fallback), damit der Benutzer manuell tippen kann

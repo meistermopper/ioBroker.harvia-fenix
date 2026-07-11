@@ -19,7 +19,15 @@
 		}
 	},
 	"formatter": {
-		"enabled": true
+		"enabled": false,
+		"indentStyle": "tab",
+		"indentWidth": 4
+	},
+	"javascript": {
+		"formatter": {
+			"quoteStyle": "single",
+			"trailingCommas": "all"
+		}
 	},
 	"assist": {
 		"enabled": true

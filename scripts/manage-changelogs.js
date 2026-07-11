@@ -1,9 +1,9 @@
-const fs = require("node:fs");
-const path = require("node:path");
+const fs = require('node:fs');
+const path = require('node:path');
 
-const readmePath = path.join(__dirname, "../README.md");
-const readmeDePath = path.join(__dirname, "../README_de.md");
-const changelogOldPath = path.join(__dirname, "../CHANGELOG_OLD.md");
+const readmePath = path.join(__dirname, '../README.md');
+const readmeDePath = path.join(__dirname, '../README_de.md');
+const changelogOldPath = path.join(__dirname, '../CHANGELOG_OLD.md');
 
 function migrateToChangelogOld(moveBlocks) {
 	if (!fs.existsSync(changelogOldPath)) {
@@ -11,12 +11,12 @@ function migrateToChangelogOld(moveBlocks) {
 		return;
 	}
 
-	let oldContent = fs.readFileSync(changelogOldPath, "utf8");
-	const originalLineEndings = oldContent.includes("\r\n") ? "\r\n" : "\n";
-	oldContent = oldContent.replace(/\r\n/g, "\n");
+	let oldContent = fs.readFileSync(changelogOldPath, 'utf8');
+	const originalLineEndings = oldContent.includes('\r\n') ? '\r\n' : '\n';
+	oldContent = oldContent.replace(/\r\n/g, '\n');
 
 	// CHANGELOG_OLD.md starts with `# Older changes`
-	const insertAfterMarker = "# Older changes";
+	const insertAfterMarker = '# Older changes';
 	const insertIndex = oldContent.indexOf(insertAfterMarker);
 	if (insertIndex === -1) {
 		console.error(
@@ -26,13 +26,13 @@ function migrateToChangelogOld(moveBlocks) {
 	}
 
 	const insertPosition = insertIndex + insertAfterMarker.length;
-	let newEntriesText = "";
+	let newEntriesText = '';
 
 	for (const block of moveBlocks) {
 		const version = block.version;
 		// Check if this version is already in CHANGELOG_OLD.md
-		const escapedVersion = version.replace(/\./g, "\\.");
-		const versionRegex = new RegExp(`^##\\s+v?${escapedVersion}\\b`, "m");
+		const escapedVersion = version.replace(/\./g, '\\.');
+		const versionRegex = new RegExp(`^##\\s+v?${escapedVersion}\\b`, 'm');
 		if (versionRegex.test(oldContent)) {
 			console.log(
 				`Version ${version} is already present in CHANGELOG_OLD.md. Skipping duplication.`,
@@ -41,25 +41,28 @@ function migrateToChangelogOld(moveBlocks) {
 		}
 
 		// Convert the block text's header line to H2 (e.g. ### 0.0.24 -> ## 0.0.24)
-		const headerIndex = block.lines.findIndex((l) => l.startsWith("###"));
+		const headerIndex = block.lines.findIndex((l) => l.startsWith('###'));
 		if (headerIndex !== -1) {
-			block.lines[headerIndex] = block.lines[headerIndex].replace(/^###/, "##");
+			block.lines[headerIndex] = block.lines[headerIndex].replace(
+				/^###/,
+				'##',
+			);
 		}
 
-		newEntriesText += `\n${block.lines.join("\n").trim()}\n`;
+		newEntriesText += `\n${block.lines.join('\n').trim()}\n`;
 	}
 
 	if (newEntriesText) {
 		const updatedOldContent =
 			oldContent.substring(0, insertPosition) +
-			"\n" +
+			'\n' +
 			newEntriesText.trim() +
-			"\n" +
+			'\n' +
 			oldContent.substring(insertPosition);
 		fs.writeFileSync(
 			changelogOldPath,
 			updatedOldContent.replace(/\n/g, originalLineEndings),
-			"utf8",
+			'utf8',
 		);
 		console.log(`Migrated older version(s) to CHANGELOG_OLD.md.`);
 	}
@@ -70,11 +73,11 @@ function processReadme(filePath, startRegex, endRegex, isEnglish) {
 		console.warn(`File not found: ${filePath}`);
 		return;
 	}
-	let content = fs.readFileSync(filePath, "utf8");
+	let content = fs.readFileSync(filePath, 'utf8');
 
 	// Standardize line endings to LF for internal processing
-	const originalLineEndings = content.includes("\r\n") ? "\r\n" : "\n";
-	content = content.replace(/\r\n/g, "\n");
+	const originalLineEndings = content.includes('\r\n') ? '\r\n' : '\n';
+	content = content.replace(/\r\n/g, '\n');
 
 	const startMatch = content.match(startRegex);
 	if (!startMatch) {
@@ -92,7 +95,7 @@ function processReadme(filePath, startRegex, endRegex, isEnglish) {
 	const endIndex = searchFrom + endMatch.index;
 
 	const changelogSection = content.substring(searchFrom, endIndex);
-	const lines = changelogSection.split("\n");
+	const lines = changelogSection.split('\n');
 	const versionHeaderRegex =
 		/^###\s+(v?\d+\.\d+\.\d+(?:-\w+\.\d+)?|\*\*WORK IN PROGRESS\*\*)/i;
 
@@ -108,7 +111,7 @@ function processReadme(filePath, startRegex, endRegex, isEnglish) {
 			currentBlock = {
 				header: line,
 				version: match[1],
-				isWip: match[1].includes("WORK IN PROGRESS"),
+				isWip: match[1].includes('WORK IN PROGRESS'),
 				lines: [line],
 			};
 		} else {
@@ -117,8 +120,8 @@ function processReadme(filePath, startRegex, endRegex, isEnglish) {
 			} else {
 				if (line.trim()) {
 					blocks.push({
-						header: "",
-						version: "",
+						header: '',
+						version: '',
 						isWip: false,
 						lines: [line],
 					});
@@ -163,19 +166,21 @@ function processReadme(filePath, startRegex, endRegex, isEnglish) {
 	}
 
 	const keptText =
-		"\n\n" +
+		'\n\n' +
 		keepBlocks
-			.map((b) => b.lines.join("\n").trim())
+			.map((b) => b.lines.join('\n').trim())
 			.filter(Boolean)
-			.join("\n\n") +
-		"\n\n";
+			.join('\n\n') +
+		'\n\n';
 	const newContent =
-		content.substring(0, searchFrom) + keptText + content.substring(endIndex);
+		content.substring(0, searchFrom) +
+		keptText +
+		content.substring(endIndex);
 
 	fs.writeFileSync(
 		filePath,
 		newContent.replace(/\n/g, originalLineEndings),
-		"utf8",
+		'utf8',
 	);
 
 	if (isEnglish && moveBlocks.length > 0) {
