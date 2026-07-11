@@ -24,4 +24,7 @@ devServerCli.md
 # Environment variables
 .env
 .env.local
-.env.*.local
+.env.*.local
+
+# Local documentation
+devServerCli.md
