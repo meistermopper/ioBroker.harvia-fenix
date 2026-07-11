@@ -65,6 +65,9 @@ const API_TRUE_VALUES = new Set([
     'active',
     'standby',
 ]);
+/**
+ * ioBroker adapter for Harvia Fenix Sauna Control.
+ */
 class HarviaFenix extends utils.Adapter {
     client;
     idToken = '';
@@ -82,6 +85,11 @@ class HarviaFenix extends utils.Adapter {
     updateInterval;
     loginInterval;
     lastEventTime = {}; // For debouncing
+    /**
+     * Creates an instance of the HarviaFenix adapter.
+     *
+     * @param options - The adapter options.
+     */
     constructor(options = {}) {
         super({
             ...options,
@@ -95,9 +103,9 @@ class HarviaFenix extends utils.Adapter {
         });
     }
     /**
-     * Centralized headers for Harvia Cloud API
+     * Centralized headers for Harvia Cloud API.
      *
-     * @param partnerId
+     * @param partnerId - The partner ID to use. Defaults to the adapter's configured partner ID.
      */
     getCloudHeaders(partnerId) {
         return {
@@ -134,9 +142,9 @@ class HarviaFenix extends utils.Adapter {
         await this.startCloudConnection();
     };
     /**
-     * Robust check for truthy values from Harvia API
+     * Robust check for truthy values from Harvia API.
      *
-     * @param val
+     * @param val - The value to check.
      */
     static isTrue(val) {
         if (val === undefined || val === null) {
@@ -151,9 +159,9 @@ class HarviaFenix extends utils.Adapter {
     /**
      * Internal helper to calculate and format a numeric value from API data with scaling and rounding.
      *
-     * @param val
-     * @param scale
-     * @param decimals
+     * @param val - The raw value to convert.
+     * @param scale - The scaling factor to apply.
+     * @param decimals - The number of decimal places to round to.
      */
     static calculateNumericValue(val, scale = 1, decimals = 1) {
         if (val === undefined || val === null || val === '') {
@@ -171,10 +179,10 @@ class HarviaFenix extends utils.Adapter {
         return result;
     }
     /**
-     * Helper to get value from multiple possible API keys
+     * Helper to get value from multiple possible API keys.
      *
-     * @param p
-     * @param keys
+     * @param p - The raw data payload object.
+     * @param keys - The keys to check in order of priority.
      */
     static getApiValue(p, keys) {
         if (!p || typeof p !== 'object' || Array.isArray(p)) {
@@ -635,11 +643,11 @@ class HarviaFenix extends utils.Adapter {
     /**
      * Internal helper to update a numeric state from API data with scaling and rounding.
      *
-     * @param stateId
-     * @param keys
-     * @param data
-     * @param scale
-     * @param decimals
+     * @param stateId - The ioBroker state ID to update.
+     * @param keys - The potential keys to find in the API data.
+     * @param data - The API data payload.
+     * @param scale - The scaling factor.
+     * @param decimals - The decimal places to round to.
      */
     async updateNumericState(stateId, keys, data, scale = 1, decimals = 1) {
         const raw = HarviaFenix.getApiValue(data, keys);
@@ -651,9 +659,9 @@ class HarviaFenix extends utils.Adapter {
     /**
      * Internal helper to update a boolean state from API data.
      *
-     * @param stateId
-     * @param keys
-     * @param data
+     * @param stateId - The ioBroker state ID to update.
+     * @param keys - The potential keys to find in the API data.
+     * @param data - The API data payload.
      */
     async updateBooleanState(stateId, keys, data) {
         const raw = HarviaFenix.getApiValue(data, keys);
