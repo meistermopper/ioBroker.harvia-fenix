@@ -165,6 +165,8 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 ---
 
 ## Changelog
+### **WORK IN PROGRESS**
+
 ### 0.2.5 (2026-07-15)
 * (meistermopper) Add docs folder structure and automatic README synchronization script
 
