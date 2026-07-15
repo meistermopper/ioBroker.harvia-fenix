@@ -49,3 +49,10 @@ This file defines style guidelines, constraints, and general instructions for AI
   ```
   This is required to comply with the project's Biome linting rules (`useNodejsImportProtocol`).
 
+## 7. Changelog & Release Guidelines (WIP Check Prevention)
+- **Constraint:** Whenever you make changes to the repository (source code, documentation, scripts), you MUST add a descriptive bullet point of your changes under the `### **WORK IN PROGRESS**` section in both [README.md](file:///c:/Users/thoma/dev/Harvia_Fenix/iobroker.harvia-fenix/README.md) and [README_de.md](file:///c:/Users/thoma/dev/Harvia_Fenix/iobroker.harvia-fenix/README_de.md).
+- **Clean Worktree:** Ensure all working tree changes are committed or stashed before running `npm run release`, as the release script requires a clean git status by default.
+- **Why:** The release script executes a verification script (`check-wip.js`) which fails if the WIP section is empty, and checks that no uncommitted files exist before proceeding, blocking the build otherwise.
+
+
+
