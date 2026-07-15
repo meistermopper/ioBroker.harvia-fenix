@@ -39,3 +39,13 @@ This file defines style guidelines, constraints, and general instructions for AI
   npm run test:local
   ```
   This command runs `biome check`, TypeScript compilation (`tsc --noEmit`), and the package/unit/integration tests. Make sure all checks pass.
+
+## 6. Node.js Built-in Module Imports (Biome Conformity)
+- **Constraint:** When requiring or importing Node.js built-in modules (e.g., `fs`, `path`, `os`, `crypto`), you must always use the `node:` protocol prefix.
+- **Examples:**
+  ```javascript
+  const fs = require('node:fs');
+  const path = require('node:path');
+  ```
+  This is required to comply with the project's Biome linting rules (`useNodejsImportProtocol`).
+
