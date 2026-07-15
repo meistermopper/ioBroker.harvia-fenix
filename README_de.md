@@ -187,9 +187,6 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 ### 0.2.0 (2026-06-25)
 * (meistermopper) Manuelle Partner-ID und Unterstützung für geteilte/freigegebene Konten hinzugefügt, Entladevorgang-Prüfungen verbessert, Dokumentation aktualisiert
 
-### 0.1.2 (2026-06-24)
-* (meistermopper) docs: Deutsche Übersetzung des Änderungsprotokolls in README_de.md aktualisiert
-
 ## [Ältere Einträge](CHANGELOG_OLD.md)
 
 ---

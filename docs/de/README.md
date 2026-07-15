@@ -166,6 +166,7 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 ## Änderungsprotokoll (Changelog)
 
 ### **WORK IN PROGRESS**
+* (meistermopper) Dokumentationsordnerstruktur (docs) und automatisches README-Synchronisationsskript hinzugefügt
 
 ### 0.2.4 (2026-07-08)
 * (meistermopper) npm install im Workflow einkommentiert, um Lockfile-Sync-Probleme zu beheben
@@ -185,9 +186,6 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 
 ### 0.2.0 (2026-06-25)
 * (meistermopper) Manuelle Partner-ID und Unterstützung für geteilte/freigegebene Konten hinzugefügt, Entladevorgang-Prüfungen verbessert, Dokumentation aktualisiert
-
-### 0.1.2 (2026-06-24)
-* (meistermopper) docs: Deutsche Übersetzung des Änderungsprotokolls in README_de.md aktualisiert
 
 ## [Ältere Einträge](../../CHANGELOG_OLD.md)
 

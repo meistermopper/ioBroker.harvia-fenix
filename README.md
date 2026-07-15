@@ -165,7 +165,7 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 ---
 
 ## Changelog
-### **WORK IN PROGRESS**
+### 0.2.5 (2026-07-15)
 * (meistermopper) Add docs folder structure and automatic README synchronization script
 
 ### 0.2.4 (2026-07-08)
@@ -183,9 +183,6 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 ### 0.2.1 (2026-06-30)
 * (meistermopper) Fix jsonConfig.json schema validation and add missing translations
 * (meistermopper) Update axios and biome dependencies
-
-### 0.2.0 (2026-06-25)
-* (meistermopper) Add manual partnerId and shared/guest accounts support, improve unloading checks, update docs
 
 ## [Older changelog entries](CHANGELOG_OLD.md)
 

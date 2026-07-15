@@ -51,7 +51,7 @@ This file defines style guidelines, constraints, and general instructions for AI
 
 ## 7. Changelog & Release Guidelines (WIP Check Prevention)
 - **Constraint:** Whenever you make changes to the repository (source code, documentation, scripts), you MUST add a descriptive bullet point of your changes under the `### **WORK IN PROGRESS**` section in both [README.md](file:///c:/Users/thoma/dev/Harvia_Fenix/iobroker.harvia-fenix/README.md) and [README_de.md](file:///c:/Users/thoma/dev/Harvia_Fenix/iobroker.harvia-fenix/README_de.md).
-- **Clean Worktree:** Ensure all working tree changes are committed or stashed before running `npm run release`, as the release script requires a clean git status by default.
+- **Clean Worktree:** Ensure all working tree changes are committed or stashed before running `npm run release`. Because the build process dynamically updates the `docs` directory (which Git may detect as modified due to line endings or regeneration), you should run the release command with the `--all` option (i.e. `npm run release -- --all`) to include these generated files in the release commit.
 - **Why:** The release script executes a verification script (`check-wip.js`) which fails if the WIP section is empty, and checks that no uncommitted files exist before proceeding, blocking the build otherwise.
 
 
