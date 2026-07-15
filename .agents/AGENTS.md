@@ -39,6 +39,9 @@ This file defines style guidelines, constraints, and general instructions for AI
   npm run test:local
   ```
   This command runs `biome check`, TypeScript compilation (`tsc --noEmit`), and the package/unit/integration tests. Make sure all checks pass.
+- **Troubleshooting (Windows Integration Tests):** If integration tests fail with `Unknown packet name harvia-fenix` (often caused by file locks or cache corruption in the temporary directories on Windows), delete the temp test directory:
+  `Remove-Item -Recurse -Force $env:TEMP\test-iobroker.harvia-fenix` (PowerShell) or `rmdir /s /q %TEMP%\test-iobroker.harvia-fenix` (CMD).
+
 
 ## 6. Node.js Built-in Module Imports (Biome Conformity)
 - **Constraint:** When requiring or importing Node.js built-in modules (e.g., `fs`, `path`, `os`, `crypto`), you must always use the `node:` protocol prefix.
