@@ -186,9 +186,6 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 * (meistermopper) Fehler in jsonConfig.json behoben und Übersetzungen hinzugefügt
 * (meistermopper) Abhängigkeiten axios und biome aktualisiert
 
-### 0.2.0 (2026-06-25)
-* (meistermopper) Manuelle Partner-ID und Unterstützung für geteilte/freigegebene Konten hinzugefügt, Entladevorgang-Prüfungen verbessert, Dokumentation aktualisiert
-
 ## [Ältere Einträge](CHANGELOG_OLD.md)
 
 ---
