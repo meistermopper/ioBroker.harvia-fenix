@@ -23,6 +23,8 @@ This file defines style guidelines, constraints, and general instructions for AI
   - `role` (must be a standard ioBroker role like `'value.temperature'`, `'switch.power'`, etc.)
   - `read` and `write` flags
   - `def` (default value corresponding to the data type)
+- **Object ID Validation:** Object IDs must not contain special characters, spaces, or non-ASCII characters. They should ideally only contain `A-Za-z0-9-_` (and `.` as separator).
+- **Explicit Hierarchy:** When creating an object tree dynamically (e.g., `device.channel.state`), you must explicitly create every parent object in the hierarchy (i.e., first the `device` object, then the `channel` object, and finally the `state` object).
 
 ## 3. The `ack` Flag Protocol
 - **Sensor/Cloud Updates (`ack: true`):** When updating states with values received from the Harvia API or hardware status, always set `ack: true` to indicate that the state represents the confirmed current value.
@@ -31,9 +33,16 @@ This file defines style guidelines, constraints, and general instructions for AI
 
 ## 4. Resource Lifecycle Management (Memory Cleanups)
 - **Constraint:** All active intervals, timeouts, and event listeners must be properly cleaned up in the `onUnload` method of the adapter.
-- **Timers:** Prefer using `this.setTimeout()` or `this.setInterval()` instead of global node functions, or keep references and clear them explicitly during unload to prevent memory leaks.
+- **Timers:** **NEVER** use Node.js global functions `setTimeout` or `setInterval`. You must always use the adapter-safe methods `this.setTimeout()` or `this.setInterval()`, or store references and clear them explicitly during unload.
 
-## 5. Local Code Verification
+## 5. Process Lifecycle Constraints
+- **Constraint:** **NEVER** call `process.exit()` within the adapter code. If the adapter needs to be terminated or stopped due to a fatal error, you must call `this.terminate()` (or `this.terminate(reason, exitCode)`) instead.
+
+## 6. Config UI & Internationalization (i18n)
+- **Constraint:** Do not create manual HTML panels (`admin/index_m.html`). Always use **JSONConfig** (`admin/jsonConfig.json` or `admin/jsonConfig.json5`).
+- **Translation:** Never write direct/hardcoded translations in `jsonConfig`. Always configure `"i18n": true` and use standard language translation keys corresponding to files in the `admin/i18n` directory.
+
+## 7. Local Code Verification
 - **Workflow:** Before finishing any code modification or pushing, run:
   ```bash
   npm run test:local
@@ -42,8 +51,7 @@ This file defines style guidelines, constraints, and general instructions for AI
 - **Troubleshooting (Windows Integration Tests):** If integration tests fail with `Unknown packet name harvia-fenix` (often caused by file locks or cache corruption in the temporary directories on Windows), delete the temp test directory:
   `Remove-Item -Recurse -Force $env:TEMP\test-iobroker.harvia-fenix` (PowerShell) or `rmdir /s /q %TEMP%\test-iobroker.harvia-fenix` (CMD).
 
-
-## 6. Node.js Built-in Module Imports (Biome Conformity)
+## 8. Node.js Built-in Module Imports (Biome Conformity)
 - **Constraint:** When requiring or importing Node.js built-in modules (e.g., `fs`, `path`, `os`, `crypto`), you must always use the `node:` protocol prefix.
 - **Examples:**
   ```javascript
@@ -52,7 +60,7 @@ This file defines style guidelines, constraints, and general instructions for AI
   ```
   This is required to comply with the project's Biome linting rules (`useNodejsImportProtocol`).
 
-## 7. Changelog & Release Guidelines (WIP Check Prevention)
+## 9. Changelog & Release Guidelines (WIP Check Prevention)
 - **Constraint:** Whenever you make changes to the repository (source code, documentation, scripts), you MUST add a descriptive bullet point of your changes under the `### **WORK IN PROGRESS**` section in both [README.md](file:///c:/Users/thoma/dev/Harvia_Fenix/iobroker.harvia-fenix/README.md) and [README_de.md](file:///c:/Users/thoma/dev/Harvia_Fenix/iobroker.harvia-fenix/README_de.md).
 - **Clean Worktree:** Ensure all working tree changes are committed or stashed before running `npm run release`. Because the build process dynamically updates the `docs` directory (which Git may detect as modified due to line endings or regeneration), you should run the release command with the `--all` option (i.e. `npm run release -- --all`) to include these generated files in the release commit.
 - **Why:** The release script executes a verification script (`check-wip.js`) which fails if the WIP section is empty, and checks that no uncommitted files exist before proceeding, blocking the build otherwise.
