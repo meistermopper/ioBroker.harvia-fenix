@@ -300,6 +300,7 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 ## Changelog
 ### **WORK IN PROGRESS**
 * (meistermopper) Redesign README and README_de.md layout to match Denon adapter presentation
+* (meistermopper) Update AI commit hook prompt to generate messages entirely in English
 
 ### 0.2.5 (2026-07-15)
 * (meistermopper) Add docs folder structure and automatic README synchronization script

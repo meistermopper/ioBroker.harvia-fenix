@@ -52,24 +52,24 @@ async function generateCommitMessage(diff) {
 	}
 
 	// Präziser Prompt für detaillierte Commit-Meldungen
-	const prompt = `Du bist ein professioneller Git-Experte. Generiere eine detaillierte und strukturierte Commit-Nachricht basierend auf dem folgenden Git-Diff der gestageten Änderungen.
-Verwende das Format "Conventional Commits".
+	const prompt = `You are a professional Git expert. Generate a detailed and structured commit message based on the following git diff of staged changes.
+Use the "Conventional Commits" format.
 
 Format:
-<type>(<scope>): <kurze Zusammenfassung in Englisch>
+<type>(<scope>): <short summary in English>
 
-- <Detaillierte Änderung 1 in Deutsch>
-- <Detaillierte Änderung 2 in Deutsch (WAS wurde geändert und vor allem WARUM)>
+- <detailed change 1 in English>
+- <detailed change 2 in English (WHAT was changed and why)>
 
-Regeln:
-1. Type muss einer von: feat, fix, docs, style, refactor, perf, test, build, ci, chore sein.
-2. Der Scope entspricht dem betroffenen Bereich (z.B. unifi, fritzbox, usv, global, dev, dev-workflow).
-3. Die Zusammenfassung im Header soll kurz und prägnant auf Englisch sein und mit einem Kleinbuchstaben beginnen (z.B. "introduce..." statt "Introduce...").
-4. Die Stichpunkte im Body sollen tiefgründig und auf Deutsch beschreiben, WAS geändert wurde und WARUM (keine oberflächlichen Kommentare).
-5. Jede Zeile im Body darf maximal 72 Zeichen lang sein.
-6. Antworte AUSSCHLIESSLICH mit der Commit-Nachricht. Keinen Markdown-Code-Block (\`\`\`), keine Einleitung, keine Erklärung.
+Rules:
+1. Type must be one of: feat, fix, docs, style, refactor, perf, test, build, ci, chore.
+2. Scope corresponds to the affected area (e.g., unifi, fritzbox, usv, global, dev, dev-workflow).
+3. The summary in the header must be short and concise in English and start with a lowercase letter (e.g., "introduce..." instead of "Introduce...").
+4. The bullet points in the body must describe in detail in English WHAT was changed and WHY (no shallow comments).
+5. Each line in the body must be at most 72 characters long.
+6. Reply ONLY with the commit message. No markdown code blocks (\`\`\`), no introduction, no explanation.
 
-Hier ist der Git-Diff:
+Here is the Git Diff:
 ${diff}`;
 
 	const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
