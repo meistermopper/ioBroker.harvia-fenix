@@ -299,6 +299,7 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 
 ## Changelog
 ### **WORK IN PROGRESS**
+* (meistermopper) Change doorSafety role to indicator.safety to prevent semantic role mismatch
 * (meistermopper) Redesign README and README_de.md layout to match Denon adapter presentation
 * (meistermopper) Update AI commit hook prompt to generate messages entirely in English
 
