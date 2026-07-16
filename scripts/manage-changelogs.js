@@ -188,6 +188,43 @@ function processReadme(filePath, startRegex, endRegex, isEnglish) {
 	}
 }
 
+function updateGermanWipHeader() {
+	const packageJsonPath = path.join(__dirname, '../package.json');
+	if (!fs.existsSync(packageJsonPath)) return;
+	const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
+	const version = packageJson.version;
+
+	if (!fs.existsSync(readmeDePath)) return;
+	let content = fs.readFileSync(readmeDePath, 'utf8');
+
+	const wipMarker = '### **WORK IN PROGRESS**';
+	const wipIndex = content.indexOf(wipMarker);
+	if (wipIndex === -1) {
+		return;
+	}
+
+	const today = new Date();
+	const dateStr = today.toISOString().split('T')[0]; // YYYY-MM-DD
+	const originalLineEndings = content.includes('\r\n') ? '\r\n' : '\n';
+	
+	// Check if version is already present immediately after WIP marker to prevent double-insert
+	const remainingContent = content.substring(wipIndex + wipMarker.length);
+	const escapedVersion = version.replace(/\./g, '\\.');
+	const versionRegex = new RegExp(`^\\s*###\\s+v?${escapedVersion}\\b`, 'm');
+	if (versionRegex.test(remainingContent.substring(0, 200))) {
+		console.log(`Version ${version} header is already present in README_de.md under WIP. Skipping replacement.`);
+		return;
+	}
+
+	const newHeader = `### **WORK IN PROGRESS**${originalLineEndings}${originalLineEndings}### ${version} (${dateStr})`;
+	content = content.replace(wipMarker, newHeader);
+	fs.writeFileSync(readmeDePath, content, 'utf8');
+	console.log(`Updated README_de.md WIP header to version ${version} (${dateStr}).`);
+}
+
+// Update the German WIP header with the current version from package.json
+updateGermanWipHeader();
+
 // 1. Process README.md (English)
 processReadme(
 	readmePath,
@@ -203,3 +240,4 @@ processReadme(
 	/^##\s+\[Ältere Einträge\]/im,
 	false,
 );
+
