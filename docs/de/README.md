@@ -1,8 +1,6 @@
-<p align="center">
-  <img src="https://raw.githubusercontent.com/meistermopper/ioBroker.harvia-fenix/main/admin/harvia.png" alt="Logo">
-</p>
-
+![Logo](admin/harvia.png)
 # ioBroker.harvia-fenix
+===========================
 
 **[Click here for the English version of the documentation.](../en/README.md)**
 
@@ -16,6 +14,7 @@
 ![Current version in latest repository](https://iobroker.live/badges/harvia-fenix-latest.svg)
 ![Current version in stable repository](https://iobroker.live/badges/harvia-fenix-stable.svg)
 
+[![NPM](https://nodei.co/npm/iobroker.harvia-fenix.png?downloads=true)](https://nodei.co/npm/iobroker.harvia-fenix/)
 
 ### Ein ioBroker-Adapter zur Integration und Steuerung der **Harvia Fenix** Saunasteuerung über die MyHarvia Cloud-Infrastruktur.
 
@@ -23,36 +22,66 @@ Für weitere Informationen über Harvia und deren Saunasteuerungen besuche bitte
 
 ---
 
-## Voraussetzungen
+## Haftungsausschluss & Sicherheitshinweis
+**Der Fernbetrieb eines Saunaofens unterliegt strengen Sicherheitsvorschriften!** Gemäß der europäischen Sicherheitsnorm **EN 60335-2-53** in Verbindung mit **EN 60335-1** sind Brandschutzmaßnahmen für Fernsteuerungssysteme zwingend erforderlich. Die Saunakabine muss mit einem zugelassenen Türsensor oder einem Sicherheits-Abschaltsystem ausgestattet sein. Dies stellt sicher, dass der Ofen nicht aus der Ferne oder per Timer gestartet werden kann, wenn ein brennbarer Gegenstand (z. B. ein Handtuch) auf oder in der Nähe des Ofens vergessen wurde.
 
-Um diesen Adapter zu nutzen, benötigst du:
-1. **Node.js >= 22**
-2. Ein registriertes Konto in der offiziellen **MyHarvia 2** Smartphone-App.
-3. Gültige Login-Daten:
-   * **E-Mail-Adresse**
-   * **Passwort**
-
-*Hinweis: Es wird ein separates Konto für ioBroker in der Harvia 2 App empfohlen und diese Zugangsdaten in der Instanz zu verwenden.*
+* **Keine Haftung:** Der Entwickler dieses Adapters übernimmt absolut keine Verantwortung, Gewährleistung oder Haftung für Schäden, Brände, Verletzungen oder rechtliche Probleme, die aus der Nutzung oder Fehlkonfiguration dieser Software resultieren. Sie betreiben diese Integration vollständig auf eigenes Risiko.
+* **Markenhinweis:** Harvia und MyHarvia 2 sind eingetragene Marken der Harvia Group. Dieser Adapter ist ein unabhängiges, gemeinschaftsbasiertes Open-Source-Projekt und wird weder offiziell von Harvia unterstützt, gesponsert noch betreut.
 
 ---
 
-## Gerätekonfiguration & Multi-Geräte-Unterstützung
+## Installation
+Du kannst den Adapter entweder über die ioBroker-Weboberfläche oder auf deiner lokalen Maschine via npm installieren.
 
-### Automatische Erkennung (Discovery)
+### Browser-basiert
+1. Öffne deine ioBroker-Weboberfläche in einem Browser (z. B. `192.168.1.33:8081`)
+2. Klicke auf den Reiter **Adapter**
+3. Gib "harvia-fenix" in den Filter ein
+4. Klicke auf die drei Punkte und dann auf das "+"-Symbol des **Harvia Fenix** Adapters, um eine Instanz hinzuzufügen
+
+### Lokale Maschine
+Navigiere in deinen ioBroker-Ordner und führe den folgenden Befehl aus: 
+```bash
+npm i iobroker.harvia-fenix
+```
+
+---
+
+## Einrichtung (Setup)
+Zusätzlich zur Adapterinstallation musst du die Adapterinstanz mit deinen MyHarvia-Kontodaten konfigurieren.
+
+### Voraussetzungen
+1. **Node.js >= 22**
+2. Ein registriertes Konto in der offiziellen **MyHarvia 2** Smartphone-App.
+3. Gültige Login-Daten:
+   - **E-Mail-Adresse**
+   - **Passwort**
+
+*Hinweis: Es wird ein separates Konto für ioBroker in der Harvia 2 App empfohlen und diese Zugangsdaten in der Instanz zu verwenden.*
+
+### ioBroker-Konfiguration
+1. Öffne deine ioBroker-Oberfläche in einem Browser (z. B. `192.168.1.33:8081`).
+2. Navigiere zum Reiter **Instanzen** und klicke auf das Einstellungs-Symbol deiner `harvia-fenix.0`-Instanz.
+3. Gib die **E-Mail-Adresse** und das **Passwort** deines MyHarvia-Kontos ein.
+4. Wenn du das Feld **Geräte-ID** leer lässt, sucht der Adapter beim Start automatisch nach Geräten, die mit deinem Konto verknüpft sind. Er verwendet das erste gefundene Gerät als aktive Einheit.
+5. Wenn du das Abfrageintervall anpassen möchtest, passe die Einstellungen für das **Abfrageintervall** (in Sekunden) an.
+6. Klicke auf **Speichern & Schließen**.
+
+### Gerätekonfiguration & Multi-Geräte-Unterstützung
+
+#### Automatische Erkennung (Discovery)
 Wenn du das Feld **Geräte-ID** in den Adapter-Einstellungen leer lässt, sucht der Adapter beim Start automatisch nach Geräten, die mit deinem Konto verknüpft sind. Er verwendet das erste gefundene Gerät als aktive Einheit. Die erkannte ID wird im ioBroker-Log ausgegeben.
 
-### Manuelle Geräte-ID
+#### Manuelle Geräte-ID
 Für die meisten Benutzer mit einer einzigen Sauna ist die automatische Erkennung ausreichend. Es wird jedoch empfohlen, die erkannte ID aus dem Log zu kopieren und in die Konfiguration einzufügen, um eine stabile Verbindung zur spezifischen Hardware zu gewährleisten.
 
-*Hinweis: Derzeit wird die Geräte-ID in der MyHarvia 2 App-Oberfläche nirgends angezeigt.*
-
-### Mehrere Saunen
+#### Mehrere Saunen
 Wenn dein MyHarvia-Konto mehrere Steuereinheiten verwaltet (z. B. eine zu Hause und eine im Ferienhaus):
 1. Erstelle für jede Sauna eine eigene Instanz des Adapters (z. B. `harvia-fenix.0` und `harvia-fenix.1`).
 2. Gib die spezifische **Geräte-ID** für jede Einheit manuell in der jeweiligen Instanz-Konfiguration ein.
 Dies ermöglicht es, beide Saunen unabhängig voneinander mit eigenen Datenpunkten zu überwachen und zu steuern.
 
-### Geteilte / Freigegebene Konten (Gäste) & die Partner-ID
+### Geteilte / Freigegebene Konten & die Partner-ID
 
 #### Was ist die Partner-ID?
 Die MyHarvia-Cloud-Infrastruktur unterteilt Geräte, Benutzer und Apps in verschiedene „Partner-Organisationen“ (Partner Organizations). Beispielsweise entspricht die offizielle **MyHarvia 2** Smartphone-App der Partner-ID `ORG/prod:0:6656:0`. 
@@ -74,38 +103,158 @@ Es gibt zwei einfache Wege, die Partner-ID des Besitzers zu ermitteln:
 
 #### So richtest du ein geteiltes/freigegebenes Konto ein:
 1. Trage deine **eigenen Zugangsdaten** (deine E-Mail-Adresse und dein Passwort) in den Adapter-Einstellungen ein.
-2. Trage die **Partner-ID des Hauptnutzers/Besitzers** in das Feld **Partner-ID (Optional)** ein (siehe oben, wie man diese findet).
+2. Trage die **Partner-ID des Hauptnutzers/Besitzers** in das Feld **Partner-ID (Optional)** ein.
 3. Wenn du das Feld **Geräte-ID** leer lässt, sucht der Adapter automatisch mit den Gast-Anmeldedaten, aber unter Verwendung der Partner-ID des Besitzers, nach der geteilten Sauna und findet diese.
 
 ---
 
-## Funktionen & Datenpunkte
+## Kompatibilitätshinweis
+* **Unterstützt:** **Harvia Fenix** Steuereinheiten, die über die **MyHarvia 2** App verwaltet werden.
+* **NICHT unterstützt:** **Harvia Xenio** Serie (z. B. Xenio WiFi / CX001WIFI). Die Xenio-Serie basiert auf einem älteren Hardware-Ökosystem und verwendet die ältere *"MyHarvia for Xenio"* App, die grundlegend inkompatibel mit der von diesem Adapter verwendeten API ist.
 
+---
+
+## Verwendung (Usage)
 Der Adapter bildet die Cloud-Zustände deiner Sauna in strukturierten ioBroker-Datenpunkten unter `harvia-fenix.0.*` ab.
 
-### Verfügbare Datenpunkte
-| Datenpunkt | Typ | Rolle | Zugriff | Beschreibung |
-|---|---|---|---|---|
-| `online` | boolean | `indicator.reachable` | Nur Lesen | Verbindungsstatus der Steuereinheit zur Cloud. |
-| `doorSafety` | boolean | `indicator.safety` | Nur Lesen | Status der Türsicherung (z. B. `true`, wenn die Tür sicher geschlossen ist). |
-| `remoteControl` | boolean | `indicator` | Nur Lesen | Status der Fernstart-Bereitschaft. Wenn `false`, wird ein Starten des Ofens lokal blockiert. |
-| `errorMsg` | string | `text` | Nur Lesen | Aktuelle Fehlermeldungen oder Statustexte des Ofens. |
-| `heatOn` | boolean | `switch.power` | Lesen/Schreiben | Hauptschalter, um den Saunaofen EIN (`true`) oder AUS (`false`) zu schalten. |
-| `heaterPower` | number | `value.power` | Nur Lesen | *Hinweis:* Dieses Objekt wird von der API bereitgestellt, liefert aber derzeit oft `0 kW`. |
-| `lightOn` | boolean | `switch.light` | Lesen/Schreiben | Schalter für die integrierte Saunabeleuchtung. |
-| `panelTemp` | number | `value.temperature` | Nur Lesen | Temperaturmesswert direkt an der physischen Steuereinheit (Panel). |
-| `targetTemp` | number | `level.temperature` | Lesen/Schreiben | Zieltemperatur-Sollwert für die Saunakabine (z. B. `90 °C`). |
-| `temp` | number | `value.temperature` | Nur Lesen | Die aktuelle Umgebungstemperatur in der Saunakabine (z. B. `17 °C`). |
-| `readyNotified10Min` | boolean | `indicator` | Nur Lesen | Wird `true`, wenn die Sauna noch ca. 10 Minuten von der Zieltemperatur entfernt ist (13°C unter Ziel). |
-| `targetReachedNotified` | boolean | `indicator` | Nur Lesen | Wird `true`, wenn die Sauna die eingestellte Zieltemperatur erfolgreich erreicht hat. |
-| `totalBathingHours` | number | `value.number` | Nur Lesen | Historische kumulierte Betriebsstunden der Saunanutzung (`h`). |
-| `totalOperatingHours`| number | `value.hours` | Nur Lesen | Gesamte Betriebsstunden des Systems (`h`). |
-| `totalSessions` | number | `value.count` | Nur Lesen | Zähler für die Gesamtzahl der durchgeführten Heizvorgänge. |
+### States
+Folgende States werden vom Adapter erstellt:
+
+#### Channel: info
+
+* info.connection
+
+    |Datentyp|Berechtigung|
+    |:---:|:---:|
+    |boolean|R|
+
+    *Schreibgeschützter boolescher Indikator. Wenn der Adapter mit der MyHarvia-Cloud verbunden ist, ist der Zustand true, andernfalls false.*
+
+#### Stammverzeichnis (Root)
+
+* online
+
+    |Datentyp|Berechtigung|
+    |:---:|:---:|
+    |boolean|R|
+
+    *Schreibgeschützter boolescher Wert. Cloud-Verbindungsstatus der Steuereinheit.*
+
+* heatOn
+
+    |Datentyp|Berechtigung|
+    |:---:|:---:|
+    |boolean|R/W|
+
+    *Hauptschalter, um den Saunaofen EIN (`true`) oder AUS (`false`) zu schalten.*
+
+* lightOn
+
+    |Datentyp|Berechtigung|
+    |:---:|:---:|
+    |boolean|R/W|
+
+    *Schalter für die integrierte Saunabeleuchtung.*
+
+* temp
+
+    |Datentyp|Berechtigung|
+    |:---:|:---:|
+    |number|R|
+
+    *Die aktuelle Umgebungstemperatur in der Saunakabine (z. B. `17 °C`).*
+
+* targetTemp
+
+    |Datentyp|Berechtigung|
+    |:---:|:---:|
+    |number|R/W|
+
+    *Zieltemperatur-Sollwert für die Saunakabine (z. B. `90 °C`).*
+
+* doorSafety
+
+    |Datentyp|Berechtigung|
+    |:---:|:---:|
+    |boolean|R|
+
+    *Status der Türsicherung (z. B. `true`, wenn die Tür sicher geschlossen ist).*
+
+* totalBathingHours
+
+    |Datentyp|Berechtigung|
+    |:---:|:---:|
+    |number|R|
+
+    *Historische kumulierte Betriebsstunden der Saunanutzung (`h`).*
+
+* totalSessions
+
+    |Datentyp|Berechtigung|
+    |:---:|:---:|
+    |number|R|
+
+    *Zähler für die Gesamtzahl der durchgeführten Heizvorgänge.*
+
+* errorMsg
+
+    |Datentyp|Berechtigung|
+    |:---:|:---:|
+    |string|R|
+
+    *Aktuelle Fehlermeldungen oder Statustexte des Ofens.*
+
+* heaterPower
+
+    |Datentyp|Berechtigung|
+    |:---:|:---:|
+    |number|R|
+
+    *Aktuelle Heizleistung des Ofens (`kW`). Hinweis: Dieses Objekt wird von der API bereitgestellt, liefert aber derzeit oft `0 kW` (nicht ausgefüllt). Es ist vermutlich für zukünftige Updates reserviert.*
+
+* panelTemp
+
+    |Datentyp|Berechtigung|
+    |:---:|:---:|
+    |number|R|
+
+    *Temperaturmesswert direkt an der physischen Steuereinheit / Panel (`°C`).*
+
+* totalOperatingHours
+
+    |Datentyp|Berechtigung|
+    |:---:|:---:|
+    |number|R|
+
+    *Gesamte Betriebsstunden des Systems (`h`).*
+
+* readyNotified10Min
+
+    |Datentyp|Berechtigung|
+    |:---:|:---:|
+    |boolean|R|
+
+    *Wird `true`, wenn die Sauna noch ca. 10 Minuten von der Zieltemperatur entfernt ist (13°C unter Ziel).*
+
+* targetReachedNotified
+
+    |Datentyp|Berechtigung|
+    |:---:|:---:|
+    |boolean|R|
+
+    *Wird `true`, wenn die Sauna die eingestellte Zieltemperatur erfolgreich erreicht hat.*
+
+* remoteControl
+
+    |Datentyp|Berechtigung|
+    |:---:|:---:|
+    |boolean|R|
+
+    *Status der Fernstart-Bereitschaft. Wenn `false`, wird ein Starten des Ofens lokal blockiert.*
 
 ---
 
 ## Benachrichtigungen & Automatisierungen
-
 Der Adapter berechnet automatisch den Heizfortschritt und stellt zwei Indikator-Datenpunkte zur Verfügung, die speziell für das Auslösen von Push-Benachrichtigungen (z. B. via Telegram, Pushover oder Alexa) konzipiert wurden.
 
 Du kannst einfach ein kurzes ioBroker-Skript (JavaScript oder Blockly) verwenden, das auf die Änderung dieser Zustände zu `true` reagiert:
@@ -128,31 +277,16 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 
 ---
 
-## ⚠️ KRITISCHER SICHERHEITSHINWEIS & HAFTUNGSAUSSCHLUSS
-
-**Der Fernbetrieb eines Saunaofens unterliegt strengen Sicherheitsvorschriften!** Gemäß der europäischen Sicherheitsnorm **EN 60335-2-53** in Verbindung mit **EN 60335-1** sind Brandschutzmaßnahmen für Fernsteuerungssysteme zwingend erforderlich. Die Saunakabine muss mit einem zugelassenen Türsensor oder einem Sicherheits-Abschaltsystem ausgestattet sein. Dies stellt sicher, dass der Ofen nicht aus der Ferne oder per Timer gestartet werden kann, wenn ein brennbarer Gegenstand (z. B. ein Handtuch) auf oder in der Nähe des Ofens vergessen wurde.
-
-* **Keine Haftung:** Der Entwickler dieses Adapters übernimmt absolut keine Verantwortung, Gewährleistung oder Haftung für Schäden, Brände, Verletzungen oder rechtliche Probleme, die aus der Nutzung oder Fehlkonfiguration dieser Software resultieren. Sie betreiben diese Integration vollständig auf eigenes Risiko.
-
----
-
-## Kompatibilitätshinweis
-
-* **Unterstützt:** **Harvia Fenix** Steuereinheiten, die über die **MyHarvia 2** App verwaltet werden.
-* **NICHT unterstützt:** **Harvia Xenio** Serie (z. B. Xenio WiFi / CX001WIFI). Die Xenio-Serie basiert auf einem älteren Hardware-Ökosystem und verwendet die ältere *"MyHarvia for Xenio"* App, die grundlegend inkompatibel mit der von diesem Adapter verwendeten API ist.
-
----
-
 ## Fehlerbehebung (Troubleshooting)
 
-### Häufige API-Fehler & Statusmeldungen in `errorMsg`:
+### Häufige API-Fehler & Statusmeldungen in `errorMsg`
 
 * **`Action blocked (403 Forbidden). Remote start authorization (Safety Loop) at panel might not be active.`**
-  * **Ursache:** Die europäische Sicherheitsnorm schreibt vor, dass ein Fernstart nur aktiv sein darf, wenn der Sicherheitskreis/Türsensor geschlossen ist und der Fernstart physisch am Saunapanel scharf geschaltet wurde.
-  * **Lösung:** Schließe die Saunatür und drücke am physischen Harvia-Bedienfeld die **Fernstart**-Taste. Das Fernstart-Symbol auf dem Display muss leuchten. Erst danach ist die Steuerung über den Adapter freigegeben.
+  - **Ursache:** Die europäische Sicherheitsnorm schreibt vor, dass ein Fernstart nur aktiv sein darf, wenn der Sicherheitskreis/Türsensor geschlossen ist und der Fernstart physisch am Saunapanel scharf geschaltet wurde.
+  - **Lösung:** Schließe die Saunatür und drücke am physischen Harvia-Bedienfeld die **Fernstart**-Taste. Das Fernstart-Symbol auf dem Display muss leuchten. Erst danach ist die Steuerung über den Adapter freigegeben.
 * **`Cloud lock: Device busy, command discarded.` (Als Debug-Log)**
-  * **Ursache:** Die Harvia-API blockiert Befehle, wenn sie in zu schneller Folge gesendet werden (z. B. durch schnelles Klicken in der Vis), um die Hardware zu schützen.
-  * **Lösung:** Warte einige Sekunden zwischen den Befehlen. Der Adapter verwirft zu schnelle Klicks automatisch, um eine API-Sperre zu verhindern.
+  - **Ursache:** Die Harvia-API blockiert Befehle, wenn sie in zu schneller Folge gesendet werden (z. B. durch schnelles Klicken in der Vis), um die Hardware zu schützen.
+  - **Lösung:** Warte einige Sekunden zwischen den Befehlen. Der Adapter verwirft zu schnelle Klicks automatisch, um eine API-Sperre zu verhindern.
 
 ---
 
@@ -164,8 +298,8 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 ---
 
 ## Änderungsprotokoll (Changelog)
-
 ### **WORK IN PROGRESS**
+* (meistermopper) Redesign README and README_de.md layout to match Denon adapter presentation
 
 ### 0.2.5 (2026-07-15)
 * (meistermopper) Dokumentationsordnerstruktur (docs) und automatisches README-Synchronisationsskript hinzugefügt
@@ -189,9 +323,6 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 ## [Ältere Einträge](../../CHANGELOG_OLD.md)
 
 ---
-
-## Markenhinweis
-Harvia und MyHarvia 2 sind eingetragene Marken der Harvia Group. Dieser Adapter ist ein unabhängiges, gemeinschaftsbasiertes Open-Source-Projekt und wird weder offiziell von Harvia unterstützt, gesponsert noch betreut.
 
 ## Lizenz
 MIT License
