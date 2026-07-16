@@ -322,6 +322,8 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 * (meistermopper) Fix jsonConfig.json schema validation and add missing translations
 * (meistermopper) Update axios and biome dependencies
 
+[Older changelogs can be found there](../../CHANGELOG_OLD.md)
+
 ## [Older changelog entries](../../CHANGELOG_OLD.md)
 
 ---
