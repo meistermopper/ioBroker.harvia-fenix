@@ -298,7 +298,7 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 ---
 
 ## Changelog
-### **WORK IN PROGRESS**
+### 0.2.6 (2026-07-16)
 * (meistermopper) Change doorSafety role to indicator.safety to prevent semantic role mismatch
 * (meistermopper) Redesign README and README_de.md layout to match Denon adapter presentation
 * (meistermopper) Update AI commit hook prompt to generate messages entirely in English
@@ -317,10 +317,6 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 * (meistermopper) Remove prepare script from package.json
 * (meistermopper) Add boundary check validation for pollInterval in main.ts
 * (meistermopper) Move inline jsonConfig translations to standard i18n files and fix missing translations
-
-### 0.2.1 (2026-06-30)
-* (meistermopper) Fix jsonConfig.json schema validation and add missing translations
-* (meistermopper) Update axios and biome dependencies
 
 [Older changelogs can be found there](../../CHANGELOG_OLD.md)
 

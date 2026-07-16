@@ -1,7 +1,7 @@
 {
   "common": {
     "name": "harvia-fenix",
-    "version": "0.2.5",
+    "version": "0.2.6",
     "titleLang": {
       "en": "Harvia-Fenix Sauna Control",
       "de": "Harvia-Fenix Saunasteuerung",
@@ -29,6 +29,19 @@
       "zh-cn": "通过 MyHarvia 云端控制 Harvia Fenix 桑拿房"
     },
     "news": {
+      "0.2.6": {
+        "en": "Change doorSafety role to indicator.safety to prevent semantic role mismatch\nRedesign README and README_de.md layout to match Denon adapter presentation\nUpdate AI commit hook prompt to generate messages entirely in English",
+        "de": "Ändern Sie die Rolle „doorSafety“ in „indicator.safety“, um eine semantische Rollenkonflikt zu vermeiden.\nDas Layout der Dateien README und README_de.md wurde an die Präsentation des Denon-Adapters angepasst.\nDie AI-Commit-Hook-Aufforderung wurde so aktualisiert, dass die Nachrichten vollständig in Englisch generiert werden.",
+        "ru": "Измените роль doorSafety на indicator.safety, чтобы предотвратить несоответствие семантических ролей.\nПереработать структуру файлов README и README_de.md в соответствии с оформлением адаптера Denon.\nОбновлена подсказка для хука коммита ИИ, чтобы сообщения генерировались полностью на английском языке.",
+        "pt": "Alterar a função de `doorSafety` para `indicator.safety` para evitar incompatibilidade semântica.\nRedesenhar o layout dos arquivos README e README_de.md para corresponder à apresentação do adaptador Denon.\nAtualize o prompt do gancho de confirmação de IA para gerar mensagens inteiramente em inglês.",
+        "nl": "Wijzig de rol van doorSafety naar indicator.safety om een semantische rolconflictering te voorkomen.\nHerontwerp de lay-out van README en README_de.md zodat deze overeenkomt met de presentatie van de Denon-adapter.\nUpdate de prompt voor de AI-commit-hook zodat berichten volledig in het Engels worden gegenereerd.",
+        "fr": "Modifiez le rôle de doorSafety en indicator.safety pour éviter toute incohérence sémantique.\nRepenser la mise en page des fichiers README et README_de.md pour qu'elle corresponde à la présentation de l'adaptateur Denon\nMise à jour de l'invite de commit AI pour générer des messages entièrement en anglais",
+        "it": "Modifica il ruolo doorSafety in indicator.safety per evitare la mancata corrispondenza del ruolo semantico\nRiprogettare il layout dei file README e README_de.md per adattarlo alla presentazione dell'adattatore Denon.\nAggiornare il prompt dell'hook di commit dell'IA per generare messaggi interamente in inglese",
+        "es": "Cambiar el rol de doorSafety a indicator.safety para evitar una discrepancia en el rol semántico.\nRediseñar el diseño de README y README_de.md para que coincida con la presentación del adaptador Denon.\nActualizar el indicador de confirmación de la IA para generar mensajes completamente en inglés.",
+        "pl": "Zmień rolę doorSafety na indicator.safety, aby zapobiec niezgodności ról semantycznych\nPrzeprojektuj układ plików README i README_de.md, aby dopasować go do prezentacji adaptera Denon\nZaktualizuj monit haka zatwierdzenia AI, aby generować wiadomości wyłącznie w języku angielskim",
+        "uk": "Змініть роль doorSafety на indicator.safety, щоб запобігти невідповідності семантичних ролей\nПерероблено макет README та README_de.md відповідно до презентації адаптера Denon\nОновіть запит на перехоплення комітів AI для генерації повідомлень повністю англійською мовою",
+        "zh-cn": "将 doorSafety 角色更改为 indicator.safety，以防止语义角色不匹配\n重新设计 README 和 README_de.md 的布局，使其与 Denon 适配器的呈现方式保持一致。\n更新 AI 提交钩子提示，使其生成完全英文的消息。"
+      },
       "0.2.5": {
         "en": "Add docs folder structure and automatic README synchronization script",
         "de": "Dokumentenordnerstruktur und automatisches README-Synchronisierungsskript hinzufügen",
@@ -106,19 +119,6 @@
         "pl": "dokumenty: aktualizacja niemieckiego tłumaczenia dziennika zmian w README_de.md",
         "uk": "документація: оновлено німецький переклад журналу змін у README_de.md",
         "zh-cn": "文档：更新 README_de.md 文件中的德语更新日志翻译"
-      },
-      "0.1.1": {
-        "en": "Fixed repochecker E254 error by removing unpublished version 0.0.28 from news in io-package.json\nUpdated @iobroker/adapter-core dependency to ^3.4.1\nAdded minimum Node.js requirement to Prerequisites section of READMEs",
-        "de": "Der Fehler E254 im Repochecker wurde behoben, indem die unveröffentlichte Version 0.0.28 aus den News in der Datei io-package.json entfernt wurde.\nDie Abhängigkeit von @iobroker/adapter-core wurde auf Version ^3.4.1 aktualisiert.\nDie Mindestanforderung für Node.js wurde dem Abschnitt „Voraussetzungen“ der README-Dateien hinzugefügt.",
-        "ru": "Исправлена ошибка repochecker E254 путем удаления неопубликованной версии 0.0.28 из раздела news в файле io-package.json.\nОбновлена зависимость @iobroker/adapter-core до версии ^3.4.1\nВ раздел «Предварительные требования» файла README добавлено минимальное требование к Node.js.",
-        "pt": "Corrigido o erro E254 do repochecker removendo a versão não publicada 0.0.28 da seção de notícias no arquivo io-package.json.\nDependência @iobroker/adapter-core atualizada para ^3.4.1\nAdicionado o requisito mínimo de Node.js à seção de pré-requisitos dos arquivos README.",
-        "nl": "De E254-fout van repochecker is verholpen door de niet-gepubliceerde versie 0.0.28 uit het nieuwsgedeelte in io-package.json te verwijderen.\nDe afhankelijkheid @iobroker/adapter-core is bijgewerkt naar ^3.4.1.\nDe minimale Node.js-vereiste is toegevoegd aan de sectie 'Vereisten' in de README-bestanden.",
-        "fr": "Correction de l'erreur E254 de repochecker : suppression de la version non publiée 0.0.28 des actualités dans io-package.json\nDépendance @iobroker/adapter-core mise à jour vers ^3.4.1\nAjout d'une exigence minimale en Node.js à la section Prérequis des fichiers README.",
-        "it": "Risolto l'errore E254 di repochecker rimuovendo la versione non pubblicata 0.0.28 dalla sezione news nel file io-package.json.\nDipendenza @iobroker/adapter-core aggiornata a ^3.4.1\nAggiunto il requisito minimo di Node.js alla sezione Prerequisiti dei file README.",
-        "es": "Se corrigió el error E254 de repochecker eliminando la versión no publicada 0.0.28 de news en io-package.json.\nSe actualizó la dependencia @iobroker/adapter-core a ^3.4.1\nSe agregó el requisito mínimo de Node.js a la sección de Prerrequisitos de los archivos README.",
-        "pl": "Naprawiono błąd E254 programu repochecker poprzez usunięcie nieopublikowanej wersji 0.0.28 z wiadomości w pliku io-package.json\nZaktualizowano zależność @iobroker/adapter-core do ^3.4.1\nDodano minimalne wymagania Node.js do sekcji „Wymagania wstępne” w plikach README",
-        "uk": "Виправлено помилку E254 перевірки репозиторії шляхом видалення неопублікованої версії 0.0.28 з новин у io-package.json\nОновлено залежність @iobroker/adapter-core до ^3.4.1.\nДодано мінімальну вимогу Node.js до розділу «Попередні вимоги» файлів README.",
-        "zh-cn": "通过从 io-package.json 的 news 中移除未发布的版本 0.0.28，修复了 repochecker E254 错误。\n已将 @iobroker/adapter-core 依赖项更新至 ^3.4.1\n在README文件的“先决条件”部分添加了最低Node.js要求。"
       }
     },
     "authors": [
