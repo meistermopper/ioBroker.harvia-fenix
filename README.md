@@ -187,6 +187,7 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 * (meistermopper) Mark latest repository item as completed in To-Do list
 * (meistermopper) Clarify remoteControl description in README files
 * (meistermopper) Remove redundant ==== underlines from header in README files
+* (meistermopper) Remove duplicate changelog link and format it consistently in README files
 
 ### 0.2.6 (2026-07-16)
 * (meistermopper) Change doorSafety role to indicator.safety to prevent semantic role mismatch
@@ -209,8 +210,6 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 * (meistermopper) Move inline jsonConfig translations to standard i18n files and fix missing translations
 
 [Older changelogs can be found there](CHANGELOG_OLD.md)
-
-## [Older changelog entries](CHANGELOG_OLD.md)
 
 ---
 
