@@ -1,6 +1,5 @@
 ![Logo](admin/harvia.png)
 # ioBroker.harvia-fenix
-===========================
 
 **[Click here for the English version of the documentation.](README.md)**
 
@@ -186,6 +185,7 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 * (meistermopper) Restore clean datapoint table and safety warnings in README files
 * (meistermopper) Mark latest repository item as completed in To-Do list
 * (meistermopper) Clarify remoteControl description in README files
+* (meistermopper) Remove redundant ==== underlines from header in README files
 
 ### 0.2.6 (2026-07-16)
 * (meistermopper) Change doorSafety role to indicator.safety to prevent semantic role mismatch
