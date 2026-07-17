@@ -22,7 +22,7 @@ For more information about Harvia and their sauna control units, please visit th
 
 ---
 
-## Disclaimer & Safety Warning
+## ⚠️ CRITICAL SAFETY WARNING & DISCLAIMER
 **Remote operation of a sauna heater is subject to strict safety regulations!** According to the European safety standard **EN 60335-2-53** in conjunction with **EN 60335-1**, fire protection measures are mandatory for remote control setups. The sauna cabin must be equipped with an approved door sensor or a safety switch-off system. This ensures that the heater cannot be started remotely or via a timer if a flammable object (e.g., a towel) has been left on or near the heater.
 
 * **No Liability:** The developer of this adapter assumes absolutely no responsibility, warranty, or liability for any damages, fires, injuries, or legal issues resulting from the use or misconfiguration of this software. You operate this integration entirely at your own risk.
@@ -117,140 +117,25 @@ There are two ways to determine the owner's Partner ID:
 ## Usage
 The adapter maps your sauna's cloud states into structured ioBroker datapoints under `harvia-fenix.0.*`.
 
-### States
-Following states will be created by the adapter:
-
-#### Channel: info
-
-* info.connection
-
-    |Data type|Permission|
-    |:---:|:---:|
-    |boolean|R|
-
-    *Read-only boolean indicator. If the adapter is connected to the MyHarvia Cloud, the state is true, otherwise false.*
-
-#### Root folder
-
-* online
-
-    |Data type|Permission|
-    |:---:|:---:|
-    |boolean|R|
-
-    *Read-only boolean. Cloud connection status of the control unit to the cloud.*
-
-* heatOn
-
-    |Data type|Permission|
-    |:---:|:---:|
-    |boolean|R/W|
-
-    *Main toggle to switch the sauna heater ON (`true`) or OFF (`false`).*
-
-* lightOn
-
-    |Data type|Permission|
-    |:---:|:---:|
-    |boolean|R/W|
-
-    *Toggle to switch the integrated sauna lighting ON or OFF.*
-
-* temp
-
-    |Data type|Permission|
-    |:---:|:---:|
-    |number|R|
-
-    *The current ambient temperature inside the sauna cabin (e.g. `17 °C`).*
-
-* targetTemp
-
-    |Data type|Permission|
-    |:---:|:---:|
-    |number|R/W|
-
-    *Target temperature setpoint for the sauna cabin (e.g. `90 °C`).*
-
-* doorSafety
-
-    |Data type|Permission|
-    |:---:|:---:|
-    |boolean|R|
-
-    *Safety loop status (e.g. `true` if the door is secure / safe to run).*
-
-* totalBathingHours
-
-    |Data type|Permission|
-    |:---:|:---:|
-    |number|R|
-
-    *Total historical cumulative hours the sauna has been actively used (`h`).*
-
-* totalSessions
-
-    |Data type|Permission|
-    |:---:|:---:|
-    |number|R|
-
-    *Counter for the total number of individual sauna heating sessions executed.*
-
-* errorMsg
-
-    |Data type|Permission|
-    |:---:|:---:|
-    |string|R|
-
-    *Current error messages or status text from the heater.*
-
-* heaterPower
-
-    |Data type|Permission|
-    |:---:|:---:|
-    |number|R|
-
-    *Current heater power (`kW`). Note: This object is provisioned by the MyHarvia API structure but is currently delivered as `0 kW` (unpopulated). It appears to be reserved for future hardware or app updates.*
-
-* panelTemp
-
-    |Data type|Permission|
-    |:---:|:---:|
-    |number|R|
-
-    *The temperature reading measured at the physical control panel unit (`°C`).*
-
-* totalOperatingHours
-
-    |Data type|Permission|
-    |:---:|:---:|
-    |number|R|
-
-    *Total system operational running hours (`h`).*
-
-* readyNotified10Min
-
-    |Data type|Permission|
-    |:---:|:---:|
-    |boolean|R|
-
-    *Turns `true` when the sauna is approximately 10 minutes away from reaching the target temperature (13°C below target).*
-
-* targetReachedNotified
-
-    |Data type|Permission|
-    |:---:|:---:|
-    |boolean|R|
-
-    *Turns `true` when the sauna has successfully reached the configured target temperature.*
-
-* remoteControl
-
-    |Data type|Permission|
-    |:---:|:---:|
-    |boolean|R|
-
-    *Remote start readiness status. If `false`, starting the heater is blocked locally.*
+### Available Datapoints
+| Datapoint | Type | Role | Access | Description |
+|---|---|---|---|---|
+| `info.connection` | boolean | `indicator` | Read-only | Connection state of the adapter to the MyHarvia Cloud. |
+| `online` | boolean | `indicator.reachable` | Read-only | Connection state of the control unit to the cloud. |
+| `doorSafety` | boolean | `indicator.safety` | Read-only | Safety loop status (e.g., `true` if the door is secure / safe to run). |
+| `remoteControl` | boolean | `indicator` | Read-only | Remote start readiness status. If `false`, starting the heater remotely (via the adapter) is blocked. |
+| `errorMsg` | string | `text` | Read-only | Current error messages or status text from the heater. |
+| `heatOn` | boolean | `switch.power` | Read/Write | Main toggle to switch the sauna heater ON (`true`) or OFF (`false`). |
+| `heaterPower` | number | `value.power` | Read-only | *Note:* This object is provisioned by the MyHarvia API structure but is currently delivered as `0 kW` (unpopulated). It appears to be reserved for future hardware or app updates. |
+| `lightOn` | boolean | `switch.light` | Read/Write | Toggle to switch the integrated sauna lighting ON or OFF. |
+| `panelTemp` | number | `value.temperature` | Read-only | The temperature reading measured at the physical control panel unit. |
+| `targetTemp` | number | `level.temperature` | Read/Write | Target temperature setpoint for the sauna cabin (e.g., `90 °C`). |
+| `temp` | number | `value.temperature` | Read-only | The current ambient temperature inside the sauna cabin (e.g., `17 °C`). |
+| `readyNotified10Min` | boolean | `indicator` | Read-only | Turns `true` when the sauna is approximately 10 minutes away from reaching the target temperature (13°C below target). |
+| `targetReachedNotified` | boolean | `indicator` | Read-only | Turns `true` when the sauna has successfully reached the configured target temperature. |
+| `totalBathingHours` | number | `value.number` | Read-only | Total historical cumulative hours the sauna has been actively used (`h`). |
+| `totalOperatingHours` | number | `value.hours` | Read-only | Total system operational running hours (`h`). |
+| `totalSessions` | number | `value.count` | Read-only | Counter for the total number of individual sauna heating sessions executed. |
 
 ---
 
@@ -292,13 +177,16 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 
 ## To-Do
 * [ ] Await official permission from Harvia to use their original logo
-* [ ] Add adapter to the official ioBroker `latest` repository
+* [x] Add adapter to the official ioBroker `latest` repository
 * [ ] Add adapter to the official ioBroker `stable` repository
 
 ---
 
 ## Changelog
 ### **WORK IN PROGRESS**
+* (meistermopper) Restore clean datapoint table and safety warnings in README files
+* (meistermopper) Mark latest repository item as completed in To-Do list
+* (meistermopper) Clarify remoteControl description in README files
 
 ### 0.2.6 (2026-07-16)
 * (meistermopper) Change doorSafety role to indicator.safety to prevent semantic role mismatch

@@ -22,7 +22,7 @@ Für weitere Informationen über Harvia und deren Saunasteuerungen besuche bitte
 
 ---
 
-## Haftungsausschluss & Sicherheitshinweis
+## ⚠️ KRITISCHER SICHERHEITSHINWEIS & HAFTUNGSAUSSCHLUSS
 **Der Fernbetrieb eines Saunaofens unterliegt strengen Sicherheitsvorschriften!** Gemäß der europäischen Sicherheitsnorm **EN 60335-2-53** in Verbindung mit **EN 60335-1** sind Brandschutzmaßnahmen für Fernsteuerungssysteme zwingend erforderlich. Die Saunakabine muss mit einem zugelassenen Türsensor oder einem Sicherheits-Abschaltsystem ausgestattet sein. Dies stellt sicher, dass der Ofen nicht aus der Ferne oder per Timer gestartet werden kann, wenn ein brennbarer Gegenstand (z. B. ein Handtuch) auf oder in der Nähe des Ofens vergessen wurde.
 
 * **Keine Haftung:** Der Entwickler dieses Adapters übernimmt absolut keine Verantwortung, Gewährleistung oder Haftung für Schäden, Brände, Verletzungen oder rechtliche Probleme, die aus der Nutzung oder Fehlkonfiguration dieser Software resultieren. Sie betreiben diese Integration vollständig auf eigenes Risiko.
@@ -117,140 +117,25 @@ Es gibt zwei einfache Wege, die Partner-ID des Besitzers zu ermitteln:
 ## Verwendung (Usage)
 Der Adapter bildet die Cloud-Zustände deiner Sauna in strukturierten ioBroker-Datenpunkten unter `harvia-fenix.0.*` ab.
 
-### States
-Folgende States werden vom Adapter erstellt:
-
-#### Channel: info
-
-* info.connection
-
-    |Datentyp|Berechtigung|
-    |:---:|:---:|
-    |boolean|R|
-
-    *Schreibgeschützter boolescher Indikator. Wenn der Adapter mit der MyHarvia-Cloud verbunden ist, ist der Zustand true, andernfalls false.*
-
-#### Stammverzeichnis (Root)
-
-* online
-
-    |Datentyp|Berechtigung|
-    |:---:|:---:|
-    |boolean|R|
-
-    *Schreibgeschützter boolescher Wert. Cloud-Verbindungsstatus der Steuereinheit.*
-
-* heatOn
-
-    |Datentyp|Berechtigung|
-    |:---:|:---:|
-    |boolean|R/W|
-
-    *Hauptschalter, um den Saunaofen EIN (`true`) oder AUS (`false`) zu schalten.*
-
-* lightOn
-
-    |Datentyp|Berechtigung|
-    |:---:|:---:|
-    |boolean|R/W|
-
-    *Schalter für die integrierte Saunabeleuchtung.*
-
-* temp
-
-    |Datentyp|Berechtigung|
-    |:---:|:---:|
-    |number|R|
-
-    *Die aktuelle Umgebungstemperatur in der Saunakabine (z. B. `17 °C`).*
-
-* targetTemp
-
-    |Datentyp|Berechtigung|
-    |:---:|:---:|
-    |number|R/W|
-
-    *Zieltemperatur-Sollwert für die Saunakabine (z. B. `90 °C`).*
-
-* doorSafety
-
-    |Datentyp|Berechtigung|
-    |:---:|:---:|
-    |boolean|R|
-
-    *Status der Türsicherung (z. B. `true`, wenn die Tür sicher geschlossen ist).*
-
-* totalBathingHours
-
-    |Datentyp|Berechtigung|
-    |:---:|:---:|
-    |number|R|
-
-    *Historische kumulierte Betriebsstunden der Saunanutzung (`h`).*
-
-* totalSessions
-
-    |Datentyp|Berechtigung|
-    |:---:|:---:|
-    |number|R|
-
-    *Zähler für die Gesamtzahl der durchgeführten Heizvorgänge.*
-
-* errorMsg
-
-    |Datentyp|Berechtigung|
-    |:---:|:---:|
-    |string|R|
-
-    *Aktuelle Fehlermeldungen oder Statustexte des Ofens.*
-
-* heaterPower
-
-    |Datentyp|Berechtigung|
-    |:---:|:---:|
-    |number|R|
-
-    *Aktuelle Heizleistung des Ofens (`kW`). Hinweis: Dieses Objekt wird von der API bereitgestellt, liefert aber derzeit oft `0 kW` (nicht ausgefüllt). Es ist vermutlich für zukünftige Updates reserviert.*
-
-* panelTemp
-
-    |Datentyp|Berechtigung|
-    |:---:|:---:|
-    |number|R|
-
-    *Temperaturmesswert direkt an der physischen Steuereinheit / Panel (`°C`).*
-
-* totalOperatingHours
-
-    |Datentyp|Berechtigung|
-    |:---:|:---:|
-    |number|R|
-
-    *Gesamte Betriebsstunden des Systems (`h`).*
-
-* readyNotified10Min
-
-    |Datentyp|Berechtigung|
-    |:---:|:---:|
-    |boolean|R|
-
-    *Wird `true`, wenn die Sauna noch ca. 10 Minuten von der Zieltemperatur entfernt ist (13°C unter Ziel).*
-
-* targetReachedNotified
-
-    |Datentyp|Berechtigung|
-    |:---:|:---:|
-    |boolean|R|
-
-    *Wird `true`, wenn die Sauna die eingestellte Zieltemperatur erfolgreich erreicht hat.*
-
-* remoteControl
-
-    |Datentyp|Berechtigung|
-    |:---:|:---:|
-    |boolean|R|
-
-    *Status der Fernstart-Bereitschaft. Wenn `false`, wird ein Starten des Ofens lokal blockiert.*
+### Verfügbare Datenpunkte
+| Datenpunkt | Typ | Rolle | Zugriff | Beschreibung |
+|---|---|---|---|---|
+| `info.connection` | boolean | `indicator` | Nur Lesen | Verbindungsstatus des Adapters zur MyHarvia-Cloud. |
+| `online` | boolean | `indicator.reachable` | Nur Lesen | Verbindungsstatus der Steuereinheit zur Cloud. |
+| `doorSafety` | boolean | `indicator.safety` | Nur Lesen | Status der Türsicherung (z. B. `true`, wenn die Tür sicher geschlossen ist). |
+| `remoteControl` | boolean | `indicator` | Nur Lesen | Status der Fernstart-Bereitschaft. Wenn `false`, ist das Starten des Ofens aus der Ferne (über den Adapter) blockiert. |
+| `errorMsg` | string | `text` | Nur Lesen | Aktuelle Fehlermeldungen oder Statustexte des Ofens. |
+| `heatOn` | boolean | `switch.power` | Lesen/Schreiben | Hauptschalter, um den Saunaofen EIN (`true`) oder AUS (`false`) zu schalten. |
+| `heaterPower` | number | `value.power` | Nur Lesen | *Hinweis:* Dieses Objekt wird von der API bereitgestellt, liefert aber derzeit oft `0 kW` (nicht ausgefüllt). Es ist vermutlich für zukünftige Updates reserviert. |
+| `lightOn` | boolean | `switch.light` | Lesen/Schreiben | Schalter für die integrierte Saunabeleuchtung. |
+| `panelTemp` | number | `value.temperature` | Nur Lesen | Temperaturmesswert direkt an der physischen Steuereinheit / Panel. |
+| `targetTemp` | number | `level.temperature` | Lesen/Schreiben | Zieltemperatur-Sollwert für die Saunakabine (z. B. `90 °C`). |
+| `temp` | number | `value.temperature` | Nur Lesen | Die aktuelle Umgebungstemperatur in der Saunakabine (z. B. `17 °C`). |
+| `readyNotified10Min` | boolean | `indicator` | Nur Lesen | Wird `true`, wenn die Sauna noch ca. 10 Minuten von der Zieltemperatur entfernt ist (13°C unter Ziel). |
+| `targetReachedNotified` | boolean | `indicator` | Nur Lesen | Wird `true`, wenn die Sauna die eingestellte Zieltemperatur erfolgreich erreicht hat. |
+| `totalBathingHours` | number | `value.number` | Nur Lesen | Historische kumulierte Betriebsstunden der Saunanutzung (`h`). |
+| `totalOperatingHours` | number | `value.hours` | Nur Lesen | Gesamte Betriebsstunden des Systems (`h`). |
+| `totalSessions` | number | `value.count` | Nur Lesen | Zähler für die Gesamtzahl der durchgeführten Heizvorgänge. |
 
 ---
 
@@ -292,7 +177,7 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 
 ## To-Do
 * [ ] Auf offizielle Erlaubnis von Harvia zur Nutzung des Original-Logos warten
-* [ ] Aufnahme des Adapters in das offizielle ioBroker `latest` Repository
+* [x] Aufnahme des Adapters in das offizielle ioBroker `latest` Repository
 * [ ] Aufnahme des Adapters in das offizielle ioBroker `stable` Repository
 
 ---
@@ -300,6 +185,9 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 ## Änderungsprotokoll (Changelog)
 
 ### **WORK IN PROGRESS**
+* (meistermopper) Restore clean datapoint table and safety warnings in README files
+* (meistermopper) Mark latest repository item as completed in To-Do list
+* (meistermopper) Clarify remoteControl description in README files
 
 ### 0.2.6 (2026-07-16)
 * (meistermopper) Change doorSafety role to indicator.safety to prevent semantic role mismatch
