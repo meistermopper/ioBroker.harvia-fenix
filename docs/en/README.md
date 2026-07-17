@@ -188,6 +188,7 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 * (meistermopper) Clarify remoteControl description in README files
 * (meistermopper) Remove redundant ==== underlines from header in README files
 * (meistermopper) Remove duplicate changelog link and format it consistently in README files
+* (meistermopper) Update Biome schema version to 2.5.3 to match CLI version
 
 ### 0.2.6 (2026-07-16)
 * (meistermopper) Change doorSafety role to indicator.safety to prevent semantic role mismatch
