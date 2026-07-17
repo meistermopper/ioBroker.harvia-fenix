@@ -1,4 +1,14 @@
 # Older changes
+## 0.2.2 (2026-07-05)
+* (meistermopper) Fix German log messages and states (translate to English)
+* (meistermopper) Remove prepare script from package.json
+* (meistermopper) Add boundary check validation for pollInterval in main.ts
+* (meistermopper) Move inline jsonConfig translations to standard i18n files and fix missing translations
+
+[Older changelogs can be found there](CHANGELOG_OLD.md)
+
+---
+
 ## 0.2.1 (2026-06-30)
 * (meistermopper) Fix jsonConfig.json schema validation and add missing translations
 * (meistermopper) Update axios and biome dependencies

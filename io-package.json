@@ -1,7 +1,7 @@
 {
   "common": {
     "name": "harvia-fenix",
-    "version": "0.2.6",
+    "version": "0.2.7",
     "titleLang": {
       "en": "Harvia-Fenix Sauna Control",
       "de": "Harvia-Fenix Saunasteuerung",
@@ -29,6 +29,19 @@
       "zh-cn": "通过 MyHarvia 云端控制 Harvia Fenix 桑拿房"
     },
     "news": {
+      "0.2.7": {
+        "en": "Implement retry for \"Device unavailable\" and proactive token refresh\nRestore clean datapoint table and safety warnings in README files\nMark latest repository item as completed in To-Do list\nClarify remoteControl description in README files\nRemove redundant ==== underlines from header in README files\nRemove duplicate changelog link and format it consistently in README files\nUpdate Biome schema version to 2.5.3 to match CLI version",
+        "de": "Implementieren Sie Wiederholungsversuche für „Gerät nicht verfügbar“ und eine proaktive Token-Aktualisierung.\nStellen Sie die saubere Datenpunkttabelle und die Sicherheitswarnungen in den README-Dateien wieder her.\nMarkieren Sie den neuesten Eintrag im Repository als erledigt in der Aufgabenliste.\nDie Beschreibung der Fernbedienung in den README-Dateien präzisieren\nEntfernen Sie überflüssige Unterstriche (====) aus den Kopfzeilen der README-Dateien.\nEntfernen Sie doppelte Links zum Änderungsprotokoll und formatieren Sie diese in den README-Dateien einheitlich.\nAktualisieren Sie die Biome-Schema-Version auf 2.5.3, um sie an die CLI-Version anzupassen.",
+        "ru": "Внедрить повторную попытку при сообщении \"Устройство недоступно\" и упреждающее обновление токена.\nВосстановить чистую таблицу точек данных и предупреждения о безопасности в файлах README.\nОтметьте последний элемент репозитория как выполненный в списке задач.\nУточните описание remoteControl в файлах README.\nУдалите лишние подчеркивания ==== из заголовка в файлах README.\nУдалите повторяющуюся ссылку на список изменений и отформатируйте его единообразно в файлах README.\nОбновите версию схемы Biome до 2.5.3, чтобы она соответствовала версии CLI.",
+        "pt": "Implementar nova tentativa para \"Dispositivo indisponível\" e atualização proativa do token.\nRestaurar tabela de pontos de dados limpa e avisos de segurança nos arquivos README\nMarque o último item do repositório como concluído na lista de tarefas.\nEsclarecer a descrição do remoteControl nos arquivos README\nRemova os sublinhados redundantes ==== do cabeçalho nos arquivos README.\nRemova o link duplicado do changelog e formate-o de forma consistente nos arquivos README.\nAtualize a versão do esquema Biome para 2.5.3 para corresponder à versão da CLI.",
+        "nl": "Implementeer een nieuwe poging voor \"Apparaat niet beschikbaar\" en een proactieve tokenvernieuwing.\nHerstel de tabel met schone datapunten en de veiligheidswaarschuwingen in de README-bestanden.\nMarkeer het meest recente item in de repository als voltooid in de takenlijst.\nVerduidelijk de beschrijving van remoteControl in de README-bestanden.\nVerwijder overbodige ==== onderstrepingen uit de koptekst in README-bestanden.\nVerwijder dubbele links naar het wijzigingslogboek en zorg voor een consistente opmaak in de README-bestanden.\nUpdate de Biome-schemaversie naar 2.5.3 zodat deze overeenkomt met de CLI-versie.",
+        "fr": "Mise en œuvre d'une nouvelle tentative en cas d'« Appareil indisponible » et d'une actualisation proactive du jeton\nRétablir la table des points de données et les avertissements de sécurité dans les fichiers README\nMarquer le dernier élément du dépôt comme terminé dans la liste des tâches à faire\nClarifier la description de la télécommande dans les fichiers README\nSupprimer les soulignements ==== redondants de l'en-tête des fichiers README\nSupprimez le lien du journal des modifications en double et formatez-le de manière uniforme dans les fichiers README.\nMettez à jour la version du schéma Biome à 2.5.3 pour qu'elle corresponde à la version de l'interface de ligne de commande.",
+        "it": "Implementare la gestione dei tentativi per \"Dispositivo non disponibile\" e l'aggiornamento proattivo del token.\nRipristina la tabella dei punti dati puliti e gli avvisi di sicurezza nei file README\nContrassegna l'ultimo elemento del repository come completato nell'elenco delle cose da fare.\nChiarire la descrizione di remoteControl nei file README\nRimuovere le sottolineature ridondanti ==== dall'intestazione nei file README\nRimuovi il link duplicato al registro delle modifiche e formattalo in modo coerente nei file README.\nAggiorna la versione dello schema Biome alla 2.5.3 per corrispondere alla versione della CLI",
+        "es": "Implementar reintentos para \"Dispositivo no disponible\" y actualización proactiva del token\nRestaurar la tabla de puntos de datos limpios y las advertencias de seguridad en los archivos README.\nMarcar el último elemento del repositorio como completado en la lista de tareas pendientes.\nAclarar la descripción de remoteControl en los archivos README.\nEliminar los guiones bajos redundantes (====) del encabezado en los archivos README.\nElimine el enlace duplicado del registro de cambios y formatéelo de manera consistente en los archivos README.\nActualizar la versión del esquema Biome a 2.5.3 para que coincida con la versión de la CLI.",
+        "pl": "Wdrożenie ponawiania próby w przypadku „urządzenia niedostępnego” i proaktywnego odświeżania tokenu\nPrzywróć czystą tabelę punktów danych i ostrzeżenia dotyczące bezpieczeństwa w plikach README\nOznacz najnowszy element repozytorium jako ukończony na liście zadań do wykonania\nWyjaśnij opis remoteControl w plikach README\nUsuń zbędne podkreślenia ==== z nagłówka w plikach README\nUsuń zduplikowany link do rejestru zmian i sformatuj go w sposób spójny w plikach README\nZaktualizuj wersję schematu Biome do 2.5.3, aby dopasować ją do wersji CLI",
+        "uk": "Реалізуйте повторну спробу для \"Пристрій недоступний\" та проактивне оновлення маркера\nВідновлення чистої таблиці точок даних та попереджень безпеки у файлах README\nПозначити останній елемент репозиторію як виконаний у списку справ\nУточнення опису remoteControl у файлах README\nВидалити зайві підкреслення ==== із заголовка у файлах README\nВидаліть дублікати посилань на журнал змін та відформатуйте їх у файлах README узгоджено\nОновіть схему Biome до версії 2.5.3, щоб вона відповідала версії CLI.",
+        "zh-cn": "实现“设备不可用”情况下的重试机制和主动令牌刷新\n恢复干净的数据点表和 README 文件中的安全警告\n在待办事项列表中将最新的存储库项目标记为已完成\n在 README 文件中明确远程控制的描述\n从 README 文件的标题中删除多余的 ==== 下划线\n删除重复的更新日志链接，并在 README 文件中保持格式一致。\n将 Biome 架构版本更新至 2.5.3 以匹配 CLI 版本"
+      },
       "0.2.6": {
         "en": "Change doorSafety role to indicator.safety to prevent semantic role mismatch\nRedesign README and README_de.md layout to match Denon adapter presentation\nUpdate AI commit hook prompt to generate messages entirely in English",
         "de": "Ändern Sie die Rolle „doorSafety“ in „indicator.safety“, um eine semantische Rollenkonflikt zu vermeiden.\nDas Layout der Dateien README und README_de.md wurde an die Präsentation des Denon-Adapters angepasst.\nDie AI-Commit-Hook-Aufforderung wurde so aktualisiert, dass die Nachrichten vollständig in Englisch generiert werden.",
@@ -106,19 +119,6 @@
         "pl": "Dodano obsługę ręcznego partneraId i kont współdzielonych/gościnnych, ulepszono sprawdzanie rozładunku, zaktualizowano dokumenty",
         "uk": "Додано підтримку ручного partnerId та спільних/гостьових облікових записів, покращено перевірки вивантаження, оновлено документацію",
         "zh-cn": "增加手动输入 partnerId 和共享/访客账户支持，改进卸载检查，更新文档"
-      },
-      "0.1.2": {
-        "en": "docs: update German translation of the changelog in README_de.md",
-        "de": "Dokumentation: Aktualisierung der deutschen Übersetzung des Änderungsprotokolls in README_de.md",
-        "ru": "docs: обновлен немецкий перевод списка изменений в файле README_de.md",
-        "pt": "docs: atualizar a tradução alemã do changelog em README_de.md",
-        "nl": "docs: update de Duitse vertaling van het wijzigingslogboek in README_de.md",
-        "fr": "Documentation : mettre à jour la traduction allemande du journal des modifications dans README_de.md",
-        "it": "Documentazione: aggiornata la traduzione tedesca del registro delle modifiche in README_de.md",
-        "es": "Documentación: actualizar la traducción al alemán del registro de cambios en README_de.md",
-        "pl": "dokumenty: aktualizacja niemieckiego tłumaczenia dziennika zmian w README_de.md",
-        "uk": "документація: оновлено німецький переклад журналу змін у README_de.md",
-        "zh-cn": "文档：更新 README_de.md 文件中的德语更新日志翻译"
       }
     },
     "authors": [
