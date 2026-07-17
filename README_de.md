@@ -182,6 +182,7 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 ## Änderungsprotokoll (Changelog)
 
 ### **WORK IN PROGRESS**
+* (Antigravity) Implement retry mechanism for "Device unavailable" errors and proactive token refresh
 * (meistermopper) Restore clean datapoint table and safety warnings in README files
 * (meistermopper) Mark latest repository item as completed in To-Do list
 * (meistermopper) Clarify remoteControl description in README files

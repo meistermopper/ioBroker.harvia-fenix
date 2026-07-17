@@ -131,6 +131,12 @@ export class HarviaFenix extends utils.Adapter {
 	private updateInterval: ioBroker.Timeout | undefined;
 	private loginInterval: ioBroker.Interval | undefined;
 	private lastEventTime: Record<string, number> = {}; // For debouncing
+	private lastConfirmedStates: Record<string, string | number | boolean> = {
+		heatOn: false,
+		lightOn: false,
+		targetTemp: 80,
+	};
+	private lastLoginTime = 0;
 
 	/**
 	 * Creates an instance of the HarviaFenix adapter.
@@ -190,6 +196,24 @@ export class HarviaFenix extends utils.Adapter {
 		const oldRemoteReadyObj = await this.getObjectAsync('remoteReady');
 		if (oldRemoteReadyObj) {
 			await this.delObjectAsync('remoteReady');
+		}
+
+		// Initialize lastConfirmedStates from existing database values to prevent UI jumps on startup
+		try {
+			const heatOnState = await this.getStateAsync('heatOn');
+			if (heatOnState?.ack) {
+				this.lastConfirmedStates.heatOn = !!heatOnState.val;
+			}
+			const lightOnState = await this.getStateAsync('lightOn');
+			if (lightOnState?.ack) {
+				this.lastConfirmedStates.lightOn = !!lightOnState.val;
+			}
+			const targetTempState = await this.getStateAsync('targetTemp');
+			if (targetTempState?.ack && typeof targetTempState.val === 'number') {
+				this.lastConfirmedStates.targetTemp = targetTempState.val;
+			}
+		} catch (err) {
+			this.log.error(`Error reading initial states: ${err instanceof Error ? err.message : String(err)}`);
 		}
 
 		// Start connection logic
@@ -340,6 +364,7 @@ export class HarviaFenix extends utils.Adapter {
 				client_id: CLIENT_ID,
 			});
 			this.idToken = response.data.idToken.trim(); // JWT-Token trimmed
+			this.lastLoginTime = Date.now();
 
 			// Decode JWT to extract partner ID or debug info
 			try {
@@ -707,6 +732,7 @@ export class HarviaFenix extends utils.Adapter {
 						await this.setState('targetReachedNotified', false, true);
 					}
 					await this.setState('heatOn', isHeatOn, true);
+					this.lastConfirmedStates.heatOn = isHeatOn;
 				}
 
 				await this.updateBooleanState('lightOn', ['lightOn', 'lightState', 'light', 'light_on'], p);
@@ -822,6 +848,9 @@ export class HarviaFenix extends utils.Adapter {
 		const result = HarviaFenix.calculateNumericValue(raw, scale, decimals);
 		if (result !== undefined) {
 			await this.setState(stateId, result, true);
+			if (stateId === 'targetTemp') {
+				this.lastConfirmedStates.targetTemp = result;
+			}
 		}
 	}
 
@@ -835,30 +864,82 @@ export class HarviaFenix extends utils.Adapter {
 	private async updateBooleanState(stateId: string, keys: string[], data: HarviaStatusData): Promise<void> {
 		const raw = HarviaFenix.getApiValue(data, keys);
 		if (raw !== undefined) {
-			await this.setState(stateId, HarviaFenix.isTrue(raw), true);
+			const val = HarviaFenix.isTrue(raw);
+			await this.setState(stateId, val, true);
+			if (stateId === 'lightOn') {
+				this.lastConfirmedStates.lightOn = val;
+			}
 		}
 	}
 
-	private async setSaunaState(
-		stateName: string,
-		value: string | number | boolean | null,
-		isRetry = false,
-	): Promise<void> {
+	/**
+	 * Checks if the error or response indicates that the Harvia device is unavailable.
+	 *
+	 * @param err - The thrown error, if any.
+	 * @param respData - The response payload, if any.
+	 */
+	private isDeviceUnavailableError(err: unknown, respData?: unknown): boolean {
+		if (respData && typeof respData === 'object') {
+			const dataObj = respData as Record<string, unknown>;
+			const reason = dataObj.failureReason || '';
+			if (typeof reason === 'string' && reason.includes('Device unavailable')) {
+				return true;
+			}
+			const dataStr = JSON.stringify(respData);
+			if (dataStr.includes('Device unavailable')) {
+				return true;
+			}
+		}
+		if (err) {
+			let detail = '';
+			if (axios.isAxiosError(err) && err.response?.data) {
+				detail = typeof err.response.data === 'string' ? err.response.data : JSON.stringify(err.response.data);
+			} else if (err instanceof Error) {
+				detail = err.message;
+			} else {
+				detail = typeof err === 'string' ? err : JSON.stringify(err);
+			}
+			if (detail.includes('Device unavailable')) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private async setSaunaState(stateName: string, value: string | number | boolean | null): Promise<void> {
 		if (this.isUnloading) {
 			return;
 		}
 		if (!this.idToken || !this.deviceBaseUrl) {
 			return;
 		}
-		// Lock-Check: Only block if not an internal retry
-		if (this.isSendingCommand && !isRetry) {
+		// Lock-Check: Only block if already sending a command
+		if (this.isSendingCommand) {
 			return;
 		}
+
+		// Proactive token refresh if token is older than 45 minutes
+		if (Date.now() - this.lastLoginTime > 45 * 60 * 1000) {
+			this.log.info('Token is older than 45 minutes, refreshing token proactively...');
+			const success = await this.login();
+			if (!success) {
+				this.log.warn('Proactive token refresh failed. Proceeding with current token.');
+			}
+		}
+
 		// RACE-CONDITION PROTECTION
 		const baseUrl = this.deviceBaseUrl.replace(/\/$/, '');
 		const devicesUrl = baseUrl.endsWith('/devices') ? baseUrl : `${baseUrl}/devices`;
 
 		this.isSendingCommand = true;
+
+		let success = false;
+		let lastError: unknown = null;
+		let lastFailureReason = '';
+
+		const maxAttempts = 3;
+		const delayMs = 1500;
+
 		try {
 			const deviceId = this.activeDeviceId || this.config.deviceId;
 
@@ -869,117 +950,170 @@ export class HarviaFenix extends utils.Adapter {
 				return;
 			}
 
-			if (stateName === 'heatOn' || stateName === 'lightOn') {
-				const commandType = stateName === 'heatOn' ? 'SAUNA' : 'LIGHTS';
-				const stateStr = value ? 'on' : 'off';
-				const payload: HarviaSaunaCommand = {
-					deviceId,
-					cabin: { id: 'C1' },
-					command: { type: commandType, state: stateStr },
-				};
+			for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+				if (this.isUnloading) {
+					return;
+				}
 
-				const url = `${devicesUrl}/command`;
+				this.log.debug(`Sending command ${stateName} -> ${value} (Attempt ${attempt}/${maxAttempts})`);
 
-				const resp = await this.client.post<HarviaCommandResponse>(url, payload, {
-					headers: {
-						...this.getCloudHeaders(),
-						'Content-Type': 'application/json',
-					},
-				});
+				try {
+					if (stateName === 'heatOn' || stateName === 'lightOn') {
+						const commandType = stateName === 'heatOn' ? 'SAUNA' : 'LIGHTS';
+						const stateStr = value ? 'on' : 'off';
+						const payload: HarviaSaunaCommand = {
+							deviceId,
+							cabin: { id: 'C1' },
+							command: { type: commandType, state: stateStr },
+						};
 
-				if (resp.data?.handled) {
-					this.log.info(`${commandType} -> ${stateStr}`);
-					// CONFIRMATION: Set ack: true immediately to prevent UI "jumping"
-					await this.setState(stateName, !!value, true);
-					this.lastCommandTime = Date.now();
+						const url = `${devicesUrl}/command`;
 
-					if (stateName === 'heatOn') {
-						await this.setState('errorMsg', '', true);
+						const resp = await this.client.post<HarviaCommandResponse>(url, payload, {
+							headers: {
+								...this.getCloudHeaders(),
+								'Content-Type': 'application/json',
+							},
+						});
+
+						if (resp.data?.handled) {
+							this.log.info(`${commandType} -> ${stateStr}`);
+							// CONFIRMATION: Set ack: true immediately to prevent UI "jumping"
+							const targetVal = stateName === 'heatOn' ? !!value : HarviaFenix.isTrue(value);
+							await this.setState(stateName, targetVal, true);
+							this.lastConfirmedStates[stateName] = targetVal;
+							this.lastCommandTime = Date.now();
+
+							if (stateName === 'heatOn') {
+								await this.setState('errorMsg', '', true);
+							}
+							success = true;
+							break;
+						} else {
+							const reason = resp.data.failureReason || 'Unknown';
+							lastFailureReason = reason;
+
+							if (reason.includes('Device unavailable')) {
+								this.log.warn(
+									`Cloud rejected command (Device unavailable) on attempt ${attempt}/${maxAttempts}.`,
+								);
+								if (attempt < maxAttempts) {
+									this.log.info(`Waiting ${delayMs}ms before retrying...`);
+									await new Promise<void>(resolve => {
+										this.setTimeout(() => resolve(), delayMs);
+									});
+									continue;
+								}
+							}
+							// Other error (not Device unavailable) -> fail immediately without retry
+							break;
+						}
+					} else if (stateName === 'targetTemp') {
+						const tempVal = typeof value === 'number' ? value : Number.parseFloat(String(value));
+						const payload: HarviaSaunaCommand = {
+							deviceId,
+							cabin: { id: 'C1' },
+							temperature: tempVal,
+						};
+						const url = `${devicesUrl}/target`;
+
+						await this.client.patch<HarviaCommandResponse>(url, payload, {
+							headers: {
+								...this.getCloudHeaders(),
+								'Content-Type': 'application/json',
+							},
+						});
+
+						this.log.info(`Target temperature -> ${tempVal}°C`);
+						// Immediate confirmation in ioBroker
+						await this.setState('targetTemp', tempVal, true);
+						this.lastConfirmedStates.targetTemp = tempVal;
+						this.lastCommandTime = Date.now();
+						success = true;
+						break;
 					}
-				} else {
-					const reason = resp.data.failureReason || 'Unknown';
-					this.log.warn(`Cloud rejected command: ${reason}`);
-					await this.setState('errorMsg', `Cloud error: ${reason}`, true);
-					if (stateName === 'heatOn') {
-						await this.setState('heatOn', false, true);
-						if (value) {
-							await this.setState('remoteControl', false, true);
+				} catch (err: unknown) {
+					lastError = err;
+
+					// Check if token expired (HTTP 401 / 403)
+					let isAuthError = false;
+					if (axios.isAxiosError(err) && (err.response?.status === 401 || err.response?.status === 403)) {
+						isAuthError = true;
+					}
+
+					if (isAuthError) {
+						this.log.warn(
+							`Token expired or unauthorized during control (Attempt ${attempt}/${maxAttempts}), triggering re-login...`,
+						);
+						const loginSuccess = await this.login();
+						if (loginSuccess) {
+							this.log.info('Re-login successful. Retrying current attempt with new token...');
+							attempt--; // Reset attempt counter for this iteration
+							continue;
 						}
 					}
+
+					if (axios.isAxiosError(err) && err.response?.status === 403) {
+						this.log.error(
+							'Action blocked (403 Forbidden). Remote start authorization (Safety Loop) at panel might not be active.',
+						);
+					}
+
+					// Check if error is "Device unavailable"
+					if (this.isDeviceUnavailableError(err)) {
+						this.log.warn(`Cloud error (Device unavailable) on attempt ${attempt}/${maxAttempts}.`);
+						if (attempt < maxAttempts) {
+							this.log.info(`Waiting ${delayMs}ms before retrying...`);
+							await new Promise<void>(resolve => {
+								this.setTimeout(() => resolve(), delayMs);
+							});
+							continue;
+						}
+					}
+
+					// If non-retryable or max attempts reached, fail immediately
+					break;
 				}
-			} else if (stateName === 'targetTemp') {
-				const payload: HarviaSaunaCommand = {
-					deviceId,
-					cabin: { id: 'C1' },
-					temperature: typeof value === 'number' ? value : Number.parseFloat(String(value)),
-				};
-				const url = `${devicesUrl}/target`;
-
-				await this.client.patch<HarviaCommandResponse>(url, payload, {
-					headers: {
-						...this.getCloudHeaders(),
-						'Content-Type': 'application/json',
-					},
-				});
-				this.log.info(`Target temperature -> ${value}°C`);
-				// Immediate confirmation in ioBroker
-				await this.setState(
-					'targetTemp',
-					typeof value === 'number' ? value : Number.parseFloat(String(value)),
-					true,
-				);
-				this.lastCommandTime = Date.now();
-			}
-		} catch (err: unknown) {
-			let detail: string;
-			if (axios.isAxiosError(err) && err.response?.data) {
-				detail = JSON.stringify(err.response.data as unknown);
-			} else if (err instanceof Error) {
-				detail = err.message;
-			} else {
-				detail = String(err);
 			}
 
-			// "Device unavailable" is a cloud lock effect during rapid clicking.
-			// Log as debug to keep the info log clean.
-			if (detail.includes('Device unavailable')) {
-				this.log.debug('Cloud lock: Device busy, command discarded.');
-			} else {
-				this.log.error(`Control error: ${detail}`);
-				const msg = err instanceof Error ? err.message : String(err);
-				await this.setState('errorMsg', `Error: ${msg}`, true);
-			}
+			if (!success) {
+				this.log.warn(`Command ${stateName} failed permanently after ${maxAttempts} attempts.`);
 
-			let willRetry = false;
-			if (!isRetry && axios.isAxiosError(err) && (err.response?.status === 401 || err.response?.status === 403)) {
-				willRetry = true;
-			}
-
-			if (axios.isAxiosError(err) && err.response?.status === 403) {
-				this.log.error(
-					'Action blocked (403 Forbidden). Remote start authorization (Safety Loop) at panel might not be active.',
-				);
-			}
-
-			if (stateName === 'heatOn' && value && !willRetry) {
-				await this.setState('heatOn', false, true);
-				await this.setState('remoteControl', false, true);
-			}
-
-			// RE-LOGIN LOGIC: If token became invalid during runtime
-			// Automatic re-login on expired token (HTTP 401)
-			if (willRetry) {
-				this.log.warn('Token expired or unauthorized during control, triggering re-login...');
-				if (await this.login()) {
-					// Repeat command once after successful login
-					await this.setSaunaState(stateName, value, true);
+				// Revert state to last known good value to prevent bouncing
+				const oldVal = this.lastConfirmedStates[stateName];
+				if (oldVal !== undefined) {
+					this.log.info(`Reverting state ${stateName} to last confirmed value: ${oldVal}`);
+					await this.setState(stateName, oldVal, true);
 				} else {
-					if (stateName === 'heatOn' && value) {
-						await this.setState('heatOn', false, true);
-						await this.setState('remoteControl', false, true);
+					this.log.warn(`No confirmed value found for ${stateName}. Reverting to default.`);
+					if (stateName === 'targetTemp') {
+						await this.setState(stateName, 80, true);
+					} else {
+						await this.setState(stateName, false, true);
 					}
 				}
+
+				// Set error message state
+				let msg = 'Unknown error';
+				if (lastFailureReason) {
+					msg = `Cloud error: ${lastFailureReason}`;
+				} else if (lastError) {
+					msg =
+						lastError instanceof Error
+							? lastError.message
+							: typeof lastError === 'string'
+								? lastError
+								: JSON.stringify(lastError);
+				}
+				await this.setState('errorMsg', msg, true);
+
+				if (stateName === 'heatOn') {
+					await this.setState('remoteControl', false, true);
+				}
 			}
+		} catch (outerErr: unknown) {
+			const errMsg = outerErr instanceof Error ? outerErr.message : String(outerErr);
+			this.log.error(`Unexpected error in setSaunaState: ${errMsg}`);
 		} finally {
 			this.isSendingCommand = false;
 		}
