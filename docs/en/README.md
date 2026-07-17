@@ -182,6 +182,8 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 ---
 
 ## Changelog
+### **WORK IN PROGRESS**
+
 ### 0.2.7 (2026-07-17)
 * (Antigravity) Implement retry for "Device unavailable" and proactive token refresh
 * (meistermopper) Restore clean datapoint table and safety warnings in README files
