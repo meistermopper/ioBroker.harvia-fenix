@@ -207,7 +207,7 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 * (meistermopper) npm install im Workflow einkommentiert, um Lockfile-Sync-Probleme zu beheben
 
 ### 0.2.3 (2026-07-08)
-* (meistermopper) Abhängigkeiten aktualisiert (eslint-config, commitlint) and package-lock.json korrigiert
+* (meistermopper) Abhängigkeiten aktualisiert (eslint-config, commitlint) und package-lock.json korrigiert
 
 [Ältere Einträge können hier gefunden werden](../../CHANGELOG_OLD.md)
 
