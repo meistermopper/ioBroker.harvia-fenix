@@ -229,7 +229,7 @@ updateGermanWipHeader();
 processReadme(
 	readmePath,
 	/^##\s+Changelog\b/im,
-	/^##\s+\[Older changelog entries\]/im,
+	/^(?:\[Older changelog entries|##\s+License)/im,
 	true,
 );
 
@@ -237,7 +237,8 @@ processReadme(
 processReadme(
 	readmeDePath,
 	/^##\s+Änderungsprotokoll\s+\(Changelog\)/im,
-	/^##\s+\[Ältere Einträge\]/im,
+	/^(?:\[Ältere Einträge|##\s+Lizenz)/im,
 	false,
 );
+
 

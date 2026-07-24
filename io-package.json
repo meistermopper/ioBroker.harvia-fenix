@@ -267,7 +267,7 @@
       "_id": "doorSafety",
       "type": "state",
       "common": {
-        "role": "indicator.safety",
+        "role": "sensor.door",
         "name": "Door safety circuit",
         "type": "boolean",
         "read": true,

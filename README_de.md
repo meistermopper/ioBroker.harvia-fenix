@@ -182,9 +182,12 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 ## Änderungsprotokoll (Changelog)
 
 ### **WORK IN PROGRESS**
+* (meistermopper) Fix doorSafety role to sensor.door for repochecker compliance
+* (meistermopper) Add missing CHANGELOG_OLD link to README.md (repochecker S6022)
+* (meistermopper) Fix changelog rotation in README_de.md to enforce 5 entries limit
 
 ### 0.2.7 (2026-07-17)
-* (Antigravity) Implement retry for "Device unavailable" and proactive token refresh
+* (meistermopper) Implement retry for "Device unavailable" and proactive token refresh
 * (meistermopper) Restore clean datapoint table and safety warnings in README files
 * (meistermopper) Mark latest repository item as completed in To-Do list
 * (meistermopper) Clarify remoteControl description in README files
@@ -205,12 +208,6 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 
 ### 0.2.3 (2026-07-08)
 * (meistermopper) Abhängigkeiten aktualisiert (eslint-config, commitlint) und package-lock.json korrigiert
-
-### 0.2.2 (2026-07-05)
-* (meistermopper) Deutsche Log-Nachrichten und States korrigiert (auf Englisch übersetzt)
-* (meistermopper) prepare-Skript aus der package.json entfernt
-* (meistermopper) Plausibilitätsprüfung für pollInterval in main.ts hinzugefügt
-* (meistermopper) Inline-Übersetzungen in jsonConfig in Standard-i18n-Dateien ausgelagert und fehlende Übersetzungen behoben
 
 [Ältere Einträge können hier gefunden werden](CHANGELOG_OLD.md)
 
