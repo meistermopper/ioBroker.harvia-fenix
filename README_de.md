@@ -30,13 +30,14 @@ Für weitere Informationen über Harvia und deren Saunasteuerungen besuche bitte
 ---
 
 ## Installation
-Du kannst den Adapter entweder über die ioBroker-Weboberfläche oder auf deiner lokalen Maschine via npm installieren.
+Der Adapter ist im offiziellen ioBroker `latest` (Beta) Repository verfügbar. Du kannst ihn direkt über die ioBroker-Weboberfläche oder auf deiner lokalen Maschine via npm installieren.
 
-### Browser-basiert
-1. Öffne deine ioBroker-Weboberfläche in einem Browser (z. B. `192.168.1.33:8081`)
-2. Klicke auf den Reiter **Adapter**
-3. Gib "harvia-fenix" in den Filter ein
-4. Klicke auf die drei Punkte und dann auf das "+"-Symbol des **Harvia Fenix** Adapters, um eine Instanz hinzuzufügen
+### Browser-basiert (über ioBroker Admin)
+1. Öffne deine ioBroker-Weboberfläche in einem Browser (z. B. `192.168.1.33:8081`).
+2. Stelle sicher, dass in den ioBroker-Einstellungen das **`latest`** (Beta) Repository aktiv ist.
+3. Klicke auf den Reiter **Adapter**.
+4. Gib "harvia-fenix" in den Filter ein.
+5. Klicke auf die drei Punkte und dann auf das "+"-Symbol des **Harvia Fenix** Adapters, um eine Instanz hinzuzufügen.
 
 ### Lokale Maschine
 Navigiere in deinen ioBroker-Ordner und führe den folgenden Befehl aus: 
@@ -182,6 +183,7 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 ## Änderungsprotokoll (Changelog)
 
 ### **WORK IN PROGRESS**
+* (meistermopper) Note latest repository availability in README installation section
 * (meistermopper) Fix doorSafety role to sensor.door for repochecker compliance
 * (meistermopper) Add missing CHANGELOG_OLD link to README.md (repochecker S6022)
 * (meistermopper) Fix changelog rotation in README_de.md to enforce 5 entries limit

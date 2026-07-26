@@ -30,13 +30,14 @@ For more information about Harvia and their sauna control units, please visit th
 ---
 
 ## Installation
-You can either install the adapter via the ioBroker web interface or on your local machine via npm.
+The adapter is available in the official ioBroker `latest` (beta) repository. You can install it directly via the ioBroker web interface or on your local machine via npm.
 
-### Browser-based
-1. Open your ioBroker web interface in a browser (e.g. `192.168.1.33:8081`)
-2. Click on Tab **Adapters**
-3. Type "harvia-fenix" in the Filter
-4. Click on the three points and then on the "+" symbol of the **Harvia Fenix** adapter to add an instance
+### Browser-based (via ioBroker Admin)
+1. Open your ioBroker web interface in a browser (e.g. `192.168.1.33:8081`).
+2. Ensure that your ioBroker repository setting is set to **`latest`** (beta).
+3. Click on the **Adapters** tab.
+4. Type "harvia-fenix" in the filter.
+5. Click on the three dots and then on the "+" symbol of the **Harvia Fenix** adapter to add an instance.
 
 ### Local machine
 Navigate into your ioBroker folder and execute the following command: 
@@ -183,6 +184,7 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 
 ## Changelog
 ### **WORK IN PROGRESS**
+* (meistermopper) Note latest repository availability in README installation section
 * (meistermopper) Fix doorSafety role to sensor.door for repochecker compliance
 * (meistermopper) Add missing CHANGELOG_OLD link to README.md (repochecker S6022)
 * (meistermopper) Fix changelog rotation in README_de.md to enforce 5 entries limit
