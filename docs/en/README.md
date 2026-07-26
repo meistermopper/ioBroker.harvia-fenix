@@ -183,6 +183,8 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 ---
 
 ## Changelog
+### **WORK IN PROGRESS**
+
 ### 0.2.8 (2026-07-26)
 * (meistermopper) Note latest repository availability in README installation section
 * (meistermopper) Fix doorSafety role to sensor.door for repochecker compliance
