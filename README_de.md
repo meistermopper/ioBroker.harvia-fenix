@@ -183,6 +183,8 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 ## Änderungsprotokoll (Changelog)
 
 ### **WORK IN PROGRESS**
+
+### 0.2.8 (2026-07-26)
 * (meistermopper) Note latest repository availability in README installation section
 * (meistermopper) Fix doorSafety role to sensor.door for repochecker compliance
 * (meistermopper) Add missing CHANGELOG_OLD link to README.md (repochecker S6022)
@@ -207,9 +209,6 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 
 ### 0.2.4 (2026-07-08)
 * (meistermopper) npm install im Workflow einkommentiert, um Lockfile-Sync-Probleme zu beheben
-
-### 0.2.3 (2026-07-08)
-* (meistermopper) Abhängigkeiten aktualisiert (eslint-config, commitlint) und package-lock.json korrigiert
 
 [Ältere Einträge können hier gefunden werden](CHANGELOG_OLD.md)
 

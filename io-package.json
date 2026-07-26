@@ -1,7 +1,7 @@
 {
   "common": {
     "name": "harvia-fenix",
-    "version": "0.2.7",
+    "version": "0.2.8",
     "titleLang": {
       "en": "Harvia-Fenix Sauna Control",
       "de": "Harvia-Fenix Saunasteuerung",
@@ -29,6 +29,19 @@
       "zh-cn": "通过 MyHarvia 云端控制 Harvia Fenix 桑拿房"
     },
     "news": {
+      "0.2.8": {
+        "en": "Note latest repository availability in README installation section\nFix doorSafety role to sensor.door for repochecker compliance\nAdd missing CHANGELOG_OLD link to README.md (repochecker S6022)\nFix changelog rotation in README_de.md to enforce 5 entries limit",
+        "de": "Verfügbarkeit im latest Repository in der README-Installationsanleitung dokumentiert\ndoorSafety-Rolle für Repochecker-Konformität auf sensor.door korrigiert\nFehlenden CHANGELOG_OLD Link zur README.md hinzugefügt\nChangelog-Rotation in README_de.md korrigiert",
+        "ru": "Note latest repository availability in README installation section\nFix doorSafety role to sensor.door for repochecker compliance\nAdd missing CHANGELOG_OLD link to README.md (repochecker S6022)\nFix changelog rotation in README_de.md to enforce 5 entries limit",
+        "pt": "Note latest repository availability in README installation section\nFix doorSafety role to sensor.door for repochecker compliance\nAdd missing CHANGELOG_OLD link to README.md (repochecker S6022)\nFix changelog rotation in README_de.md to enforce 5 entries limit",
+        "nl": "Note latest repository availability in README installation section\nFix doorSafety role to sensor.door for repochecker compliance\nAdd missing CHANGELOG_OLD link to README.md (repochecker S6022)\nFix changelog rotation in README_de.md to enforce 5 entries limit",
+        "fr": "Note latest repository availability in README installation section\nFix doorSafety role to sensor.door for repochecker compliance\nAdd missing CHANGELOG_OLD link to README.md (repochecker S6022)\nFix changelog rotation in README_de.md to enforce 5 entries limit",
+        "it": "Note latest repository availability in README installation section\nFix doorSafety role to sensor.door for repochecker compliance\nAdd missing CHANGELOG_OLD link to README.md (repochecker S6022)\nFix changelog rotation in README_de.md to enforce 5 entries limit",
+        "es": "Note latest repository availability in README installation section\nFix doorSafety role to sensor.door for repochecker compliance\nAdd missing CHANGELOG_OLD link to README.md (repochecker S6022)\nFix changelog rotation in README_de.md to enforce 5 entries limit",
+        "pl": "Note latest repository availability in README installation section\nFix doorSafety role to sensor.door for repochecker compliance\nAdd missing CHANGELOG_OLD link to README.md (repochecker S6022)\nFix changelog rotation in README_de.md to enforce 5 entries limit",
+        "uk": "Note latest repository availability in README installation section\nFix doorSafety role to sensor.door for repochecker compliance\nAdd missing CHANGELOG_OLD link to README.md (repochecker S6022)\nFix changelog rotation in README_de.md to enforce 5 entries limit",
+        "zh-cn": "Note latest repository availability in README installation section\nFix doorSafety role to sensor.door for repochecker compliance\nAdd missing CHANGELOG_OLD link to README.md (repochecker S6022)\nFix changelog rotation in README_de.md to enforce 5 entries limit"
+      },
       "0.2.7": {
         "en": "Implement retry for \"Device unavailable\" and proactive token refresh\nRestore clean datapoint table and safety warnings in README files\nMark latest repository item as completed in To-Do list\nClarify remoteControl description in README files\nRemove redundant ==== underlines from header in README files\nRemove duplicate changelog link and format it consistently in README files\nUpdate Biome schema version to 2.5.3 to match CLI version",
         "de": "Implementieren Sie Wiederholungsversuche für „Gerät nicht verfügbar“ und eine proaktive Token-Aktualisierung.\nStellen Sie die saubere Datenpunkttabelle und die Sicherheitswarnungen in den README-Dateien wieder her.\nMarkieren Sie den neuesten Eintrag im Repository als erledigt in der Aufgabenliste.\nDie Beschreibung der Fernbedienung in den README-Dateien präzisieren\nEntfernen Sie überflüssige Unterstriche (====) aus den Kopfzeilen der README-Dateien.\nEntfernen Sie doppelte Links zum Änderungsprotokoll und formatieren Sie diese in den README-Dateien einheitlich.\nAktualisieren Sie die Biome-Schema-Version auf 2.5.3, um sie an die CLI-Version anzupassen.",
@@ -106,19 +119,6 @@
         "pl": "Fix jsonConfig.json schemat walidacji i dodać brakujące tłumaczenia\nAktualizuj zależności axios i biome",
         "uk": "Виправлення jsonConfig.json schema Validation and add no translations\nОновити аксіос і біоме залежності",
         "zh-cn": "Fix jsonConfig.json 计划验证并添加缺失的翻译\n更新轴线和生物依赖"
-      },
-      "0.2.0": {
-        "en": "Add manual partnerId and shared/guest accounts support, improve unloading checks, update docs",
-        "de": "Manuelle Partner-ID- und Shared-/Gastkontenunterstützung hinzufügen, Entladeprüfungen verbessern, Dokumentation aktualisieren",
-        "ru": "Добавить поддержку ручного ввода идентификатора партнера и учетных записей общего/гостевого доступа, улучшить проверки разгрузки, обновить документацию.",
-        "pt": "Adicionar suporte para partnerId manual e contas compartilhadas/de convidado, aprimorar as verificações de descarregamento, atualizar a documentação.",
-        "nl": "Voeg ondersteuning toe voor handmatige partner-ID en gedeelde/gastaccounts, verbeter de controle op het uitladen en werk de documentatie bij.",
-        "fr": "Ajout de la prise en charge manuelle des identifiants partenaires et des comptes partagés/invités, amélioration des contrôles de déchargement, mise à jour de la documentation",
-        "it": "Aggiungere il supporto per ID partner manuale e account condivisi/ospiti, migliorare i controlli di scarico, aggiornare la documentazione.",
-        "es": "Agregar soporte para partnerId manual y cuentas compartidas/de invitados, mejorar las comprobaciones de descarga, actualizar la documentación.",
-        "pl": "Dodano obsługę ręcznego partneraId i kont współdzielonych/gościnnych, ulepszono sprawdzanie rozładunku, zaktualizowano dokumenty",
-        "uk": "Додано підтримку ручного partnerId та спільних/гостьових облікових записів, покращено перевірки вивантаження, оновлено документацію",
-        "zh-cn": "增加手动输入 partnerId 和共享/访客账户支持，改进卸载检查，更新文档"
       }
     },
     "authors": [

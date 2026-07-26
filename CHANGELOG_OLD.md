@@ -1,4 +1,11 @@
 # Older changes
+## 0.2.3 (2026-07-08)
+* (meistermopper) Update dependencies (eslint-config, commitlint) and regenerate package-lock.json
+
+[Older changelog entries can be found here](CHANGELOG_OLD.md)
+
+---
+
 ## 0.2.2 (2026-07-05)
 * (meistermopper) Fix German log messages and states (translate to English)
 * (meistermopper) Remove prepare script from package.json
