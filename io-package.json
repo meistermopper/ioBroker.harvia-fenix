@@ -1,7 +1,7 @@
 {
   "common": {
     "name": "harvia-fenix",
-    "version": "0.2.8",
+    "version": "0.3.0",
     "titleLang": {
       "en": "Harvia-Fenix Sauna Control",
       "de": "Harvia-Fenix Saunasteuerung",
@@ -29,6 +29,19 @@
       "zh-cn": "通过 MyHarvia 云端控制 Harvia Fenix 桑拿房"
     },
     "news": {
+      "0.3.0": {
+        "en": "Add configurable min/max temperature limits and maxDuration in Admin UI",
+        "de": "Hinzufügen von konfigurierbaren min/max Temperaturgrenzen und maxDuration in Admin UI",
+        "ru": "Добавить настраиваемые ограничения температуры min/max и maxDuration в интерфейсе администратора",
+        "pt": "Adicionar limites de temperatura mín/máx configuráveis e maxDuração na interface de administração",
+        "nl": "Voeg configureerbare min/max temperatuur limieten en maxDuur in Admin UI",
+        "fr": "Ajouter des limites de température min/max configurables et maxDurée en UI Admin",
+        "it": "Aggiungere limiti di temperatura minimo/max configurabili e maxDurata in Admin UI",
+        "es": "Añadir límites de temperatura configurables min/max y maxDuración en Admin UI",
+        "pl": "Dodaj konfigurowalne wartości graniczne temperatury min / max i maxSize w Admin UI",
+        "uk": "Додати налаштування мінімуму/макс діапазонів температури та макс.Duration в Admin UI",
+        "zh-cn": "添加可配置的分钟/ 最大温度限值和最高限值"
+      },
       "0.2.8": {
         "en": "Note latest repository availability in README installation section\nFix doorSafety role to sensor.door for repochecker compliance\nAdd missing CHANGELOG_OLD link to README.md (repochecker S6022)\nFix changelog rotation in README_de.md to enforce 5 entries limit",
         "de": "Verfügbarkeit im latest Repository in der README-Installationsanleitung dokumentiert\ndoorSafety-Rolle für Repochecker-Konformität auf sensor.door korrigiert\nFehlenden CHANGELOG_OLD Link zur README.md hinzugefügt\nChangelog-Rotation in README_de.md korrigiert",
@@ -106,19 +119,6 @@
         "pl": "Napraw niemieckie komunikaty i stany dziennika (przetłumacz na język angielski)\nUsuń skrypt przygotowawczy z pliku package.json\nDodaj walidację kontroli granic dla pollInterval w main.ts\nPrzenieś tłumaczenia jsonConfig do standardowych plików i18n i napraw brakujące tłumaczenia",
         "uk": "Виправлено повідомлення та стани журналів німецькою мовою (перекласти на англійську)\nВидалити скрипт підготовки з package.json\nДодано перевірку меж для pollInterval у main.ts\nПеренести вбудовані переклади jsonConfig до стандартних файлів i18n та виправити відсутні переклади",
         "zh-cn": "修复德语日志消息和状态（翻译成英语）\n从 package.json 中移除 prepare 脚本\n在 main.ts 中为 pollInterval 添加边界检查验证。\n将内联 jsonConfig 翻译移至标准 i18n 文件，并修复缺失的翻译。"
-      },
-      "0.2.1": {
-        "en": "Fix jsonConfig.json schema validation and add missing translations\nUpdate axios and biome dependencies",
-        "de": "JsonConfig.json-Schemavalidierung beheben und fehlende Übersetzungen hinzufügen\nAktualisieren von Axios und Biom-Abhängigkeiten",
-        "ru": "Исправьте проверку схемы jsonConfig.json и добавьте недостающие переводы\nОбновление зависимостей аксиоса и биома",
-        "pt": "Corrigir a validação do esquema jsonConfig.json e adicionar traduções em falta\nAtualizar dependências de axios e biomas",
-        "nl": "Fix jsonConfig.json schema validatie en voeg ontbrekende vertalingen\nAxios en biome afhankelijkheden bijwerken",
-        "fr": "Correction de la validation du schéma jsonConfig.json et ajout des traductions manquantes\nMettre à jour les dépendances des axios et des biomes",
-        "it": "Fissare la convalida dello schema jsonConfig.json e aggiungere le traduzioni mancanti\nAssio di aggiornamento e dipendenze biome",
-        "es": "Fijar jsonConfig.json schema validación y añadir traducciones desaparecidas\nActualizar los axios y las dependencias de biome",
-        "pl": "Fix jsonConfig.json schemat walidacji i dodać brakujące tłumaczenia\nAktualizuj zależności axios i biome",
-        "uk": "Виправлення jsonConfig.json schema Validation and add no translations\nОновити аксіос і біоме залежності",
-        "zh-cn": "Fix jsonConfig.json 计划验证并添加缺失的翻译\n更新轴线和生物依赖"
       }
     },
     "authors": [
@@ -165,7 +165,11 @@
     "username": "",
     "password": "",
     "deviceId": "",
-    "pollInterval": 60
+    "partnerId": "",
+    "pollInterval": 60,
+    "maxDuration": 360,
+    "minTemp": 40,
+    "maxTemp": 110
   },
   "protectedNative": [
     "password"
@@ -193,6 +197,58 @@
         "read": true,
         "write": false,
         "def": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.minTemp",
+      "type": "state",
+      "common": {
+        "role": "value.temperature",
+        "name": {
+          "en": "Minimum target temperature limit",
+          "de": "Mindest-Zieltemperaturgrenze",
+          "ru": "Минимальный предел целевой температуры",
+          "pt": "Limite de temperatura alvo mínima",
+          "nl": "Minimale streeftemperatuurlimiet",
+          "fr": "Limite de température cible minimale",
+          "it": "Limite minimo di temperatura target",
+          "es": "Límite de temperatura objetivo mínima",
+          "pl": "Minimalny limit temperatury docelowej",
+          "uk": "Мінімальний ліміт цільової температури",
+          "zh-cn": "最低目标温度限制"
+        },
+        "type": "number",
+        "unit": "°C",
+        "read": true,
+        "write": false,
+        "def": 40
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.maxTemp",
+      "type": "state",
+      "common": {
+        "role": "value.temperature",
+        "name": {
+          "en": "Maximum target temperature limit",
+          "de": "Maximal-Zieltemperaturgrenze",
+          "ru": "Максимальный предел целевой температуры",
+          "pt": "Limite de temperatura alvo máxima",
+          "nl": "Maximale streeftemperatuurlimiet",
+          "fr": "Limite de température cible maximale",
+          "it": "Limite massimo di temperatura target",
+          "es": "Límite de temperatura objetivo máxima",
+          "pl": "Maksymalny limit temperatury docelowej",
+          "uk": "Максимальний ліміт цільової температури",
+          "zh-cn": "最高目标温度限制"
+        },
+        "type": "number",
+        "unit": "°C",
+        "read": true,
+        "write": false,
+        "def": 110
       },
       "native": {}
     },
@@ -257,9 +313,39 @@
         "name": "Target temperature",
         "type": "number",
         "unit": "°C",
+        "min": 40,
+        "max": 110,
         "read": true,
         "write": true,
         "def": 90
+      },
+      "native": {}
+    },
+    {
+      "_id": "maxDuration",
+      "type": "state",
+      "common": {
+        "role": "level.timer",
+        "name": {
+          "en": "Maximum heating duration",
+          "de": "Maximale Heizdauer",
+          "ru": "Максимальная продолжительность нагрева",
+          "pt": "Duração máxima de aquecimento",
+          "nl": "Maximale verwarmingsduur",
+          "fr": "Durée maximale de chauffage",
+          "it": "Durata massima di riscaldamento",
+          "es": "Duración máxima de calentamiento",
+          "pl": "Maksymalny czas ogrzewania",
+          "uk": "Максимальна тривалість нагріву",
+          "zh-cn": "最大加热时长"
+        },
+        "type": "number",
+        "unit": "min",
+        "min": 10,
+        "max": 720,
+        "read": true,
+        "write": true,
+        "def": 360
       },
       "native": {}
     },

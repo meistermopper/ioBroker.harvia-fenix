@@ -1,11 +1,17 @@
 {
 	"Device ID (Optional)": "ID urządzenia (Opcjonalnie)",
-	"Device ID Help": "Pozostaw puste do automatycznego wykrywania. WAŻNE: Jeśli uruchamiasz wiele instancji dla różnych saun, MUSISZ tutaj wprowadzić prawidłowy identyfikator urządzenia dla każdej instancji.",
+	"Device ID Help": "Pozostaw puste dla automatycznego wykrywania. WAŻNE: Jeśli uruchamiasz wiele instancji dla różnych saun, MUSISZ wprowadzić poprawny ID urządzenia dla każdej instancji.",
 	"Login Settings": "Ustawienia logowania",
-	"Partner ID (Optional)": "ID partnera (Opcjonalnie)",
-	"Partner ID Help": "Wymagane tylko dla kont współdzielonych/gości. Wprowadź tutaj ID partnera właściciela (np. ORG/prod:0:1234).",
+	"Maximum Heating Duration (minutes)": "Maksymalny czas ogrzewania (minuty)",
+	"Maximum Heating Duration Help": "Domyślnie 360 min. Uwaga: Standardowa sauna (bez dodatkowej izolacji) przekazuje ciepło na zewnątrz po ok. 5 godzinach (300 min), co powoduje znaczną stratę energii.",
+	"Maximum Temperature Limit (°C)": "Maksymalna temperatura docelowa (°C)",
+	"Maximum Temperature Limit Help": "Górny limit ustawienia temperatury docelowej (domyślnie 110 °C).",
+	"Minimum Temperature Limit (°C)": "Minimalna temperatura docelowa (°C)",
+	"Minimum Temperature Limit Help": "Dolny limit ustawienia temperatury docelowej (domyślnie 40 °C).",
+	"Partner ID (Optional)": "ID Partnera (Opcjonalnie)",
+	"Partner ID Help": "Wymagane tylko dla kont udostępnionych/gości. Wprowadź ID Partnera właściciela tutaj (np. ORG/prod:0:1234).",
 	"Password": "Hasło",
 	"Polling Interval (seconds)": "Interwał odpytywania (sekundy)",
-	"Polling Interval Help": "Minimum 30s, domyślnie 60s. Uwaga: Przy uruchamianiu wielu instancji nie ustawiaj zbyt niskiej wartości, aby uniknąć ograniczenia szybkości Harvia Cloud (HTTP 429).",
+	"Polling Interval Help": "Minimum 30 s, domyślnie 60 s. Uwaga: Przy uruchamianiu wielu instancji nie ustawiaj tego zbyt nisko, aby uniknąć limitów chmury Harvia (HTTP 429).",
 	"Username / Email": "Nazwa użytkownika / E-mail"
 }

@@ -9,6 +9,9 @@ declare global {
 			deviceId: string;
 			pollInterval: number;
 			partnerId: string;
+			maxDuration: number;
+			minTemp: number;
+			maxTemp: number;
 		}
 	}
 }

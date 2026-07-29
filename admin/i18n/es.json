@@ -1,11 +1,17 @@
 {
 	"Device ID (Optional)": "ID del dispositivo (Opcional)",
-	"Device ID Help": "Dejar vacío para detección automática. IMPORTANTE: Si ejecuta varias instancias para diferentes saunas, DEBE introducir el ID de dispositivo correcto aquí para cada instancia.",
+	"Device ID Help": "Dejar en blanco para detección automática. IMPORTANTE: Si ejecuta varias instancias para diferentes saunas, DEBE ingresar la ID del dispositivo correcta aquí para cada instancia.",
 	"Login Settings": "Configuración de inicio de sesión",
-	"Partner ID (Optional)": "ID de socio (Opcional)",
-	"Partner ID Help": "Solo necesario para cuentas compartidas/invitadas. Introduzca aquí el ID de socio del propietario (p. ej. ORG/prod:0:1234).",
+	"Maximum Heating Duration (minutes)": "Duración máxima de calentamiento (minutos)",
+	"Maximum Heating Duration Help": "Por defecto 360 min. Nota: Una sauna estándar (sin aislamiento adicional) transfiere calor al exterior después de aprox. 5 horas (300 min), lo que genera una pérdida de energía significativa.",
+	"Maximum Temperature Limit (°C)": "Temperatura objetivo máxima (°C)",
+	"Maximum Temperature Limit Help": "Límite superior para la configuración de temperatura objetivo (por defecto 110 °C).",
+	"Minimum Temperature Limit (°C)": "Temperatura objetivo mínima (°C)",
+	"Minimum Temperature Limit Help": "Límite inferior para la configuración de temperatura objetivo (por defecto 40 °C).",
+	"Partner ID (Optional)": "ID de Socio (Opcional)",
+	"Partner ID Help": "Solo necesario para cuentas compartidas/invitados. Ingrese la ID de Socio del propietario aquí (ej. ORG/prod:0:1234).",
 	"Password": "Contraseña",
-	"Polling Interval (seconds)": "Intervalo de sondeo (segundos)",
-	"Polling Interval Help": "Mínimo 30s, predeterminado 60s. Nota: Al ejecutar varias instancias, no lo establezca demasiado bajo para evitar la limitación de velocidad de Harvia Cloud (HTTP 429).",
-	"Username / Email": "Nombre de usuario/correo electrónico"
+	"Polling Interval (seconds)": "Intervalo de consulta (segundos)",
+	"Polling Interval Help": "Mínimo 30 s, por defecto 60 s. Nota: Cuando ejecute varias instancias, no lo configure demasiado bajo para evitar límites de velocidad en la nube de Harvia (HTTP 429).",
+	"Username / Email": "Nombre de usuario / Correo electrónico"
 }

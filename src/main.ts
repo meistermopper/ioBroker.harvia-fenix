@@ -11,6 +11,8 @@ import axios, { type AxiosInstance } from 'axios';
 const CLIENT_ID = '24emhb2mm0v4sscqhbdev86b2v';
 const MIN_TARGET_TEMP = 40; // Minimum allowed target temperature in C
 const MAX_TARGET_TEMP = 110; // Maximum allowed target temperature in C
+const MIN_MAX_DURATION = 10; // Minimum allowed maximum heating duration in minutes
+const MAX_MAX_DURATION = 720; // Maximum allowed maximum heating duration in minutes (12 hours)
 const LATENCY_MS = 5000;
 const API_TRUE_VALUES = new Set<unknown>([
 	1,
@@ -74,6 +76,12 @@ interface HarviaStatusData {
 	totalHours?: string | number;
 	targetTemperature?: string | number;
 	targetTemp?: string | number;
+	maxDuration?: string | number;
+	targetDuration?: string | number;
+	maxBathingTime?: string | number;
+	duration?: string | number;
+	maxTemperature?: string | number;
+	minTemperature?: string | number;
 	lightOn?: number | boolean | string;
 	lightState?: number | boolean | string;
 	light?: number | boolean | string;
@@ -94,6 +102,9 @@ interface HarviaSaunaCommand {
 	cabin: { id: string };
 	command?: { type: string; state: string };
 	temperature?: number;
+	maxDuration?: number;
+	targetDuration?: number;
+	duration?: number;
 }
 
 interface HarviaCommandResponse {
@@ -104,6 +115,10 @@ interface HarviaCommandResponse {
 interface HarviaDeviceState {
 	state?: {
 		remoteAllowed?: number | boolean | string;
+		settings?: {
+			maxOnTime?: number | string;
+			maxTemp?: number | string;
+		};
 	};
 	connectionState?: {
 		connected?: boolean;
@@ -135,6 +150,7 @@ export class HarviaFenix extends utils.Adapter {
 		heatOn: false,
 		lightOn: false,
 		targetTemp: 80,
+		maxDuration: 360,
 	};
 	private lastLoginTime = 0;
 
@@ -181,6 +197,12 @@ export class HarviaFenix extends utils.Adapter {
 		this.subscribeStates('heatOn');
 		this.subscribeStates('lightOn');
 		this.subscribeStates('targetTemp');
+		this.subscribeStates('maxDuration');
+
+		// Configured limits with safe fallbacks
+		const minTemp = typeof this.config.minTemp === 'number' ? this.config.minTemp : MIN_TARGET_TEMP;
+		const maxTemp = typeof this.config.maxTemp === 'number' ? this.config.maxTemp : MAX_TARGET_TEMP;
+		const defaultMaxDuration = typeof this.config.maxDuration === 'number' ? this.config.maxDuration : 360;
 
 		// CLEAN START: Reset all status values to 'false' on startup
 		await this.setState('online', false, true);
@@ -191,6 +213,9 @@ export class HarviaFenix extends utils.Adapter {
 		await this.setState('errorMsg', '', true);
 		await this.setState('readyNotified10Min', false, true);
 		await this.setState('targetReachedNotified', false, true);
+		await this.setState('maxDuration', defaultMaxDuration, true);
+		await this.setState('info.minTemp', minTemp, true);
+		await this.setState('info.maxTemp', maxTemp, true);
 
 		// Clean up removed states from previous versions
 		const oldRemoteReadyObj = await this.getObjectAsync('remoteReady');
@@ -653,47 +678,95 @@ export class HarviaFenix extends utils.Adapter {
 					return;
 				}
 
+				// Merge deviceState settings (e.g. maxOnTime: 300, maxTemp: 110) into status payload
+				const statusPayload: HarviaStatusData = { ...p };
+				if (deviceState?.state?.settings) {
+					const settings = deviceState.state.settings;
+					if (settings.maxOnTime !== undefined) {
+						statusPayload.maxOnTime = settings.maxOnTime;
+					}
+					if (settings.maxTemp !== undefined) {
+						statusPayload.maxTemp = settings.maxTemp;
+					}
+				}
+
 				// Update Numeric States
 				await this.updateNumericState(
 					'temp',
 					['temperature', 'temp', 'current_temperature', 'ambient_temperature'],
-					p,
+					statusPayload,
 					1,
 					1,
 				);
 				await this.updateNumericState(
 					'panelTemp',
 					['panelTemp', 'panelTemperature', 'panel_temperature'],
-					p,
+					statusPayload,
 					1,
 					1,
 				);
-				await this.updateNumericState('heaterPower', ['heaterPower', 'power', 'heater_power'], p, 0.001, 2);
+				await this.updateNumericState(
+					'heaterPower',
+					['heaterPower', 'power', 'heater_power'],
+					statusPayload,
+					0.001,
+					2,
+				);
 				await this.updateNumericState(
 					'totalBathingHours',
 					['totalBathingHours', 'total_bathing_hours', 'bathing_hours'],
-					p,
+					statusPayload,
 					1,
 					2,
 				);
 				await this.updateNumericState(
 					'totalSessions',
 					['totalSessions', 'total_sessions', 'sessions'],
-					p,
+					statusPayload,
 					1,
 					0,
 				);
 				await this.updateNumericState(
 					'totalOperatingHours',
 					['totalOperatingHours', 'totalHours', 'total_hours', 'operating_hours'],
-					p,
+					statusPayload,
 					1,
 					2,
 				);
 				await this.updateNumericState(
 					'targetTemp',
 					['targetTemperature', 'targetTemp', 'target_temperature', 'setpoint_temperature'],
-					p,
+					statusPayload,
+				);
+				await this.updateNumericState(
+					'maxDuration',
+					[
+						'maxDuration',
+						'targetDuration',
+						'maxOnTime',
+						'max_duration',
+						'duration',
+						'maxBathingTime',
+						'max_bathing_time',
+						'setpoint_duration',
+					],
+					statusPayload,
+					1,
+					0,
+				);
+				await this.updateNumericState(
+					'info.minTemp',
+					['minTemperature', 'minTemp', 'min_temperature'],
+					statusPayload,
+					1,
+					0,
+				);
+				await this.updateNumericState(
+					'info.maxTemp',
+					['maxTemperature', 'maxTemp', 'max_temperature'],
+					statusPayload,
+					1,
+					0,
 				);
 
 				// --- CUSTOM BOOLEAN & LOGIC STATES ---
@@ -850,6 +923,8 @@ export class HarviaFenix extends utils.Adapter {
 			await this.setState(stateId, result, true);
 			if (stateId === 'targetTemp') {
 				this.lastConfirmedStates.targetTemp = result;
+			} else if (stateId === 'maxDuration') {
+				this.lastConfirmedStates.maxDuration = result;
 			}
 		}
 	}
@@ -1031,6 +1106,30 @@ export class HarviaFenix extends utils.Adapter {
 						this.lastCommandTime = Date.now();
 						success = true;
 						break;
+					} else if (stateName === 'maxDuration') {
+						const durationVal = typeof value === 'number' ? value : Number.parseFloat(String(value));
+						const payload: HarviaSaunaCommand = {
+							deviceId,
+							cabin: { id: 'C1' },
+							maxDuration: durationVal,
+							targetDuration: durationVal,
+						};
+						const url = `${devicesUrl}/target`;
+
+						await this.client.patch<HarviaCommandResponse>(url, payload, {
+							headers: {
+								...this.getCloudHeaders(),
+								'Content-Type': 'application/json',
+							},
+						});
+
+						this.log.info(`Maximum heating duration -> ${durationVal} min`);
+						// Immediate confirmation in ioBroker
+						await this.setState('maxDuration', durationVal, true);
+						this.lastConfirmedStates.maxDuration = durationVal;
+						this.lastCommandTime = Date.now();
+						success = true;
+						break;
 					}
 				} catch (err: unknown) {
 					lastError = err;
@@ -1088,6 +1187,8 @@ export class HarviaFenix extends utils.Adapter {
 					this.log.warn(`No confirmed value found for ${stateName}. Reverting to default.`);
 					if (stateName === 'targetTemp') {
 						await this.setState(stateName, 80, true);
+					} else if (stateName === 'maxDuration') {
+						await this.setState(stateName, 360, true);
 					} else {
 						await this.setState(stateName, false, true);
 					}
@@ -1178,15 +1279,32 @@ export class HarviaFenix extends utils.Adapter {
 				break;
 
 			case 'targetTemp': {
+				const minTemp = typeof this.config.minTemp === 'number' ? this.config.minTemp : MIN_TARGET_TEMP;
+				const maxTemp = typeof this.config.maxTemp === 'number' ? this.config.maxTemp : MAX_TARGET_TEMP;
 				const val = typeof state.val === 'number' ? state.val : Number.parseFloat(String(state.val));
-				if (Number.isNaN(val) || val < MIN_TARGET_TEMP || val > MAX_TARGET_TEMP) {
+				if (Number.isNaN(val) || val < minTemp || val > maxTemp) {
 					this.log.error(
-						`Invalid target temperature (${state.val}°C) received. Range: ${MIN_TARGET_TEMP}-${MAX_TARGET_TEMP}°C.`,
+						`Invalid target temperature (${state.val}°C) received. Range: ${minTemp}-${maxTemp}°C.`,
 					);
 					await this.setState('errorMsg', `Invalid target temperature: ${state.val}°C`, true);
 					return;
 				}
 				await this.setSaunaState('targetTemp', val);
+				break;
+			}
+
+			case 'maxDuration': {
+				const configuredMaxDuration =
+					typeof this.config.maxDuration === 'number' ? this.config.maxDuration : MAX_MAX_DURATION;
+				const val = typeof state.val === 'number' ? state.val : Number.parseFloat(String(state.val));
+				if (Number.isNaN(val) || val < MIN_MAX_DURATION || val > configuredMaxDuration) {
+					this.log.error(
+						`Invalid max duration (${state.val} min) received. Range: ${MIN_MAX_DURATION}-${configuredMaxDuration} min.`,
+					);
+					await this.setState('errorMsg', `Invalid max duration: ${state.val} min`, true);
+					return;
+				}
+				await this.setSaunaState('maxDuration', val);
 				break;
 			}
 		}

@@ -56,6 +56,45 @@
 					"md": 4,
 					"lg": 4,
 					"xl": 4
+				},
+				"minTemp": {
+					"type": "number",
+					"label": "Minimum Temperature Limit (°C)",
+					"help": "Minimum Temperature Limit Help",
+					"min": 20,
+					"max": 100,
+					"default": 40,
+					"xs": 12,
+					"sm": 6,
+					"md": 4,
+					"lg": 4,
+					"xl": 4
+				},
+				"maxTemp": {
+					"type": "number",
+					"label": "Maximum Temperature Limit (°C)",
+					"help": "Maximum Temperature Limit Help",
+					"min": 40,
+					"max": 120,
+					"default": 110,
+					"xs": 12,
+					"sm": 6,
+					"md": 4,
+					"lg": 4,
+					"xl": 4
+				},
+				"maxDuration": {
+					"type": "number",
+					"label": "Maximum Heating Duration (minutes)",
+					"help": "Maximum Heating Duration Help",
+					"min": 10,
+					"max": 720,
+					"default": 360,
+					"xs": 12,
+					"sm": 6,
+					"md": 4,
+					"lg": 4,
+					"xl": 4
 				}
 			}
 		}

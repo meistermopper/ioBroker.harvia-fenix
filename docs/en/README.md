@@ -64,7 +64,7 @@ Additional to the adapter installation you must configure the adapter instance w
 2. Navigate to Tab **Instances** and click the settings icon of your `harvia-fenix.0` instance.
 3. Enter your **Email Address** and **Password** of your MyHarvia account.
 4. If you leave the **Device ID** field empty, the adapter will automatically search for devices linked to your account upon startup. It will use the first device it finds as the active unit.
-5. If you also want to adjust the poll interval, adjust the **Poll Interval** settings (in seconds).
+5. Adjust optional parameters: **Poll Interval** (seconds), **Minimum/Maximum Target Temperature Limits** (°C), and **Maximum Heating Duration** (minutes).
 6. Click on **Save & Close**.
 
 ### Device Configuration & Multi-Device Support
@@ -121,6 +121,8 @@ The adapter maps your sauna's cloud states into structured ioBroker datapoints u
 | Datapoint | Type | Role | Access | Description |
 |---|---|---|---|---|
 | `info.connection` | boolean | `indicator` | Read-only | Connection state of the adapter to the MyHarvia Cloud. |
+| `info.minTemp` | number | `value.temperature` | Read-only | Minimum target temperature limit (`40 °C`). |
+| `info.maxTemp` | number | `value.temperature` | Read-only | Maximum target temperature limit (`110 °C`). |
 | `online` | boolean | `indicator.reachable` | Read-only | Connection state of the control unit to the cloud. |
 | `doorSafety` | boolean | `indicator.safety` | Read-only | Safety loop status (e.g., `true` if the door is secure / safe to run). |
 | `remoteControl` | boolean | `indicator` | Read-only | Remote start readiness status. If `false`, starting the heater remotely (via the adapter) is blocked. |
@@ -128,6 +130,7 @@ The adapter maps your sauna's cloud states into structured ioBroker datapoints u
 | `heatOn` | boolean | `switch.power` | Read/Write | Main toggle to switch the sauna heater ON (`true`) or OFF (`false`). |
 | `heaterPower` | number | `value.power` | Read-only | *Note:* This object is provisioned by the MyHarvia API structure but is currently delivered as `0 kW` (unpopulated). It appears to be reserved for future hardware or app updates. |
 | `lightOn` | boolean | `switch.light` | Read/Write | Toggle to switch the integrated sauna lighting ON or OFF. |
+| `maxDuration` | number | `level.timer` | Read/Write | Maximum allowed heating duration for the sauna session in minutes (`min`). |
 | `panelTemp` | number | `value.temperature` | Read-only | The temperature reading measured at the physical control panel unit. |
 | `targetTemp` | number | `level.temperature` | Read/Write | Target temperature setpoint for the sauna cabin (e.g., `90 °C`). |
 | `temp` | number | `value.temperature` | Read-only | The current ambient temperature inside the sauna cabin (e.g., `17 °C`). |
@@ -183,7 +186,8 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 ---
 
 ## Changelog
-### **WORK IN PROGRESS**
+### 0.3.0 (2026-07-29)
+* (meistermopper) Add configurable min/max temperature limits and maxDuration in Admin UI
 
 ### 0.2.8 (2026-07-26)
 * (meistermopper) Note latest repository availability in README installation section
@@ -207,9 +211,6 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 
 ### 0.2.5 (2026-07-15)
 * (meistermopper) Add docs folder structure and automatic README synchronization script
-
-### 0.2.4 (2026-07-08)
-* (meistermopper) Use npm install in workflow to prevent lockfile sync issues
 
 ## License
 MIT License

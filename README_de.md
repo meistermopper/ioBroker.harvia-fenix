@@ -64,42 +64,44 @@ Zusätzlich zur Adapterinstallation musst du die Adapterinstanz mit deinen MyHar
 2. Navigiere zum Reiter **Instanzen** und klicke auf das Einstellungs-Symbol deiner `harvia-fenix.0`-Instanz.
 3. Gib die **E-Mail-Adresse** und das **Passwort** deines MyHarvia-Kontos ein.
 4. Wenn du das Feld **Geräte-ID** leer lässt, sucht der Adapter beim Start automatisch nach Geräten, die mit deinem Konto verknüpft sind. Er verwendet das erste gefundene Gerät als aktive Einheit.
-5. Wenn du das Abfrageintervall anpassen möchtest, passe die Einstellungen für das **Abfrageintervall** (in Sekunden) an.
+5. Passe bei Bedarf optionale Parameter an: **Abfrageintervall** (Sekunden), **Mindest-/Maximal-Zieltemperatur** (°C) und **Maximale Heizdauer** (Minuten).
 6. Klicke auf **Speichern & Schließen**.
 
-### Gerätekonfiguration & Multi-Geräte-Unterstützung
+---
+
+## Gerätekonfiguration & Multi-Geräte-Unterstützung
 
 #### Automatische Erkennung (Discovery)
 Wenn du das Feld **Geräte-ID** in den Adapter-Einstellungen leer lässt, sucht der Adapter beim Start automatisch nach Geräten, die mit deinem Konto verknüpft sind. Er verwendet das erste gefundene Gerät als aktive Einheit. Die erkannte ID wird im ioBroker-Log ausgegeben.
 
 #### Manuelle Geräte-ID
-Für die meisten Benutzer mit einer einzigen Sauna ist die automatische Erkennung ausreichend. Es wird jedoch empfohlen, die erkannte ID aus dem Log zu kopieren und in die Konfiguration einzufügen, um eine stabile Verbindung zur spezifischen Hardware zu gewährleisten.
+Für die meisten Benutzer mit einer einzelnen Sauna ist die automatische Erkennung ausreichend. Es wird jedoch empfohlen, die erkannte ID aus dem Log zu kopieren und in die Konfiguration einzufügen, um eine dauerhaft stabile Verbindung zur spezifischen Hardware zu gewährleisten.
 
 #### Mehrere Saunen
-Wenn dein MyHarvia-Konto mehrere Steuereinheiten verwaltet (z. B. eine zu Hause und eine im Ferienhaus):
+Wenn dein MyHarvia-Konto meherere Steuereinheiten verwaltet (z. B. eine zu Hause und eine im Ferienhaus):
 1. Erstelle für jede Sauna eine eigene Instanz des Adapters (z. B. `harvia-fenix.0` und `harvia-fenix.1`).
-2. Gib die spezifische **Geräte-ID** für jede Einheit manuell in der jeweiligen Instanz-Konfiguration ein.
-Dies ermöglicht es, beide Saunen unabhängig voneinander mit eigenen Datenpunkten zu überwachen und zu steuern.
+2. Trage die jeweilige **Device ID** manuell in der Konfiguration der entsprechenden Instanz ein.
+Dadurch kannst du beide Saunen unabhängig voneinander mit eigenen Datenpunkten überwachen und steuern.
 
-### Geteilte / Freigegebene Konten & die Partner-ID
+### Geteilte Konten / Gast-Zugänge & Die Partner-ID
 
 #### Was ist die Partner-ID?
-Die MyHarvia-Cloud-Infrastruktur unterteilt Geräte, Benutzer und Apps in verschiedene „Partner-Organisationen“ (Partner Organizations). Beispielsweise entspricht die offizielle **MyHarvia 2** Smartphone-App der Partner-ID `ORG/prod:0:6656:0`. 
+Die MyHarvia-Cloud-Infrastruktur unterteilt Geräte, Benutzer und Apps in verschiedene "Partner-Organisationen". Die offizielle **MyHarvia 2** Smartphone-App nutzt beispielsweise die Partner-ID `ORG/prod:0:6656:0`.
 
-Normalerweise liest der Adapter beim Login das JSON-Web-Token (JWT) des Benutzers aus und extrahiert die Partner-ID automatisch aus dem Feld `custom:org`. Anschließend fragt er die Harvia-Cloud-API mit dieser ID ab, um verbundene Geräte zu finden.
+Normalerweise liest der Adapter beim Login den JSON Web Token (JWT) aus und ermittelt die Partner-ID automatisch aus dem Feld `custom:org`. Anschließend werden die verknüpften Geräte über diese ID bei der Harvia Cloud API abgefragt.
 
-#### Das Problem bei geteilten/freigegebenen Konten
-Wenn ein anderer Benutzer (der Hauptnutzer/Besitzer) seine Sauna in der MyHarvia 2 App für dich freigegeben hat:
-1. Ist dein Gast-Konto mit einer anderen Partner-ID verknüpft (z. B. `ORG/prod:0:6749` oder einer anderen individuellen ID).
-2. Wenn der Adapter die Geräteabfrage mit deiner Gast-Partner-ID durchführt, liefert die Harvia-API eine leere Liste zurück (`{"devices":[]}`) und die Sauna wird nicht gefunden.
-3. Um die freigegebene Sauna zu finden und zu steuern, müssen die API-Anfragen **mit der Partner-ID des Besitzers** gesendet werden.
+#### Das Problem bei geteilten Konten (Gast-Zugang)
+Wenn ein anderer Benutzer (der Eigentümer) seine Sauna in der MyHarvia 2 App mit dir geteilt hat:
+1. Dein Konto-Token ist mit einer anderen Gast-Partner-ID verknüpft (z. B. `ORG/prod:0:6749` oder einer benutzerdefinierten ID).
+2. Fragt der Adapter die Geräteliste mit deiner Gast-Partner-ID ab, liefert die Harvia Cloud API eine leere Liste (`{"devices":[]}`) zurück und die Sauna wird nicht gefunden.
+3. Um die geteilte Sauna zu steuern, **müssen die API-Anfragen mit der Partner-ID des Eigentümers durchgeführt werden**.
 
-#### Wie findet man die Partner-ID des Besitzers?
-Es gibt zwei einfache Wege, die Partner-ID des Besitzers zu ermitteln:
-1. **Standard-App:** Wenn der Besitzer die offizielle, normale **MyHarvia 2** Smartphone-App nutzt, lautet die Partner-ID **`ORG/prod:0:6656:0`**.
-2. **Aus dem ioBroker-Log:** Wenn der Besitzer den `harvia-fenix` Adapter bereits nutzt, kann er beim Starten des Adapters in das ioBroker-Log schauen. Dort wird eine Zeile wie folgt ausgegeben:
+#### Wie finde ich die Partner-ID des Eigentümers?
+Es gibt zwei Wege, die Partner-ID des Eigentümers zu ermitteln:
+1. **Standard-App:** Verwendet der Eigentümer die offizielle **MyHarvia 2** Mobile-App, lautet die Partner-ID **`ORG/prod:0:6656:0`**.
+2. **Aus the ioBroker-Log:** Betreibt der Eigentümer bereits den `harvia-fenix` Adapter, kann er in seinem ioBroker-Startup-Log nachsehen. Beim Start gibt der Adapter eine Zeile wie folgt aus:
    `Using partner ID from user token: ORG/prod:0:XXXX`
-   Der Besitzer kann diese ID kopieren und dem Gast-Nutzer mitteilen.
+   Der Eigentümer kann diese ID kopieren und dem Gast-Nutzer mitteilen.
 
 #### So richtest du ein geteiltes/freigegebenes Konto ein:
 1. Trage deine **eigenen Zugangsdaten** (deine E-Mail-Adresse und dein Passwort) in den Adapter-Einstellungen ein.
@@ -119,6 +121,8 @@ Es gibt zwei einfache Wege, die Partner-ID des Besitzers zu ermitteln:
 | Datenpunkt | Typ | Rolle | Zugriff | Beschreibung |
 |---|---|---|---|---|
 | `info.connection` | boolean | `indicator` | Nur Lesen | Verbindungsstatus des Adapters zur MyHarvia-Cloud. |
+| `info.minTemp` | number | `value.temperature` | Nur Lesen | Mindest-Zieltemperaturgrenze (`40 °C`). |
+| `info.maxTemp` | number | `value.temperature` | Nur Lesen | Maximal-Zieltemperaturgrenze (`110 °C`). |
 | `online` | boolean | `indicator.reachable` | Nur Lesen | Verbindungsstatus der Steuereinheit zur Cloud. |
 | `doorSafety` | boolean | `indicator.safety` | Nur Lesen | Status der Türsicherung (z. B. `true`, wenn die Tür sicher geschlossen ist). |
 | `remoteControl` | boolean | `indicator` | Nur Lesen | Status der Fernstart-Bereitschaft. Wenn `false`, ist das Starten des Ofens aus der Ferne (über den Adapter) blockiert. |
@@ -126,6 +130,7 @@ Es gibt zwei einfache Wege, die Partner-ID des Besitzers zu ermitteln:
 | `heatOn` | boolean | `switch.power` | Lesen/Schreiben | Hauptschalter, um den Saunaofen EIN (`true`) oder AUS (`false`) zu schalten. |
 | `heaterPower` | number | `value.power` | Nur Lesen | *Hinweis:* Dieses Objekt wird von der API bereitgestellt, liefert aber derzeit oft `0 kW` (nicht ausgefüllt). Es ist vermutlich für zukünftige Updates reserviert. |
 | `lightOn` | boolean | `switch.light` | Lesen/Schreiben | Schalter für die integrierte Saunabeleuchtung. |
+| `maxDuration` | number | `level.timer` | Lesen/Schreiben | Maximale Heizdauer für die Saunasitzung in Minuten (`min`). |
 | `panelTemp` | number | `value.temperature` | Nur Lesen | Temperaturmesswert direkt an der physischen Steuereinheit / Panel. |
 | `targetTemp` | number | `level.temperature` | Lesen/Schreiben | Zieltemperatur-Sollwert für die Saunakabine (z. B. `90 °C`). |
 | `temp` | number | `value.temperature` | Nur Lesen | Die aktuelle Umgebungstemperatur in der Saunakabine (z. B. `17 °C`). |
@@ -184,6 +189,9 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 
 ### **WORK IN PROGRESS**
 
+### 0.3.0 (2026-07-29)
+* (meistermopper) Add configurable min/max temperature limits and maxDuration in Admin UI
+
 ### 0.2.8 (2026-07-26)
 * (meistermopper) Note latest repository availability in README installation section
 * (meistermopper) Fix doorSafety role to sensor.door for repochecker compliance
@@ -206,9 +214,6 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 
 ### 0.2.5 (2026-07-15)
 * (meistermopper) Dokumentationsordnerstruktur (docs) und automatisches README-Synchronisationsskript hinzugefügt
-
-### 0.2.4 (2026-07-08)
-* (meistermopper) npm install im Workflow einkommentiert, um Lockfile-Sync-Probleme zu beheben
 
 [Ältere Einträge können hier gefunden werden](CHANGELOG_OLD.md)
 
