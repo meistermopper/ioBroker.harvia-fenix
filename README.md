@@ -186,6 +186,9 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 ---
 
 ## Changelog
+### **WORK IN PROGRESS**
+* (meistermopper) Add missing CHANGELOG_OLD link to README files
+
 ### 0.3.0 (2026-07-29)
 * (meistermopper) Add configurable min/max temperature limits and maxDuration in Admin UI
 
@@ -211,6 +214,8 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 
 ### 0.2.5 (2026-07-15)
 * (meistermopper) Add docs folder structure and automatic README synchronization script
+
+[Older changelog entries](CHANGELOG_OLD.md)
 
 ## License
 MIT License
