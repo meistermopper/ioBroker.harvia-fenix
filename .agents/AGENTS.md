@@ -41,6 +41,7 @@ This file defines style guidelines, constraints, and general instructions for AI
 ## 6. Config UI & Internationalization (i18n)
 - **Constraint:** Do not create manual HTML panels (`admin/index_m.html`). Always use **JSONConfig** (`admin/jsonConfig.json` or `admin/jsonConfig.json5`).
 - **Translation:** Never write direct/hardcoded translations in `jsonConfig`. Always configure `"i18n": true` and use standard language translation keys corresponding to files in the `admin/i18n` directory.
+- **News & Metadata Translations (`io-package.json`):** Every entry under `common.news` in `io-package.json` MUST be fully translated into all supported languages (`en`, `de`, `ru`, `pt`, `nl`, `fr`, `it`, `es`, `pl`, `uk`, `zh-cn`). Never leave non-English keys identical to English text, as ioBroker repochecker flags untranslated `common.news` entries as error `[E1144]`.
 
 ## 7. Local Code Verification
 - **Workflow:** Before finishing any code modification or pushing, run:

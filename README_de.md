@@ -190,6 +190,7 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 ### **WORK IN PROGRESS**
 * (meistermopper) Add missing CHANGELOG_OLD link to README files
 * (meistermopper) Fix untranslated news entries for 0.2.8 in io-package.json
+* (meistermopper) Add common.news translation rule to AGENTS.md
 
 ### 0.3.0 (2026-07-29)
 * (meistermopper) Add configurable min/max temperature limits and maxDuration in Admin UI
