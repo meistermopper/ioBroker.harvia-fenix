@@ -67,5 +67,10 @@ This file defines style guidelines, constraints, and general instructions for AI
 - **Clean Worktree:** Ensure all working tree changes are committed or stashed before running `npm run release`. Because the build process dynamically updates the `docs` directory (which Git may detect as modified due to line endings or regeneration), you should run the release command with the `--all` option (i.e. `npm run release -- --all`) to include these generated files in the release commit.
 - **Why:** The release script executes a verification script (`check-wip.js`) which fails if the WIP section is empty, and checks that no uncommitted files exist before proceeding, blocking the build otherwise.
 
+## 10. Git Commit & Push Authorization
+- **Constraint:** AI agents MUST NEVER perform `git commit` or `git push` operations automatically without explicit, prior user approval in the chat.
+- **Workflow:** Always prepare code modifications locally and ask the user for explicit confirmation before staging, committing, or pushing changes to remote repositories.
+
+
 
 

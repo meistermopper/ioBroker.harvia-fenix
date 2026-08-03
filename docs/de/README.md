@@ -187,6 +187,7 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 ## Änderungsprotokoll (Changelog)
 
 ### **WORK IN PROGRESS**
+* (meistermopper) Add Git commit and push authorization rule to AGENTS.md
 * (meistermopper) Add auto-translate workflow for automatic i18n translations
 * (meistermopper) Add missing CHANGELOG_OLD link to README files
 * (meistermopper) Fix untranslated news entries for 0.2.8 in io-package.json
