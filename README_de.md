@@ -187,6 +187,7 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 ## Änderungsprotokoll (Changelog)
 
 ### **WORK IN PROGRESS**
+* (meistermopper) Add auto-translate workflow for automatic i18n translations
 * (meistermopper) Add missing CHANGELOG_OLD link to README files
 * (meistermopper) Fix untranslated news entries for 0.2.8 in io-package.json
 * (meistermopper) Add common.news translation rule to AGENTS.md
