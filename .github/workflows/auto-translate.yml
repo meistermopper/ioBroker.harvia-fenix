@@ -32,7 +32,7 @@ jobs:
         run: npm run translate
 
       - name: Commit & Push Changes
-        uses: stefanzweifel/git-auto-commit-action@v5
+        uses: stefanzweifel/git-auto-commit-action@v7
         with:
           commit_message: 'chore: auto-translate i18n files [skip ci]'
           file_pattern: 'admin/i18n/*.json io-package.json'
