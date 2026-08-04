@@ -187,6 +187,8 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 ## Änderungsprotokoll (Changelog)
 
 ### **WORK IN PROGRESS**
+
+### 0.3.1 (2026-08-04)
 * (meistermopper) Update GitHub Actions in auto-translate workflow to v7
 * (meistermopper) Add Git commit and push authorization rule to AGENTS.md
 * (meistermopper) Add auto-translate workflow for automatic i18n translations
@@ -217,9 +219,6 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 * (meistermopper) Change doorSafety role to indicator.safety to prevent semantic role mismatch
 * (meistermopper) Redesign README and README_de.md layout to match Denon adapter presentation
 * (meistermopper) Update AI commit hook prompt to generate messages entirely in English
-
-### 0.2.5 (2026-07-15)
-* (meistermopper) Dokumentationsordnerstruktur (docs) und automatisches README-Synchronisationsskript hinzugefügt
 
 [Ältere Einträge können hier gefunden werden](../../CHANGELOG_OLD.md)
 

@@ -1,4 +1,7 @@
 # Older changes
+## 0.2.5 (2026-07-15)
+* (meistermopper) Add docs folder structure and automatic README synchronization script
+
 ## 0.2.4 (2026-07-08)
 * (meistermopper) Use npm install in workflow to prevent lockfile sync issues
 
