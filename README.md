@@ -1,4 +1,7 @@
-![Logo](admin/harvia.png)
+<p align="center">
+  <img src="admin/harvia.png" alt="Logo" width="100" />
+</p>
+
 # ioBroker.harvia-fenix
 
 **[Hier geht es zur deutschen Version der Dokumentation.](README_de.md)**
@@ -10,6 +13,7 @@
 ![Number of Installations](https://iobroker.live/badges/harvia-fenix-installed.svg)
 ![Current version in latest repository](https://img.shields.io/badge/latest-0.3.0-blue.svg)
 ![Current version in stable repository](https://iobroker.live/badges/harvia-fenix-stable.svg)
+[![Translation status](https://weblate.iobroker.net/widgets/adapters/-/harvia-fenix/svg-badge.svg)](https://weblate.iobroker.net/engage/adapters/)
 
 [![NPM](https://nodei.co/npm/iobroker.harvia-fenix.png?downloads=true)](https://nodei.co/npm/iobroker.harvia-fenix/)
 ![Test and Release](https://github.com/meistermopper/ioBroker.harvia-fenix/workflows/Test%20and%20Release/badge.svg)
@@ -185,6 +189,10 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 ---
 
 ## Changelog
+### **WORK IN PROGRESS**
+* (meistermopper) Center adapter logo in README files
+* (meistermopper) Add Weblate translation status badge to README files
+
 ### 0.3.1 (2026-08-04)
 * (meistermopper) Update GitHub Actions in auto-translate workflow to v7
 * (meistermopper) Add Git commit and push authorization rule to AGENTS.md
