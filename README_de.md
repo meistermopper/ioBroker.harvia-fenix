@@ -191,6 +191,7 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 ## Änderungsprotokoll (Changelog)
 
 ### **WORK IN PROGRESS**
+* (dependabot) Bump axios from 1.18.1 to 1.19.0
 * (meistermopper) Center adapter logo in README files
 * (meistermopper) Add Weblate translation status badge to README files
 
