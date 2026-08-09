@@ -2,7 +2,7 @@
 
 This file defines style guidelines, constraints, and general instructions for AI agents working on the `iobroker.harvia-fenix` codebase to ensure 100% ioBroker conformity, safety, and stability.
 
-## 1. Asynchronous Error Handling (Crash Prevention)
+## 1. Asynchronous Error Handling & Logging Rules (Crash Prevention & Compliance)
 - **Constraint:** All asynchronous API calls, network requests (e.g., Axios), and database operations must be wrapped in `try/catch` blocks or have `.catch()` handlers. Unhandled promise rejections must be avoided at all costs to prevent crash loops.
 - **Example:**
   ```typescript
@@ -13,6 +13,8 @@ This file defines style guidelines, constraints, and general instructions for AI
   }
   ```
 - **Event Handlers:** Ensure main entry points like `onReady`, `onStateChange`, and `onUnload` capture all internal errors and log them cleanly instead of crashing the process.
+- **Sensitive Data Logging:** Sensitive information MUST NOT be written to log files under any circumstances (including `info`, `warn`, or `debug`). Sensitive data includes any values configured in `io-package.json` under `protectedNative` or `encryptedNative` (e.g., passwords, API tokens, secret keys).
+- **Log Message Language:** All log messages must be written strictly in pure English text and MUST NOT use any translation mechanism (e.g. `this.t()`).
 
 ## 2. Object & State Management
 - **Rule:** Never call `this.setState()` or `this.setStateAsync()` on states that do not exist in the ioBroker object database.
@@ -23,7 +25,9 @@ This file defines style guidelines, constraints, and general instructions for AI
   - `role` (must be a standard ioBroker role like `'value.temperature'`, `'switch.power'`, etc.)
   - `read` and `write` flags
   - `def` (default value corresponding to the data type)
-- **Object ID Validation:** Object IDs must not contain special characters, spaces, or non-ASCII characters. They should ideally only contain `A-Za-z0-9-_` (and `.` as separator).
+  - `name` / `desc`: `common.name` and `common.desc` must use either English wording or an i18n multilanguage setup.
+- **Object ID Validation & Character Filtering:** Object IDs must not contain special characters, spaces, or non-ASCII characters. At minimum, characters defined by the ioBroker constant `FORBIDDEN_CHARS` must be removed or sanitized. Spaces should be converted to underscores (`_`) or removed. Strictly allow only `A-Za-z0-9-_` (and `.` as separator).
+- **State ID Naming:** All `stateId`s must be named using English wording unless the raw data key is directly received from an external API/source.
 - **Explicit Hierarchy:** When creating an object tree dynamically (e.g., `device.channel.state`), you must explicitly create every parent object in the hierarchy (i.e., first the `device` object, then the `channel` object, and finally the `state` object).
 
 ## 3. The `ack` Flag Protocol
@@ -41,6 +45,7 @@ This file defines style guidelines, constraints, and general instructions for AI
 ## 6. Config UI & Internationalization (i18n)
 - **Constraint:** Do not create manual HTML panels (`admin/index_m.html`). Always use **JSONConfig** (`admin/jsonConfig.json` or `admin/jsonConfig.json5`).
 - **Translation:** Never write direct/hardcoded translations in `jsonConfig`. Always configure `"i18n": true` and use standard language translation keys corresponding to files in the `admin/i18n` directory.
+- **User Text Output:** All text output displayed to users must either use pure English text or support at least English and German text (via i18n).
 - **News & Metadata Translations (`io-package.json`):** Every entry under `common.news` in `io-package.json` MUST be fully translated into all supported languages (`en`, `de`, `ru`, `pt`, `nl`, `fr`, `it`, `es`, `pl`, `uk`, `zh-cn`). Never leave non-English keys identical to English text, as ioBroker repochecker flags untranslated `common.news` entries as error `[E1144]`.
 
 ## 7. Local Code Verification
@@ -61,8 +66,9 @@ This file defines style guidelines, constraints, and general instructions for AI
   ```
   This is required to comply with the project's Biome linting rules (`useNodejsImportProtocol`).
 
-## 9. Changelog & Release Guidelines (WIP Check Prevention)
-- **Constraint:** Whenever you make changes to the repository (source code, documentation, scripts), you MUST add a descriptive bullet point of your changes under the `### **WORK IN PROGRESS**` section in both [README.md](file:///c:/Users/thoma/dev/Harvia_Fenix/iobroker.harvia-fenix/README.md) and [README_de.md](file:///c:/Users/thoma/dev/Harvia_Fenix/iobroker.harvia-fenix/README_de.md).
+## 9. Documentation & Changelog Guidelines (README & WIP Check)
+- **Strict README Language Separation:** `README.md` MUST be written using pure English text and must not mix languages. German text is strictly confined to `README_de.md` (or `README.de.md`).
+- **WIP Changelog Constraint:** Whenever you make changes to the repository (source code, documentation, scripts), you MUST add a descriptive bullet point of your changes under the `### **WORK IN PROGRESS**` section in both [README.md](file:///c:/Users/thoma/dev/Harvia_Fenix/iobroker.harvia-fenix/README.md) and [README_de.md](file:///c:/Users/thoma/dev/Harvia_Fenix/iobroker.harvia-fenix/README_de.md).
 - **Line Length Constraint:** Each line under the `### **WORK IN PROGRESS**` section must be strictly less than **100 characters** in length. The git release commit uses commitlint (`body-max-line-length`), which will reject commits with changelog lines exceeding this limit, aborting and rolling back the release.
 - **Clean Worktree:** Ensure all working tree changes are committed or stashed before running `npm run release`. Because the build process dynamically updates the `docs` directory (which Git may detect as modified due to line endings or regeneration), you should run the release command with the `--all` option (i.e. `npm run release -- --all`) to include these generated files in the release commit.
 - **Why:** The release script executes a verification script (`check-wip.js`) which fails if the WIP section is empty, and checks that no uncommitted files exist before proceeding, blocking the build otherwise.
@@ -70,6 +76,7 @@ This file defines style guidelines, constraints, and general instructions for AI
 ## 10. Git Commit & Push Authorization
 - **Constraint:** AI agents MUST NEVER perform `git commit` or `git push` operations automatically without explicit, prior user approval in the chat.
 - **Workflow:** Always prepare code modifications locally and ask the user for explicit confirmation before staging, committing, or pushing changes to remote repositories.
+
 
 
 
