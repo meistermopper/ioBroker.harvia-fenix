@@ -33,20 +33,13 @@ For more information about Harvia and their sauna control units, please visit th
 ---
 
 ## Installation
-The adapter is available in the official ioBroker `latest` (beta) repository. You can install it directly via the ioBroker web interface or on your local machine via npm.
+The adapter is available in the official ioBroker repository. You can install it directly via the ioBroker Admin web interface.
 
-### Browser-based (via ioBroker Admin)
+### Via ioBroker Admin
 1. Open your ioBroker web interface in a browser (e.g. `192.168.1.33:8081`).
-2. Ensure that your ioBroker repository setting is set to **`latest`** (beta).
-3. Click on the **Adapters** tab.
-4. Type "harvia-fenix" in the filter.
-5. Click on the three dots and then on the "+" symbol of the **Harvia Fenix** adapter to add an instance.
-
-### Local machine
-Navigate into your ioBroker folder and execute the following command: 
-```bash
-npm i iobroker.harvia-fenix
-```
+2. Click on the **Adapters** tab.
+3. Type "harvia-fenix" in the filter.
+4. Click on the three dots and then on the "+" symbol of the **Harvia Fenix** adapter to add an instance.
 
 ---
 
@@ -190,6 +183,7 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 
 ## Changelog
 ### **WORK IN PROGRESS**
+* (meistermopper) Remove direct npm installation instructions from README files
 * (dependabot) Bump axios from 1.18.1 to 1.19.0
 * (meistermopper) Center adapter logo in README files
 * (meistermopper) Add Weblate translation status badge to README files
