@@ -177,12 +177,13 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 ## To-Do
 * [ ] Await official permission from Harvia to use their original logo
 * [x] Add adapter to the official ioBroker `latest` repository
-* [ ] Add adapter to the official ioBroker `stable` repository
+* [x] Add adapter to the official ioBroker `stable` repository
 
 ---
 
 ## Changelog
 ### **WORK IN PROGRESS**
+* (meistermopper) Mark stable repository addition as completed in To-Do list
 * (meistermopper) Remove direct npm installation instructions from README files
 * (dependabot) Bump axios from 1.18.1 to 1.19.0
 * (meistermopper) Center adapter logo in README files
