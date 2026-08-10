@@ -4,7 +4,7 @@
 
 # ioBroker.harvia-fenix
 
-**[Hier geht es zur deutschen Version der Dokumentation.](../de/README.md)**
+**[Hier geht es zur deutschen Version der Dokumentation.](https://github.com/meistermopper/ioBroker.harvia-fenix/blob/main/README_de.md)**
 
 [![Downloads](https://img.shields.io/npm/dm/iobroker.harvia-fenix.svg)](https://www.npmjs.com/package/iobroker.harvia-fenix)
 [![node](https://img.shields.io/node/v/iobroker.harvia-fenix.svg)](https://www.npmjs.com/package/iobroker.harvia-fenix)
@@ -181,6 +181,7 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 
 ## Changelog
 ### **WORK IN PROGRESS**
+* (meistermopper) Use absolute GitHub URLs for language switching links in README files
 * (meistermopper) Remove latest repository and translation badges from README files
 * (meistermopper) Mark stable repository addition as completed in To-Do list
 * (meistermopper) Remove direct npm installation instructions from README files
