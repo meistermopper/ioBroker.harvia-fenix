@@ -153,6 +153,9 @@ export class HarviaFenix extends utils.Adapter {
 		maxDuration: 360,
 	};
 	private lastLoginTime = 0;
+	private sessionStartTime: number | null = null;
+	private sessionStartTemp: number | null = null;
+	private tempHistory: Array<{ time: number; temp: number }> = [];
 
 	/**
 	 * Creates an instance of the HarviaFenix adapter.
@@ -213,6 +216,8 @@ export class HarviaFenix extends utils.Adapter {
 		await this.setState('errorMsg', '', true);
 		await this.setState('readyNotified10Min', false, true);
 		await this.setState('targetReachedNotified', false, true);
+		await this.setState('estimatedHeatingTimeRemaining', 0, true);
+		await this.setState('info.heatingAnomaly', false, true);
 		await this.setState('maxDuration', defaultMaxDuration, true);
 		await this.setState('info.minTemp', minTemp, true);
 		await this.setState('info.maxTemp', maxTemp, true);
@@ -803,6 +808,13 @@ export class HarviaFenix extends utils.Adapter {
 					if (prevHeatOnState && !!prevHeatOnState.val !== isHeatOn) {
 						await this.setState('readyNotified10Min', false, true);
 						await this.setState('targetReachedNotified', false, true);
+						await this.setState('estimatedHeatingTimeRemaining', 0, true);
+						await this.setState('info.heatingAnomaly', false, true);
+						if (!isHeatOn) {
+							this.sessionStartTime = null;
+							this.sessionStartTemp = null;
+							this.tempHistory = [];
+						}
 					}
 					await this.setState('heatOn', isHeatOn, true);
 					this.lastConfirmedStates.heatOn = isHeatOn;
@@ -865,6 +877,8 @@ export class HarviaFenix extends utils.Adapter {
 						);
 					}
 				}
+
+				await this.calculateHeatingPrognosis(heatOn, currentTemp, targetTemp);
 			} else {
 				this.log.warn(`Unexpected data structure during status poll: ${JSON.stringify(response.data)}`);
 			}
@@ -1233,6 +1247,117 @@ export class HarviaFenix extends utils.Adapter {
 			callback();
 		} catch {
 			callback();
+		}
+	};
+
+	/**
+	 * Calculates self-learning estimated remaining heating time and detects heating performance anomalies.
+	 *
+	 * @param heatOn - Whether the sauna heating is currently turned on.
+	 * @param currentTemp - The current measured sauna cabin temperature in °C.
+	 * @param targetTemp - The target sauna cabin temperature in °C.
+	 */
+	private calculateHeatingPrognosis = async (
+		heatOn: boolean,
+		currentTemp: number,
+		targetTemp: number,
+	): Promise<void> => {
+		const now = Date.now();
+
+		if (!heatOn || currentTemp >= targetTemp) {
+			// Finalize historical learning if a heating session reached target temperature
+			if (this.sessionStartTime !== null && this.sessionStartTemp !== null && currentTemp >= targetTemp) {
+				const totalMinutes = (now - this.sessionStartTime) / 60000;
+				const tempDiff = currentTemp - this.sessionStartTemp;
+
+				if (totalMinutes >= 5 && tempDiff > 5) {
+					const sessionRate = tempDiff / totalMinutes;
+					const avgRateState = await this.getStateAsync('info.avgHeatingRate');
+					const currentAvgRate =
+						typeof avgRateState?.val === 'number' && avgRateState.val > 0 ? avgRateState.val : 1.5;
+
+					// Exponential Moving Average (EMA) with alpha = 0.3
+					const newAvgRate = parseFloat((0.3 * sessionRate + 0.7 * currentAvgRate).toFixed(2));
+					await this.setState('info.avgHeatingRate', newAvgRate, true);
+					this.log.info(
+						`📊 Updated learned average heating rate to ${newAvgRate} °C/min (this session: ${sessionRate.toFixed(2)} °C/min).`,
+					);
+				}
+			}
+
+			this.sessionStartTime = null;
+			this.sessionStartTemp = null;
+			this.tempHistory = [];
+			await this.setState('estimatedHeatingTimeRemaining', 0, true);
+			await this.setState('info.heatingAnomaly', false, true);
+			return;
+		}
+
+		// --- ACTIVE HEATING PHASE ---
+		if (this.sessionStartTime === null) {
+			this.sessionStartTime = now;
+			this.sessionStartTemp = currentTemp;
+			this.tempHistory = [];
+		}
+
+		// Add sample and prune samples older than 15 minutes
+		this.tempHistory.push({ time: now, temp: currentTemp });
+		this.tempHistory = this.tempHistory.filter(sample => now - sample.time <= 15 * 60 * 1000);
+
+		// Read historical average rate (default 1.5 °C/min)
+		const avgRateState = await this.getStateAsync('info.avgHeatingRate');
+		let historicalRate = 1.5;
+		if (typeof avgRateState?.val === 'number' && avgRateState.val > 0) {
+			historicalRate = avgRateState.val;
+		}
+
+		// Calculate live heating rate from sliding window (last 3 to 15 minutes)
+		let liveRate = 0;
+		let windowMinutes = 0;
+
+		if (this.tempHistory.length >= 2) {
+			const oldestSample = this.tempHistory[0];
+			windowMinutes = (now - oldestSample.time) / 60000;
+			if (windowMinutes >= 2) {
+				liveRate = (currentTemp - oldestSample.temp) / windowMinutes;
+			}
+		}
+
+		// Blend rate: 0-3 min (weight = 0), 3-10 min (weight scales linearly 0 -> 0.8)
+		let weight = 0;
+		if (windowMinutes >= 3) {
+			weight = Math.min(0.8, ((windowMinutes - 3) / 7) * 0.8);
+		}
+
+		let effectiveRate = historicalRate;
+		if (weight > 0 && liveRate > 0) {
+			effectiveRate = (1 - weight) * historicalRate + weight * liveRate;
+		}
+
+		if (effectiveRate <= 0) {
+			effectiveRate = historicalRate;
+		}
+
+		const remainingMinutes = Math.max(1, Math.round((targetTemp - currentTemp) / effectiveRate));
+		await this.setState('estimatedHeatingTimeRemaining', remainingMinutes, true);
+
+		// --- ANOMALY DETECTION ---
+		const activeHeatingMinutes = (now - this.sessionStartTime) / 60000;
+		if (activeHeatingMinutes >= 10 && windowMinutes >= 3) {
+			if (liveRate < 0.5 * historicalRate) {
+				const anomalyState = await this.getStateAsync('info.heatingAnomaly');
+				if (!anomalyState?.val) {
+					await this.setState('info.heatingAnomaly', true, true);
+					this.log.info(
+						`⚠️ Heating rate (${liveRate.toFixed(2)} °C/min) is significantly below historical average (${historicalRate.toFixed(2)} °C/min). Check sauna door or heater element.`,
+					);
+				}
+			} else {
+				const anomalyState = await this.getStateAsync('info.heatingAnomaly');
+				if (anomalyState?.val) {
+					await this.setState('info.heatingAnomaly', false, true);
+				}
+			}
 		}
 	};
 

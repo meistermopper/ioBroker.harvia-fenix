@@ -518,6 +518,83 @@
         "def": false
       },
       "native": {}
+    },
+    {
+      "_id": "estimatedHeatingTimeRemaining",
+      "type": "state",
+      "common": {
+        "role": "value.interval",
+        "name": {
+          "en": "Estimated remaining heating time",
+          "de": "Geschätzte verbleibende Aufheizzeit",
+          "ru": "Ориентировочное оставшееся время нагрева",
+          "pt": "Tempo estimado de aquecimento restante",
+          "nl": "Geschatte resterende opwarmtijd",
+          "fr": "Temps de chauffage restant estimé",
+          "it": "Tempo di riscaldamento rimanente stimato",
+          "es": "Tiempo estimado de calentamiento restante",
+          "pl": "Szacowany pozostały czas nagrzewania",
+          "uk": "Очікуваний залишок часу нагріву",
+          "zh-cn": "预计剩余加热时间"
+        },
+        "type": "number",
+        "unit": "min",
+        "read": true,
+        "write": false,
+        "def": 0
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.avgHeatingRate",
+      "type": "state",
+      "common": {
+        "role": "value",
+        "name": {
+          "en": "Learned average heating rate",
+          "de": "Gelerntes durchschnittliche Aufheizrate",
+          "ru": "Изученная средняя скорость нагрева",
+          "pt": "Taxa média de aquecimento aprendida",
+          "nl": "Aangeleerde gemiddelde opwarmsnelheid",
+          "fr": "Taux de chauffage moyen appris",
+          "it": "Tasso medio di riscaldamento appreso",
+          "es": "Tasa media de calentamiento aprendida",
+          "pl": "Wyuczona średnia szybkość nagrzewania",
+          "uk": "Вивчена середня швидкість нагріву",
+          "zh-cn": "学到的平均加热速率"
+        },
+        "type": "number",
+        "unit": "°C/min",
+        "read": true,
+        "write": false,
+        "def": 1.5
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.heatingAnomaly",
+      "type": "state",
+      "common": {
+        "role": "indicator",
+        "name": {
+          "en": "Heating performance anomaly detected",
+          "de": "Abweichung der Heizleistung erkannt",
+          "ru": "Обнаружена аномалия производительности нагрева",
+          "pt": "Anomalia no desempenho de aquecimento detetada",
+          "nl": "Afwijking in opwarmprestaties gedetecteerd",
+          "fr": "Anomalie de performance de chauffage détectée",
+          "it": "Anomalia nelle prestazioni di riscaldamento rilevata",
+          "es": "Anomalía de rendimiento de calentamiento detectada",
+          "pl": "Wykryto anomalię wydajności nagrzewania",
+          "uk": "Виявлено аномалію продуктивності нагріву",
+          "zh-cn": "检测到加热性能异常"
+        },
+        "type": "boolean",
+        "read": true,
+        "write": false,
+        "def": false
+      },
+      "native": {}
     }
   ]
 }

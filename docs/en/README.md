@@ -117,6 +117,9 @@ The adapter maps your sauna's cloud states into structured ioBroker datapoints u
 | `info.connection` | boolean | `indicator` | Read-only | Connection state of the adapter to the MyHarvia Cloud. |
 | `info.minTemp` | number | `value.temperature` | Read-only | Minimum target temperature limit (`40 °C`). |
 | `info.maxTemp` | number | `value.temperature` | Read-only | Maximum target temperature limit (`110 °C`). |
+| `info.avgHeatingRate` | number | `value` | Read-only | Learned historical average heating rate in °C per minute (`°C/min`). |
+| `info.heatingAnomaly` | boolean | `indicator` | Read-only | Turns `true` if live heating performance drops significantly below historical average. |
+| `estimatedHeatingTimeRemaining` | number | `value.interval` | Read-only | Estimated remaining heating time in minutes until target temperature is reached (`min`). |
 | `online` | boolean | `indicator.reachable` | Read-only | Connection state of the control unit to the cloud. |
 | `doorSafety` | boolean | `indicator.safety` | Read-only | Safety loop status (e.g., `true` if the door is secure / safe to run). |
 | `remoteControl` | boolean | `indicator` | Read-only | Remote start readiness status. If `false`, starting the heater remotely (via the adapter) is blocked. |
@@ -180,6 +183,9 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 ---
 
 ## Changelog
+### **WORK IN PROGRESS**
+* (meistermopper) Add adaptive heating duration prognosis and anomaly detection
+
 ### 0.3.2 (2026-08-11)
 * (meistermopper) Use absolute GitHub URLs for language switching links in README files
 * (meistermopper) Remove latest repository and translation badges from README files

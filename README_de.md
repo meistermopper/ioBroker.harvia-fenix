@@ -117,6 +117,9 @@ Es gibt zwei Wege, die Partner-ID des Eigentümers zu ermitteln:
 | `info.connection` | boolean | `indicator` | Nur Lesen | Verbindungsstatus des Adapters zur MyHarvia-Cloud. |
 | `info.minTemp` | number | `value.temperature` | Nur Lesen | Mindest-Zieltemperaturgrenze (`40 °C`). |
 | `info.maxTemp` | number | `value.temperature` | Nur Lesen | Maximal-Zieltemperaturgrenze (`110 °C`). |
+| `info.avgHeatingRate` | number | `value` | Nur Lesen | Gelerntes durchschnittliche Aufheizrate in °C pro Minute (`°C/min`). |
+| `info.heatingAnomaly` | boolean | `indicator` | Nur Lesen | Wird `true`, wenn die aktuelle Aufheizleistung deutlich unter dem historischen Durchschnitt liegt. |
+| `estimatedHeatingTimeRemaining` | number | `value.interval` | Nur Lesen | Geschätzte verbleibende Aufheizzeit in Minuten bis zur Zieltemperatur (`min`). |
 | `online` | boolean | `indicator.reachable` | Nur Lesen | Verbindungsstatus der Steuereinheit zur Cloud. |
 | `doorSafety` | boolean | `indicator.safety` | Nur Lesen | Status der Türsicherung (z. B. `true`, wenn die Tür sicher geschlossen ist). |
 | `remoteControl` | boolean | `indicator` | Nur Lesen | Status der Fernstart-Bereitschaft. Wenn `false`, ist das Starten des Ofens aus der Ferne (über den Adapter) blockiert. |
@@ -182,6 +185,7 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 ## Änderungsprotokoll (Changelog)
 
 ### **WORK IN PROGRESS**
+* (meistermopper) Add adaptive heating duration prognosis and anomaly detection
 
 ### 0.3.2 (2026-08-11)
 * (meistermopper) Use absolute GitHub URLs for language switching links in README files
