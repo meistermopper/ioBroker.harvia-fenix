@@ -1,7 +1,7 @@
 {
   "common": {
     "name": "harvia-fenix",
-    "version": "0.3.1",
+    "version": "0.3.2",
     "titleLang": {
       "en": "Harvia-Fenix Sauna Control",
       "de": "Harvia-Fenix Saunasteuerung",
@@ -29,6 +29,19 @@
       "zh-cn": "通过 MyHarvia 云端控制 Harvia Fenix 桑拿房"
     },
     "news": {
+      "0.3.2": {
+        "en": "Use absolute GitHub URLs for language switching links in README files\nRemove latest repository and translation badges from README files\nMark stable repository addition as completed in To-Do list\nRemove direct npm installation instructions from README files\nBump axios from 1.18.1 to 1.19.0\nCenter adapter logo in README files\nAdd Weblate translation status badge to README files\nAdd npm run translate step to release-before-commit script\nReplace static latest badge with dynamic iobroker.live badge",
+        "de": "Verwenden Sie absolute GitHub-URLs für Sprachumschaltlinks in README-Dateien.\nEntfernen Sie die Badges für das neueste Repository und die Übersetzung aus den README-Dateien.\nDas Hinzufügen des stabilen Repositorys in der Aufgabenliste als abgeschlossen markieren\nEntfernen Sie die direkten npm-Installationsanweisungen aus den README-Dateien.\nAxios von Version 1.18.1 auf 1.19.0 aktualisieren\nLogo des Mitteladapters in README-Dateien\nFüge den README-Dateien ein Weblate-Übersetzungsstatus-Badge hinzu.\nFüge dem release-before-commit-Skript den Schritt „npm run translate“ hinzu.\nErsetzen Sie das statische „latest“-Badge durch das dynamische iobroker.live-Badge.",
+        "ru": "Для ссылок переключения языка в файлах README используйте абсолютные URL-адреса GitHub.\nУдалите значки \"последний репозиторий\" и \"перевод\" из файлов README.\nОтметьте добавление стабильного репозитория как завершенное в списке задач.\nУдалите прямые инструкции по установке npm из файлов README.\nОбновление Axios с версии 1.18.1 до 1.19.0.\nЛоготип центрального адаптера в файлах README.\nДобавить значок статуса перевода Weblate в файлы README\nДобавьте шаг npm run translate в скрипт release-before-commit.\nЗамените статический значок \"Последняя версия\" на динамический значок iobroker.live.",
+        "pt": "Use URLs absolutas do GitHub para links de troca de idioma em arquivos README.\nRemover os selos de repositório e tradução mais recentes dos arquivos README\nMarque a adição do repositório estável como concluída na lista de tarefas.\nRemova as instruções de instalação direta do npm dos arquivos README.\nAtualize o axios da versão 1.18.1 para a 1.19.0.\nCentralizar o logotipo do adaptador nos arquivos README\nAdicionar o selo de status de tradução do Weblate aos arquivos README\nAdicione a etapa `npm run translate` ao script de lançamento antes do commit.\nSubstitua o selo estático \"mais recente\" pelo selo dinâmico \"iobroker.live\".",
+        "nl": "Gebruik absolute GitHub-URL's voor links naar taalinstellingen in README-bestanden.\nVerwijder de badges voor de nieuwste repository en vertaling uit de README-bestanden.\nMarkeer de toevoeging van de stabiele repository als voltooid in de takenlijst.\nVerwijder de directe installatie-instructies voor npm uit de README-bestanden.\nUpdate Axios van 1.18.1 naar 1.19.0\nHet logo van de middenadapter staat in de README-bestanden.\nVoeg een badge voor de vertaalstatus van Weblate toe aan README-bestanden.\nVoeg de `npm run translate` stap toe aan het `release-before-commit` script.\nVervang de statische badge 'latest' door een dynamische badge 'iobroker.live'.",
+        "fr": "Utilisez des URL GitHub absolues pour les liens de changement de langue dans les fichiers README.\nSupprimer les badges de dépôt et de traduction les plus récents des fichiers README\nMarquer l'ajout du dépôt stable comme terminé dans la liste des tâches à faire.\nSupprimer les instructions d'installation directe de npm des fichiers README\nMise à jour d'axios de la version 1.18.1 à la version 1.19.0\nLogo de l'adaptateur central dans les fichiers README\nAjouter un badge d'état de traduction Weblate aux fichiers README\nAjouter l'étape npm run translate au script release-before-commit\nRemplacez le badge statique « dernière version » par le badge dynamique « iobroker.live ».",
+        "it": "Nei file README, per i link di cambio lingua utilizzare URL assoluti di GitHub.\nRimuovere i badge relativi al repository più recente e alla traduzione dai file README\nContrassegna l'aggiunta del repository stabile come completata nell'elenco delle cose da fare.\nRimuovere le istruzioni di installazione diretta tramite npm dai file README\nAggiornare axios dalla versione 1.18.1 alla 1.19.0\nIl logo dell'adattatore è al centro dei file README\nAggiungi il badge di stato della traduzione di Weblate ai file README\nAggiungi il passaggio `npm run translate` allo script `release-before-commit`\nSostituisci il badge statico \"ultimi aggiornamenti\" con il badge dinamico \"iobroker.live\".",
+        "es": "Utilice URL absolutas de GitHub para los enlaces de cambio de idioma en los archivos README.\nEliminar las insignias más recientes del repositorio y de la traducción de los archivos README\nMarcar la adición del repositorio estable como completada en la lista de tareas pendientes.\nEliminar las instrucciones de instalación directa de npm de los archivos README\nActualizar Axios de la versión 1.18.1 a la 1.19.0.\nLogotipo del adaptador central en los archivos README\nAgregar insignia de estado de traducción de Weblate a los archivos README\nAgregue el paso npm run translate al script release-before-commit.\nReemplazar la insignia estática más reciente con la insignia dinámica iobroker.live",
+        "pl": "Użyj bezwzględnych adresów URL GitHub do linków do zmiany języka w plikach README\nUsuń najnowsze odznaki repozytorium i tłumaczeń z plików README\nOznacz dodanie stabilnego repozytorium jako ukończone na liście zadań do wykonania\nUsuń bezpośrednie instrukcje instalacji npm z plików README\nZwiększ osie z 1.18.1 do 1.19.0\nWyśrodkuj logo adaptera w plikach README\nDodaj odznakę statusu tłumaczenia Weblate do plików README\nDodaj krok tłumaczenia npm run do skryptu release-before-commit\nZastąp statyczną najnowszą odznakę dynamiczną odznaką iobroker.live",
+        "uk": "Використовуйте абсолютні URL-адреси GitHub для посилань на перемикання мов у файлах README\nВидалити останні значки репозиторію та перекладу з файлів README\nПозначити додавання стабільного репозиторію як завершене у списку справ\nВидаліть інструкції з прямого встановлення npm з файлів README\nЗбільшення аксіос з версії 1.18.1 на 1.19.0\nЦентруйте логотип адаптера у файлах README\nДодати значок статусу перекладу Weblate до файлів README\nДодати крок npm run translate до скрипта release-before commit\nЗамініть статичний останній значок динамічним значком iobroker.live",
+        "zh-cn": "README 文件中的语言切换链接请使用 GitHub 的绝对 URL。\n从 README 文件中移除最新的存储库和翻译徽章\n在待办事项列表中将稳定存储库添加标记为已完成\n从 README 文件中移除直接安装 npm 的说明\n将 axios 版本从 1.18.1 升级到 1.19.0\nREADME 文件中的中心适配器徽标\n在 README 文件中添加 Weblate 翻译状态徽章\n在发布前提交脚本中添加 npm run translate 步骤\n将静态最新徽章替换为动态的 iobroker.live 徽章"
+      },
       "0.3.1": {
         "en": "Update GitHub Actions in auto-translate workflow to v7\nAdd Git commit and push authorization rule to AGENTS.md\nAdd auto-translate workflow for automatic i18n translations\nAdd missing CHANGELOG_OLD link to README files\nFix untranslated news entries for 0.2.8 in io-package.json\nAdd common.news translation rule to AGENTS.md\nRemove redundant npm badge and move Test and Release badge after NPM banner",
         "de": "GitHub Actions im automatischen Übersetzungs-Workflow auf Version 7 aktualisieren\nFüge eine Autorisierungsregel für Git-Commits und -Pushes zu AGENTS.md hinzu.\nFügen Sie einen Workflow für automatische Übersetzungen hinzu, um die Internationalisierung (i18n) zu ermöglichen.\nFügen Sie den fehlenden Link CHANGELOG_OLD zu den README-Dateien hinzu.\nNicht übersetzte News-Einträge für Version 0.2.8 in io-package.json korrigieren\nFüge die Übersetzungsregel common.news zu AGENTS.md hinzu.\nEntferne das überflüssige npm-Badge und verschiebe das Test- und Release-Badge hinter das npm-Banner.",
@@ -106,19 +119,6 @@
         "pl": "Dodaj strukturę folderów dokumentów i automatyczny skrypt synchronizacji plików README",
         "uk": "Додано структуру папок документів та сценарій автоматичної синхронізації README",
         "zh-cn": "添加文档文件夹结构和自动 README 同步脚本"
-      },
-      "0.2.4": {
-        "en": "Use npm install in workflow to prevent lockfile sync issues",
-        "de": "Verwenden Sie npm install im Workflow, um Probleme mit der Sperrdateisynchronisierung zu vermeiden.",
-        "ru": "Используйте команду `npm install` в рабочем процессе, чтобы предотвратить проблемы с синхронизацией файла блокировки.",
-        "pt": "Use `npm install` no fluxo de trabalho para evitar problemas de sincronização do arquivo de bloqueio.",
-        "nl": "Gebruik `npm install` in de workflow om synchronisatieproblemen met het lockbestand te voorkomen.",
-        "fr": "Utilisez npm install dans le flux de travail pour éviter les problèmes de synchronisation des fichiers de verrouillage",
-        "it": "Utilizzare `npm install` nel flusso di lavoro per prevenire problemi di sincronizzazione del file di blocco.",
-        "es": "Utilice npm install en el flujo de trabajo para evitar problemas de sincronización de archivos de bloqueo.",
-        "pl": "Użyj npm install w przepływie pracy, aby zapobiec problemom z synchronizacją plików blokady",
-        "uk": "Використовуйте npm install у робочому процесі, щоб запобігти проблемам із синхронізацією файлів блокування",
-        "zh-cn": "在工作流中使用 npm install 可以防止锁定文件同步问题。"
       }
     },
     "authors": [

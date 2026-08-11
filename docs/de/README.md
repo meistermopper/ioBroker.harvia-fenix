@@ -182,6 +182,8 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 ## Änderungsprotokoll (Changelog)
 
 ### **WORK IN PROGRESS**
+
+### 0.3.2 (2026-08-11)
 * (meistermopper) Use absolute GitHub URLs for language switching links in README files
 * (meistermopper) Remove latest repository and translation badges from README files
 * (meistermopper) Mark stable repository addition as completed in To-Do list
@@ -218,11 +220,6 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 * (meistermopper) Remove redundant ==== underlines from header in README files
 * (meistermopper) Remove duplicate changelog link and format it consistently in README files
 * (meistermopper) Update Biome schema version to 2.5.3 to match CLI version
-
-### 0.2.6 (2026-07-16)
-* (meistermopper) Change doorSafety role to indicator.safety to prevent semantic role mismatch
-* (meistermopper) Redesign README and README_de.md layout to match Denon adapter presentation
-* (meistermopper) Update AI commit hook prompt to generate messages entirely in English
 
 [Ältere Einträge können hier gefunden werden](../../CHANGELOG_OLD.md)
 
