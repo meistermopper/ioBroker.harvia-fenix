@@ -72,6 +72,7 @@
     "sync-docs": "node scripts/sync-docs.js",
     "build": "npm run sync-docs && npm run format && node -e \"require('fs').rmSync('build', { recursive: true, force: true })\" && tsc -p tsconfig.build.json",
     "watch": "tsc -p tsconfig.build.json --watch",
+    "dev": "dev-server watch",
     "lint": "biome check . && eslint src",
     "release": "release-script --addPlaceholder",
     "release-before-check": "node scripts/check-wip.js && npm run test:local",

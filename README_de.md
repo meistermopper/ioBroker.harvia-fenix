@@ -79,28 +79,25 @@ Dadurch kannst du beide Saunen unabhängig voneinander mit eigenen Datenpunkten 
 
 ### Geteilte Konten / Gast-Zugänge & Die Partner-ID
 
-#### Was ist die Partner-ID?
-Die MyHarvia-Cloud-Infrastruktur unterteilt Geräte, Benutzer und Apps in verschiedene "Partner-Organisationen". Die offizielle **MyHarvia 2** Smartphone-App nutzt beispielsweise die Partner-ID `ORG/prod:0:6656:0`.
+#### 🟢 Normalfall (Hauptkonto / Besitzer der Sauna)
+Wenn du die Login-Daten des MyHarvia-Hauptkontos verwendest (mit dem die Sauna ursprünglich in der App eingerichtet wurde):
+* Lasse sowohl die **Geräte-ID** als auch die **Partner-ID** in den Einstellungen **leer**.
+* Der Adapter findet deine Sauna beim Start vollautomatisch.
 
-Normalerweise liest der Adapter beim Login den JSON Web Token (JWT) aus und ermittelt die Partner-ID automatisch aus dem Feld `custom:org`. Anschließend werden die verknüpften Geräte über diese ID bei der Harvia Cloud API abgefragt.
+#### 🟡 Sonderfall: Geteiltes Konto / Gast-Zugang (z. B. separates ioBroker-Konto)
+Wurde die Sauna in der MyHarvia 2 App vom Besitzer für ein zweites Konto (Gast-Konto) freigegeben, liefert die automatische Suche der Cloud-API für dieses Gast-Konto grundsätzlich keine Geräte (`{"devices":[]}`). 
 
-#### Das Problem bei geteilten Konten (Gast-Zugang)
-Wenn ein anderer Benutzer (der Eigentümer) seine Sauna in der MyHarvia 2 App mit dir geteilt hat:
-1. Dein Konto-Token ist mit einer anderen Gast-Partner-ID verknüpft (z. B. `ORG/prod:0:6749` oder einer benutzerdefinierten ID).
-2. Fragt der Adapter die Geräteliste mit deiner Gast-Partner-ID ab, liefert die Harvia Cloud API eine leere Liste (`{"devices":[]}`) zurück und die Sauna wird nicht gefunden.
-3. Um die geteilte Sauna zu steuern, **müssen die API-Anfragen mit der Partner-ID des Eigentümers durchgeführt werden**.
+In diesem Fall **müssen** die **Geräte-ID (Device ID)** und die **Partner-ID des Hauptkontos** manuell in den Einstellungen eingetragen werden:
 
-#### Wie finde ich die Partner-ID des Eigentümers?
-Es gibt zwei Wege, die Partner-ID des Eigentümers zu ermitteln:
-1. **Standard-App:** Verwendet der Eigentümer die offizielle **MyHarvia 2** Mobile-App, lautet die Partner-ID **`ORG/prod:0:6656:0`**.
-2. **Aus the ioBroker-Log:** Betreibt der Eigentümer bereits den `harvia-fenix` Adapter, kann er in seinem ioBroker-Startup-Log nachsehen. Beim Start gibt der Adapter eine Zeile wie folgt aus:
-   `Using partner ID from user token: ORG/prod:0:XXXX`
-   Der Eigentümer kann diese ID kopieren und dem Gast-Nutzer mitteilen.
+**Der 60-Sekunden-Trick, um an beide Werte zu kommen:**
+1. Trage in der Adapter-Konfiguration kurz die Login-Daten des **Hauptkontos** (des Besitzers) ein und klicke auf **Speichern**.
+2. Öffne das ioBroker-Log. Der Adapter findet die Sauna sofort und gibt folgende Zeilen aus:
+   * `Found device: ... (ID: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx)` ➡️ Das ist deine **Geräte-ID**.
+   * `Using partner ID from user token: ORG/prod:0:6656` ➡️ Das ist deine **Partner-ID** (Standard: `ORG/prod:0:6656` oder `ORG/prod:0:6656:0`).
+3. Kopiere beide Werte in die Zwischenablage.
+4. Öffne die Einstellungen erneut, trage wieder die Zugangsdaten deines **Gast-Kontos** ein, füge die kopierte **Geräte-ID** und **Partner-ID** in die optionalen Felder ein und klicke auf **Speichern & Schließen**.
 
-#### So richtest du ein geteiltes/freigegebenes Konto ein:
-1. Trage deine **eigenen Zugangsdaten** (deine E-Mail-Adresse und dein Passwort) in den Adapter-Einstellungen ein.
-2. Trage die **Partner-ID des Hauptnutzers/Besitzers** in das Feld **Partner-ID (Optional)** ein.
-3. Wenn du das Feld **Geräte-ID** leer lässt, sucht der Adapter automatisch mit den Gast-Anmeldedaten, aber unter Verwendung der Partner-ID des Besitzers, nach der geteilten Sauna und findet diese.
+Danach steuert das Gast-Konto die Sauna dauerhaft und zuverlässig an!
 
 ---
 
@@ -139,10 +136,16 @@ Es gibt zwei Wege, die Partner-ID des Eigentümers zu ermitteln:
 
 ---
 
-## Benachrichtigungen & Automatisierungen
-Der Adapter berechnet automatisch den Heizfortschritt und stellt zwei Indikator-Datenpunkte zur Verfügung, die speziell für das Auslösen von Push-Benachrichtigungen (z. B. via Telegram, Pushover oder Alexa) konzipiert wurden.
+## Intelligente Funktionen & Automatisierungen
 
-Du kannst einfach ein kurzes ioBroker-Skript (JavaScript oder Blockly) verwenden, das auf die Änderung dieser Zustände zu `true` reagiert:
+### 1. Adaptive Aufheizzeit-Prognose & Anomalie-Erkennung
+* **Lernende Aufheizdauer (`estimatedHeatingTimeRemaining` & `info.avgHeatingRate`):**  
+  Der Adapter lernt mit jedem Heizvorgang die typische Heizrate deiner Saunakabine (°C pro Minute). Während des Aufheizens kombiniert er historische Erfahrungswerte mit dem aktuellen Live-Temperaturanstieg, um die verbleibende Restzeit bis zur Zieltemperatur minutengenau zu prognostizieren.
+* **Anomalie-Erkennung (`info.heatingAnomaly`):**  
+  Wird nach mindestens 10 Minuten aktivem Heizen festgestellt, dass die aktuelle Aufheizrate weniger als die Hälfte des gewohnten Durchschnitts beträgt (z. B. Saunatür nicht richtig geschlossen oder Ausfall eines Heizstabs), setzt der Adapter `info.heatingAnomaly` auf `true` und gibt eine Warnung im Log aus.
+
+### 2. Benachrichtigungen (Push-Trigger)
+Der Adapter stellt zwei Indikator-Datenpunkte zur Verfügung, die speziell für das Auslösen von Push-Benachrichtigungen (z. B. via Telegram, Pushover oder Alexa) konzipiert wurden:
 
 ```javascript
 // Trigger für die 10-Minuten-Vorwarnung
@@ -155,6 +158,11 @@ on({ id: 'harvia-fenix.0.readyNotified10Min', change: 'ne', val: true }, functio
 on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, function () {
     const targetTemp = getState('harvia-fenix.0.targetTemp').val;
     sendTo('telegram.0', 'send', { text: `♨️ Die Sauna hat ihre Zieltemperatur von ${targetTemp}°C erreicht und ist bereit!` });
+});
+
+// Trigger bei Heiz-Anomalie (z. B. Tür offen)
+on({ id: 'harvia-fenix.0.info.heatingAnomaly', change: 'ne', val: true }, function () {
+    sendTo('telegram.0', 'send', { text: '⚠️ Warnung: Die Sauna heizt ungewöhnlich langsam! Bitte Tür und Ofen prüfen.' });
 });
 ```
 
@@ -177,8 +185,8 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 
 ## To-Do
 * [ ] Auf offizielle Erlaubnis von Harvia zur Nutzung des Original-Logos warten
-* [x] Aufnahme des Adapters in das offizielle ioBroker `latest` Repository
-* [x] Aufnahme des Adapters in das offizielle ioBroker `stable` Repository
+* [ ] Automatische Kaltgetränke-Bereitstellungs-Erinnerung für den Saunagang 🍺❄️
+* [ ] KI-gestützten Handtuch-Wurf-Roboter für den perfekten Aufguss entwickeln 🧖‍♂️🪣
 
 ---
 
@@ -186,6 +194,11 @@ on({ id: 'harvia-fenix.0.targetReachedNotified', change: 'ne', val: true }, func
 
 ### **WORK IN PROGRESS**
 * (meistermopper) Add adaptive heating duration prognosis and anomaly detection
+* (meistermopper) Add dev script shortcut for dev-server watch in package.json
+* (meistermopper) Clarify Partner ID and guest account setup instructions
+* (meistermopper) Document adaptive heating prognosis and anomaly detection
+* (meistermopper) Add strict privacy and anonymization rule to AGENTS.md
+* (meistermopper) Clean up To-Do list and add fun future wishlist items
 
 ### 0.3.2 (2026-08-11)
 * (meistermopper) Use absolute GitHub URLs for language switching links in README files
