@@ -191,7 +191,7 @@ on({ id: 'harvia-fenix.0.info.heatingAnomaly', change: 'ne', val: true }, functi
 ---
 
 ## Changelog
-### **WORK IN PROGRESS**
+### 0.4.0 (2026-08-13)
 * (meistermopper) Add adaptive heating duration prognosis and anomaly detection
 * (meistermopper) Add dev script shortcut for dev-server watch in package.json
 * (meistermopper) Clarify Partner ID and guest account setup instructions
@@ -227,15 +227,6 @@ on({ id: 'harvia-fenix.0.info.heatingAnomaly', change: 'ne', val: true }, functi
 * (meistermopper) Fix doorSafety role to sensor.door for repochecker compliance
 * (meistermopper) Add missing CHANGELOG_OLD link to README.md (repochecker S6022)
 * (meistermopper) Fix changelog rotation in README_de.md to enforce 5 entries limit
-
-### 0.2.7 (2026-07-17)
-* (meistermopper) Implement retry for "Device unavailable" and proactive token refresh
-* (meistermopper) Restore clean datapoint table and safety warnings in README files
-* (meistermopper) Mark latest repository item as completed in To-Do list
-* (meistermopper) Clarify remoteControl description in README files
-* (meistermopper) Remove redundant ==== underlines from header in README files
-* (meistermopper) Remove duplicate changelog link and format it consistently in README files
-* (meistermopper) Update Biome schema version to 2.5.3 to match CLI version
 
 [Older changelog entries](../../CHANGELOG_OLD.md)
 

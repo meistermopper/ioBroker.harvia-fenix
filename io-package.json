@@ -1,7 +1,7 @@
 {
   "common": {
     "name": "harvia-fenix",
-    "version": "0.3.2",
+    "version": "0.4.0",
     "titleLang": {
       "en": "Harvia-Fenix Sauna Control",
       "de": "Harvia-Fenix Saunasteuerung",
@@ -29,6 +29,19 @@
       "zh-cn": "通过 MyHarvia 云端控制 Harvia Fenix 桑拿房"
     },
     "news": {
+      "0.4.0": {
+        "en": "Add adaptive heating duration prognosis and anomaly detection\nAdd dev script shortcut for dev-server watch in package.json\nClarify Partner ID and guest account setup instructions\nDocument adaptive heating prognosis and anomaly detection\nAdd strict privacy and anonymization rule to AGENTS.md\nClean up To-Do list and add fun future wishlist items",
+        "de": "Adaptive Heizdauerprognose und Anomalieerkennung hinzufügen\nFüge eine Verknüpfung für das Entwicklerskript zur Überwachung des Entwicklungsservers in package.json hinzu.\nPartner-ID und Einrichtungsanweisungen präzisieren\nDokumentation adaptiver Heizungsprognose und Anomalieerkennung\nFügen Sie der Datei AGENTS.md eine strenge Datenschutz- und Anonymisierungsregel hinzu.\nRäume deine To-Do-Liste auf und füge lustige Wunschlistenpunkte hinzu.",
+        "ru": "Добавлена адаптивная функция прогнозирования продолжительности нагрева и обнаружения аномалий.\nДобавьте в файл package.json ярлык скрипта разработчика для команды `dev-server watch`.\nУточните инструкции по настройке идентификатора партнера и гостевой учетной записи.\nДокументирование адаптивного прогнозирования нагрева и выявления аномалий\nДобавьте в файл AGENTS.md строгие правила конфиденциальности и анонимизации.\nПриведите в порядок список дел и добавьте в него интересные пункты из будущего списка желаний.",
+        "pt": "Adicionar previsão adaptativa da duração do aquecimento e detecção de anomalias.\nAdicione um atalho de script de desenvolvimento para o monitoramento do servidor de desenvolvimento no arquivo package.json.\nEsclarecer as instruções de configuração do ID do parceiro e da conta de convidado\nDocumentar o prognóstico adaptativo do aquecimento e a detecção de anomalias.\nAdicionar regras rigorosas de privacidade e anonimização ao arquivo AGENTS.md\nLimpe a lista de tarefas e adicione itens divertidos à sua lista de desejos para o futuro.",
+        "nl": "Voeg adaptieve prognose van de verwarmingsduur en detectie van afwijkingen toe.\nVoeg een snelkoppeling voor het ontwikkelscript voor het bewaken van de ontwikkelserver toe aan package.json.\nVerduidelijk de instructies voor het instellen van de partner-ID en het gastaccount.\nDocumenteer adaptieve verwarmingsprognoses en detectie van afwijkingen.\nVoeg een strikte privacy- en anonimiseringsregel toe aan AGENTS.md.\nRuim je takenlijst op en voeg leuke dingen toe aan je verlanglijstje voor de toekomst.",
+        "fr": "Ajouter un pronostic adaptatif de la durée de chauffage et une détection d'anomalies\nAjoutez un raccourci de script de développement pour la surveillance du serveur de développement dans package.json\nClarifiez les instructions de configuration de l'identifiant partenaire et du compte invité\nDocumenter le pronostic de chauffage adaptatif et la détection d'anomalies\nAjouter une règle stricte de confidentialité et d'anonymisation au fichier AGENTS.md\nNettoyez votre liste de choses à faire et ajoutez-y des idées amusantes pour l'avenir.",
+        "it": "Aggiungi la previsione adattiva della durata del riscaldamento e il rilevamento delle anomalie\nAggiungi il collegamento allo script di sviluppo per il watch del server di sviluppo nel file package.json\nChiariamo le istruzioni per la configurazione dell'ID partner e dell'account ospite.\nDocumentare la prognosi del riscaldamento adattivo e il rilevamento delle anomalie\nAggiungere una regola rigorosa in materia di privacy e anonimizzazione al file AGENTS.md.\nRiordina la lista delle cose da fare e aggiungi elementi divertenti alla tua lista dei desideri per il futuro.",
+        "es": "Añadir pronóstico de duración de calefacción adaptativa y detección de anomalías\nAgregue un acceso directo al script de desarrollo para la monitorización del servidor de desarrollo en package.json.\nInstrucciones para configurar el ID de socio y la cuenta de invitado\nDocumentar el pronóstico de calefacción adaptativa y la detección de anomalías.\nAgregue una regla estricta de privacidad y anonimización a AGENTS.md.\nLimpia tu lista de tareas pendientes y añade artículos divertidos para tu lista de deseos futuros.",
+        "pl": "Dodaj adaptacyjną prognozę czasu ogrzewania i wykrywanie anomalii\nDodaj skrót skryptu deweloperskiego dla dev-server watch w pliku package.json\nWyjaśnij instrukcje dotyczące konfiguracji identyfikatora partnera i konta gościa\nDokumentowanie adaptacyjnej prognozy ogrzewania i wykrywania anomalii\nDodaj do pliku AGENTS.md ścisłą zasadę prywatności i anonimizacji\nUporządkuj listę zadań i dodaj ciekawe pozycje do listy życzeń",
+        "uk": "Додати адаптивний прогноз тривалості нагріву та виявлення аномалій\nДодати скорочення скрипта розробника для спостереження за сервером розробника в package.json\nУточніть інструкції щодо налаштування ідентифікатора партнера та гостьового облікового запису\nДокументування адаптивного прогнозу опалення та виявлення аномалій\nДодайте суворе правило конфіденційності та анонімізації до AGENTS.md\nОчистіть список справ та додайте цікаві пункти до списку бажань на майбутнє",
+        "zh-cn": "增加自适应加热持续时间预测和异常检测\n在 package.json 中添加 dev-server watch 的开发脚本快捷方式\n明确合作伙伴 ID 和访客帐户设置说明\n记录自适应加热预测和异常检测\n在 AGENTS.md 文件中添加严格的隐私和匿名化规则\n清理待办事项清单，并添加一些有趣的未来愿望清单项目。"
+      },
       "0.3.2": {
         "en": "Use absolute GitHub URLs for language switching links in README files\nRemove latest repository and translation badges from README files\nMark stable repository addition as completed in To-Do list\nRemove direct npm installation instructions from README files\nBump axios from 1.18.1 to 1.19.0\nCenter adapter logo in README files\nAdd Weblate translation status badge to README files\nAdd npm run translate step to release-before-commit script\nReplace static latest badge with dynamic iobroker.live badge",
         "de": "Verwenden Sie absolute GitHub-URLs für Sprachumschaltlinks in README-Dateien.\nEntfernen Sie die Badges für das neueste Repository und die Übersetzung aus den README-Dateien.\nDas Hinzufügen des stabilen Repositorys in der Aufgabenliste als abgeschlossen markieren\nEntfernen Sie die direkten npm-Installationsanweisungen aus den README-Dateien.\nAxios von Version 1.18.1 auf 1.19.0 aktualisieren\nLogo des Mitteladapters in README-Dateien\nFüge den README-Dateien ein Weblate-Übersetzungsstatus-Badge hinzu.\nFüge dem release-before-commit-Skript den Schritt „npm run translate“ hinzu.\nErsetzen Sie das statische „latest“-Badge durch das dynamische iobroker.live-Badge.",
@@ -106,19 +119,6 @@
         "pl": "Zmień rolę doorSafety na indicator.safety, aby zapobiec niezgodności ról semantycznych\nPrzeprojektuj układ plików README i README_de.md, aby dopasować go do prezentacji adaptera Denon\nZaktualizuj monit haka zatwierdzenia AI, aby generować wiadomości wyłącznie w języku angielskim",
         "uk": "Змініть роль doorSafety на indicator.safety, щоб запобігти невідповідності семантичних ролей\nПерероблено макет README та README_de.md відповідно до презентації адаптера Denon\nОновіть запит на перехоплення комітів AI для генерації повідомлень повністю англійською мовою",
         "zh-cn": "将 doorSafety 角色更改为 indicator.safety，以防止语义角色不匹配\n重新设计 README 和 README_de.md 的布局，使其与 Denon 适配器的呈现方式保持一致。\n更新 AI 提交钩子提示，使其生成完全英文的消息。"
-      },
-      "0.2.5": {
-        "en": "Add docs folder structure and automatic README synchronization script",
-        "de": "Dokumentenordnerstruktur und automatisches README-Synchronisierungsskript hinzufügen",
-        "ru": "Добавить структуру папок документации и скрипт автоматической синхронизации README.",
-        "pt": "Adicionar estrutura de pastas de documentação e script de sincronização automática do arquivo README",
-        "nl": "Voeg een mapstructuur voor documentatie en een script voor automatische README-synchronisatie toe.",
-        "fr": "Ajout d'une structure de dossiers de documentation et d'un script de synchronisation automatique du fichier README",
-        "it": "Aggiungi la struttura delle cartelle della documentazione e lo script di sincronizzazione automatica del file README.",
-        "es": "Agregar estructura de carpetas de documentos y script de sincronización automática de README",
-        "pl": "Dodaj strukturę folderów dokumentów i automatyczny skrypt synchronizacji plików README",
-        "uk": "Додано структуру папок документів та сценарій автоматичної синхронізації README",
-        "zh-cn": "添加文档文件夹结构和自动 README 同步脚本"
       }
     },
     "authors": [
