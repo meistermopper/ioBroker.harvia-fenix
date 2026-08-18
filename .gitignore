@@ -27,4 +27,5 @@ devServerCli.md
 .env.*.local
 
 # Local documentation
-devServerCli.md
+devServerCli.md
+obsidian.md
