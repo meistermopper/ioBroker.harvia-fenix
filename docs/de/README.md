@@ -193,6 +193,7 @@ on({ id: 'harvia-fenix.0.info.heatingAnomaly', change: 'ne', val: true }, functi
 ## Änderungsprotokoll (Changelog)
 
 ### **WORK IN PROGRESS**
+* (meistermopper) Update @alcalzone/release-script-plugin-license to 5.2.2
 
 ### 0.4.0 (2026-08-13)
 * (meistermopper) Add adaptive heating duration prognosis and anomaly detection
