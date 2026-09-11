@@ -17,6 +17,11 @@ try {
 	);
 }
 
+// In Mocha 12 on Node 22, require('mocha') may return an ES module namespace object { default: [Function: Mocha], ... }
+if (typeof Mocha !== 'function' && Mocha) {
+	Mocha = Mocha.default || Mocha.Mocha || Mocha;
+}
+
 // 1. Mock @iobroker/adapter-core to prevent the "Cannot find js-controller" error.
 // Since we only test static utility methods, we don't need the real ioBroker engine.
 const adapterCorePath = require.resolve('@iobroker/adapter-core');
