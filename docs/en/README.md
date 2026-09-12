@@ -196,6 +196,8 @@ on({ id: 'harvia-fenix.0.info.heatingAnomaly', change: 'ne', val: true }, functi
 ---
 
 ## Changelog
+### **WORK IN PROGRESS**
+
 ### 0.5.1 (2026-09-12)
 * (meistermopper) Replace adapter logo with custom MyFenix homage logo
 * (meistermopper) Update @iobroker/adapter-core to 3.4.3 and @iobroker/testing to 6.2.1
