@@ -78,7 +78,10 @@ This file defines style guidelines, constraints, and general instructions for AI
 - **Constraint:** AI agents MUST NEVER perform `git commit` or `git push` operations automatically without explicit, prior user approval in the chat.
 - **Workflow:** Always prepare code modifications locally and ask the user for explicit confirmation before staging, committing, or pushing changes to remote repositories.
 
-
-
-
-
+## 11. Active Links for References (Commits, Releases, Issues, Files)
+- **Constraint:** Whenever referencing commits, releases, issues, PRs, external resources, or workspace files (in chat, documentation, or Obsidian project notes/logbooks), always format them as active, clickable Markdown links instead of plain text or simple inline code tags.
+- **Examples:**
+  - Commits: `[1f815d3](https://github.com/meistermopper/ioBroker.harvia-fenix/commit/1f815d3)`
+  - Releases: `[v0.5.1](https://github.com/meistermopper/ioBroker.harvia-fenix/releases/tag/v0.5.1)`
+  - Issues / PRs: `[#69](https://github.com/meistermopper/ioBroker.harvia-fenix/issues/69)`
+  - Files: Clickable markdown links (e.g. `[admin/fenix.png](file:///c:/Users/thoma/dev/active/ioBroker.harvia-fenix/admin/fenix.png)` in chat or GitHub file link in remote notes).
