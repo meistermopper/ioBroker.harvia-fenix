@@ -1,4 +1,7 @@
 # Older changes
+## 0.3.0 (2026-07-29)
+* (meistermopper) Add configurable min/max temperature limits and maxDuration in Admin UI
+
 ## 0.2.8 (2026-07-26)
 * (meistermopper) Note latest repository availability in README installation section
 * (meistermopper) Fix doorSafety role to sensor.door for repochecker compliance

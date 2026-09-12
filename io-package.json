@@ -1,7 +1,7 @@
 {
   "common": {
     "name": "harvia-fenix",
-    "version": "0.5.0",
+    "version": "0.5.1",
     "titleLang": {
       "en": "Harvia-Fenix Sauna Control",
       "de": "Harvia-Fenix Saunasteuerung",
@@ -29,6 +29,19 @@
       "zh-cn": "通过 MyHarvia 云端控制 Harvia Fenix 桑拿房"
     },
     "news": {
+      "0.5.1": {
+        "en": "Replace adapter logo with custom MyFenix homage logo\nUpdate @iobroker/adapter-core to 3.4.3 and @iobroker/testing to 6.2.1\nFix Mocha 12 instantiation in unit test runner on Node 22",
+        "de": "Adapter-Logo durch MyFenix-Hommage ersetzen\nUpdate @iobroker /adapter-core auf 3.4.3 und @iobroker /testing auf 6.2.1\nFix Mocha 12 im Unit-Test-Runner auf Node 22",
+        "ru": "Замените логотип адаптера на собственный логотип MyFenix homage\nОбновите @iobroker /adapter-core до 3.4.3 и @iobroker /testing до 6.2.1\nИсправьте создание экземпляра Mocha 12 в программе запуска модульных тестов на узле 22",
+        "pt": "Substitua o adaptador pelo logotipo MyFenix\nAtualize @iobroker /adapter-core à 3.4.3 e @iobroker /testing à 6.2.1\nCorrige a instanciação do Mocha 12 no Unit Test Runner no Node 22",
+        "nl": "Vervang het adapterlogo door een aangepast MyFenix-hommage-logo\nUpdate @iobroker /adapter-core naar 3.4.3 en @iobroker /testing naar 6.2.1\nDe instantiatie van Mocha 12 in de testrunner van de unit op Node 22 repareren",
+        "fr": "Remplacer le logo de l'adaptateur par un logo MyFenix personnalisé\nPassez @iobroker /adapter-core à 3.4.3 et @iobroker /testing à 6.2.1\nCorriger l'instanciation de Mocha 12 dans Unit Test Runner sur Node 22",
+        "it": "Sostituire il logo dell'adattatore con MyFenix\nAggiorna @iobroker /adapter-core a 3.4.3 e @iobroker /testing a 6.2.1\nCorreggi l'istanza Mocha 12 in Unit Test Runner sul Nodo 22",
+        "es": "Sustituir el logotipo del adaptador por el de MyFenix\nActualice @iobroker /adapter-core a 3.4.3 y @iobroker /testing a 6.2.1\nArregle la instancia de Mocha 12 en el corredor de pruebas del nodo 22",
+        "pl": "Zastąp logo adaptera niestandardowym logo hołdu MyFenix\nZaktualizuj @iobroker /adapter-core do wersji 3.4.3 i @iobroker /testing do wersji 6.2.1\nNapraw instancję Mocha 12 w jednostkowym biegaczu testowym na węźle 22",
+        "uk": "Замініть логотип адаптера на спеціальний логотип шани MyFenix\nОновити @iobroker /адаптер-ядро до 3.4.3 та @iobroker /тестування до 6.2.1\nВиправте інстанціацію Mocha 12 у тестовому запуску одиниць на вузлі 22",
+        "zh-cn": "使用自定义 myFenix 致敬徽标替换适配器徽标\n将 @iobroker /adapter-core 更新到 3.4.3 和 @iobroker /testing 更新到 6.2.1\n修复节点 22 单元测试运行器中的 Mocha 12 实例化问题"
+      },
       "0.5.0": {
         "en": "Add bidirectional heating anomaly detection (too slow / fast)\nUpdate @alcalzone/release-script-plugin-license to 5.2.2\nAdd Node.js 26 to test matrix",
         "de": "Bidirektionale Hitzeerkennung hinzufügen (zu lang/schnell)\n@alcalzone /release-script-plugin-license auf 5.2.2 updaten\nFüge Node.js 26 zur Testmatrix",
@@ -106,19 +119,6 @@
         "pl": "Zanotuj dostępność w repozytorium latest w sekcji instalacji README\nNapraw rolę doorSafety na sensor.door dla zgodności z repochecker\nDodaj brakujący link CHANGELOG_OLD do README.md\nNapraw rotację dziennika zmian w README_de.md",
         "uk": "Занотуйте доступність у репозиторії latest у розділі інсталяції README\nВиправлено роль doorSafety на sensor.door для відповідності repochecker\nДодано відсутнє посилання CHANGELOG_OLD у README.md\nВиправлено ротацію журналу змін у README_de.md",
         "zh-cn": "在 README 安装说明中注明 latest 存储库的可用性\n将 doorSafety 角色修复为 sensor.door 以符合 repochecker 规范\n在 README.md 中添加缺失的 CHANGELOG_OLD 链接\n修复 README_de.md 中的更新日志轮换"
-      },
-      "0.2.7": {
-        "en": "Implement retry for \"Device unavailable\" and proactive token refresh\nRestore clean datapoint table and safety warnings in README files\nMark latest repository item as completed in To-Do list\nClarify remoteControl description in README files\nRemove redundant ==== underlines from header in README files\nRemove duplicate changelog link and format it consistently in README files\nUpdate Biome schema version to 2.5.3 to match CLI version",
-        "de": "Implementieren Sie Wiederholungsversuche für „Gerät nicht verfügbar“ und eine proaktive Token-Aktualisierung.\nStellen Sie die saubere Datenpunkttabelle und die Sicherheitswarnungen in den README-Dateien wieder her.\nMarkieren Sie den neuesten Eintrag im Repository als erledigt in der Aufgabenliste.\nDie Beschreibung der Fernbedienung in den README-Dateien präzisieren\nEntfernen Sie überflüssige Unterstriche (====) aus den Kopfzeilen der README-Dateien.\nEntfernen Sie doppelte Links zum Änderungsprotokoll und formatieren Sie diese in den README-Dateien einheitlich.\nAktualisieren Sie die Biome-Schema-Version auf 2.5.3, um sie an die CLI-Version anzupassen.",
-        "ru": "Внедрить повторную попытку при сообщении \"Устройство недоступно\" и упреждающее обновление токена.\nВосстановить чистую таблицу точек данных и предупреждения о безопасности в файлах README.\nОтметьте последний элемент репозитория как выполненный в списке задач.\nУточните описание remoteControl в файлах README.\nУдалите лишние подчеркивания ==== из заголовка в файлах README.\nУдалите повторяющуюся ссылку на список изменений и отформатируйте его единообразно в файлах README.\nОбновите версию схемы Biome до 2.5.3, чтобы она соответствовала версии CLI.",
-        "pt": "Implementar nova tentativa para \"Dispositivo indisponível\" e atualização proativa do token.\nRestaurar tabela de pontos de dados limpa e avisos de segurança nos arquivos README\nMarque o último item do repositório como concluído na lista de tarefas.\nEsclarecer a descrição do remoteControl nos arquivos README\nRemova os sublinhados redundantes ==== do cabeçalho nos arquivos README.\nRemova o link duplicado do changelog e formate-o de forma consistente nos arquivos README.\nAtualize a versão do esquema Biome para 2.5.3 para corresponder à versão da CLI.",
-        "nl": "Implementeer een nieuwe poging voor \"Apparaat niet beschikbaar\" en een proactieve tokenvernieuwing.\nHerstel de tabel met schone datapunten en de veiligheidswaarschuwingen in de README-bestanden.\nMarkeer het meest recente item in de repository als voltooid in de takenlijst.\nVerduidelijk de beschrijving van remoteControl in de README-bestanden.\nVerwijder overbodige ==== onderstrepingen uit de koptekst in README-bestanden.\nVerwijder dubbele links naar het wijzigingslogboek en zorg voor een consistente opmaak in de README-bestanden.\nUpdate de Biome-schemaversie naar 2.5.3 zodat deze overeenkomt met de CLI-versie.",
-        "fr": "Mise en œuvre d'une nouvelle tentative en cas d'« Appareil indisponible » et d'une actualisation proactive du jeton\nRétablir la table des points de données et les avertissements de sécurité dans les fichiers README\nMarquer le dernier élément du dépôt comme terminé dans la liste des tâches à faire\nClarifier la description de la télécommande dans les fichiers README\nSupprimer les soulignements ==== redondants de l'en-tête des fichiers README\nSupprimez le lien du journal des modifications en double et formatez-le de manière uniforme dans les fichiers README.\nMettez à jour la version du schéma Biome à 2.5.3 pour qu'elle corresponde à la version de l'interface de ligne de commande.",
-        "it": "Implementare la gestione dei tentativi per \"Dispositivo non disponibile\" e l'aggiornamento proattivo del token.\nRipristina la tabella dei punti dati puliti e gli avvisi di sicurezza nei file README\nContrassegna l'ultimo elemento del repository come completato nell'elenco delle cose da fare.\nChiarire la descrizione di remoteControl nei file README\nRimuovere le sottolineature ridondanti ==== dall'intestazione nei file README\nRimuovi il link duplicato al registro delle modifiche e formattalo in modo coerente nei file README.\nAggiorna la versione dello schema Biome alla 2.5.3 per corrispondere alla versione della CLI",
-        "es": "Implementar reintentos para \"Dispositivo no disponible\" y actualización proactiva del token\nRestaurar la tabla de puntos de datos limpios y las advertencias de seguridad en los archivos README.\nMarcar el último elemento del repositorio como completado en la lista de tareas pendientes.\nAclarar la descripción de remoteControl en los archivos README.\nEliminar los guiones bajos redundantes (====) del encabezado en los archivos README.\nElimine el enlace duplicado del registro de cambios y formatéelo de manera consistente en los archivos README.\nActualizar la versión del esquema Biome a 2.5.3 para que coincida con la versión de la CLI.",
-        "pl": "Wdrożenie ponawiania próby w przypadku „urządzenia niedostępnego” i proaktywnego odświeżania tokenu\nPrzywróć czystą tabelę punktów danych i ostrzeżenia dotyczące bezpieczeństwa w plikach README\nOznacz najnowszy element repozytorium jako ukończony na liście zadań do wykonania\nWyjaśnij opis remoteControl w plikach README\nUsuń zbędne podkreślenia ==== z nagłówka w plikach README\nUsuń zduplikowany link do rejestru zmian i sformatuj go w sposób spójny w plikach README\nZaktualizuj wersję schematu Biome do 2.5.3, aby dopasować ją do wersji CLI",
-        "uk": "Реалізуйте повторну спробу для \"Пристрій недоступний\" та проактивне оновлення маркера\nВідновлення чистої таблиці точок даних та попереджень безпеки у файлах README\nПозначити останній елемент репозиторію як виконаний у списку справ\nУточнення опису remoteControl у файлах README\nВидалити зайві підкреслення ==== із заголовка у файлах README\nВидаліть дублікати посилань на журнал змін та відформатуйте їх у файлах README узгоджено\nОновіть схему Biome до версії 2.5.3, щоб вона відповідала версії CLI.",
-        "zh-cn": "实现“设备不可用”情况下的重试机制和主动令牌刷新\n恢复干净的数据点表和 README 文件中的安全警告\n在待办事项列表中将最新的存储库项目标记为已完成\n在 README 文件中明确远程控制的描述\n从 README 文件的标题中删除多余的 ==== 下划线\n删除重复的更新日志链接，并在 README 文件中保持格式一致。\n将 Biome 架构版本更新至 2.5.3 以匹配 CLI 版本"
       }
     },
     "authors": [
@@ -136,9 +136,9 @@
       "license": "MIT"
     },
     "platform": "Javascript/Node.js",
-    "icon": "harvia.png",
+    "icon": "fenix.png",
     "enabled": true,
-    "extIcon": "https://raw.githubusercontent.com/meistermopper/ioBroker.harvia-fenix/main/admin/harvia.png",
+    "extIcon": "https://raw.githubusercontent.com/meistermopper/ioBroker.harvia-fenix/main/admin/fenix.png",
     "readme": "https://github.com/meistermopper/ioBroker.harvia-fenix/blob/main/README.md",
     "loglevel": "info",
     "tier": 3,

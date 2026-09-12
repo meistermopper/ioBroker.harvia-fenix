@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="admin/harvia.png" alt="Logo" width="100" />
+  <img src="admin/fenix.png" alt="Logo" width="100" />
 </p>
 
 # ioBroker.harvia-fenix
@@ -190,14 +190,14 @@ on({ id: 'harvia-fenix.0.info.heatingAnomaly', change: 'ne', val: true }, functi
 ---
 
 ## To-Do
-* [ ] Await official permission from Harvia to use their original logo
 * [ ] Program automatic cold beverage reminder timed for the post-sauna cooldown 🍺❄️
 * [ ] Design AI-powered robotic towel-waving assistant for the ultimate Aufguss 🧖‍♂️🪣
 
 ---
 
 ## Changelog
-### **WORK IN PROGRESS**
+### 0.5.1 (2026-09-12)
+* (meistermopper) Replace adapter logo with custom MyFenix homage logo
 * (meistermopper) Update @iobroker/adapter-core to 3.4.3 and @iobroker/testing to 6.2.1
 * (meistermopper) Fix Mocha 12 instantiation in unit test runner on Node 22
 
@@ -233,9 +233,6 @@ on({ id: 'harvia-fenix.0.info.heatingAnomaly', change: 'ne', val: true }, functi
 * (meistermopper) Fix untranslated news entries for 0.2.8 in io-package.json
 * (meistermopper) Add common.news translation rule to AGENTS.md
 * (meistermopper) Remove redundant npm badge and move Test and Release badge after NPM banner
-
-### 0.3.0 (2026-07-29)
-* (meistermopper) Add configurable min/max temperature limits and maxDuration in Admin UI
 
 [Older changelog entries](../../CHANGELOG_OLD.md)
 
