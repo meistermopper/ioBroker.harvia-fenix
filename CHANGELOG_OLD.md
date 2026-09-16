@@ -1,4 +1,13 @@
 # Older changes
+## 0.3.1 (2026-08-04)
+* (meistermopper) Update GitHub Actions in auto-translate workflow to v7
+* (meistermopper) Add Git commit and push authorization rule to AGENTS.md
+* (meistermopper) Add auto-translate workflow for automatic i18n translations
+* (meistermopper) Add missing CHANGELOG_OLD link to README files
+* (meistermopper) Fix untranslated news entries for 0.2.8 in io-package.json
+* (meistermopper) Add common.news translation rule to AGENTS.md
+* (meistermopper) Remove redundant npm badge and move Test and Release badge after NPM banner
+
 ## 0.3.0 (2026-07-29)
 * (meistermopper) Add configurable min/max temperature limits and maxDuration in Admin UI
 

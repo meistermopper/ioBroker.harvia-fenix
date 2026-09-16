@@ -204,6 +204,8 @@ on({ id: 'harvia-fenix.0.info.heatingAnomaly', change: 'ne', val: true }, functi
 ## Änderungsprotokoll (Changelog)
 
 ### **WORK IN PROGRESS**
+
+### 0.6.0 (2026-09-16)
 * (meistermopper) Datenpunkte readyAt, readyAtMessage und timeToTargetFormatted ergänzt
 * (meistermopper) Harvia-Heizkurvenberechnung mit 13 Intervallen implementiert
 * (meistermopper) Saunaprofile (profiles, activeProfile) und Standby-Prognose ergänzt
@@ -213,7 +215,6 @@ on({ id: 'harvia-fenix.0.info.heatingAnomaly', change: 'ne', val: true }, functi
 * (meistermopper) check:repo Skript hinzugefügt und in test:local integriert
 * (meistermopper) E-Mail in Lizenz-Copyrightzeilen wiederhergestellt (S4050, S4051)
 * (meistermopper) Lizenzabschnitt in README gemäß Repochecker-Regel W6034 korrigiert
-
 
 ### 0.5.1 (2026-09-12)
 * (meistermopper) Adapter-Logo durch MyFenix-Hommage ersetzt
@@ -243,15 +244,6 @@ on({ id: 'harvia-fenix.0.info.heatingAnomaly', change: 'ne', val: true }, functi
 * (meistermopper) Add Weblate translation status badge to README files
 * (meistermopper) Add npm run translate step to release-before-commit script
 * (meistermopper) Replace static latest badge with dynamic iobroker.live badge
-
-### 0.3.1 (2026-08-04)
-* (meistermopper) Update GitHub Actions in auto-translate workflow to v7
-* (meistermopper) Add Git commit and push authorization rule to AGENTS.md
-* (meistermopper) Add auto-translate workflow for automatic i18n translations
-* (meistermopper) Add missing CHANGELOG_OLD link to README files
-* (meistermopper) Fix untranslated news entries for 0.2.8 in io-package.json
-* (meistermopper) Add common.news translation rule to AGENTS.md
-* (meistermopper) Remove redundant npm badge and move Test and Release badge after NPM banner
 
 [Ältere Einträge können hier gefunden werden](../../CHANGELOG_OLD.md)
 
