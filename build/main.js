@@ -137,6 +137,7 @@ class HarviaFenix extends utils.Adapter {
         this.subscribeStates('lightOn');
         this.subscribeStates('targetTemp');
         this.subscribeStates('maxDuration');
+        this.subscribeStates('activeProfile');
         // Configured limits with safe fallbacks
         const minTemp = typeof this.config.minTemp === 'number' ? this.config.minTemp : MIN_TARGET_TEMP;
         const maxTemp = typeof this.config.maxTemp === 'number' ? this.config.maxTemp : MAX_TARGET_TEMP;
@@ -151,6 +152,12 @@ class HarviaFenix extends utils.Adapter {
         await this.setState('readyNotified10Min', false, true);
         await this.setState('targetReachedNotified', false, true);
         await this.setState('estimatedHeatingTimeRemaining', 0, true);
+        await this.setState('readyAt', '--:--', true);
+        await this.setState('readyAtMessage', '', true);
+        await this.setState('timeToTargetFormatted', '', true);
+        await this.setState('heatingCurve', '[]', true);
+        await this.setState('profiles', '[]', true);
+        await this.setState('activeProfile', 0, true);
         await this.setState('info.heatingAnomaly', false, true);
         await this.setState('info.heatingAnomalyType', 'none', true);
         await this.setState('info.heatingAnomalyDesc', '', true);
@@ -588,6 +595,61 @@ class HarviaFenix extends utils.Adapter {
                 ], statusPayload, 1, 0);
                 await this.updateNumericState('info.minTemp', ['minTemperature', 'minTemp', 'min_temperature'], statusPayload, 1, 0);
                 await this.updateNumericState('info.maxTemp', ['maxTemperature', 'maxTemp', 'max_temperature'], statusPayload, 1, 0);
+                // --- HEATING CURVE, PROFILES & TARGET PREDICTIONS ---
+                const stateReported = deviceState?.state && typeof deviceState.state === 'object' && 'reported' in deviceState.state
+                    ? deviceState.state.reported
+                    : undefined;
+                const cabinReported = deviceState?.cabinState &&
+                    typeof deviceState.cabinState === 'object' &&
+                    'reported' in deviceState.cabinState
+                    ? deviceState.cabinState.reported
+                    : undefined;
+                const rawHeatingCurve = statusPayload.heatingCurve ||
+                    deviceState?.state?.heatingCurve ||
+                    stateReported?.heatingCurve ||
+                    deviceState?.cabinState?.heatingCurve ||
+                    cabinReported?.heatingCurve;
+                let validHeatingCurve = null;
+                if (Array.isArray(rawHeatingCurve) && rawHeatingCurve.length === HarviaFenix.HARVIA_INTERVALS.length) {
+                    validHeatingCurve = rawHeatingCurve.map(v => Number(v) || 0);
+                    await this.setState('heatingCurve', JSON.stringify(validHeatingCurve), true);
+                }
+                const rawProfiles = statusPayload.profiles ??
+                    deviceState?.state?.profiles ??
+                    stateReported?.profiles ??
+                    deviceState?.cabinState?.profiles ??
+                    cabinReported?.profiles;
+                if (rawProfiles !== undefined) {
+                    await this.setState('profiles', typeof rawProfiles === 'string' ? rawProfiles : JSON.stringify(rawProfiles), true);
+                }
+                const rawActiveProfile = statusPayload.activeProfile ??
+                    deviceState?.state?.activeProfile ??
+                    stateReported?.activeProfile ??
+                    deviceState?.cabinState?.activeProfile ??
+                    cabinReported?.activeProfile;
+                if (rawActiveProfile !== undefined) {
+                    const activeProfileNum = typeof rawActiveProfile === 'number'
+                        ? rawActiveProfile
+                        : typeof rawActiveProfile === 'string'
+                            ? Number.parseInt(rawActiveProfile, 10)
+                            : Number.NaN;
+                    if (!Number.isNaN(activeProfileNum)) {
+                        await this.setState('activeProfile', activeProfileNum, true);
+                        this.lastConfirmedStates.activeProfile = activeProfileNum;
+                    }
+                }
+                const rawTimeToTarget = statusPayload.timeToTarget ??
+                    deviceState?.state?.timeToTarget ??
+                    stateReported?.timeToTarget ??
+                    deviceState?.cabinState?.timeToTarget ??
+                    cabinReported?.timeToTarget;
+                const reportedTimeToTarget = rawTimeToTarget !== undefined
+                    ? typeof rawTimeToTarget === 'number'
+                        ? rawTimeToTarget
+                        : typeof rawTimeToTarget === 'string'
+                            ? Number(rawTimeToTarget)
+                            : undefined
+                    : undefined;
                 // --- CUSTOM BOOLEAN & LOGIC STATES ---
                 const rawDoor = HarviaFenix.getApiValue(p, [
                     'doorSafetyState',
@@ -677,7 +739,7 @@ class HarviaFenix extends utils.Adapter {
                         this.log.info(`♨️ The sauna has reached its target temperature of ${targetTemp}°C and is ready!`);
                     }
                 }
-                await this.calculateHeatingPrognosis(heatOn, currentTemp, targetTemp);
+                await this.calculateHeatingPrognosis(heatOn, currentTemp, targetTemp, reportedTimeToTarget, validHeatingCurve);
             }
             else {
                 this.log.warn(`Unexpected data structure during status poll: ${JSON.stringify(response.data)}`);
@@ -921,6 +983,31 @@ class HarviaFenix extends utils.Adapter {
                         success = true;
                         break;
                     }
+                    else if (stateName === 'activeProfile') {
+                        const profileIdx = typeof value === 'number'
+                            ? value
+                            : typeof value === 'string'
+                                ? Number.parseInt(value, 10)
+                                : Number.NaN;
+                        const payload = {
+                            deviceId,
+                            cabin: { id: 'C1' },
+                            activeProfile: profileIdx,
+                        };
+                        const url = `${devicesUrl}/target`;
+                        await this.client.patch(url, payload, {
+                            headers: {
+                                ...this.getCloudHeaders(),
+                                'Content-Type': 'application/json',
+                            },
+                        });
+                        this.log.info(`Active profile -> ${profileIdx}`);
+                        await this.setState('activeProfile', profileIdx, true);
+                        this.lastConfirmedStates.activeProfile = profileIdx;
+                        this.lastCommandTime = Date.now();
+                        success = true;
+                        break;
+                    }
                 }
                 catch (err) {
                     lastError = err;
@@ -1020,17 +1107,109 @@ class HarviaFenix extends utils.Adapter {
         }
     };
     /**
-     * Calculates self-learning estimated remaining heating time and detects heating performance anomalies.
+     * Formats a Date object to "HH:mm" in local time.
+     *
+     * @param date - The Date instance to format.
+     */
+    static formatTime(date) {
+        const hours = String(date.getHours()).padStart(2, '0');
+        const minutes = String(date.getMinutes()).padStart(2, '0');
+        return `${hours}:${minutes}`;
+    }
+    /**
+     * Formats minutes (and optional seconds) into a readable duration string.
+     *
+     * @param minutes - Total minutes.
+     * @param totalSeconds - Optional precise seconds.
+     */
+    static formatDuration(minutes, totalSeconds) {
+        if (typeof totalSeconds === 'number' && totalSeconds > 0) {
+            const m = Math.floor(totalSeconds / 60);
+            const s = Math.round(totalSeconds % 60);
+            if (m > 0 && s > 0) {
+                return `${m} min ${s} sec`;
+            }
+            if (m > 0) {
+                return `${m} min`;
+            }
+            return `${s} sec`;
+        }
+        if (minutes <= 0) {
+            return '0 min';
+        }
+        return `${Math.round(minutes)} min`;
+    }
+    /**
+     * 13 Temperature intervals used by Harvia heating curves (-20°C to 110°C in 10°C steps).
+     */
+    static HARVIA_INTERVALS = [
+        { from: -20, to: -10 },
+        { from: -10, to: 0 },
+        { from: 0, to: 10 },
+        { from: 10, to: 20 },
+        { from: 20, to: 30 },
+        { from: 30, to: 40 },
+        { from: 40, to: 50 },
+        { from: 50, to: 60 },
+        { from: 60, to: 70 },
+        { from: 70, to: 80 },
+        { from: 80, to: 90 },
+        { from: 90, to: 100 },
+        { from: 100, to: 110 },
+    ];
+    /**
+     * Calculates estimated heating seconds and minutes using Harvia's native heating curve.
+     *
+     * @param heatingCurve - 13 elements array of seconds per 10°C interval.
+     * @param currentTemp - Current measured temperature.
+     * @param targetTemp - Target temperature.
+     */
+    static calculateTimeFromHeatingCurve(heatingCurve, currentTemp, targetTemp) {
+        if (!Array.isArray(heatingCurve) ||
+            heatingCurve.length !== HarviaFenix.HARVIA_INTERVALS.length ||
+            currentTemp >= targetTemp) {
+            return null;
+        }
+        const startT = Math.max(-20, Math.min(110, currentTemp));
+        const targetT = Math.max(-20, Math.min(110, targetTemp));
+        let totalSeconds = 0;
+        for (let i = 0; i < HarviaFenix.HARVIA_INTERVALS.length; i++) {
+            const interval = HarviaFenix.HARVIA_INTERVALS[i];
+            if (interval.to <= startT) {
+                continue;
+            }
+            if (interval.from >= targetT) {
+                break;
+            }
+            const segStart = Math.max(interval.from, startT);
+            const segEnd = Math.min(interval.to, targetT);
+            const delta = segEnd - segStart;
+            if (delta > 0 && typeof heatingCurve[i] === 'number') {
+                totalSeconds += heatingCurve[i] * (delta / 10);
+            }
+        }
+        if (totalSeconds <= 0) {
+            return null;
+        }
+        return {
+            minutes: Math.max(1, Math.round(totalSeconds / 60)),
+            totalSeconds: Math.round(totalSeconds),
+        };
+    }
+    /**
+     * Calculates self-learning estimated remaining heating time, ready time, and detects heating performance anomalies.
      *
      * @param heatOn - Whether the sauna heating is currently turned on.
      * @param currentTemp - The current measured sauna cabin temperature in °C.
      * @param targetTemp - The target sauna cabin temperature in °C.
+     * @param reportedTimeToTarget - Optional time to target in minutes directly reported by Harvia cloud/device.
+     * @param heatingCurve - Optional 13-element heating curve seconds array.
      */
-    calculateHeatingPrognosis = async (heatOn, currentTemp, targetTemp) => {
+    calculateHeatingPrognosis = async (heatOn, currentTemp, targetTemp, reportedTimeToTarget, heatingCurve) => {
         const now = Date.now();
-        if (!heatOn || currentTemp >= targetTemp) {
-            // Finalize historical learning if a heating session reached target temperature
-            if (this.sessionStartTime !== null && this.sessionStartTemp !== null && currentTemp >= targetTemp) {
+        if (currentTemp >= targetTemp) {
+            // Target temperature reached
+            if (this.sessionStartTime !== null && this.sessionStartTemp !== null && heatOn) {
                 const totalMinutes = (now - this.sessionStartTime) / 60000;
                 const tempDiff = currentTemp - this.sessionStartTemp;
                 if (totalMinutes >= 5 && tempDiff > 5) {
@@ -1047,9 +1226,47 @@ class HarviaFenix extends utils.Adapter {
             this.sessionStartTemp = null;
             this.tempHistory = [];
             await this.setState('estimatedHeatingTimeRemaining', 0, true);
+            await this.setState('readyAt', '--:--', true);
+            await this.setState('readyAtMessage', 'Ready', true);
+            await this.setState('timeToTargetFormatted', '0 min', true);
             await this.setState('info.heatingAnomaly', false, true);
             await this.setState('info.heatingAnomalyType', 'none', true);
             await this.setState('info.heatingAnomalyDesc', '', true);
+            return;
+        }
+        // Read historical average rate (default 1.5 °C/min)
+        const avgRateState = await this.getStateAsync('info.avgHeatingRate');
+        let historicalRate = 1.5;
+        if (typeof avgRateState?.val === 'number' && avgRateState.val > 0) {
+            historicalRate = avgRateState.val;
+        }
+        if (!heatOn) {
+            // Finalize historical learning if any
+            this.sessionStartTime = null;
+            this.sessionStartTemp = null;
+            this.tempHistory = [];
+            await this.setState('estimatedHeatingTimeRemaining', 0, true);
+            await this.setState('info.heatingAnomaly', false, true);
+            await this.setState('info.heatingAnomalyType', 'none', true);
+            await this.setState('info.heatingAnomalyDesc', '', true);
+            // PROGNOSIS IF TURNED ON NOW (STANDBY PREDICTION)
+            let prognosisMinutes = 0;
+            let totalSec;
+            if (heatingCurve && heatingCurve.length === HarviaFenix.HARVIA_INTERVALS.length) {
+                const curveRes = HarviaFenix.calculateTimeFromHeatingCurve(heatingCurve, currentTemp, targetTemp);
+                if (curveRes) {
+                    prognosisMinutes = curveRes.minutes;
+                    totalSec = curveRes.totalSeconds;
+                }
+            }
+            if (prognosisMinutes <= 0) {
+                prognosisMinutes = Math.max(1, Math.round((targetTemp - currentTemp) / historicalRate));
+            }
+            const readyDate = new Date(now + prognosisMinutes * 60 * 1000);
+            const readyTimeStr = HarviaFenix.formatTime(readyDate);
+            await this.setState('readyAt', readyTimeStr, true);
+            await this.setState('readyAtMessage', `Ready at ${readyTimeStr} if turned on now`, true);
+            await this.setState('timeToTargetFormatted', HarviaFenix.formatDuration(prognosisMinutes, totalSec), true);
             return;
         }
         // --- ACTIVE HEATING PHASE ---
@@ -1061,12 +1278,6 @@ class HarviaFenix extends utils.Adapter {
         // Add sample and prune samples older than 15 minutes
         this.tempHistory.push({ time: now, temp: currentTemp });
         this.tempHistory = this.tempHistory.filter(sample => now - sample.time <= 15 * 60 * 1000);
-        // Read historical average rate (default 1.5 °C/min)
-        const avgRateState = await this.getStateAsync('info.avgHeatingRate');
-        let historicalRate = 1.5;
-        if (typeof avgRateState?.val === 'number' && avgRateState.val > 0) {
-            historicalRate = avgRateState.val;
-        }
         // Calculate live heating rate from sliding window (last 3 to 15 minutes)
         let liveRate = 0;
         let windowMinutes = 0;
@@ -1089,8 +1300,27 @@ class HarviaFenix extends utils.Adapter {
         if (effectiveRate <= 0) {
             effectiveRate = historicalRate;
         }
-        const remainingMinutes = Math.max(1, Math.round((targetTemp - currentTemp) / effectiveRate));
+        let remainingMinutes = 0;
+        let totalSec;
+        if (typeof reportedTimeToTarget === 'number' && reportedTimeToTarget > 0) {
+            remainingMinutes = Math.round(reportedTimeToTarget);
+        }
+        else if (heatingCurve && heatingCurve.length === HarviaFenix.HARVIA_INTERVALS.length) {
+            const curveRes = HarviaFenix.calculateTimeFromHeatingCurve(heatingCurve, currentTemp, targetTemp);
+            if (curveRes) {
+                remainingMinutes = curveRes.minutes;
+                totalSec = curveRes.totalSeconds;
+            }
+        }
+        if (remainingMinutes <= 0) {
+            remainingMinutes = Math.max(1, Math.round((targetTemp - currentTemp) / effectiveRate));
+        }
         await this.setState('estimatedHeatingTimeRemaining', remainingMinutes, true);
+        const readyDate = new Date(now + remainingMinutes * 60 * 1000);
+        const readyTimeStr = HarviaFenix.formatTime(readyDate);
+        await this.setState('readyAt', readyTimeStr, true);
+        await this.setState('readyAtMessage', `Ready at ${readyTimeStr}`, true);
+        await this.setState('timeToTargetFormatted', HarviaFenix.formatDuration(remainingMinutes, totalSec), true);
         // --- ANOMALY DETECTION ---
         const activeHeatingMinutes = (now - this.sessionStartTime) / 60000;
         if (activeHeatingMinutes >= 10 && windowMinutes >= 3) {
@@ -1183,6 +1413,19 @@ class HarviaFenix extends utils.Adapter {
                     return;
                 }
                 await this.setSaunaState('maxDuration', val);
+                break;
+            }
+            case 'activeProfile': {
+                const val = typeof state.val === 'number'
+                    ? state.val
+                    : typeof state.val === 'string'
+                        ? Number.parseInt(state.val, 10)
+                        : Number.NaN;
+                if (Number.isNaN(val) || val < 0) {
+                    this.log.error(`Invalid active profile index (${state.val}) received.`);
+                    return;
+                }
+                await this.setSaunaState('activeProfile', val);
                 break;
             }
         }

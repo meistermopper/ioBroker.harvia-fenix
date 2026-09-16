@@ -650,6 +650,157 @@
         "def": ""
       },
       "native": {}
+    },
+    {
+      "_id": "readyAt",
+      "type": "state",
+      "common": {
+        "role": "text",
+        "name": {
+          "en": "Estimated ready time",
+          "de": "Geschätzte Fertigstellungszeit",
+          "ru": "Ориентировочное время готовности",
+          "pt": "Tempo estimado de prontidão",
+          "nl": "Geschatte gereedheidstijd",
+          "fr": "Heure de disponibilité estimée",
+          "it": "Tempo stimato di disponibilità",
+          "es": "Hora estimada de disponibilidad",
+          "pl": "Szacowany czas gotowości",
+          "uk": "Орієнтовний час готовності",
+          "zh-cn": "预计就绪时间"
+        },
+        "type": "string",
+        "read": true,
+        "write": false,
+        "def": "--:--"
+      },
+      "native": {}
+    },
+    {
+      "_id": "readyAtMessage",
+      "type": "state",
+      "common": {
+        "role": "text",
+        "name": {
+          "en": "Ready status message",
+          "de": "Bereitschafts-Statusmeldung",
+          "ru": "Сообщение о статусе готовности",
+          "pt": "Mensagem de estado de prontidão",
+          "nl": "Gereedheid statusbericht",
+          "fr": "Message d'état de disponibilité",
+          "it": "Messaggio di stato disponibilità",
+          "es": "Mensaje de estado de preparación",
+          "pl": "Komunikat o stanie gotowości",
+          "uk": "Повідомлення про стан готовності",
+          "zh-cn": "就绪状态消息"
+        },
+        "type": "string",
+        "read": true,
+        "write": false,
+        "def": ""
+      },
+      "native": {}
+    },
+    {
+      "_id": "timeToTargetFormatted",
+      "type": "state",
+      "common": {
+        "role": "text",
+        "name": {
+          "en": "Formatted time to target temperature",
+          "de": "Formatierte Zeit bis zur Zieltemperatur",
+          "ru": "Форматированное время до целевой температуры",
+          "pt": "Tempo formatado até a temperatura alvo",
+          "nl": "Geformatteerde tijd tot doeltemperatuur",
+          "fr": "Temps formaté jusqu'à la température cible",
+          "it": "Tempo formattato fino alla temperatura target",
+          "es": "Tiempo formateado hasta la temperatura objetivo",
+          "pl": "Sformatowany czas do temperatury docelowej",
+          "uk": "Форматований час до досягнення цільової температури",
+          "zh-cn": "达到目标温度的格式化时间"
+        },
+        "type": "string",
+        "read": true,
+        "write": false,
+        "def": ""
+      },
+      "native": {}
+    },
+    {
+      "_id": "heatingCurve",
+      "type": "state",
+      "common": {
+        "role": "json",
+        "name": {
+          "en": "Heating curve intervals data",
+          "de": "Heizkurven-Intervalldaten",
+          "ru": "Данные интервалов кривой нагрева",
+          "pt": "Dados dos intervalos da curva de aquecimento",
+          "nl": "Gegevens verwarmingscurve-intervallen",
+          "fr": "Données des intervalles de la courbe de chauffage",
+          "it": "Dati degli intervalli della curva di riscaldamento",
+          "es": "Datos de intervalos de la curva de calentamiento",
+          "pl": "Dane przedziałów krzywej nagrzewania",
+          "uk": "Дані інтервалів кривої нагріву",
+          "zh-cn": "加热曲线区间数据"
+        },
+        "type": "string",
+        "read": true,
+        "write": false,
+        "def": "[]"
+      },
+      "native": {}
+    },
+    {
+      "_id": "profiles",
+      "type": "state",
+      "common": {
+        "role": "json",
+        "name": {
+          "en": "Available sauna profiles",
+          "de": "Verfügbare Saunaprofile",
+          "ru": "Доступные профили сауны",
+          "pt": "Perfis de sauna disponíveis",
+          "nl": "Beschikbare saunaprofielen",
+          "fr": "Profils de sauna disponibles",
+          "it": "Profili sauna disponibili",
+          "es": "Perfiles de sauna disponibles",
+          "pl": "Dostępne profile sauny",
+          "uk": "Доступні профілі сауни",
+          "zh-cn": "可用的桑拿配置文件"
+        },
+        "type": "string",
+        "read": true,
+        "write": false,
+        "def": "[]"
+      },
+      "native": {}
+    },
+    {
+      "_id": "activeProfile",
+      "type": "state",
+      "common": {
+        "role": "level",
+        "name": {
+          "en": "Active sauna profile index",
+          "de": "Index des aktiven Saunaprofils",
+          "ru": "Индекс активного профиля сауны",
+          "pt": "Índice do perfil de sauna ativo",
+          "nl": "Actieve saunaprofielindex",
+          "fr": "Indice du profil de sauna actif",
+          "it": "Indice del profilo sauna attivo",
+          "es": "Índice del perfil de sauna activo",
+          "pl": "Indeks aktywnego profilu sauny",
+          "uk": "Індекс активного профілю сауни",
+          "zh-cn": "活跃桑拿配置文件的索引"
+        },
+        "type": "number",
+        "min": 0,
+        "read": true,
+        "write": true,
+        "def": 0
+      },
+      "native": {}
     }
   ]
 }

@@ -135,6 +135,12 @@ The adapter maps your sauna's cloud states into structured ioBroker datapoints u
 | `totalBathingHours` | number | `value.number` | Read-only | Total historical cumulative hours the sauna has been actively used (`h`). |
 | `totalOperatingHours` | number | `value.hours` | Read-only | Total system operational running hours (`h`). |
 | `totalSessions` | number | `value.count` | Read-only | Counter for the total number of individual sauna heating sessions executed. |
+| `readyAt` | string | `text` | Read-only | Estimated time of day when target temperature is reached (e.g., `17:57`). |
+| `readyAtMessage` | string | `text` | Read-only | Human-readable readiness message (e.g., `Ready at 17:57 if turned on now`). |
+| `timeToTargetFormatted` | string | `text` | Read-only | Formatted time required to reach target temperature (e.g., `39 min 30 sec`). |
+| `heatingCurve` | string | `json` | Read-only | JSON array of interval heating seconds per 10°C slice for charts/VIS. |
+| `profiles` | string | `json` | Read-only | JSON array of available sauna profiles (e.g., Cozy, etc.). |
+| `activeProfile` | number | `level` | Read/Write | Index of the currently active sauna profile. |
 
 ---
 
@@ -197,6 +203,9 @@ on({ id: 'harvia-fenix.0.info.heatingAnomaly', change: 'ne', val: true }, functi
 
 ## Changelog
 ### **WORK IN PROGRESS**
+* (meistermopper) Add readyAt, readyAtMessage, timeToTargetFormatted states
+* (meistermopper) Implement Harvia native 13-interval heating curve calculation
+* (meistermopper) Add profiles, activeProfile, and standby time prognosis
 * (meistermopper) Increase adapter logo display size in README files to 200px
 * (meistermopper) Add breaking change callouts and older tag support to release notes
 * (meistermopper) Add automated release notes generator for GitHub releases
