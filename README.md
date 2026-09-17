@@ -202,6 +202,10 @@ on({ id: 'harvia-fenix.0.info.heatingAnomaly', change: 'ne', val: true }, functi
 ---
 
 ## Changelog
+### **WORK IN PROGRESS**
+* (meistermopper) Add AWS AppSync WebSocket real-time push client
+* (meistermopper) Add token refresh via /auth/refresh using refreshToken
+
 ### 0.6.0 (2026-09-16)
 * (meistermopper) Add readyAt, readyAtMessage, timeToTargetFormatted states
 * (meistermopper) Implement Harvia native 13-interval heating curve calculation

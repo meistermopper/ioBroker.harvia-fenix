@@ -44,6 +44,7 @@ exports.HarviaFenix = void 0;
 // you need to create an adapter
 const utils = __importStar(require("@iobroker/adapter-core"));
 const axios_1 = __importDefault(require("axios"));
+const harvia_push_client_1 = require("./lib/harvia-push-client");
 // Harvia API Constants
 const CLIENT_ID = '24emhb2mm0v4sscqhbdev86b2v';
 const MIN_TARGET_TEMP = 40; // Minimum allowed target temperature in C
@@ -73,13 +74,21 @@ const API_TRUE_VALUES = new Set([
 class HarviaFenix extends utils.Adapter {
     client;
     idToken = '';
+    refreshToken = '';
     dataBaseUrl = '';
     deviceBaseUrl = '';
     usersBaseUrl = '';
     authUrl = '';
+    authRefreshUrl = '';
+    graphQlDeviceWss = '';
+    graphQlDeviceHttps = '';
+    graphQlDataWss = '';
+    graphQlDataHttps = '';
     partnerId = 'ORG/prod:0:6656:0'; // Fallback
     activeDeviceId = '';
     loginPromise = null;
+    pushClient = null;
+    isPushConnected = false;
     isSendingCommand = false;
     isUnloading = false;
     lastCommandTime = 0;
@@ -269,6 +278,14 @@ class HarviaFenix extends utils.Adapter {
             this.deviceBaseUrl = ep.device.https;
             this.usersBaseUrl = ep.users?.https || '';
             this.authUrl = `${ep.generics.https}/auth/token`;
+            this.authRefreshUrl = `${ep.generics.https}/auth/refresh`;
+            const gql = response.data.GraphQL || response.data.endpoints?.GraphQL;
+            if (gql) {
+                this.graphQlDeviceWss = gql.device?.wss || '';
+                this.graphQlDeviceHttps = gql.device?.https || '';
+                this.graphQlDataWss = gql.data?.wss || '';
+                this.graphQlDataHttps = gql.data?.https || '';
+            }
             const partnerId = response.data.Config?.PartnerOrganizationId || response.data.endpoints?.Config?.PartnerOrganizationId;
             if (this.config.partnerId) {
                 this.partnerId = this.config.partnerId;
@@ -291,12 +308,40 @@ class HarviaFenix extends utils.Adapter {
         if (this.loginPromise) {
             return this.loginPromise;
         }
-        this.loginPromise = this.performLogin();
+        this.loginPromise = this.refreshToken ? this.refreshTokenAuth() : this.performLogin();
         try {
             return await this.loginPromise;
         }
         finally {
             this.loginPromise = null;
+        }
+    }
+    async refreshTokenAuth() {
+        if (!this.refreshToken || !this.authRefreshUrl) {
+            return this.performLogin();
+        }
+        try {
+            this.log.debug('Refreshing token using refresh token...');
+            const response = await this.client.post(this.authRefreshUrl, {
+                refreshToken: this.refreshToken,
+                email: this.config.username,
+            });
+            if (response.data?.idToken) {
+                this.idToken = response.data.idToken.trim();
+                if (response.data.refreshToken) {
+                    this.refreshToken = response.data.refreshToken.trim();
+                }
+                this.lastLoginTime = Date.now();
+                this.log.info('Successfully refreshed Harvia API token via /auth/refresh');
+                await this.setState('info.connection', true, true);
+                return true;
+            }
+            this.log.warn('No idToken in refresh response, attempting full login...');
+            return this.performLogin();
+        }
+        catch (err) {
+            this.log.warn(`Token refresh failed, falling back to full login: ${err instanceof Error ? err.message : String(err)}`);
+            return this.performLogin();
         }
     }
     async performLogin() {
@@ -315,6 +360,9 @@ class HarviaFenix extends utils.Adapter {
                 client_id: CLIENT_ID,
             });
             this.idToken = response.data.idToken.trim(); // JWT-Token trimmed
+            if (response.data.refreshToken) {
+                this.refreshToken = response.data.refreshToken.trim();
+            }
             this.lastLoginTime = Date.now();
             // Decode JWT to extract partner ID or debug info
             try {
@@ -347,6 +395,51 @@ class HarviaFenix extends utils.Adapter {
             return false;
         }
     }
+    startPushClient() {
+        if (this.pushClient || this.isUnloading) {
+            return;
+        }
+        const deviceId = this.activeDeviceId || this.config.deviceId;
+        if (!deviceId) {
+            this.log.debug('Push client waiting for active device ID...');
+            return;
+        }
+        if (!this.graphQlDeviceWss || !this.graphQlDataWss) {
+            this.log.warn('GraphQL WebSocket endpoints not available, running in polling-only mode.');
+            return;
+        }
+        this.log.info(`Initializing Harvia Push Client for real-time WebSocket updates (Device: ${deviceId})...`);
+        this.pushClient = new harvia_push_client_1.HarviaPushClient({
+            deviceId,
+            deviceWssUrl: this.graphQlDeviceWss,
+            deviceHttpsUrl: this.graphQlDeviceHttps,
+            dataWssUrl: this.graphQlDataWss,
+            dataHttpsUrl: this.graphQlDataHttps,
+            getIdToken: async () => {
+                if (!this.idToken || Date.now() - this.lastLoginTime > 50 * 60 * 1000) {
+                    await this.login();
+                }
+                return this.idToken;
+            },
+            log: {
+                debug: (msg) => this.log.debug(msg),
+                info: (msg) => this.log.info(msg),
+                warn: (msg) => this.log.warn(msg),
+                error: (msg) => this.log.error(msg),
+            },
+        });
+        this.pushClient.on('connectionStatus', (connected) => {
+            this.isPushConnected = connected;
+            this.log.info(`Harvia Real-Time Push connection status: ${connected ? 'CONNECTED (Push active)' : 'DISCONNECTED (Falling back to poll)'}`);
+        });
+        this.pushClient.on('deviceState', (data) => {
+            void this.handlePushDeviceState(data);
+        });
+        this.pushClient.on('measurement', (data) => {
+            void this.handlePushMeasurement(data);
+        });
+        this.pushClient.start();
+    }
     async startCloudConnection() {
         if (this.isUnloading) {
             return;
@@ -359,6 +452,7 @@ class HarviaFenix extends utils.Adapter {
             if (this.isUnloading) {
                 return;
             }
+            this.startPushClient();
             void this.updateStatus(); // Start first poll
             this.loginInterval = this.setInterval(() => void this.login(), 50 * 60 * 1000);
         }
@@ -560,186 +654,7 @@ class HarviaFenix extends utils.Adapter {
                 }
             }
             if (p && (p.online !== undefined || HarviaFenix.getApiValue(p, ['temperature', 'temp']) !== undefined)) {
-                if (Date.now() - this.lastCommandTime < LATENCY_MS) {
-                    this.log.debug(`Polling ignored due to latency protection (${LATENCY_MS}ms). Last command ${Date.now() - this.lastCommandTime}ms ago.`);
-                    return;
-                }
-                // Merge deviceState settings (e.g. maxOnTime: 300, maxTemp: 110) into status payload
-                const statusPayload = { ...p };
-                if (deviceState?.state?.settings) {
-                    const settings = deviceState.state.settings;
-                    if (settings.maxOnTime !== undefined) {
-                        statusPayload.maxOnTime = settings.maxOnTime;
-                    }
-                    if (settings.maxTemp !== undefined) {
-                        statusPayload.maxTemp = settings.maxTemp;
-                    }
-                }
-                // Update Numeric States
-                await this.updateNumericState('temp', ['temperature', 'temp', 'current_temperature', 'ambient_temperature'], statusPayload, 1, 1);
-                await this.updateNumericState('panelTemp', ['panelTemp', 'panelTemperature', 'panel_temperature'], statusPayload, 1, 1);
-                await this.updateNumericState('heaterPower', ['heaterPower', 'power', 'heater_power'], statusPayload, 0.001, 2);
-                await this.updateNumericState('totalBathingHours', ['totalBathingHours', 'total_bathing_hours', 'bathing_hours'], statusPayload, 1, 2);
-                await this.updateNumericState('totalSessions', ['totalSessions', 'total_sessions', 'sessions'], statusPayload, 1, 0);
-                await this.updateNumericState('totalOperatingHours', ['totalOperatingHours', 'totalHours', 'total_hours', 'operating_hours'], statusPayload, 1, 2);
-                await this.updateNumericState('targetTemp', ['targetTemperature', 'targetTemp', 'target_temperature', 'setpoint_temperature'], statusPayload);
-                await this.updateNumericState('maxDuration', [
-                    'maxDuration',
-                    'targetDuration',
-                    'maxOnTime',
-                    'max_duration',
-                    'duration',
-                    'maxBathingTime',
-                    'max_bathing_time',
-                    'setpoint_duration',
-                ], statusPayload, 1, 0);
-                await this.updateNumericState('info.minTemp', ['minTemperature', 'minTemp', 'min_temperature'], statusPayload, 1, 0);
-                await this.updateNumericState('info.maxTemp', ['maxTemperature', 'maxTemp', 'max_temperature'], statusPayload, 1, 0);
-                // --- HEATING CURVE, PROFILES & TARGET PREDICTIONS ---
-                const stateReported = deviceState?.state && typeof deviceState.state === 'object' && 'reported' in deviceState.state
-                    ? deviceState.state.reported
-                    : undefined;
-                const cabinReported = deviceState?.cabinState &&
-                    typeof deviceState.cabinState === 'object' &&
-                    'reported' in deviceState.cabinState
-                    ? deviceState.cabinState.reported
-                    : undefined;
-                const rawHeatingCurve = statusPayload.heatingCurve ||
-                    deviceState?.state?.heatingCurve ||
-                    stateReported?.heatingCurve ||
-                    deviceState?.cabinState?.heatingCurve ||
-                    cabinReported?.heatingCurve;
-                let validHeatingCurve = null;
-                if (Array.isArray(rawHeatingCurve) && rawHeatingCurve.length === HarviaFenix.HARVIA_INTERVALS.length) {
-                    validHeatingCurve = rawHeatingCurve.map(v => Number(v) || 0);
-                    await this.setState('heatingCurve', JSON.stringify(validHeatingCurve), true);
-                }
-                const rawProfiles = statusPayload.profiles ??
-                    deviceState?.state?.profiles ??
-                    stateReported?.profiles ??
-                    deviceState?.cabinState?.profiles ??
-                    cabinReported?.profiles;
-                if (rawProfiles !== undefined) {
-                    await this.setState('profiles', typeof rawProfiles === 'string' ? rawProfiles : JSON.stringify(rawProfiles), true);
-                }
-                const rawActiveProfile = statusPayload.activeProfile ??
-                    deviceState?.state?.activeProfile ??
-                    stateReported?.activeProfile ??
-                    deviceState?.cabinState?.activeProfile ??
-                    cabinReported?.activeProfile;
-                if (rawActiveProfile !== undefined) {
-                    const activeProfileNum = typeof rawActiveProfile === 'number'
-                        ? rawActiveProfile
-                        : typeof rawActiveProfile === 'string'
-                            ? Number.parseInt(rawActiveProfile, 10)
-                            : Number.NaN;
-                    if (!Number.isNaN(activeProfileNum)) {
-                        await this.setState('activeProfile', activeProfileNum, true);
-                        this.lastConfirmedStates.activeProfile = activeProfileNum;
-                    }
-                }
-                const rawTimeToTarget = statusPayload.timeToTarget ??
-                    deviceState?.state?.timeToTarget ??
-                    stateReported?.timeToTarget ??
-                    deviceState?.cabinState?.timeToTarget ??
-                    cabinReported?.timeToTarget;
-                const reportedTimeToTarget = rawTimeToTarget !== undefined
-                    ? typeof rawTimeToTarget === 'number'
-                        ? rawTimeToTarget
-                        : typeof rawTimeToTarget === 'string'
-                            ? Number(rawTimeToTarget)
-                            : undefined
-                    : undefined;
-                // --- CUSTOM BOOLEAN & LOGIC STATES ---
-                const rawDoor = HarviaFenix.getApiValue(p, [
-                    'doorSafetyState',
-                    'doorSafety',
-                    'door',
-                    'door_closed',
-                    'door_safety_state',
-                    'door_safety',
-                ]);
-                let isDoorSafe = true;
-                if (rawDoor !== undefined) {
-                    isDoorSafe = HarviaFenix.isTrue(rawDoor);
-                    await this.setState('doorSafety', isDoorSafe, true);
-                }
-                else {
-                    const dsState = await this.getStateAsync('doorSafety');
-                    if (dsState) {
-                        isDoorSafe = !!dsState.val;
-                    }
-                }
-                const rawHeat = HarviaFenix.getApiValue(p, [
-                    'heatOn',
-                    'heatState',
-                    'heat',
-                    'heater',
-                    'heat_on',
-                    'is_heating',
-                ]);
-                if (rawHeat !== undefined) {
-                    const isHeatOn = HarviaFenix.isTrue(rawHeat);
-                    const prevHeatOnState = await this.getStateAsync('heatOn');
-                    if (prevHeatOnState && !!prevHeatOnState.val !== isHeatOn) {
-                        await this.setState('readyNotified10Min', false, true);
-                        await this.setState('targetReachedNotified', false, true);
-                        await this.setState('estimatedHeatingTimeRemaining', 0, true);
-                        await this.setState('info.heatingAnomaly', false, true);
-                        await this.setState('info.heatingAnomalyType', 'none', true);
-                        await this.setState('info.heatingAnomalyDesc', '', true);
-                        if (!isHeatOn) {
-                            this.sessionStartTime = null;
-                            this.sessionStartTemp = null;
-                            this.tempHistory = [];
-                        }
-                    }
-                    await this.setState('heatOn', isHeatOn, true);
-                    this.lastConfirmedStates.heatOn = isHeatOn;
-                }
-                await this.updateBooleanState('lightOn', ['lightOn', 'lightState', 'light', 'light_on'], p);
-                // --- REMOTECONTROL & ONLINE LOGIC ---
-                let isRemoteReady = false;
-                if (deviceState && deviceState.state && deviceState.state.remoteAllowed !== undefined) {
-                    isRemoteReady =
-                        deviceState.state.remoteAllowed === 1 ||
-                            deviceState.state.remoteAllowed === true ||
-                            deviceState.state.remoteAllowed === '1' ||
-                            deviceState.state.remoteAllowed === 'true';
-                }
-                // Fallback safety link: open door blocks remote start
-                if (!isDoorSafe) {
-                    isRemoteReady = false;
-                }
-                await this.setState('remoteControl', isRemoteReady, true);
-                // Online status from deviceState.connectionState.connected
-                const isOnline = !!deviceState?.connectionState?.connected;
-                await this.setState('online', isOnline, true);
-                // --- NOTIFICATION LOGIC ---
-                const heatOnState = await this.getStateAsync('heatOn');
-                const heatOn = heatOnState ? !!heatOnState.val : false;
-                const currentTempState = await this.getStateAsync('temp');
-                const currentTemp = currentTempState && typeof currentTempState.val === 'number' ? currentTempState.val : 0;
-                const targetTempState = await this.getStateAsync('targetTemp');
-                const targetTemp = targetTempState && typeof targetTempState.val === 'number' ? targetTempState.val : 90;
-                if (heatOn && currentTemp > 20) {
-                    const notified10MinState = await this.getStateAsync('readyNotified10Min');
-                    const notified10Min = notified10MinState ? !!notified10MinState.val : false;
-                    const notifiedReadyState = await this.getStateAsync('targetReachedNotified');
-                    const notifiedReady = notifiedReadyState ? !!notifiedReadyState.val : false;
-                    if (!notified10Min && currentTemp >= targetTemp - 13 && currentTemp < targetTemp) {
-                        await this.setState('readyNotified10Min', true, true);
-                        this.log.info(`🧖 The sauna will reach its target temperature (${targetTemp}°C) in approximately 10 minutes.`);
-                    }
-                    if (!notifiedReady && currentTemp >= targetTemp) {
-                        if (!notified10Min) {
-                            await this.setState('readyNotified10Min', true, true);
-                        }
-                        await this.setState('targetReachedNotified', true, true);
-                        this.log.info(`♨️ The sauna has reached its target temperature of ${targetTemp}°C and is ready!`);
-                    }
-                }
-                await this.calculateHeatingPrognosis(heatOn, currentTemp, targetTemp, reportedTimeToTarget, validHeatingCurve);
+                await this.processStatusPayload(p, deviceState);
             }
             else {
                 this.log.warn(`Unexpected data structure during status poll: ${JSON.stringify(response.data)}`);
@@ -774,10 +689,234 @@ class HarviaFenix extends utils.Adapter {
             // Only schedule next poll if adapter is not unloading
             if (!this.isUnloading) {
                 const rawInterval = this.config.pollInterval || 60;
-                const interval = Math.max(30, Math.min(600, rawInterval)) * 1000;
+                const standardInterval = Math.max(30, Math.min(600, rawInterval)) * 1000;
+                // If push is active and connected, relax polling interval to 5 minutes as safety heartbeat
+                const interval = this.isPushConnected ? 300 * 1000 : standardInterval;
                 this.updateInterval = this.setTimeout(() => this.updateStatus(), interval);
             }
         }
+    }
+    async handlePushDeviceState(pushData) {
+        if (this.isUnloading) {
+            return;
+        }
+        this.log.debug(`[Push] Received device state update: ${JSON.stringify(pushData)}`);
+        const statusPayload = {};
+        const reported = pushData.reported || {};
+        const desired = pushData.desired || {};
+        const merged = { ...desired, ...reported };
+        // Flatten nested heater or light if needed
+        if (merged.heater && typeof merged.heater === 'object' && !Array.isArray(merged.heater)) {
+            const h = merged.heater;
+            if (h.on !== undefined && h.on !== null) {
+                statusPayload.heatOn = h.on;
+            }
+        }
+        if (merged.light && typeof merged.light === 'object' && !Array.isArray(merged.light)) {
+            const l = merged.light;
+            if (l.on !== undefined && l.on !== null) {
+                statusPayload.lightOn = l.on;
+            }
+        }
+        Object.assign(statusPayload, merged);
+        if (pushData.connectionState?.connected !== undefined) {
+            statusPayload.online = pushData.connectionState.connected;
+        }
+        const deviceState = {
+            state: {
+                ...merged,
+                remoteAllowed: merged.remoteAllowed,
+            },
+            connectionState: pushData.connectionState,
+        };
+        await this.processStatusPayload(statusPayload, deviceState);
+    }
+    async handlePushMeasurement(pushData) {
+        if (this.isUnloading) {
+            return;
+        }
+        this.log.debug(`[Push] Received measurement update: ${JSON.stringify(pushData)}`);
+        const statusPayload = { ...pushData.data };
+        await this.processStatusPayload(statusPayload);
+    }
+    async processStatusPayload(p, deviceState) {
+        if (Date.now() - this.lastCommandTime < LATENCY_MS) {
+            this.log.debug(`Status update ignored due to latency protection (${LATENCY_MS}ms). Last command ${Date.now() - this.lastCommandTime}ms ago.`);
+            return;
+        }
+        // Merge deviceState settings (e.g. maxOnTime: 300, maxTemp: 110) into status payload
+        const statusPayload = { ...p };
+        if (deviceState?.state?.settings) {
+            const settings = deviceState.state.settings;
+            if (settings.maxOnTime !== undefined) {
+                statusPayload.maxOnTime = settings.maxOnTime;
+            }
+            if (settings.maxTemp !== undefined) {
+                statusPayload.maxTemp = settings.maxTemp;
+            }
+        }
+        // Update Numeric States
+        await this.updateNumericState('temp', ['temperature', 'temp', 'current_temperature', 'ambient_temperature'], statusPayload, 1, 1);
+        await this.updateNumericState('panelTemp', ['panelTemp', 'panelTemperature', 'panel_temperature'], statusPayload, 1, 1);
+        await this.updateNumericState('heaterPower', ['heaterPower', 'power', 'heater_power'], statusPayload, 0.001, 2);
+        await this.updateNumericState('totalBathingHours', ['totalBathingHours', 'total_bathing_hours', 'bathing_hours'], statusPayload, 1, 2);
+        await this.updateNumericState('totalSessions', ['totalSessions', 'total_sessions', 'sessions'], statusPayload, 1, 0);
+        await this.updateNumericState('totalOperatingHours', ['totalOperatingHours', 'totalHours', 'total_hours', 'operating_hours'], statusPayload, 1, 2);
+        await this.updateNumericState('targetTemp', ['targetTemperature', 'targetTemp', 'target_temperature', 'setpoint_temperature'], statusPayload);
+        await this.updateNumericState('maxDuration', [
+            'maxDuration',
+            'targetDuration',
+            'maxOnTime',
+            'max_duration',
+            'duration',
+            'maxBathingTime',
+            'max_bathing_time',
+            'setpoint_duration',
+        ], statusPayload, 1, 0);
+        await this.updateNumericState('info.minTemp', ['minTemperature', 'minTemp', 'min_temperature'], statusPayload, 1, 0);
+        await this.updateNumericState('info.maxTemp', ['maxTemperature', 'maxTemp', 'max_temperature'], statusPayload, 1, 0);
+        // --- HEATING CURVE, PROFILES & TARGET PREDICTIONS ---
+        const stateReported = deviceState?.state && typeof deviceState.state === 'object' && 'reported' in deviceState.state
+            ? deviceState.state.reported
+            : undefined;
+        const cabinReported = deviceState?.cabinState &&
+            typeof deviceState.cabinState === 'object' &&
+            'reported' in deviceState.cabinState
+            ? deviceState.cabinState.reported
+            : undefined;
+        const rawHeatingCurve = statusPayload.heatingCurve ||
+            deviceState?.state?.heatingCurve ||
+            stateReported?.heatingCurve ||
+            deviceState?.cabinState?.heatingCurve ||
+            cabinReported?.heatingCurve;
+        let validHeatingCurve = null;
+        if (Array.isArray(rawHeatingCurve) && rawHeatingCurve.length === HarviaFenix.HARVIA_INTERVALS.length) {
+            validHeatingCurve = rawHeatingCurve.map(v => Number(v) || 0);
+            await this.setState('heatingCurve', JSON.stringify(validHeatingCurve), true);
+        }
+        const rawProfiles = statusPayload.profiles ??
+            deviceState?.state?.profiles ??
+            stateReported?.profiles ??
+            deviceState?.cabinState?.profiles ??
+            cabinReported?.profiles;
+        if (rawProfiles !== undefined) {
+            await this.setState('profiles', typeof rawProfiles === 'string' ? rawProfiles : JSON.stringify(rawProfiles), true);
+        }
+        const rawActiveProfile = statusPayload.activeProfile ??
+            deviceState?.state?.activeProfile ??
+            stateReported?.activeProfile ??
+            deviceState?.cabinState?.activeProfile ??
+            cabinReported?.activeProfile;
+        if (rawActiveProfile !== undefined) {
+            const activeProfileNum = typeof rawActiveProfile === 'number'
+                ? rawActiveProfile
+                : typeof rawActiveProfile === 'string'
+                    ? Number.parseInt(rawActiveProfile, 10)
+                    : Number.NaN;
+            if (!Number.isNaN(activeProfileNum)) {
+                await this.setState('activeProfile', activeProfileNum, true);
+                this.lastConfirmedStates.activeProfile = activeProfileNum;
+            }
+        }
+        const rawTimeToTarget = statusPayload.timeToTarget ??
+            deviceState?.state?.timeToTarget ??
+            stateReported?.timeToTarget ??
+            deviceState?.cabinState?.timeToTarget ??
+            cabinReported?.timeToTarget;
+        const reportedTimeToTarget = rawTimeToTarget !== undefined
+            ? typeof rawTimeToTarget === 'number'
+                ? rawTimeToTarget
+                : typeof rawTimeToTarget === 'string'
+                    ? Number(rawTimeToTarget)
+                    : undefined
+            : undefined;
+        // --- CUSTOM BOOLEAN & LOGIC STATES ---
+        const rawDoor = HarviaFenix.getApiValue(p, [
+            'doorSafetyState',
+            'doorSafety',
+            'door',
+            'door_closed',
+            'door_safety_state',
+            'door_safety',
+        ]);
+        let isDoorSafe = true;
+        if (rawDoor !== undefined) {
+            isDoorSafe = HarviaFenix.isTrue(rawDoor);
+            await this.setState('doorSafety', isDoorSafe, true);
+        }
+        else {
+            const dsState = await this.getStateAsync('doorSafety');
+            if (dsState) {
+                isDoorSafe = !!dsState.val;
+            }
+        }
+        const rawHeat = HarviaFenix.getApiValue(p, ['heatOn', 'heatState', 'heat', 'heater', 'heat_on', 'is_heating']);
+        if (rawHeat !== undefined) {
+            const isHeatOn = HarviaFenix.isTrue(rawHeat);
+            const prevHeatOnState = await this.getStateAsync('heatOn');
+            if (prevHeatOnState && !!prevHeatOnState.val !== isHeatOn) {
+                await this.setState('readyNotified10Min', false, true);
+                await this.setState('targetReachedNotified', false, true);
+                await this.setState('estimatedHeatingTimeRemaining', 0, true);
+                await this.setState('info.heatingAnomaly', false, true);
+                await this.setState('info.heatingAnomalyType', 'none', true);
+                await this.setState('info.heatingAnomalyDesc', '', true);
+                if (!isHeatOn) {
+                    this.sessionStartTime = null;
+                    this.sessionStartTemp = null;
+                    this.tempHistory = [];
+                }
+            }
+            await this.setState('heatOn', isHeatOn, true);
+            this.lastConfirmedStates.heatOn = isHeatOn;
+        }
+        await this.updateBooleanState('lightOn', ['lightOn', 'lightState', 'light', 'light_on'], p);
+        // --- REMOTECONTROL & ONLINE LOGIC ---
+        let isRemoteReady = false;
+        if (deviceState && deviceState.state && deviceState.state.remoteAllowed !== undefined) {
+            isRemoteReady =
+                deviceState.state.remoteAllowed === 1 ||
+                    deviceState.state.remoteAllowed === true ||
+                    deviceState.state.remoteAllowed === '1' ||
+                    deviceState.state.remoteAllowed === 'true';
+        }
+        // Fallback safety link: open door blocks remote start
+        if (!isDoorSafe) {
+            isRemoteReady = false;
+        }
+        await this.setState('remoteControl', isRemoteReady, true);
+        // Online status: from deviceState connectionState or statusPayload online flag
+        if (deviceState?.connectionState?.connected !== undefined) {
+            await this.setState('online', !!deviceState.connectionState.connected, true);
+        }
+        else if (statusPayload.online !== undefined) {
+            await this.setState('online', HarviaFenix.isTrue(statusPayload.online), true);
+        }
+        // --- NOTIFICATION LOGIC ---
+        const heatOnState = await this.getStateAsync('heatOn');
+        const heatOn = heatOnState ? !!heatOnState.val : false;
+        const currentTempState = await this.getStateAsync('temp');
+        const currentTemp = currentTempState && typeof currentTempState.val === 'number' ? currentTempState.val : 0;
+        const targetTempState = await this.getStateAsync('targetTemp');
+        const targetTemp = targetTempState && typeof targetTempState.val === 'number' ? targetTempState.val : 90;
+        if (heatOn && currentTemp > 20) {
+            const notified10MinState = await this.getStateAsync('readyNotified10Min');
+            const notified10Min = notified10MinState ? !!notified10MinState.val : false;
+            const notifiedReadyState = await this.getStateAsync('targetReachedNotified');
+            const notifiedReady = notifiedReadyState ? !!notifiedReadyState.val : false;
+            if (!notified10Min && currentTemp >= targetTemp - 13 && currentTemp < targetTemp) {
+                await this.setState('readyNotified10Min', true, true);
+                this.log.info(`🧖 The sauna will reach its target temperature (${targetTemp}°C) in approximately 10 minutes.`);
+            }
+            if (!notifiedReady && currentTemp >= targetTemp) {
+                if (!notified10Min) {
+                    await this.setState('readyNotified10Min', true, true);
+                }
+                await this.setState('targetReachedNotified', true, true);
+                this.log.info(`♨️ The sauna has reached its target temperature of ${targetTemp}°C and is ready!`);
+            }
+        }
+        await this.calculateHeatingPrognosis(heatOn, currentTemp, targetTemp, reportedTimeToTarget, validHeatingCurve);
     }
     /**
      * Internal helper to update a numeric state from API data with scaling and rounding.
@@ -1100,6 +1239,10 @@ class HarviaFenix extends utils.Adapter {
             this.isUnloading = true;
             this.updateInterval && this.clearTimeout(this.updateInterval);
             this.loginInterval && this.clearInterval(this.loginInterval);
+            if (this.pushClient) {
+                this.pushClient.stop();
+                this.pushClient = null;
+            }
             callback();
         }
         catch {
