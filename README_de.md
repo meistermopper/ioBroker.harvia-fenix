@@ -204,6 +204,8 @@ on({ id: 'harvia-fenix.0.info.heatingAnomaly', change: 'ne', val: true }, functi
 ## Änderungsprotokoll (Changelog)
 
 ### **WORK IN PROGRESS**
+* (meistermopper) AWS AppSync WebSocket Real-Time Push-Client hinzugefuegt
+* (meistermopper) Token-Aktualisierung ueber /auth/refresh mit refreshToken
 
 ### 0.6.0 (2026-09-16)
 * (meistermopper) Datenpunkte readyAt, readyAtMessage und timeToTargetFormatted ergänzt
