@@ -36,6 +36,7 @@ interface HarviaRestApiConfig {
 	data: { https: string };
 	device: { https: string };
 	generics: { https: string };
+	events?: { https: string };
 	users?: { https: string };
 	Config?: {
 		PartnerOrganizationId: string;
@@ -48,6 +49,7 @@ interface HarviaEndpoints {
 		GraphQL?: {
 			device?: { https: string; wss: string; schemaUrl?: string };
 			data?: { https: string; wss: string; schemaUrl?: string };
+			events?: { https: string; wss: string; schemaUrl?: string };
 		};
 		Config?: { PartnerOrganizationId: string };
 	};
@@ -55,8 +57,34 @@ interface HarviaEndpoints {
 	GraphQL?: {
 		device?: { https: string; wss: string; schemaUrl?: string };
 		data?: { https: string; wss: string; schemaUrl?: string };
+		events?: { https: string; wss: string; schemaUrl?: string };
 	};
 	Config?: { PartnerOrganizationId: string };
+}
+
+interface HarviaEventItem {
+	id?: string;
+	eventId?: string;
+	deviceId?: string;
+	type?: string;
+	eventType?: string;
+	category?: string;
+	event?: string;
+	name?: string;
+	code?: string | number;
+	severity?: string;
+	level?: string;
+	message?: string;
+	desc?: string;
+	description?: string;
+	text?: string;
+	timestamp?: number | string;
+	createdAt?: number | string;
+	time?: number | string;
+	created?: number | string;
+	data?: Record<string, unknown>;
+	payload?: Record<string, unknown>;
+	[key: string]: unknown;
 }
 
 interface HarviaDevice {
@@ -164,6 +192,7 @@ export class HarviaFenix extends utils.Adapter {
 	private dataBaseUrl = '';
 	private deviceBaseUrl = '';
 	private usersBaseUrl = '';
+	private eventsBaseUrl = '';
 	private authUrl = '';
 	private authRefreshUrl = '';
 	private graphQlDeviceWss = '';
@@ -175,6 +204,7 @@ export class HarviaFenix extends utils.Adapter {
 	private loginPromise: Promise<boolean> | null = null;
 	private pushClient: HarviaPushClient | null = null;
 	private isPushConnected = false;
+	private lastProcessedEventTimestamp = 0;
 
 	private isSendingCommand = false;
 	private isUnloading = false;
@@ -267,6 +297,27 @@ export class HarviaFenix extends utils.Adapter {
 		await this.setState('maxDuration', defaultMaxDuration, true);
 		await this.setState('info.minTemp', minTemp, true);
 		await this.setState('info.maxTemp', maxTemp, true);
+
+		// Initialize event states on startup, retaining existing history if available
+		await this.setState('events.lastEvent', '', true);
+		await this.setState('events.lastEventType', '', true);
+		await this.setState('events.lastEventSeverity', 'info', true);
+		await this.setState('events.lastEventMessage', '', true);
+		await this.setState('events.lastEventTime', '', true);
+		await this.setState('events.safetyTripped', false, true);
+		await this.setState('events.safetyReason', '', true);
+		try {
+			const existingHistoryState = await this.getStateAsync('events.history');
+			if (
+				!existingHistoryState?.ack ||
+				typeof existingHistoryState.val !== 'string' ||
+				!existingHistoryState.val.startsWith('[')
+			) {
+				await this.setState('events.history', '[]', true);
+			}
+		} catch {
+			await this.setState('events.history', '[]', true);
+		}
 
 		// Clean up removed states from previous versions
 		const oldRemoteReadyObj = await this.getObjectAsync('remoteReady');
@@ -385,6 +436,7 @@ export class HarviaFenix extends utils.Adapter {
 			this.dataBaseUrl = ep.data.https;
 			this.deviceBaseUrl = ep.device.https;
 			this.usersBaseUrl = ep.users?.https || '';
+			this.eventsBaseUrl = ep.events?.https || '';
 			this.authUrl = `${ep.generics.https}/auth/token`;
 			this.authRefreshUrl = `${ep.generics.https}/auth/refresh`;
 
@@ -406,7 +458,7 @@ export class HarviaFenix extends utils.Adapter {
 			}
 
 			this.log.info(
-				`API configuration loaded: Data=${this.dataBaseUrl}, Device=${this.deviceBaseUrl}, Partner=${this.partnerId}`,
+				`API configuration loaded: Data=${this.dataBaseUrl}, Device=${this.deviceBaseUrl}, Events=${this.eventsBaseUrl}, Partner=${this.partnerId}`,
 			);
 			return true;
 		} catch (err) {
@@ -823,6 +875,9 @@ export class HarviaFenix extends utils.Adapter {
 			} else {
 				this.log.warn(`Unexpected data structure during status poll: ${JSON.stringify(response.data)}`);
 			}
+
+			// Fetch recent events and check safety status
+			await this.fetchEvents();
 		} catch (err: unknown) {
 			if (axios.isAxiosError(err)) {
 				if (err.response?.status === 401 || err.response?.status === 403) {
@@ -1227,6 +1282,267 @@ export class HarviaFenix extends utils.Adapter {
 	}
 
 	/**
+	 * Fetches events and safety records for the active device.
+	 */
+	public async fetchEvents(): Promise<void> {
+		if (this.isUnloading || !this.idToken || !this.eventsBaseUrl) {
+			return;
+		}
+		const deviceId = this.activeDeviceId || this.config.deviceId;
+		if (!deviceId) {
+			return;
+		}
+
+		try {
+			const baseUrl = this.eventsBaseUrl.replace(/\/$/, '');
+			const url = baseUrl.endsWith('/events/events')
+				? baseUrl
+				: baseUrl.endsWith('/events')
+					? `${baseUrl}/events`
+					: `${baseUrl}/events/events`;
+			this.log.debug(`Fetching device events from: ${url} (ID: ${deviceId})`);
+
+			const now = Date.now();
+			const startTimestamp = now - 24 * 60 * 60 * 1000;
+			const endTimestamp = now;
+
+			const response = await this.client.get<unknown>(url, {
+				params: {
+					deviceId,
+					startTimestamp,
+					endTimestamp,
+				},
+				headers: {
+					...this.getCloudHeaders(),
+					Accept: 'application/json',
+				},
+				timeout: 10000,
+			});
+
+			if (this.isUnloading || !response.data) {
+				return;
+			}
+
+			await this.processEventsResponse(response.data);
+		} catch (err: unknown) {
+			let detail = '';
+			if (axios.isAxiosError(err) && err.response?.data) {
+				detail = ` Body: ${JSON.stringify(err.response.data)}`;
+			}
+			const errMsg = err instanceof Error ? err.message : String(err);
+			this.log.debug(`Events request note: ${errMsg}${detail}`);
+		}
+	}
+
+	/**
+	 * Processes the raw API events response and updates the ioBroker events states.
+	 *
+	 * @param data - Raw response from the events endpoint.
+	 */
+	public async processEventsResponse(data: unknown): Promise<void> {
+		const rawEvents = HarviaFenix.parseEvents(data);
+		if (!rawEvents || rawEvents.length === 0) {
+			return;
+		}
+
+		// Sort events descending (newest first)
+		const sorted = [...rawEvents].sort((a, b) => {
+			const timeA = HarviaFenix.getEventTimestamp(a);
+			const timeB = HarviaFenix.getEventTimestamp(b);
+			return timeB - timeA;
+		});
+
+		const latest = sorted[0];
+		const latestTimestamp = HarviaFenix.getEventTimestamp(latest);
+
+		const eventCode = String(latest.code ?? latest.event ?? latest.name ?? latest.id ?? latest.eventId ?? 'EVENT');
+		const rawType = latest.type || latest.eventType || latest.category || 'SYSTEM';
+		const eventType = typeof rawType === 'string' ? rawType.toUpperCase() : 'SYSTEM';
+		const severity = HarviaFenix.determineEventSeverity(latest);
+		const rawMsg = latest.message || latest.desc || latest.description || latest.text || eventCode;
+		const message = typeof rawMsg === 'string' ? rawMsg : JSON.stringify(rawMsg);
+		const timeIso = latestTimestamp > 0 ? new Date(latestTimestamp).toISOString() : new Date().toISOString();
+
+		const isNewEvent = latestTimestamp > this.lastProcessedEventTimestamp;
+
+		if (isNewEvent || this.lastProcessedEventTimestamp === 0) {
+			this.lastProcessedEventTimestamp = latestTimestamp;
+
+			await this.setState('events.lastEvent', eventCode, true);
+			await this.setState('events.lastEventType', eventType, true);
+			await this.setState('events.lastEventSeverity', severity, true);
+			await this.setState('events.lastEventMessage', message, true);
+			await this.setState('events.lastEventTime', timeIso, true);
+
+			if (isNewEvent && this.lastProcessedEventTimestamp !== 0) {
+				this.log.info(`[Harvia Event] [${severity.toUpperCase()}] ${eventType}: ${message} (${eventCode})`);
+			}
+		}
+
+		// Evaluate safety circuit status
+		const safetyEvaluation = HarviaFenix.evaluateSafetyStatus(sorted);
+		await this.setState('events.safetyTripped', safetyEvaluation.tripped, true);
+		await this.setState('events.safetyReason', safetyEvaluation.reason, true);
+
+		if (safetyEvaluation.tripped && isNewEvent) {
+			this.log.warn(`🚨 [SAFETY TRIP] ${safetyEvaluation.reason}`);
+		}
+
+		// Update sliding window history (up to 15 events)
+		const formattedHistory = sorted.slice(0, 15).map(e => ({
+			id: String(e.id || e.eventId || e.code || 'event'),
+			type: String(e.type || e.eventType || 'SYSTEM'),
+			code: String(e.code || e.event || ''),
+			severity: HarviaFenix.determineEventSeverity(e),
+			message: String(e.message || e.desc || e.description || ''),
+			time: HarviaFenix.getEventTimestamp(e) > 0 ? new Date(HarviaFenix.getEventTimestamp(e)).toISOString() : '',
+		}));
+
+		await this.setState('events.history', JSON.stringify(formattedHistory), true);
+	}
+
+	/**
+	 * Parses a generic events response payload into a normalized array of HarviaEventItem.
+	 *
+	 * @param data - Raw response object or array.
+	 */
+	public static parseEvents(data: unknown): HarviaEventItem[] {
+		if (!data) {
+			return [];
+		}
+		if (Array.isArray(data)) {
+			return data as HarviaEventItem[];
+		}
+		if (typeof data === 'object') {
+			const obj = data as Record<string, unknown>;
+			if (Array.isArray(obj.events)) {
+				return obj.events as HarviaEventItem[];
+			}
+			if (Array.isArray(obj.items)) {
+				return obj.items as HarviaEventItem[];
+			}
+			if (Array.isArray(obj.data)) {
+				return obj.data as HarviaEventItem[];
+			}
+			if (obj.data && typeof obj.data === 'object') {
+				const nested = obj.data as Record<string, unknown>;
+				if (Array.isArray(nested.events)) {
+					return nested.events as HarviaEventItem[];
+				}
+				if (Array.isArray(nested.items)) {
+					return nested.items as HarviaEventItem[];
+				}
+			}
+			if (obj.id || obj.eventId || obj.type || obj.event || obj.code) {
+				return [obj];
+			}
+		}
+		return [];
+	}
+
+	/**
+	 * Extracts an epoch millisecond timestamp from an event item.
+	 *
+	 * @param e - The Harvia event item.
+	 */
+	public static getEventTimestamp(e: HarviaEventItem): number {
+		const raw = e.timestamp ?? e.createdAt ?? e.time ?? e.created;
+		if (typeof raw === 'number') {
+			return raw > 1e12 ? raw : raw * 1000;
+		}
+		if (typeof raw === 'string') {
+			const parsed = Date.parse(raw);
+			if (!Number.isNaN(parsed)) {
+				return parsed;
+			}
+			const num = Number(raw);
+			if (!Number.isNaN(num)) {
+				return num > 1e12 ? num : num * 1000;
+			}
+		}
+		return 0;
+	}
+
+	/**
+	 * Infers or standardizes the severity level for a given event.
+	 *
+	 * @param e - The Harvia event item.
+	 */
+	public static determineEventSeverity(e: HarviaEventItem): 'info' | 'warn' | 'error' | 'critical' {
+		const raw = String(e.severity || e.level || '').toLowerCase();
+		if (['critical', 'fatal', 'alarm'].includes(raw)) {
+			return 'critical';
+		}
+		if (['error', 'err', 'fault'].includes(raw)) {
+			return 'error';
+		}
+		if (['warn', 'warning'].includes(raw)) {
+			return 'warn';
+		}
+		if (['info', 'notice'].includes(raw)) {
+			return 'info';
+		}
+
+		// Infer severity from type, code, or message text
+		const str = `${e.type || ''} ${e.code || ''} ${e.message || ''}`.toUpperCase();
+		if (str.includes('OVERHEAT') || str.includes('FIRE') || str.includes('EMERGENCY')) {
+			return 'critical';
+		}
+		if (str.includes('FAULT') || str.includes('ERROR') || str.includes('TRIP')) {
+			return 'error';
+		}
+		if (str.includes('DOOR') || str.includes('WARN') || str.includes('TIMEOUT')) {
+			return 'warn';
+		}
+
+		return 'info';
+	}
+
+	/**
+	 * Evaluates whether any recent event indicates an active safety shutoff or interlock trip.
+	 *
+	 * @param events - List of event items sorted by timestamp descending.
+	 */
+	public static evaluateSafetyStatus(events: HarviaEventItem[]): { tripped: boolean; reason: string } {
+		if (!events || events.length === 0) {
+			return { tripped: false, reason: '' };
+		}
+
+		const now = Date.now();
+		for (const e of events) {
+			const ts = HarviaFenix.getEventTimestamp(e);
+			// Ignore events older than 2 hours for active safety latching
+			if (ts > 0 && now - ts > 2 * 60 * 60 * 1000) {
+				continue;
+			}
+
+			const typeStr = String(e.type || e.eventType || '').toUpperCase();
+			const codeStr = String(e.code || e.event || '').toUpperCase();
+			const msgStr = String(e.message || e.desc || '').toLowerCase();
+			const severity = HarviaFenix.determineEventSeverity(e);
+
+			if (
+				severity === 'critical' ||
+				typeStr.includes('SAFETY') ||
+				typeStr.includes('INTERLOCK') ||
+				codeStr.includes('OVERHEAT') ||
+				codeStr.includes('SAFETY_TRIP') ||
+				codeStr.includes('THERMAL') ||
+				msgStr.includes('overheat') ||
+				msgStr.includes('safety switch') ||
+				msgStr.includes('interlock open')
+			) {
+				return {
+					tripped: true,
+					reason: String(e.message || e.desc || e.code || 'Safety interlock triggered'),
+				};
+			}
+		}
+
+		return { tripped: false, reason: '' };
+	}
+
+	/**
 	 * Checks if the error or response indicates that the Harvia device is unavailable.
 	 *
 	 * @param err - The thrown error, if any.
@@ -1421,7 +1737,7 @@ export class HarviaFenix extends utils.Adapter {
 							cabin: { id: 'C1' },
 							activeProfile: profileIdx,
 						};
-						const url = `${devicesUrl}/target`;
+						const url = `${devicesUrl}/profile`;
 
 						await this.client.patch<HarviaCommandResponse>(url, payload, {
 							headers: {

@@ -141,6 +141,14 @@ Danach steuert das Gast-Konto die Sauna dauerhaft und zuverlässig an!
 | `heatingCurve` | string | `json` | Nur Lesen | JSON-Array der Stützstellen-Aufheizzeiten pro 10°C-Intervall für VIS/Diagramme. |
 | `profiles` | string | `json` | Nur Lesen | JSON-Array der verfügbaren Saunaprofile (z. B. Cozy, etc.). |
 | `activeProfile` | number | `level` | Lesen/Schreiben | Index des aktuell aktiven Saunaprofils. |
+| `events.lastEvent` | string | `text` | Nur Lesen | Code oder Bezeichner des letzten Ereignisses aus dem Harvia Events Service. |
+| `events.lastEventType` | string | `text` | Nur Lesen | Kategorie des letzten Ereignisses (`SAFETY`, `ERROR`, `SYSTEM` etc.). |
+| `events.lastEventSeverity` | string | `text` | Nur Lesen | Schweregrad des letzten Ereignisses (`info`, `warn`, `error`, `critical`). |
+| `events.lastEventMessage` | string | `text` | Nur Lesen | Lesbare Beschreibung oder Klartextmeldung des letzten Ereignisses. |
+| `events.lastEventTime` | string | `date` | Nur Lesen | ISO-Zeitstempel des letzten Ereignisses. |
+| `events.safetyTripped` | boolean | `sensor.alarm` | Nur Lesen | Zeigt an, ob eine aktive Sicherheitsabschaltung oder Unterbrechung vorliegt. |
+| `events.safetyReason` | string | `text` | Nur Lesen | Grund / Ursache der aktiven Sicherheitsauslösung. |
+| `events.history` | string | `json` | Nur Lesen | JSON-Array mit den letzten Ereignissen (bis zu 15 Einträge). |
 
 ---
 
@@ -180,6 +188,24 @@ on({ id: 'harvia-fenix.0.info.heatingAnomaly', change: 'ne', val: true }, functi
 
 *Hinweis: Diese Zustände werden automatisch auf `false` zurückgesetzt, wenn der Ofen ausgeschaltet wird oder ein neuer Heizvorgang beginnt.*
 
+### 3. Saunaprofile & Programmwahl (`profiles` & `activeProfile`)
+* **Verfügbare Profile (`profiles`):**  
+  Harvia Fenix unterstützt benutzerdefinierte und vordefinierte Saunaprogramme (z. B. *Klassisch Finnisch*, *Sanft*, *Bio-Sauna*), die in der **MyHarvia 2 App** konfiguriert werden. Der Adapter spiegelt diese Liste als strukturiertes JSON in `profiles` (inklusive Zieltemperatur und Dauer).
+* **Profil aktivieren (`activeProfile`):**  
+  Dieser Datenpunkt ist **schreibbar** und verwendet einen 0-basierten Index (`0` = erstes Profil in der Liste, `1` = zweites Profil usw.):
+  - Beim Ändern des Werts (z. B. über VIS, Buttons oder Skripte) sendet der Adapter den Befehl direkt an die Harvia-Cloud (`PATCH /devices/profile`), woraufhin die Sauna die Solltemperatur und Heizdauer des gewählten Profils übernimmt.
+  - **Beispiel (Skript):**
+  ```javascript
+  // Wechselt auf das zweite Saunaprofil (z. B. "Feierabend-Aufguss")
+  setState('harvia-fenix.0.activeProfile', 1);
+  ```
+
+### 4. Ereignis- und Sicherheits-Hub (`events.*`)
+* **Sicherheitskreis-Überwachung (`events.safetyTripped` & `events.safetyReason`):**  
+  Der Adapter überwacht Türkontakte, Überhitzungsschutz und Sicherheitsschalter-Unterbrechungen aus dem Harvia Events Service. Bei einem aktiven Sicherheitsalarm während des Heizens schaltet `events.safetyTripped` auf `true` mit einer verständlichen Begründung in `events.safetyReason`.
+* **Ereignisverlauf (`events.history`):**  
+  Führt eine Historie der letzten 15 System-, Tür-, Fehler- und Sicherheitsereignisse als JSON-Array für VIS-Dashboards und Protokollierung.
+
 ---
 
 ## Fehlerbehebung (Troubleshooting)
@@ -204,6 +230,10 @@ on({ id: 'harvia-fenix.0.info.heatingAnomaly', change: 'ne', val: true }, functi
 ## Änderungsprotokoll (Changelog)
 
 ### **WORK IN PROGRESS**
+* (meistermopper) Events & Safety Hub mit eigenem events-Channel und Datenpunkten
+* (meistermopper) Sicherheits-Erkennung, Alarm-Indikatoren und Ereignisverlauf hinzugefügt
+* (meistermopper) Endpunkt activeProfile auf PATCH /devices/profile korrigiert
+* (meistermopper) Saunaprofile (profiles, activeProfile) in Dokumentation erlaeutert
 
 ### 1.0.0 (2026-09-17)
 * (meistermopper) AWS AppSync WebSocket Real-Time Push-Client hinzugefuegt

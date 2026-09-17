@@ -99,4 +99,102 @@ describe('HarviaFenix utility methods', () => {
 			expect(HarviaFenix.calculateTimeFromHeatingCurve([], 20, 80)).to.be.null;
 		});
 	});
+
+	describe('Events & Safety Hub methods', () => {
+		describe('parseEvents', () => {
+			it('should parse direct arrays of events', () => {
+				const events = [
+					{ id: 'evt-1', type: 'DOOR' },
+					{ id: 'evt-2', type: 'HEATER' },
+				];
+				expect(HarviaFenix.parseEvents(events)).to.deep.equal(events);
+			});
+
+			it('should extract events from wrapped object formats', () => {
+				expect(HarviaFenix.parseEvents({ events: [{ id: '1' }] })).to.deep.equal([{ id: '1' }]);
+				expect(HarviaFenix.parseEvents({ items: [{ id: '2' }] })).to.deep.equal([{ id: '2' }]);
+				expect(HarviaFenix.parseEvents({ data: [{ id: '3' }] })).to.deep.equal([{ id: '3' }]);
+				expect(HarviaFenix.parseEvents({ data: { events: [{ id: '4' }] } })).to.deep.equal([{ id: '4' }]);
+			});
+
+			it('should handle single event objects and invalid inputs', () => {
+				expect(HarviaFenix.parseEvents({ eventId: '5', type: 'INFO' })).to.deep.equal([
+					{ eventId: '5', type: 'INFO' },
+				]);
+				expect(HarviaFenix.parseEvents(null)).to.deep.equal([]);
+				expect(HarviaFenix.parseEvents(undefined)).to.deep.equal([]);
+				expect(HarviaFenix.parseEvents({})).to.deep.equal([]);
+			});
+		});
+
+		describe('getEventTimestamp', () => {
+			it('should convert millisecond and second timestamps properly', () => {
+				const ms = 1758117600000;
+				expect(HarviaFenix.getEventTimestamp({ timestamp: ms })).to.equal(ms);
+				expect(HarviaFenix.getEventTimestamp({ createdAt: ms / 1000 })).to.equal(ms);
+			});
+
+			it('should parse ISO date strings', () => {
+				const iso = '2026-09-17T16:00:00.000Z';
+				expect(HarviaFenix.getEventTimestamp({ time: iso })).to.equal(Date.parse(iso));
+			});
+
+			it('should fallback to 0 for missing or invalid timestamps', () => {
+				expect(HarviaFenix.getEventTimestamp({})).to.equal(0);
+				expect(HarviaFenix.getEventTimestamp({ timestamp: 'invalid' })).to.equal(0);
+			});
+		});
+
+		describe('determineEventSeverity', () => {
+			it('should map explicit severity levels correctly', () => {
+				expect(HarviaFenix.determineEventSeverity({ severity: 'critical' })).to.equal('critical');
+				expect(HarviaFenix.determineEventSeverity({ severity: 'error' })).to.equal('error');
+				expect(HarviaFenix.determineEventSeverity({ severity: 'warn' })).to.equal('warn');
+				expect(HarviaFenix.determineEventSeverity({ severity: 'info' })).to.equal('info');
+			});
+
+			it('should infer severity from keywords when not explicitly given', () => {
+				expect(HarviaFenix.determineEventSeverity({ type: 'OVERHEAT_PROTECTION' })).to.equal('critical');
+				expect(HarviaFenix.determineEventSeverity({ message: 'Heater sensor fault' })).to.equal('error');
+				expect(HarviaFenix.determineEventSeverity({ type: 'DOOR_OPEN' })).to.equal('warn');
+				expect(HarviaFenix.determineEventSeverity({ type: 'SESSION_START' })).to.equal('info');
+			});
+		});
+
+		describe('evaluateSafetyStatus', () => {
+			it('should return tripped: false for empty or benign events', () => {
+				expect(HarviaFenix.evaluateSafetyStatus([])).to.deep.equal({ tripped: false, reason: '' });
+				expect(
+					HarviaFenix.evaluateSafetyStatus([
+						{ type: 'STATUS', message: 'Target temp reached', timestamp: Date.now() },
+					]),
+				).to.deep.equal({ tripped: false, reason: '' });
+			});
+
+			it('should detect safety interlock trips from recent events', () => {
+				const now = Date.now();
+				const result = HarviaFenix.evaluateSafetyStatus([
+					{
+						type: 'SAFETY_INTERLOCK',
+						message: 'Door safety loop opened during heating',
+						timestamp: now - 60000,
+					},
+				]);
+				expect(result.tripped).to.be.true;
+				expect(result.reason).to.equal('Door safety loop opened during heating');
+			});
+
+			it('should ignore safety trips older than 2 hours', () => {
+				const oldTimestamp = Date.now() - 3 * 60 * 60 * 1000;
+				const result = HarviaFenix.evaluateSafetyStatus([
+					{
+						type: 'SAFETY_SWITCH',
+						message: 'Thermal fuse triggered',
+						timestamp: oldTimestamp,
+					},
+				]);
+				expect(result.tripped).to.be.false;
+			});
+		});
+	});
 });

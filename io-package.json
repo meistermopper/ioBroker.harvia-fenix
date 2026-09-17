@@ -801,6 +801,226 @@
         "def": 0
       },
       "native": {}
+    },
+    {
+      "_id": "events",
+      "type": "channel",
+      "common": {
+        "name": {
+          "en": "Events and Safety Hub",
+          "de": "Ereignis- und Sicherheits-Hub",
+          "ru": "Центр событий и безопасности",
+          "pt": "Central de eventos e segurança",
+          "nl": "Evenementen- en veiligheidshub",
+          "fr": "Centre d'événements et de sécurité",
+          "it": "Hub di eventi e sicurezza",
+          "es": "Centro de eventos y seguridad",
+          "pl": "Centrum zdarzeń i bezpieczeństwa",
+          "uk": "Центр подій та безпеки",
+          "zh-cn": "事件与安全中心"
+        }
+      },
+      "native": {}
+    },
+    {
+      "_id": "events.lastEvent",
+      "type": "state",
+      "common": {
+        "role": "text",
+        "name": {
+          "en": "Last event code or identifier",
+          "de": "Letzter Ereigniscode oder Bezeichner",
+          "ru": "Код или идентификатор последнего события",
+          "pt": "Código ou identificador do último evento",
+          "nl": "Laatste gebeurteniscode of identificatie",
+          "fr": "Dernier code ou identifiant d'événement",
+          "it": "Ultimo codice o identificatore dell'evento",
+          "es": "Último código o identificador de evento",
+          "pl": "Kod lub identyfikator ostatniego zdarzenia",
+          "uk": "Код або ідентифікатор останньої події",
+          "zh-cn": "最后事件代码或标识符"
+        },
+        "type": "string",
+        "read": true,
+        "write": false,
+        "def": ""
+      },
+      "native": {}
+    },
+    {
+      "_id": "events.lastEventType",
+      "type": "state",
+      "common": {
+        "role": "text",
+        "name": {
+          "en": "Last event category",
+          "de": "Letzte Ereigniskategorie",
+          "ru": "Категория последнего события",
+          "pt": "Categoria do último evento",
+          "nl": "Laatste gebeurteniscategorie",
+          "fr": "Dernière catégorie d'événement",
+          "it": "Ultima categoria dell'evento",
+          "es": "Última categoría de evento",
+          "pl": "Kategoria ostatniego zdarzenia",
+          "uk": "Категорія останньої події",
+          "zh-cn": "最后事件类别"
+        },
+        "type": "string",
+        "read": true,
+        "write": false,
+        "def": ""
+      },
+      "native": {}
+    },
+    {
+      "_id": "events.lastEventSeverity",
+      "type": "state",
+      "common": {
+        "role": "text",
+        "name": {
+          "en": "Last event severity level",
+          "de": "Schweregrad des letzten Ereignisses",
+          "ru": "Уровень серьезности последнего события",
+          "pt": "Nível de gravidade do último evento",
+          "nl": "Ernst van de laatste gebeurtenis",
+          "fr": "Niveau de gravité du dernier événement",
+          "it": "Livello di gravità dell'ultimo evento",
+          "es": "Nivel de gravedad del último evento",
+          "pl": "Poziom ważności ostatniego zdarzenia",
+          "uk": "Рівень серйозності останньої події",
+          "zh-cn": "最后事件严重程度"
+        },
+        "type": "string",
+        "read": true,
+        "write": false,
+        "def": "info"
+      },
+      "native": {}
+    },
+    {
+      "_id": "events.lastEventMessage",
+      "type": "state",
+      "common": {
+        "role": "text",
+        "name": {
+          "en": "Last event description message",
+          "de": "Beschreibungsmeldung des letzten Ereignisses",
+          "ru": "Описание последнего события",
+          "pt": "Mensagem de descrição do último evento",
+          "nl": "Beschrijving van de laatste gebeurtenis",
+          "fr": "Message de description du dernier événement",
+          "it": "Messaggio di descrizione dell'ultimo evento",
+          "es": "Mensaje de descripción del último evento",
+          "pl": "Komunikat opisu ostatniego zdarzenia",
+          "uk": "Повідомлення з описом останньої події",
+          "zh-cn": "最后事件描述消息"
+        },
+        "type": "string",
+        "read": true,
+        "write": false,
+        "def": ""
+      },
+      "native": {}
+    },
+    {
+      "_id": "events.lastEventTime",
+      "type": "state",
+      "common": {
+        "role": "date",
+        "name": {
+          "en": "Last event timestamp",
+          "de": "Zeitstempel des letzten Ereignisses",
+          "ru": "Метка времени последнего события",
+          "pt": "Carimbo de data/hora do último evento",
+          "nl": "Tijdstempel van de laatste gebeurtenis",
+          "fr": "Horodatage du dernier événement",
+          "it": "Timestamp dell'ultimo evento",
+          "es": "Marca de tiempo del último evento",
+          "pl": "Znacznik czasu ostatniego zdarzenia",
+          "uk": "Мітка часу останньої події",
+          "zh-cn": "最后事件时间戳"
+        },
+        "type": "string",
+        "read": true,
+        "write": false,
+        "def": ""
+      },
+      "native": {}
+    },
+    {
+      "_id": "events.safetyTripped",
+      "type": "state",
+      "common": {
+        "role": "sensor.alarm",
+        "name": {
+          "en": "Safety interlock or circuit tripped",
+          "de": "Sicherheitsabschaltung oder Kontakt ausgelöst",
+          "ru": "Сработала защитная блокировка или цепь",
+          "pt": "Bloqueio de segurança ou circuito disparado",
+          "nl": "Veiligheidsvergrendeling of circuit geactiveerd",
+          "fr": "Verrouillage de sécurité ou circuit déclenché",
+          "it": "Interblocco di sicurezza o circuito scattato",
+          "es": "Enclavamiento o circuito de seguridad disparado",
+          "pl": "Zadziałała blokada bezpieczeństwa lub obwód",
+          "uk": "Спрацювало захисне блокування або ланцюг",
+          "zh-cn": "安全联锁或电路跳闸"
+        },
+        "type": "boolean",
+        "read": true,
+        "write": false,
+        "def": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "events.safetyReason",
+      "type": "state",
+      "common": {
+        "role": "text",
+        "name": {
+          "en": "Safety trip reason",
+          "de": "Grund der Sicherheitsauslösung",
+          "ru": "Причина срабатывания защиты",
+          "pt": "Motivo do disparo de segurança",
+          "nl": "Reden van veiligheidsactivering",
+          "fr": "Raison du déclenchement de la sécurité",
+          "it": "Motivo dello scatto di sicurezza",
+          "es": "Motivo del disparo de seguridad",
+          "pl": "Powód zadziałania zabezpieczenia",
+          "uk": "Причина спрацьовування захисту",
+          "zh-cn": "安全跳闸原因"
+        },
+        "type": "string",
+        "read": true,
+        "write": false,
+        "def": ""
+      },
+      "native": {}
+    },
+    {
+      "_id": "events.history",
+      "type": "state",
+      "common": {
+        "role": "json",
+        "name": {
+          "en": "Recent events history",
+          "de": "Verlauf der letzten Ereignisse",
+          "ru": "История недавних событий",
+          "pt": "Histórico de eventos recentes",
+          "nl": "Geschiedenis van recente gebeurtenissen",
+          "fr": "Historique des événements récents",
+          "it": "Cronologia degli eventi recenti",
+          "es": "Historial de eventos recientes",
+          "pl": "Historia ostatnich zdarzeń",
+          "uk": "Історія останніх подій",
+          "zh-cn": "最近事件历史"
+        },
+        "type": "string",
+        "read": true,
+        "write": false,
+        "def": "[]"
+      },
+      "native": {}
     }
   ]
 }

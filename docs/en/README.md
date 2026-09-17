@@ -141,6 +141,14 @@ The adapter maps your sauna's cloud states into structured ioBroker datapoints u
 | `heatingCurve` | string | `json` | Read-only | JSON array of interval heating seconds per 10°C slice for charts/VIS. |
 | `profiles` | string | `json` | Read-only | JSON array of available sauna profiles (e.g., Cozy, etc.). |
 | `activeProfile` | number | `level` | Read/Write | Index of the currently active sauna profile. |
+| `events.lastEvent` | string | `text` | Read-only | Code or identifier of the latest event received from Harvia Events Service. |
+| `events.lastEventType` | string | `text` | Read-only | Category of the latest event (`SAFETY`, `ERROR`, `SYSTEM`, etc.). |
+| `events.lastEventSeverity` | string | `text` | Read-only | Severity level of the latest event (`info`, `warn`, `error`, `critical`). |
+| `events.lastEventMessage` | string | `text` | Read-only | Human-readable message or description of the latest event. |
+| `events.lastEventTime` | string | `date` | Read-only | ISO timestamp of the latest event. |
+| `events.safetyTripped` | boolean | `sensor.alarm` | Read-only | Indicates if an active safety shutoff or interlock trip occurred. |
+| `events.safetyReason` | string | `text` | Read-only | Reason/cause of the active safety trip. |
+| `events.history` | string | `json` | Read-only | JSON array containing recent event history (up to 15 events). |
 
 ---
 
@@ -180,6 +188,24 @@ on({ id: 'harvia-fenix.0.info.heatingAnomaly', change: 'ne', val: true }, functi
 
 *Note: These states will automatically reset to `false` when the heater is turned off or when a new heating session starts.*
 
+### 3. Sauna Profiles (`profiles` & `activeProfile`)
+* **Available Profiles (`profiles`):**  
+  Reflects the pre-configured sauna programs from your **MyHarvia 2 app** (e.g. *Classic Finnish*, *Relax*, etc.) as a JSON array including preset target temperatures and timers.
+* **Switching Profiles (`activeProfile`):**  
+  This datapoint is **read/write** using a 0-based index (`0` for the first profile in the list, `1` for the second, etc.):
+  - Writing a number to `activeProfile` sends a profile change request directly to the Harvia cloud (`PATCH /devices/profile`), automatically applying the profile's preset target temperature and session duration to the sauna cabin.
+  - **Example (Script):**
+  ```javascript
+  // Switch to the second sauna profile (e.g. "Evening Aufguss")
+  setState('harvia-fenix.0.activeProfile', 1);
+  ```
+
+### 4. Events & Safety Hub (`events.*`)
+* **Safety Trip Monitoring (`events.safetyTripped` & `events.safetyReason`):**  
+  The adapter monitors door safety loops, thermal cutoffs, and safety switch interlocks from the Harvia Events Service. If an active safety trip occurs during heating, `events.safetyTripped` switches to `true` with a clear explanation in `events.safetyReason`.
+* **Event History (`events.history`):**  
+  Maintains a sliding history of the last 15 system, door, error, and safety events as a structured JSON array for VIS dashboards and audit logging.
+
 ---
 
 ## Troubleshooting
@@ -202,6 +228,12 @@ on({ id: 'harvia-fenix.0.info.heatingAnomaly', change: 'ne', val: true }, functi
 ---
 
 ## Changelog
+### **WORK IN PROGRESS**
+* (meistermopper) Add Events & Safety Hub with dedicated events channel and states
+* (meistermopper) Add safety trip detection, alarm indicators, and sliding history
+* (meistermopper) Fix activeProfile endpoint to use PATCH /devices/profile per API spec
+* (meistermopper) Document profiles and activeProfile switching behavior in README
+
 ### 1.0.0 (2026-09-17)
 * (meistermopper) Add AWS AppSync WebSocket real-time push client
 * (meistermopper) Add token refresh via /auth/refresh using refreshToken
