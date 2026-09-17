@@ -204,6 +204,8 @@ on({ id: 'harvia-fenix.0.info.heatingAnomaly', change: 'ne', val: true }, functi
 ## Änderungsprotokoll (Changelog)
 
 ### **WORK IN PROGRESS**
+
+### 1.0.0 (2026-09-17)
 * (meistermopper) AWS AppSync WebSocket Real-Time Push-Client hinzugefuegt
 * (meistermopper) Token-Aktualisierung ueber /auth/refresh mit refreshToken
 
@@ -235,17 +237,6 @@ on({ id: 'harvia-fenix.0.info.heatingAnomaly', change: 'ne', val: true }, functi
 * (meistermopper) Document adaptive heating prognosis and anomaly detection
 * (meistermopper) Add strict privacy and anonymization rule to AGENTS.md
 * (meistermopper) Clean up To-Do list and add fun future wishlist items
-
-### 0.3.2 (2026-08-11)
-* (meistermopper) Use absolute GitHub URLs for language switching links in README files
-* (meistermopper) Remove latest repository and translation badges from README files
-* (meistermopper) Mark stable repository addition as completed in To-Do list
-* (meistermopper) Remove direct npm installation instructions from README files
-* (dependabot) Bump axios from 1.18.1 to 1.19.0
-* (meistermopper) Center adapter logo in README files
-* (meistermopper) Add Weblate translation status badge to README files
-* (meistermopper) Add npm run translate step to release-before-commit script
-* (meistermopper) Replace static latest badge with dynamic iobroker.live badge
 
 [Ältere Einträge können hier gefunden werden](CHANGELOG_OLD.md)
 

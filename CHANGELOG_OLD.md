@@ -1,4 +1,15 @@
 # Older changes
+## 0.3.2 (2026-08-11)
+* (meistermopper) Use absolute GitHub URLs for language switching links in README files
+* (meistermopper) Remove latest repository and translation badges from README files
+* (meistermopper) Mark stable repository addition as completed in To-Do list
+* (meistermopper) Remove direct npm installation instructions from README files
+* (dependabot) Bump axios from 1.18.1 to 1.19.0
+* (meistermopper) Center adapter logo in README files
+* (meistermopper) Add Weblate translation status badge to README files
+* (meistermopper) Add npm run translate step to release-before-commit script
+* (meistermopper) Replace static latest badge with dynamic iobroker.live badge
+
 ## 0.3.1 (2026-08-04)
 * (meistermopper) Update GitHub Actions in auto-translate workflow to v7
 * (meistermopper) Add Git commit and push authorization rule to AGENTS.md

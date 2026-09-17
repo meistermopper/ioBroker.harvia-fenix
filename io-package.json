@@ -1,7 +1,7 @@
 {
   "common": {
     "name": "harvia-fenix",
-    "version": "0.6.0",
+    "version": "1.0.0",
     "titleLang": {
       "en": "Harvia-Fenix Sauna Control",
       "de": "Harvia-Fenix Saunasteuerung",
@@ -29,6 +29,19 @@
       "zh-cn": "通过 MyHarvia 云端控制 Harvia Fenix 桑拿房"
     },
     "news": {
+      "1.0.0": {
+        "en": "Add AWS AppSync WebSocket real-time push client\nAdd token refresh via /auth/refresh using refreshToken",
+        "de": "AWS AppSync WebSocket Echtzeit-Pushclient hinzufügen\nToken-Refresh über /auth/refresh mit RefreshToken hinzufügen",
+        "ru": "Добавьте push-клиент AWS AppSync WebSocket в реальном времени\nДобавьте обновление токена с помощью /auth/refresh с помощью RefreshToken",
+        "pt": "Adicione o AWS AppSync WebSocket Push\nAdicionar token via /auth/refresh com refreshToken",
+        "nl": "AWS AppSync WebSocket real-time pushclient toevoegen\nTokenvernieuwing toevoegen via /auth/refresh met RefreshToken",
+        "fr": "Ajouter le client push en temps réel AWS AppSync WebSocket\nAjouter un jeton via /auth/refresh avec RefreshToken",
+        "it": "Aggiungi un client push in tempo reale AWS AppSync\nAggiunga il token tramite /auth/refresh",
+        "es": "Añadir cliente push en tiempo real AWS AppSync WebSocket\nAñadir token refresh vía /auth/refresh con RefreshToken",
+        "pl": "Dodaj klienta push w czasie rzeczywistym AWS AppSync WebSocket\nDodaj odświeżanie tokena za pomocą /auth/refresh za pomocą RefreshToken",
+        "uk": "Додайте клієнт AWS AppSync WebSocket в режимі реального часу\nДодайте оновлення токена за допомогою /auth/refresh за допомогою RefreshToken",
+        "zh-cn": "添加 AWS AppSync WebSocket 实时推送\n使用 refreshToken 通过 /auth/refresh 添加令牌刷新"
+      },
       "0.6.0": {
         "en": "Add readyAt, readyAtMessage, timeToTargetFormatted states\nImplement Harvia native 13-interval heating curve calculation\nAdd profiles, activeProfile, and standby time prognosis\nIncrease adapter logo display size in README files to 200px\nAdd breaking change callouts and older tag support to release notes\nAdd automated release notes generator for GitHub releases\nAdd check:repo script and integrate repochecker into test:local\nRestore email in license copyright lines (S4050, S4051)\nFix license section in README to satisfy repo-checker rule W6034",
         "de": "Fügen Sie ReadyAt, ReadyAtMessage, TimeToTarget hinzu\nHarvias native 13-Intervall-Heizkurvenberechnung umsetzen\nProfile, ActiveProfile und Standbyprognose hinzufügen\nAdapterlogo in README-Dateien auf 200 px vergrößern\nCALLOUTS UND ÄLTERE TAGS ZU DEN VERSIONSHINWEISEN HINZUFÜGEN\nAutomatischer Notes-Generator für GitHub-Releases hinzufügen\nCheck:Repo-Skript hinzufügen und in test:local einbinden\nE-Mail im Lizenzcode wiederherstellen (S4050, S4051)\nLizenzabschnitt in README an Repo-Checker-Regel W6034 angepasst",
@@ -106,19 +119,6 @@
         "pl": "Aktualizacja akcji GitHub w przepływie pracy automatycznego tłumaczenia do wersji 7\nDodaj regułę autoryzacji zatwierdzania i przesyłania plików Git do AGENTS.md\nDodaj przepływ pracy automatycznego tłumaczenia dla automatycznych tłumaczeń i18n\nDodaj brakujący link CHANGELOG_OLD do plików README\nNapraw nieprzetłumaczone wpisy wiadomości dla wersji 0.2.8 w pliku io-package.json\nDodaj regułę tłumaczenia common.news do AGENTS.md\nUsuń zbędny znaczek npm i przenieś znaczek Test and Release za baner NPM",
         "uk": "Оновіть дії GitHub у робочому процесі автоматичного перекладу до версії 7\nДодати правило авторизації Git commit та push до AGENTS.md\nДодати робочий процес автоматичного перекладу для автоматичних перекладів i18n\nДодати відсутнє посилання CHANGELOG_OLD до файлів README\nВиправлено неперекладені записи новин для версії 0.2.8 у io-package.json\nДодати правило перекладу common.news до AGENTS.md\nВидалити зайвий значок npm та перемістити значок «Тестування та випуск» після банера NPM",
         "zh-cn": "将自动翻译工作流中的 GitHub Actions 更新至 v7 版本\n在 AGENTS.md 文件中添加 Git 提交和推送授权规则\n添加自动翻译工作流程，实现自动国际化翻译\n在 README 文件中添加缺失的 CHANGELOG_OLD 链接\n修复 io-package.json 中 0.2.8 版本未翻译的新闻条目\n将 common.news 翻译规则添加到 AGENTS.md\n移除多余的 npm 徽章，并将测试和发布徽章移至 npm 横幅之后。"
-      },
-      "0.3.0": {
-        "en": "Add configurable min/max temperature limits and maxDuration in Admin UI",
-        "de": "Hinzufügen von konfigurierbaren min/max Temperaturgrenzen und maxDuration in Admin UI",
-        "ru": "Добавить настраиваемые ограничения температуры min/max и maxDuration в интерфейсе администратора",
-        "pt": "Adicionar limites de temperatura mín/máx configuráveis e maxDuração na interface de administração",
-        "nl": "Voeg configureerbare min/max temperatuur limieten en maxDuur in Admin UI",
-        "fr": "Ajouter des limites de température min/max configurables et maxDurée en UI Admin",
-        "it": "Aggiungere limiti di temperatura minimo/max configurabili e maxDurata in Admin UI",
-        "es": "Añadir límites de temperatura configurables min/max y maxDuración en Admin UI",
-        "pl": "Dodaj konfigurowalne wartości graniczne temperatury min / max i maxSize w Admin UI",
-        "uk": "Додати налаштування мінімуму/макс діапазонів температури та макс.Duration в Admin UI",
-        "zh-cn": "添加可配置的分钟/ 最大温度限值和最高限值"
       }
     },
     "authors": [
