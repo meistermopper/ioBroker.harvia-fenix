@@ -228,7 +228,7 @@ on({ id: 'harvia-fenix.0.info.heatingAnomaly', change: 'ne', val: true }, functi
 ---
 
 ## Changelog
-### **WORK IN PROGRESS**
+### 1.1.0 (2026-09-17)
 * (meistermopper) Add Events & Safety Hub with dedicated events channel and states
 * (meistermopper) Add safety trip detection, alarm indicators, and sliding history
 * (meistermopper) Fix activeProfile endpoint to use PATCH /devices/profile per API spec
@@ -258,14 +258,6 @@ on({ id: 'harvia-fenix.0.info.heatingAnomaly', change: 'ne', val: true }, functi
 * (meistermopper) Add bidirectional heating anomaly detection (too slow / fast)
 * (meistermopper) Update @alcalzone/release-script-plugin-license to 5.2.2
 * (meistermopper) Add Node.js 26 to test matrix
-
-### 0.4.0 (2026-08-13)
-* (meistermopper) Add adaptive heating duration prognosis and anomaly detection
-* (meistermopper) Add dev script shortcut for dev-server watch in package.json
-* (meistermopper) Clarify Partner ID and guest account setup instructions
-* (meistermopper) Document adaptive heating prognosis and anomaly detection
-* (meistermopper) Add strict privacy and anonymization rule to AGENTS.md
-* (meistermopper) Clean up To-Do list and add fun future wishlist items
 
 [Older changelog entries](../../CHANGELOG_OLD.md)
 

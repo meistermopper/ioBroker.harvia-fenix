@@ -1,4 +1,12 @@
 # Older changes
+## 0.4.0 (2026-08-13)
+* (meistermopper) Add adaptive heating duration prognosis and anomaly detection
+* (meistermopper) Add dev script shortcut for dev-server watch in package.json
+* (meistermopper) Clarify Partner ID and guest account setup instructions
+* (meistermopper) Document adaptive heating prognosis and anomaly detection
+* (meistermopper) Add strict privacy and anonymization rule to AGENTS.md
+* (meistermopper) Clean up To-Do list and add fun future wishlist items
+
 ## 0.3.2 (2026-08-11)
 * (meistermopper) Use absolute GitHub URLs for language switching links in README files
 * (meistermopper) Remove latest repository and translation badges from README files
