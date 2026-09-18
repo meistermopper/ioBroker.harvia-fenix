@@ -140,7 +140,7 @@ The adapter maps your sauna's cloud states into structured ioBroker datapoints u
 | `timeToTargetFormatted` | string | `text` | Read-only | Formatted time required to reach target temperature (e.g., `39 min 30 sec`). |
 | `heatingCurve` | string | `json` | Read-only | JSON array of interval heating seconds per 10°C slice for charts/VIS. |
 | `profiles` | string | `json` | Read-only | JSON array of available sauna profiles (e.g., Cozy, etc.). |
-| `activeProfile` | number | `level` | Read/Write | Index of the currently active sauna profile. |
+| `activeProfile` | number | `level` | Read/Write | Index of the currently active sauna profile (`0` = mild, `1` = cozy, `2` = hot). |
 | `events.lastEvent` | string | `text` | Read-only | Code or identifier of the latest event received from Harvia Events Service. |
 | `events.lastEventType` | string | `text` | Read-only | Category of the latest event (`SAFETY`, `ERROR`, `SYSTEM`, etc.). |
 | `events.lastEventSeverity` | string | `text` | Read-only | Severity level of the latest event (`info`, `warn`, `error`, `critical`). |
@@ -190,13 +190,16 @@ on({ id: 'harvia-fenix.0.info.heatingAnomaly', change: 'ne', val: true }, functi
 
 ### 3. Sauna Profiles (`profiles` & `activeProfile`)
 * **Available Profiles (`profiles`):**  
-  Reflects the pre-configured sauna programs from your **MyHarvia 2 app** (e.g. *Classic Finnish*, *Relax*, etc.) as a JSON array including preset target temperatures and timers.
+  Reflects the pre-configured sauna programs from your **MyHarvia 2 app** (e.g. *Mild*, *Cozy*, *Hot*) as a JSON array including preset target temperatures and timers.
 * **Switching Profiles (`activeProfile`):**  
-  This datapoint is **read/write** using a 0-based index (`0` for the first profile in the list, `1` for the second, etc.):
+  This datapoint is **read/write** using a 0-based index:
+  - `0` = **mild**
+  - `1` = **cozy**
+  - `2` = **hot**
   - Writing a number to `activeProfile` sends a profile change request directly to the Harvia cloud (`PATCH /devices/profile`), automatically applying the profile's preset target temperature and session duration to the sauna cabin.
   - **Example (Script):**
   ```javascript
-  // Switch to the second sauna profile (e.g. "Evening Aufguss")
+  // Switch to the cozy sauna profile
   setState('harvia-fenix.0.activeProfile', 1);
   ```
 
@@ -228,6 +231,10 @@ on({ id: 'harvia-fenix.0.info.heatingAnomaly', change: 'ne', val: true }, functi
 ---
 
 ## Changelog
+
+### **WORK IN PROGRESS**
+* (meistermopper) Document activeProfile standard index mapping (0=mild, 1=cozy, 2=hot)
+
 ### 1.1.0 (2026-09-17)
 * (meistermopper) Add Events & Safety Hub with dedicated events channel and states
 * (meistermopper) Add safety trip detection, alarm indicators, and sliding history

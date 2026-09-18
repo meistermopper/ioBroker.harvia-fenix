@@ -140,7 +140,7 @@ Danach steuert das Gast-Konto die Sauna dauerhaft und zuverlässig an!
 | `timeToTargetFormatted` | string | `text` | Nur Lesen | Formatierte verbleibende Aufheizzeit (z. B. `39 min 30 sec`). |
 | `heatingCurve` | string | `json` | Nur Lesen | JSON-Array der Stützstellen-Aufheizzeiten pro 10°C-Intervall für VIS/Diagramme. |
 | `profiles` | string | `json` | Nur Lesen | JSON-Array der verfügbaren Saunaprofile (z. B. Cozy, etc.). |
-| `activeProfile` | number | `level` | Lesen/Schreiben | Index des aktuell aktiven Saunaprofils. |
+| `activeProfile` | number | `level` | Lesen/Schreiben | Index des aktuell aktiven Saunaprofils (`0` = mild, `1` = cozy, `2` = hot). |
 | `events.lastEvent` | string | `text` | Nur Lesen | Code oder Bezeichner des letzten Ereignisses aus dem Harvia Events Service. |
 | `events.lastEventType` | string | `text` | Nur Lesen | Kategorie des letzten Ereignisses (`SAFETY`, `ERROR`, `SYSTEM` etc.). |
 | `events.lastEventSeverity` | string | `text` | Nur Lesen | Schweregrad des letzten Ereignisses (`info`, `warn`, `error`, `critical`). |
@@ -190,13 +190,16 @@ on({ id: 'harvia-fenix.0.info.heatingAnomaly', change: 'ne', val: true }, functi
 
 ### 3. Saunaprofile & Programmwahl (`profiles` & `activeProfile`)
 * **Verfügbare Profile (`profiles`):**  
-  Harvia Fenix unterstützt benutzerdefinierte und vordefinierte Saunaprogramme (z. B. *Klassisch Finnisch*, *Sanft*, *Bio-Sauna*), die in der **MyHarvia 2 App** konfiguriert werden. Der Adapter spiegelt diese Liste als strukturiertes JSON in `profiles` (inklusive Zieltemperatur und Dauer).
+  Harvia Fenix unterstützt vordefinierte und benutzerdefinierte Saunaprogramme (z. B. *Mild*, *Cozy*, *Hot*), die in der **MyHarvia 2 App** konfiguriert werden. Der Adapter spiegelt diese Liste als strukturiertes JSON in `profiles` (inklusive Zieltemperatur und Dauer).
 * **Profil aktivieren (`activeProfile`):**  
-  Dieser Datenpunkt ist **schreibbar** und verwendet einen 0-basierten Index (`0` = erstes Profil in der Liste, `1` = zweites Profil usw.):
+  Dieser Datenpunkt ist **schreibbar** und verwendet einen 0-basierten Index:
+  - `0` = **mild**
+  - `1` = **cozy**
+  - `2` = **hot**
   - Beim Ändern des Werts (z. B. über VIS, Buttons oder Skripte) sendet der Adapter den Befehl direkt an die Harvia-Cloud (`PATCH /devices/profile`), woraufhin die Sauna die Solltemperatur und Heizdauer des gewählten Profils übernimmt.
   - **Beispiel (Skript):**
   ```javascript
-  // Wechselt auf das zweite Saunaprofil (z. B. "Feierabend-Aufguss")
+  // Wechselt auf das Cozy-Saunaprofil
   setState('harvia-fenix.0.activeProfile', 1);
   ```
 
@@ -230,6 +233,7 @@ on({ id: 'harvia-fenix.0.info.heatingAnomaly', change: 'ne', val: true }, functi
 ## Änderungsprotokoll (Changelog)
 
 ### **WORK IN PROGRESS**
+* (meistermopper) Standard-Zuordnung fuer activeProfile (0=mild, 1=cozy, 2=hot) dokumentiert
 
 ### 1.1.0 (2026-09-17)
 * (meistermopper) Events & Safety Hub mit eigenem events-Channel und Datenpunkten
