@@ -233,6 +233,7 @@ on({ id: 'harvia-fenix.0.info.heatingAnomaly', change: 'ne', val: true }, functi
 ## Changelog
 
 ### **WORK IN PROGRESS**
+* (meistermopper) Fix remoteControl flapping on push measurement updates
 * (meistermopper) Document activeProfile standard index mapping (0=mild, 1=cozy, 2=hot)
 
 ### 1.1.0 (2026-09-17)

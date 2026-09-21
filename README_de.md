@@ -233,6 +233,7 @@ on({ id: 'harvia-fenix.0.info.heatingAnomaly', change: 'ne', val: true }, functi
 ## Änderungsprotokoll (Changelog)
 
 ### **WORK IN PROGRESS**
+* (meistermopper) Flackern von remoteControl bei Push-Messwert-Updates behoben
 * (meistermopper) Standard-Zuordnung fuer activeProfile (0=mild, 1=cozy, 2=hot) dokumentiert
 
 ### 1.1.0 (2026-09-17)

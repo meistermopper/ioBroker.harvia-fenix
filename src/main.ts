@@ -1178,19 +1178,33 @@ export class HarviaFenix extends utils.Adapter {
 		await this.updateBooleanState('lightOn', ['lightOn', 'lightState', 'light', 'light_on'], p);
 
 		// --- REMOTECONTROL & ONLINE LOGIC ---
-		let isRemoteReady = false;
-		if (deviceState && deviceState.state && deviceState.state.remoteAllowed !== undefined) {
-			isRemoteReady =
-				deviceState.state.remoteAllowed === 1 ||
-				deviceState.state.remoteAllowed === true ||
-				deviceState.state.remoteAllowed === '1' ||
-				deviceState.state.remoteAllowed === 'true';
+		const rawRemoteAllowed =
+			deviceState?.state?.remoteAllowed ??
+			stateReported?.remoteAllowed ??
+			deviceState?.cabinState?.remoteAllowed ??
+			cabinReported?.remoteAllowed ??
+			statusPayload.remoteControlState ??
+			HarviaFenix.getApiValue(statusPayload, [
+				'remoteAllowed',
+				'remoteControlState',
+				'remote_allowed',
+				'remoteControl',
+			]);
+
+		if (rawRemoteAllowed !== undefined) {
+			let isRemoteReady = HarviaFenix.isTrue(rawRemoteAllowed);
+			// Fallback safety link: open door blocks remote start
+			if (!isDoorSafe) {
+				isRemoteReady = false;
+			}
+			await this.setState('remoteControl', isRemoteReady, true);
+		} else if (!isDoorSafe) {
+			// Fallback safety link: open door immediately blocks remote start even without remoteAllowed in payload
+			const currentRemote = await this.getStateAsync('remoteControl');
+			if (currentRemote?.val !== false) {
+				await this.setState('remoteControl', false, true);
+			}
 		}
-		// Fallback safety link: open door blocks remote start
-		if (!isDoorSafe) {
-			isRemoteReady = false;
-		}
-		await this.setState('remoteControl', isRemoteReady, true);
 
 		// Online status: from deviceState connectionState or statusPayload online flag
 		if (deviceState?.connectionState?.connected !== undefined) {
