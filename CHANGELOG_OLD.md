@@ -1,4 +1,9 @@
 # Older changes
+## 0.5.0 (2026-09-09)
+* (meistermopper) Add bidirectional heating anomaly detection (too slow / fast)
+* (meistermopper) Update @alcalzone/release-script-plugin-license to 5.2.2
+* (meistermopper) Add Node.js 26 to test matrix
+
 ## 0.4.0 (2026-08-13)
 * (meistermopper) Add adaptive heating duration prognosis and anomaly detection
 * (meistermopper) Add dev script shortcut for dev-server watch in package.json
