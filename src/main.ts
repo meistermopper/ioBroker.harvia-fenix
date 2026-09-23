@@ -1620,6 +1620,7 @@ export class HarviaFenix extends utils.Adapter {
 		let success = false;
 		let lastError: unknown = null;
 		let lastFailureReason = '';
+		let authRetries = 0;
 
 		const maxAttempts = 3;
 		const delayMs = 1500;
@@ -1776,16 +1777,20 @@ export class HarviaFenix extends utils.Adapter {
 						isAuthError = true;
 					}
 
-					if (isAuthError) {
+					if (isAuthError && authRetries < 1) {
+						authRetries++;
 						this.log.warn(
 							`Token expired or unauthorized during control (Attempt ${attempt}/${maxAttempts}), triggering re-login...`,
 						);
 						const loginSuccess = await this.login();
 						if (loginSuccess) {
 							this.log.info('Re-login successful. Retrying current attempt with new token...');
-							attempt--; // Reset attempt counter for this iteration
+							attempt--; // Retry this attempt with fresh token (limited to one auth retry)
 							continue;
 						}
+					} else if (isAuthError) {
+						this.log.error('Re-login already attempted. Aborting command.');
+						break;
 					}
 
 					if (axios.isAxiosError(err) && err.response?.status === 403) {

@@ -231,6 +231,10 @@ on({ id: 'harvia-fenix.0.info.heatingAnomaly', change: 'ne', val: true }, functi
 ---
 
 ## Changelog
+
+### **WORK IN PROGRESS**
+* (meistermopper) Fix potential infinite loop in auth retry logic
+
 ### 1.1.1 (2026-09-21)
 * (meistermopper) Fix remoteControl flapping on push measurement updates
 * (meistermopper) Document activeProfile standard index mapping (0=mild, 1=cozy, 2=hot)

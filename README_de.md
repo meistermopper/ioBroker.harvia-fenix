@@ -233,6 +233,7 @@ on({ id: 'harvia-fenix.0.info.heatingAnomaly', change: 'ne', val: true }, functi
 ## Änderungsprotokoll (Changelog)
 
 ### **WORK IN PROGRESS**
+* (meistermopper) Endlosschleifen-Risiko in Auth-Retry-Logik behoben
 
 ### 1.1.1 (2026-09-21)
 * (meistermopper) Flackern von remoteControl bei Push-Messwert-Updates behoben

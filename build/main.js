@@ -1287,6 +1287,7 @@ class HarviaFenix extends utils.Adapter {
         let success = false;
         let lastError = null;
         let lastFailureReason = '';
+        let authRetries = 0;
         const maxAttempts = 3;
         const delayMs = 1500;
         try {
@@ -1424,14 +1425,19 @@ class HarviaFenix extends utils.Adapter {
                     if (axios_1.default.isAxiosError(err) && (err.response?.status === 401 || err.response?.status === 403)) {
                         isAuthError = true;
                     }
-                    if (isAuthError) {
+                    if (isAuthError && authRetries < 1) {
+                        authRetries++;
                         this.log.warn(`Token expired or unauthorized during control (Attempt ${attempt}/${maxAttempts}), triggering re-login...`);
                         const loginSuccess = await this.login();
                         if (loginSuccess) {
                             this.log.info('Re-login successful. Retrying current attempt with new token...');
-                            attempt--; // Reset attempt counter for this iteration
+                            attempt--; // Retry this attempt with fresh token (limited to one auth retry)
                             continue;
                         }
+                    }
+                    else if (isAuthError) {
+                        this.log.error('Re-login already attempted. Aborting command.');
+                        break;
                     }
                     if (axios_1.default.isAxiosError(err) && err.response?.status === 403) {
                         this.log.error('Action blocked (403 Forbidden). Remote start authorization (Safety Loop) at panel might not be active.');
