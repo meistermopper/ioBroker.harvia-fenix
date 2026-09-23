@@ -18,7 +18,7 @@ This file defines style guidelines, constraints, and general instructions for AI
 
 ## 2. Object & State Management
 - **Rule:** Never call `this.setState()` or `this.setStateAsync()` on states that do not exist in the ioBroker object database.
-- **Static States:** If a state is static, it must be defined in [io-package.json](file:///c:/Users/thoma/dev/Harvia_Fenix/iobroker.harvia-fenix/io-package.json) under `instanceObjects` first.
+- **Static States:** If a state is static, it must be defined in [io-package.json](file:///c:/Users/thoma/dev/active/ioBroker.harvia-fenix/io-package.json) under `instanceObjects` first.
 - **Dynamic States:** If states are created dynamically (e.g., during polling or device discovery), you MUST call `this.setObjectNotExistsAsync()` before calling `this.setStateAsync()`.
 - **Strict Metadata:** Every new object configuration must contain a valid `common` section specifying:
   - `type` (e.g., `'string'`, `'number'`, `'boolean'`)
@@ -66,17 +66,25 @@ This file defines style guidelines, constraints, and general instructions for AI
   ```
   This is required to comply with the project's Biome linting rules (`useNodejsImportProtocol`).
 
-## 9. Documentation & Changelog Guidelines (README & WIP Check)
+## 9. Documentation & Changelog Guidelines (README, WIP Check & Docs Sync)
 - **Strict README Language Separation:** `README.md` MUST be written using pure English text and must not mix languages. German text is strictly confined to `README_de.md` (or `README.de.md`).
 - **Strict Privacy & Anonymization:** NEVER include real personal data, private email addresses, passwords, tokens, API keys, or real hardware/device IDs (e.g., real UUIDs, serial numbers, MAC addresses) in any documentation files (`README.md`, `README_de.md`, `docs/`, examples, scripts). ALWAYS use obvious anonymized placeholders (e.g., `xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx`, `user@example.com`, `00:11:22:33:44:55`).
-- **WIP Changelog Constraint:** Whenever you make changes to the repository (source code, documentation, scripts), you MUST add a descriptive bullet point of your changes under the `### **WORK IN PROGRESS**` section in both [README.md](file:///c:/Users/thoma/dev/Harvia_Fenix/iobroker.harvia-fenix/README.md) and [README_de.md](file:///c:/Users/thoma/dev/Harvia_Fenix/iobroker.harvia-fenix/README_de.md).
+- **WIP Changelog Constraint:** Whenever you make changes to the repository (source code, documentation, scripts), you MUST add a descriptive bullet point of your changes under the `### **WORK IN PROGRESS**` section in both [README.md](file:///c:/Users/thoma/dev/active/ioBroker.harvia-fenix/README.md) and [README_de.md](file:///c:/Users/thoma/dev/active/ioBroker.harvia-fenix/README_de.md).
 - **Line Length Constraint:** Each line under the `### **WORK IN PROGRESS**` section must be strictly less than **100 characters** in length. The git release commit uses commitlint (`body-max-line-length`), which will reject commits with changelog lines exceeding this limit, aborting and rolling back the release.
-- **Clean Worktree:** Ensure all working tree changes are committed or stashed before running `npm run release`. Because the build process dynamically updates the `docs` directory (which Git may detect as modified due to line endings or regeneration), you should run the release command with the `--all` option (i.e. `npm run release -- --all`) to include these generated files in the release commit.
-- **Why:** The release script executes a verification script (`check-wip.js`) which fails if the WIP section is empty, and checks that no uncommitted files exist before proceeding, blocking the build otherwise.
+- **Documentation Synchronization (`sync-docs.js`):** Whenever `README.md` or `README_de.md` is updated, always run `node scripts/sync-docs.js`. This script synchronizes root READMEs into `docs/en/README.md` and `docs/de/README.md`, rewrites internal relative links, and ensures documentation parity.
+- **WIP Verification (`check-wip.js`):** Always verify the WIP changelog before committing by running `node scripts/check-wip.js`. It checks that the `### **WORK IN PROGRESS**` section exists and contains at least one non-empty entry in both README files.
+- **Clean Worktree for Releases:** Ensure all working tree changes are committed or stashed before running `npm run release`. Because the release build process dynamically updates the `docs` directory, always run release with the `--all` option (`npm run release -- --all`).
 
-## 10. Git Commit & Push Authorization
+## 10. Git Commit & Push Authorization and Workflow
 - **Constraint:** AI agents MUST NEVER perform `git commit` or `git push` operations automatically without explicit, prior user approval in the chat.
 - **Workflow:** Always prepare code modifications locally and ask the user for explicit confirmation before staging, committing, or pushing changes to remote repositories.
+- **Standard Commit & Push Procedure:** Once explicit user approval is received, execute the following steps in sequence:
+  1. **Maintain WIP:** Ensure both [README.md](file:///c:/Users/thoma/dev/active/ioBroker.harvia-fenix/README.md) and [README_de.md](file:///c:/Users/thoma/dev/active/ioBroker.harvia-fenix/README_de.md) have entries under `### **WORK IN PROGRESS**` (< 100 chars/line).
+  2. **Synchronize Docs:** Run `node scripts/sync-docs.js` to update `docs/`.
+  3. **Verify WIP:** Run `node scripts/check-wip.js` to ensure the changelog check passes.
+  4. **Run Verification / Tests:** Run `npm run test:local` to ensure Biome, TypeScript compiler, and tests all pass cleanly.
+  5. **Stage & Commit:** Stage all modified and generated files (`git add -A`) and commit with a Conventional Commit message (e.g. `fix: ...`, `feat: ...`, `docs: ...`). Note: The `pre-commit` Husky hook will execute `npm run lint`.
+  6. **Push to Remote:** Run `git push`. Note: The `pre-push` Husky hook will execute `npm run test:local`. If rejected due to upstream changes (`non-fast-forward`), run `git pull --rebase` and push again.
 
 ## 11. Active Links for References (Commits, Releases, Issues, Files)
 - **Constraint:** Whenever referencing commits, releases, issues, PRs, external resources, or workspace files (in chat, documentation, or Obsidian project notes/logbooks), always format them as active, clickable Markdown links instead of plain text or simple inline code tags.
