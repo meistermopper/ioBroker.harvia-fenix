@@ -234,6 +234,8 @@ on({ id: 'harvia-fenix.0.info.heatingAnomaly', change: 'ne', val: true }, functi
 
 ### **WORK IN PROGRESS**
 * (meistermopper) Endlosschleifen-Risiko in Auth-Retry-Logik behoben
+* (meistermopper) @iobroker/testing auf Version 6.3.0 aktualisiert (W0037)
+* (meistermopper) Adapter-sichere Timer-Methoden im Push-Client genutzt (S5005)
 
 ### 1.1.1 (2026-09-21)
 * (meistermopper) Flackern von remoteControl bei Push-Messwert-Updates behoben

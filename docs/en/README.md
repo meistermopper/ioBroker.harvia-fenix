@@ -234,6 +234,8 @@ on({ id: 'harvia-fenix.0.info.heatingAnomaly', change: 'ne', val: true }, functi
 
 ### **WORK IN PROGRESS**
 * (meistermopper) Fix potential infinite loop in auth retry logic
+* (meistermopper) Update @iobroker/testing to 6.3.0 (W0037)
+* (meistermopper) Use adapter timer methods in push client (S5005)
 
 ### 1.1.1 (2026-09-21)
 * (meistermopper) Fix remoteControl flapping on push measurement updates

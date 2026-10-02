@@ -48,6 +48,8 @@ class AppSyncFeedConnection extends node_events_1.default {
     getDeviceId;
     getIdToken;
     log;
+    adapterSetTimeout;
+    adapterClearTimeout;
     ws = null;
     isRunning = false;
     isSubscribed = false;
@@ -66,8 +68,10 @@ class AppSyncFeedConnection extends node_events_1.default {
      * @param getDeviceId - Callback to fetch current device ID.
      * @param getIdToken - Callback to fetch valid JWT token.
      * @param log - Logger.
+     * @param setTimeoutFn - Optional adapter setTimeout function.
+     * @param clearTimeoutFn - Optional adapter clearTimeout function.
      */
-    constructor(name, wssUrl, httpsUrl, query, getDeviceId, getIdToken, log) {
+    constructor(name, wssUrl, httpsUrl, query, getDeviceId, getIdToken, log, setTimeoutFn, clearTimeoutFn) {
         super();
         this.name = name;
         this.wssUrl = wssUrl;
@@ -81,6 +85,8 @@ class AppSyncFeedConnection extends node_events_1.default {
         this.getDeviceId = getDeviceId;
         this.getIdToken = getIdToken;
         this.log = log;
+        this.adapterSetTimeout = setTimeoutFn;
+        this.adapterClearTimeout = clearTimeoutFn;
         this.subscriptionId = `sub-${name}-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`;
     }
     /**
@@ -106,11 +112,11 @@ class AppSyncFeedConnection extends node_events_1.default {
         this.isRunning = false;
         this.isSubscribed = false;
         if (this.reconnectTimer) {
-            clearTimeout(this.reconnectTimer);
+            this.clearTimer(this.reconnectTimer);
             this.reconnectTimer = null;
         }
         if (this.keepAliveTimer) {
-            clearTimeout(this.keepAliveTimer);
+            this.clearTimer(this.keepAliveTimer);
             this.keepAliveTimer = null;
         }
         if (this.ws) {
@@ -275,13 +281,31 @@ class AppSyncFeedConnection extends node_events_1.default {
             this.log.error(`[Push ${this.name}] Failed to send subscription start: ${String(err)}`);
         }
     }
+    setTimer(callback, ms) {
+        if (this.adapterSetTimeout) {
+            return this.adapterSetTimeout(callback, ms);
+        }
+        return global.setTimeout(callback, ms);
+    }
+    clearTimer(timerId) {
+        if (!timerId) {
+            return;
+        }
+        if (this.adapterClearTimeout) {
+            this.adapterClearTimeout(timerId);
+        }
+        else {
+            clearTimeout(timerId);
+        }
+    }
     resetKeepAliveWatchdog() {
         if (this.keepAliveTimer) {
-            clearTimeout(this.keepAliveTimer);
+            this.clearTimer(this.keepAliveTimer);
+            this.keepAliveTimer = null;
         }
         // If no keep-alive or data received within timeout + 15s grace period, reconnect
         const timeout = Math.max(30000, this.keepAliveTimeoutMs + 15000);
-        this.keepAliveTimer = setTimeout(() => {
+        this.keepAliveTimer = this.setTimer(() => {
             this.log.warn(`[Push ${this.name}] Keep-alive timeout (${timeout}ms elapsed without signal). Reconnecting...`);
             if (this.ws) {
                 try {
@@ -308,7 +332,7 @@ class AppSyncFeedConnection extends node_events_1.default {
             delay = Math.min(60000, 2 ** this.reconnectAttempts * 1000 + Math.random() * 1000);
         }
         this.log.debug(`[Push ${this.name}] Reconnecting in ${(delay / 1000).toFixed(1)} seconds (Attempt ${this.reconnectAttempts})`);
-        this.reconnectTimer = setTimeout(() => {
+        this.reconnectTimer = this.setTimer(() => {
             this.reconnectTimer = null;
             void this.connect();
         }, delay);
@@ -331,8 +355,8 @@ class HarviaPushClient extends node_events_1.default {
         super();
         this.currentDeviceId = options.deviceId;
         this.log = options.log;
-        this.deviceFeed = new AppSyncFeedConnection('DeviceState', options.deviceWssUrl, options.deviceHttpsUrl, DEVICE_STATE_SUBSCRIPTION, () => this.currentDeviceId, options.getIdToken, options.log);
-        this.dataFeed = new AppSyncFeedConnection('Measurements', options.dataWssUrl, options.dataHttpsUrl, MEASUREMENTS_SUBSCRIPTION, () => this.currentDeviceId, options.getIdToken, options.log);
+        this.deviceFeed = new AppSyncFeedConnection('DeviceState', options.deviceWssUrl, options.deviceHttpsUrl, DEVICE_STATE_SUBSCRIPTION, () => this.currentDeviceId, options.getIdToken, options.log, options.setTimeout, options.clearTimeout);
+        this.dataFeed = new AppSyncFeedConnection('Measurements', options.dataWssUrl, options.dataHttpsUrl, MEASUREMENTS_SUBSCRIPTION, () => this.currentDeviceId, options.getIdToken, options.log, options.setTimeout, options.clearTimeout);
         this.deviceFeed.on('data', (data) => this.handleDeviceStateData(data));
         this.dataFeed.on('data', (data) => this.handleMeasurementsData(data));
         this.deviceFeed.on('connectionStatus', () => this.evaluateConnectionStatus());

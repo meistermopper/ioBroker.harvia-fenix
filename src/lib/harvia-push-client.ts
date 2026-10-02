@@ -23,7 +23,16 @@ export interface HarviaPushClientOptions {
 		warn: (msg: string) => void;
 		error: (msg: string) => void;
 	};
+	/** Optional adapter-safe setTimeout function. */
+	setTimeout?: (callback: () => void, ms: number) => PushClientTimer | undefined;
+	/** Optional adapter-safe clearTimeout function. */
+	clearTimeout?: (timeoutId: PushClientTimer | undefined) => void;
 }
+
+/**
+ * Timer handle type compatible with ioBroker adapter and Node.js timeouts.
+ */
+export type PushClientTimer = ioBroker.Timeout | NodeJS.Timeout;
 
 /**
  * Push payload for device state updates.
@@ -103,14 +112,16 @@ class AppSyncFeedConnection extends EventEmitter {
 	private getDeviceId: () => string;
 	private getIdToken: () => Promise<string>;
 	private log: HarviaPushClientOptions['log'];
+	private adapterSetTimeout?: HarviaPushClientOptions['setTimeout'];
+	private adapterClearTimeout?: HarviaPushClientOptions['clearTimeout'];
 
 	private ws: WebSocket | null = null;
 	private isRunning = false;
 	private isSubscribed = false;
 	private subscriptionId: string;
 	private reconnectAttempts = 0;
-	private reconnectTimer: NodeJS.Timeout | null = null;
-	private keepAliveTimer: NodeJS.Timeout | null = null;
+	private reconnectTimer: PushClientTimer | null | undefined = null;
+	private keepAliveTimer: PushClientTimer | null | undefined = null;
 	private keepAliveTimeoutMs = 300000;
 
 	/**
@@ -123,6 +134,8 @@ class AppSyncFeedConnection extends EventEmitter {
 	 * @param getDeviceId - Callback to fetch current device ID.
 	 * @param getIdToken - Callback to fetch valid JWT token.
 	 * @param log - Logger.
+	 * @param setTimeoutFn - Optional adapter setTimeout function.
+	 * @param clearTimeoutFn - Optional adapter clearTimeout function.
 	 */
 	public constructor(
 		name: string,
@@ -132,6 +145,8 @@ class AppSyncFeedConnection extends EventEmitter {
 		getDeviceId: () => string,
 		getIdToken: () => Promise<string>,
 		log: HarviaPushClientOptions['log'],
+		setTimeoutFn?: HarviaPushClientOptions['setTimeout'],
+		clearTimeoutFn?: HarviaPushClientOptions['clearTimeout'],
 	) {
 		super();
 		this.name = name;
@@ -145,6 +160,8 @@ class AppSyncFeedConnection extends EventEmitter {
 		this.getDeviceId = getDeviceId;
 		this.getIdToken = getIdToken;
 		this.log = log;
+		this.adapterSetTimeout = setTimeoutFn;
+		this.adapterClearTimeout = clearTimeoutFn;
 		this.subscriptionId = `sub-${name}-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`;
 	}
 
@@ -173,11 +190,11 @@ class AppSyncFeedConnection extends EventEmitter {
 		this.isRunning = false;
 		this.isSubscribed = false;
 		if (this.reconnectTimer) {
-			clearTimeout(this.reconnectTimer);
+			this.clearTimer(this.reconnectTimer);
 			this.reconnectTimer = null;
 		}
 		if (this.keepAliveTimer) {
-			clearTimeout(this.keepAliveTimer);
+			this.clearTimer(this.keepAliveTimer);
 			this.keepAliveTimer = null;
 		}
 		if (this.ws) {
@@ -355,13 +372,32 @@ class AppSyncFeedConnection extends EventEmitter {
 		}
 	}
 
+	private setTimer(callback: () => void, ms: number): PushClientTimer | undefined {
+		if (this.adapterSetTimeout) {
+			return this.adapterSetTimeout(callback, ms);
+		}
+		return global.setTimeout(callback, ms);
+	}
+
+	private clearTimer(timerId: PushClientTimer | null | undefined): void {
+		if (!timerId) {
+			return;
+		}
+		if (this.adapterClearTimeout) {
+			this.adapterClearTimeout(timerId);
+		} else {
+			clearTimeout(timerId);
+		}
+	}
+
 	private resetKeepAliveWatchdog(): void {
 		if (this.keepAliveTimer) {
-			clearTimeout(this.keepAliveTimer);
+			this.clearTimer(this.keepAliveTimer);
+			this.keepAliveTimer = null;
 		}
 		// If no keep-alive or data received within timeout + 15s grace period, reconnect
 		const timeout = Math.max(30000, this.keepAliveTimeoutMs + 15000);
-		this.keepAliveTimer = setTimeout(() => {
+		this.keepAliveTimer = this.setTimer(() => {
 			this.log.warn(
 				`[Push ${this.name}] Keep-alive timeout (${timeout}ms elapsed without signal). Reconnecting...`,
 			);
@@ -393,7 +429,7 @@ class AppSyncFeedConnection extends EventEmitter {
 		this.log.debug(
 			`[Push ${this.name}] Reconnecting in ${(delay / 1000).toFixed(1)} seconds (Attempt ${this.reconnectAttempts})`,
 		);
-		this.reconnectTimer = setTimeout(() => {
+		this.reconnectTimer = this.setTimer(() => {
 			this.reconnectTimer = null;
 			void this.connect();
 		}, delay);
@@ -427,6 +463,8 @@ export class HarviaPushClient extends EventEmitter {
 			() => this.currentDeviceId,
 			options.getIdToken,
 			options.log,
+			options.setTimeout,
+			options.clearTimeout,
 		);
 
 		this.dataFeed = new AppSyncFeedConnection(
@@ -437,6 +475,8 @@ export class HarviaPushClient extends EventEmitter {
 			() => this.currentDeviceId,
 			options.getIdToken,
 			options.log,
+			options.setTimeout,
+			options.clearTimeout,
 		);
 
 		this.deviceFeed.on('data', (data: Record<string, unknown>) => this.handleDeviceStateData(data));

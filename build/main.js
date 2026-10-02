@@ -449,6 +449,8 @@ class HarviaFenix extends utils.Adapter {
                 warn: (msg) => this.log.warn(msg),
                 error: (msg) => this.log.error(msg),
             },
+            setTimeout: (callback, ms) => this.setTimeout(callback, ms),
+            clearTimeout: timeoutId => timeoutId && this.clearTimeout(timeoutId),
         });
         this.pushClient.on('connectionStatus', (connected) => {
             this.isPushConnected = connected;

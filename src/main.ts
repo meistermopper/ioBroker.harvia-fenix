@@ -600,6 +600,8 @@ export class HarviaFenix extends utils.Adapter {
 				warn: (msg: string) => this.log.warn(msg),
 				error: (msg: string) => this.log.error(msg),
 			},
+			setTimeout: (callback, ms) => this.setTimeout(callback, ms),
+			clearTimeout: timeoutId => timeoutId && this.clearTimeout(timeoutId as ioBroker.Timeout),
 		});
 
 		this.pushClient.on('connectionStatus', (connected: boolean) => {
