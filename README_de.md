@@ -233,6 +233,8 @@ on({ id: 'harvia-fenix.0.info.heatingAnomaly', change: 'ne', val: true }, functi
 ## Änderungsprotokoll (Changelog)
 
 ### **WORK IN PROGRESS**
+
+### 1.1.2 (2026-10-02)
 * (meistermopper) Endlosschleifen-Risiko in Auth-Retry-Logik behoben
 * (meistermopper) @iobroker/testing auf Version 6.3.0 aktualisiert (W0037)
 * (meistermopper) Adapter-sichere Timer-Methoden im Push-Client genutzt (S5005)
@@ -261,11 +263,6 @@ on({ id: 'harvia-fenix.0.info.heatingAnomaly', change: 'ne', val: true }, functi
 * (meistermopper) check:repo Skript hinzugefügt und in test:local integriert
 * (meistermopper) E-Mail in Lizenz-Copyrightzeilen wiederhergestellt (S4050, S4051)
 * (meistermopper) Lizenzabschnitt in README gemäß Repochecker-Regel W6034 korrigiert
-
-### 0.5.1 (2026-09-12)
-* (meistermopper) Adapter-Logo durch MyFenix-Hommage ersetzt
-* (meistermopper) Aktualisiere @iobroker/adapter-core auf 3.4.3 und @iobroker/testing auf 6.2.1
-* (meistermopper) Behebe Mocha 12 Instanziierung im Unit-Test Runner unter Node 22
 
 [Ältere Einträge können hier gefunden werden](CHANGELOG_OLD.md)
 

@@ -1,7 +1,7 @@
 {
   "common": {
     "name": "harvia-fenix",
-    "version": "1.1.1",
+    "version": "1.1.2",
     "titleLang": {
       "en": "Harvia-Fenix Sauna Control",
       "de": "Harvia-Fenix Saunasteuerung",
@@ -29,6 +29,19 @@
       "zh-cn": "通过 MyHarvia 云端控制 Harvia Fenix 桑拿房"
     },
     "news": {
+      "1.1.2": {
+        "en": "Fix potential infinite loop in auth retry logic\nUpdate @iobroker/testing to 6.3.0 (W0037)\nUse adapter timer methods in push client (S5005)",
+        "de": "Mögliche Endlosschleife in Auth Retry Logic behoben\nUpdate @iobroker /test auf 6.3.0 (W0037)\nAdaptertimer im Push-Client verwenden (S5005)",
+        "ru": "Исправьте потенциальный бесконечный цикл в логике повтора аутентификации\nОбновите @iobroker /testing до 6.3.0 (W0037)\nИспользуйте методы таймера адаптера в push-клиенте (S5005)",
+        "pt": "Corrige um potencial loop infinito na lógica\nAtualize @iobroker /testing à 6.3.0 (W0037)\nUse métodos de timer no cliente push (S5005)",
+        "nl": "Potentiële oneindige lus in de logica voor het opnieuw proberen van authenticaties corrigeren\nUpdate @iobroker /testing naar 6.3.0 (W0037)\nGebruik adaptertimermethoden in de push-client (S5005)",
+        "fr": "Corriger une boucle infinie dans Auth Retry Logic\nMise à jour @iobroker /testing en 6.3.0 (W0037)\nUtilisez Adapter Timer dans le client Push (S5005)",
+        "it": "Risolve un potenziale ciclo infinito di auth retry\nAggiorna @iobroker /testing a 6.3.0 (W0037)\nUsa l'adattatore timer nel client push (S5005)",
+        "es": "Corrige un posible bucle infinito en la lógica de autenticación\nActualice @iobroker /testing a 6.3.0 (W0037)\nUse el método del temporizador en el cliente push (S5005)",
+        "pl": "Napraw potencjalną nieskończoną pętlę w logice ponownej próby auth\nZaktualizuj @iobroker /testing do wersji 6.3.0 (W0037)\nUżywanie metod timera adaptera w kliencie push (S5005)",
+        "uk": "Виправте потенційний нескінченний цикл у логіці повторної спроби авторизації\nОновлення @iobroker /тестування до 6.3.0 (W0037)\nВикористання методів таймера адаптера в push-клієнті (S5005)",
+        "zh-cn": "修复身份验证重试逻辑中潜在的无限循环\n将 @iobroker /testing 更新到 6.3.0 (W0037)\n在推送客户端中使用适配器计时器方法 (S5005)"
+      },
       "1.1.1": {
         "en": "Fix remoteControl flapping on push measurement updates\nDocument activeProfile standard index mapping (0=mild, 1=cozy, 2=hot)",
         "de": "Fix, dass die Fernbedienung bei Push-Messdaten flattert\nActiveProfile-Standardindex-Mapping dokumentieren (0=mild, 1=gemütlich, 2=heiß)",
@@ -106,19 +119,6 @@
         "pl": "Dodaj dwukierunkowe wykrywanie anomalii ogrzewania (zbyt wolne/szybkie)\nZaktualizuj licencję @alcalzone /release-script-plugin-license do wersji 5.2.2\nDodaj Node.js 26 do macierzy testowej",
         "uk": "Додайте двонаправлене виявлення аномалії нагрівання (занадто повільно/швидке)\nОновити @alcalzone /реліз-сценарія-плагін-ліцензія до 5.2.2\nДодати Node.js 26 до тестової матриці",
         "zh-cn": "添加双向加热异常检测（太慢/太快）\n将 @alcalzone /release-script-plugin-license 更新到 5.2.\n将 Node.js 26 添加到测试矩阵"
-      },
-      "0.4.0": {
-        "en": "Add adaptive heating duration prognosis and anomaly detection\nAdd dev script shortcut for dev-server watch in package.json\nClarify Partner ID and guest account setup instructions\nDocument adaptive heating prognosis and anomaly detection\nAdd strict privacy and anonymization rule to AGENTS.md\nClean up To-Do list and add fun future wishlist items",
-        "de": "Adaptive Heizdauerprognose und Anomalieerkennung hinzufügen\nFüge eine Verknüpfung für das Entwicklerskript zur Überwachung des Entwicklungsservers in package.json hinzu.\nPartner-ID und Einrichtungsanweisungen präzisieren\nDokumentation adaptiver Heizungsprognose und Anomalieerkennung\nFügen Sie der Datei AGENTS.md eine strenge Datenschutz- und Anonymisierungsregel hinzu.\nRäume deine To-Do-Liste auf und füge lustige Wunschlistenpunkte hinzu.",
-        "ru": "Добавлена адаптивная функция прогнозирования продолжительности нагрева и обнаружения аномалий.\nДобавьте в файл package.json ярлык скрипта разработчика для команды `dev-server watch`.\nУточните инструкции по настройке идентификатора партнера и гостевой учетной записи.\nДокументирование адаптивного прогнозирования нагрева и выявления аномалий\nДобавьте в файл AGENTS.md строгие правила конфиденциальности и анонимизации.\nПриведите в порядок список дел и добавьте в него интересные пункты из будущего списка желаний.",
-        "pt": "Adicionar previsão adaptativa da duração do aquecimento e detecção de anomalias.\nAdicione um atalho de script de desenvolvimento para o monitoramento do servidor de desenvolvimento no arquivo package.json.\nEsclarecer as instruções de configuração do ID do parceiro e da conta de convidado\nDocumentar o prognóstico adaptativo do aquecimento e a detecção de anomalias.\nAdicionar regras rigorosas de privacidade e anonimização ao arquivo AGENTS.md\nLimpe a lista de tarefas e adicione itens divertidos à sua lista de desejos para o futuro.",
-        "nl": "Voeg adaptieve prognose van de verwarmingsduur en detectie van afwijkingen toe.\nVoeg een snelkoppeling voor het ontwikkelscript voor het bewaken van de ontwikkelserver toe aan package.json.\nVerduidelijk de instructies voor het instellen van de partner-ID en het gastaccount.\nDocumenteer adaptieve verwarmingsprognoses en detectie van afwijkingen.\nVoeg een strikte privacy- en anonimiseringsregel toe aan AGENTS.md.\nRuim je takenlijst op en voeg leuke dingen toe aan je verlanglijstje voor de toekomst.",
-        "fr": "Ajouter un pronostic adaptatif de la durée de chauffage et une détection d'anomalies\nAjoutez un raccourci de script de développement pour la surveillance du serveur de développement dans package.json\nClarifiez les instructions de configuration de l'identifiant partenaire et du compte invité\nDocumenter le pronostic de chauffage adaptatif et la détection d'anomalies\nAjouter une règle stricte de confidentialité et d'anonymisation au fichier AGENTS.md\nNettoyez votre liste de choses à faire et ajoutez-y des idées amusantes pour l'avenir.",
-        "it": "Aggiungi la previsione adattiva della durata del riscaldamento e il rilevamento delle anomalie\nAggiungi il collegamento allo script di sviluppo per il watch del server di sviluppo nel file package.json\nChiariamo le istruzioni per la configurazione dell'ID partner e dell'account ospite.\nDocumentare la prognosi del riscaldamento adattivo e il rilevamento delle anomalie\nAggiungere una regola rigorosa in materia di privacy e anonimizzazione al file AGENTS.md.\nRiordina la lista delle cose da fare e aggiungi elementi divertenti alla tua lista dei desideri per il futuro.",
-        "es": "Añadir pronóstico de duración de calefacción adaptativa y detección de anomalías\nAgregue un acceso directo al script de desarrollo para la monitorización del servidor de desarrollo en package.json.\nInstrucciones para configurar el ID de socio y la cuenta de invitado\nDocumentar el pronóstico de calefacción adaptativa y la detección de anomalías.\nAgregue una regla estricta de privacidad y anonimización a AGENTS.md.\nLimpia tu lista de tareas pendientes y añade artículos divertidos para tu lista de deseos futuros.",
-        "pl": "Dodaj adaptacyjną prognozę czasu ogrzewania i wykrywanie anomalii\nDodaj skrót skryptu deweloperskiego dla dev-server watch w pliku package.json\nWyjaśnij instrukcje dotyczące konfiguracji identyfikatora partnera i konta gościa\nDokumentowanie adaptacyjnej prognozy ogrzewania i wykrywania anomalii\nDodaj do pliku AGENTS.md ścisłą zasadę prywatności i anonimizacji\nUporządkuj listę zadań i dodaj ciekawe pozycje do listy życzeń",
-        "uk": "Додати адаптивний прогноз тривалості нагріву та виявлення аномалій\nДодати скорочення скрипта розробника для спостереження за сервером розробника в package.json\nУточніть інструкції щодо налаштування ідентифікатора партнера та гостьового облікового запису\nДокументування адаптивного прогнозу опалення та виявлення аномалій\nДодайте суворе правило конфіденційності та анонімізації до AGENTS.md\nОчистіть список справ та додайте цікаві пункти до списку бажань на майбутнє",
-        "zh-cn": "增加自适应加热持续时间预测和异常检测\n在 package.json 中添加 dev-server watch 的开发脚本快捷方式\n明确合作伙伴 ID 和访客帐户设置说明\n记录自适应加热预测和异常检测\n在 AGENTS.md 文件中添加严格的隐私和匿名化规则\n清理待办事项清单，并添加一些有趣的未来愿望清单项目。"
       }
     },
     "authors": [

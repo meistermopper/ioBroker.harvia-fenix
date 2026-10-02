@@ -1,4 +1,9 @@
 # Older changes
+## 0.5.1 (2026-09-12)
+* (meistermopper) Replace adapter logo with custom MyFenix homage logo
+* (meistermopper) Update @iobroker/adapter-core to 3.4.3 and @iobroker/testing to 6.2.1
+* (meistermopper) Fix Mocha 12 instantiation in unit test runner on Node 22
+
 ## 0.5.0 (2026-09-09)
 * (meistermopper) Add bidirectional heating anomaly detection (too slow / fast)
 * (meistermopper) Update @alcalzone/release-script-plugin-license to 5.2.2
