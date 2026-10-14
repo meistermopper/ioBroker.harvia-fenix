@@ -84,6 +84,7 @@
   "readmeFilename": "README.md",
   "overrides": {
     "glob": "11.1.0",
-    "minimatch": "10.0.1"
+    "minimatch": "10.2.6",
+    "serialize-javascript": "7.1.2"
   }
 }

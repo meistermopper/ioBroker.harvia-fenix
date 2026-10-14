@@ -233,6 +233,7 @@ on({ id: 'harvia-fenix.0.info.heatingAnomaly', change: 'ne', val: true }, functi
 ## Änderungsprotokoll (Changelog)
 
 ### **WORK IN PROGRESS**
+* (meistermopper) Abhaengigkeiten und Overrides fuer Sicherheitshinweise aktualisiert
 
 ### 1.1.2 (2026-10-02)
 * (meistermopper) Endlosschleifen-Risiko in Auth-Retry-Logik behoben

@@ -231,6 +231,9 @@ on({ id: 'harvia-fenix.0.info.heatingAnomaly', change: 'ne', val: true }, functi
 ---
 
 ## Changelog
+### **WORK IN PROGRESS**
+* (meistermopper) Update dependency overrides to resolve security advisories
+
 ### 1.1.2 (2026-10-02)
 * (meistermopper) Fix potential infinite loop in auth retry logic
 * (meistermopper) Update @iobroker/testing to 6.3.0 (W0037)
