@@ -74,10 +74,11 @@
     "build": "npm run sync-docs && npm run format && node -e \"require('fs').rmSync('build', { recursive: true, force: true })\" && tsc -p tsconfig.build.json",
     "watch": "tsc -p tsconfig.build.json --watch",
     "dev": "node scripts/patch-ps-tree.js && dev-server watch",
+    "update:dev": "node scripts/patch-ps-tree.js && dev-server update",
     "lint": "biome check . && eslint src",
     "release": "release-script --addPlaceholder",
     "release-before-check": "node scripts/check-wip.js && npm run test:local",
-    "release-before-commit": "npm run translate && npm run manage-changelogs && npm run sync-docs && npm run format && git add -A",
+    "release-before-commit": "npm run translate && npm run manage-changelogs && node scripts/patch-ps-tree.js && npm run sync-docs && npm run format && git add -A",
     "manage-changelogs": "node scripts/manage-changelogs.js"
   },
   "bugs": "https://github.com/meistermopper/ioBroker.harvia-fenix/issues",
