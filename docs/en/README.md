@@ -232,6 +232,7 @@ on({ id: 'harvia-fenix.0.info.heatingAnomaly', change: 'ne', val: true }, functi
 
 ## Changelog
 ### **WORK IN PROGRESS**
+* (meistermopper) Add patch-ps-tree script for dev-server Windows 11 compatibility
 * (meistermopper) Update dependency overrides to resolve security advisories
 
 ### 1.1.2 (2026-10-02)
