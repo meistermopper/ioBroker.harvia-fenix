@@ -101,6 +101,7 @@ class HarviaFenix extends utils.Adapter {
     lastConfirmedStates = {
         heatOn: false,
         lightOn: false,
+        fanOn: false,
         targetTemp: 80,
         maxDuration: 360,
     };
@@ -143,9 +144,23 @@ class HarviaFenix extends utils.Adapter {
     onReady = async () => {
         // Reset status states
         await this.setState('info.connection', false, true);
+        // Ensure newly added objects exist in database for seamless upgrades
+        await this.setObjectNotExistsAsync('fanOn', {
+            type: 'state',
+            common: {
+                role: 'switch',
+                name: 'Sauna fan / secondary light',
+                type: 'boolean',
+                read: true,
+                write: true,
+                def: false,
+            },
+            native: {},
+        });
         // Subscribe to writable states
         this.subscribeStates('heatOn');
         this.subscribeStates('lightOn');
+        this.subscribeStates('fanOn');
         this.subscribeStates('targetTemp');
         this.subscribeStates('maxDuration');
         this.subscribeStates('activeProfile');
@@ -157,6 +172,7 @@ class HarviaFenix extends utils.Adapter {
         await this.setState('online', false, true);
         await this.setState('heatOn', false, true);
         await this.setState('lightOn', false, true);
+        await this.setState('fanOn', false, true);
         await this.setState('doorSafety', false, true);
         await this.setState('remoteControl', false, true);
         await this.setState('errorMsg', '', true);
@@ -208,6 +224,10 @@ class HarviaFenix extends utils.Adapter {
             const lightOnState = await this.getStateAsync('lightOn');
             if (lightOnState?.ack) {
                 this.lastConfirmedStates.lightOn = !!lightOnState.val;
+            }
+            const fanOnState = await this.getStateAsync('fanOn');
+            if (fanOnState?.ack) {
+                this.lastConfirmedStates.fanOn = !!fanOnState.val;
             }
             const targetTempState = await this.getStateAsync('targetTemp');
             if (targetTempState?.ack && typeof targetTempState.val === 'number') {
@@ -744,6 +764,12 @@ class HarviaFenix extends utils.Adapter {
                 statusPayload.lightOn = l.on;
             }
         }
+        if (merged.fan && typeof merged.fan === 'object' && !Array.isArray(merged.fan)) {
+            const f = merged.fan;
+            if (f.on !== undefined && f.on !== null) {
+                statusPayload.fanOn = f.on;
+            }
+        }
         Object.assign(statusPayload, merged);
         if (pushData.connectionState?.connected !== undefined) {
             statusPayload.online = pushData.connectionState.connected;
@@ -897,6 +923,7 @@ class HarviaFenix extends utils.Adapter {
             this.lastConfirmedStates.heatOn = isHeatOn;
         }
         await this.updateBooleanState('lightOn', ['lightOn', 'lightState', 'light', 'light_on'], p);
+        await this.updateBooleanState('fanOn', ['fanOn', 'fanState', 'fan', 'fan_on'], p);
         // --- REMOTECONTROL & ONLINE LOGIC ---
         const rawRemoteAllowed = deviceState?.state?.remoteAllowed ??
             stateReported?.remoteAllowed ??
@@ -993,6 +1020,9 @@ class HarviaFenix extends utils.Adapter {
             await this.setState(stateId, val, true);
             if (stateId === 'lightOn') {
                 this.lastConfirmedStates.lightOn = val;
+            }
+            else if (stateId === 'fanOn') {
+                this.lastConfirmedStates.fanOn = val;
             }
         }
     }
@@ -1304,8 +1334,17 @@ class HarviaFenix extends utils.Adapter {
                 }
                 this.log.debug(`Sending command ${stateName} -> ${value} (Attempt ${attempt}/${maxAttempts})`);
                 try {
-                    if (stateName === 'heatOn' || stateName === 'lightOn') {
-                        const commandType = stateName === 'heatOn' ? 'SAUNA' : 'LIGHTS';
+                    if (stateName === 'heatOn' || stateName === 'lightOn' || stateName === 'fanOn') {
+                        let commandType;
+                        if (stateName === 'heatOn') {
+                            commandType = 'SAUNA';
+                        }
+                        else if (stateName === 'lightOn') {
+                            commandType = 'LIGHTS';
+                        }
+                        else {
+                            commandType = 'FAN';
+                        }
                         const stateStr = value ? 'on' : 'off';
                         const payload = {
                             deviceId,
@@ -1811,6 +1850,9 @@ class HarviaFenix extends utils.Adapter {
             }
             case 'lightOn':
                 await this.setSaunaState('lightOn', HarviaFenix.isTrue(state.val));
+                break;
+            case 'fanOn':
+                await this.setSaunaState('fanOn', HarviaFenix.isTrue(state.val));
                 break;
             case 'targetTemp': {
                 const minTemp = typeof this.config.minTemp === 'number' ? this.config.minTemp : MIN_TARGET_TEMP;

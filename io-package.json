@@ -292,6 +292,31 @@
       "native": {}
     },
     {
+      "_id": "fanOn",
+      "type": "state",
+      "common": {
+        "role": "switch",
+        "name": {
+          "en": "Sauna fan / secondary light",
+          "de": "Saunalüfter / Zweitbeleuchtung",
+          "ru": "Вентилятор сауны / вторичное освещение",
+          "pt": "Ventilador de sauna / iluminação secundária",
+          "nl": "Saunaventilator / secundaire verlichting",
+          "fr": "Ventilateur de sauna / éclairage secondaire",
+          "it": "Ventilatore sauna / illuminazione secondaria",
+          "es": "Ventilador de sauna / iluminación secundaria",
+          "pl": "Wentylator sauny / oświetlenie dodatkowe",
+          "uk": "Вентилятор сауни / вторинне освітлення",
+          "zh-cn": "桑拿风扇 / 二次照明"
+        },
+        "type": "boolean",
+        "read": true,
+        "write": true,
+        "def": false
+      },
+      "native": {}
+    },
+    {
       "_id": "temp",
       "type": "state",
       "common": {

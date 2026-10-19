@@ -126,6 +126,7 @@ The adapter maps your sauna's cloud states into structured ioBroker datapoints u
 | `heatOn` | boolean | `switch.power` | Read/Write | Main toggle to switch the sauna heater ON (`true`) or OFF (`false`). |
 | `heaterPower` | number | `value.power` | Read-only | *Note:* This object is provisioned by the MyHarvia API structure but is currently delivered as `0 kW` (unpopulated). It appears to be reserved for future hardware or app updates. |
 | `lightOn` | boolean | `switch.light` | Read/Write | Toggle to switch the integrated sauna lighting ON or OFF. |
+| `fanOn` | boolean | `switch` | Read/Write | Toggle to switch the sauna fan / secondary lighting ON or OFF. |
 | `maxDuration` | number | `level.timer` | Read/Write | Maximum allowed heating duration for the sauna session in minutes (`min`). |
 | `panelTemp` | number | `value.temperature` | Read-only | The temperature reading measured at the physical control panel unit. |
 | `targetTemp` | number | `level.temperature` | Read/Write | Target temperature setpoint for the sauna cabin (e.g., `90 °C`). |
@@ -232,6 +233,7 @@ on({ id: 'harvia-fenix.0.info.heatingAnomaly', change: 'ne', val: true }, functi
 
 ## Changelog
 ### **WORK IN PROGRESS**
+* (meistermopper) Add fanOn state and FAN command support for sauna fan or secondary light
 * (meistermopper) Add patch-ps-tree script for dev-server Windows 11 compatibility
 * (meistermopper) Update dependency overrides to resolve security advisories
 

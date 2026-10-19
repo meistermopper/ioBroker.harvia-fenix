@@ -126,6 +126,7 @@ Danach steuert das Gast-Konto die Sauna dauerhaft und zuverlässig an!
 | `heatOn` | boolean | `switch.power` | Lesen/Schreiben | Hauptschalter, um den Saunaofen EIN (`true`) oder AUS (`false`) zu schalten. |
 | `heaterPower` | number | `value.power` | Nur Lesen | *Hinweis:* Dieses Objekt wird von der API bereitgestellt, liefert aber derzeit oft `0 kW` (nicht ausgefüllt). Es ist vermutlich für zukünftige Updates reserviert. |
 | `lightOn` | boolean | `switch.light` | Lesen/Schreiben | Schalter für die integrierte Saunabeleuchtung. |
+| `fanOn` | boolean | `switch` | Lesen/Schreiben | Schalter für den Saunalüfter bzw. die Zweitbeleuchtung. |
 | `maxDuration` | number | `level.timer` | Lesen/Schreiben | Maximale Heizdauer für die Saunasitzung in Minuten (`min`). |
 | `panelTemp` | number | `value.temperature` | Nur Lesen | Temperaturmesswert direkt an der physischen Steuereinheit / Panel. |
 | `targetTemp` | number | `level.temperature` | Lesen/Schreiben | Zieltemperatur-Sollwert für die Saunakabine (z. B. `90 °C`). |
@@ -233,6 +234,7 @@ on({ id: 'harvia-fenix.0.info.heatingAnomaly', change: 'ne', val: true }, functi
 ## Änderungsprotokoll (Changelog)
 
 ### **WORK IN PROGRESS**
+* (meistermopper) Datenpunkt fanOn und FAN-Befehl fuer Saunaluefter / Zweitbeleuchtung ergaenzt
 * (meistermopper) patch-ps-tree-Skript fuer dev-server Windows-11-Kompatibilitaet hinzugefuegt
 * (meistermopper) Abhaengigkeiten und Overrides fuer Sicherheitshinweise aktualisiert
 
