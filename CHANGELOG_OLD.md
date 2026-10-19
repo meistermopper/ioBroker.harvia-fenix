@@ -1,4 +1,15 @@
 # Older changes
+## 0.6.0 (2026-09-16)
+* (meistermopper) Add readyAt, readyAtMessage, timeToTargetFormatted states
+* (meistermopper) Implement Harvia native 13-interval heating curve calculation
+* (meistermopper) Add profiles, activeProfile, and standby time prognosis
+* (meistermopper) Increase adapter logo display size in README files to 200px
+* (meistermopper) Add breaking change callouts and older tag support to release notes
+* (meistermopper) Add automated release notes generator for GitHub releases
+* (meistermopper) Add check:repo script and integrate repochecker into test:local
+* (meistermopper) Restore email in license copyright lines (S4050, S4051)
+* (meistermopper) Fix license section in README to satisfy repo-checker rule W6034
+
 ## 0.5.1 (2026-09-12)
 * (meistermopper) Replace adapter logo with custom MyFenix homage logo
 * (meistermopper) Update @iobroker/adapter-core to 3.4.3 and @iobroker/testing to 6.2.1

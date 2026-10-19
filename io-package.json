@@ -1,7 +1,7 @@
 {
   "common": {
     "name": "harvia-fenix",
-    "version": "1.1.2",
+    "version": "1.2.0",
     "titleLang": {
       "en": "Harvia-Fenix Sauna Control",
       "de": "Harvia-Fenix Saunasteuerung",
@@ -29,6 +29,19 @@
       "zh-cn": "通过 MyHarvia 云端控制 Harvia Fenix 桑拿房"
     },
     "news": {
+      "1.2.0": {
+        "en": "Add fanOn state and FAN command support for sauna fan or secondary light\nAdd patch-ps-tree script for dev-server Windows 11 compatibility\nUpdate dependency overrides to resolve security advisories",
+        "de": "Fügt Lüfterstatus und FAN-Befehl für Saunalüfter oder Sekundärlicht hinzu\nPatch-PS-Tree-Skript für Dev-Server mit Windows 11 hinzufügen\nUpdate Dependency-Overrides, um Sicherheitshinweise zu lösen",
+        "ru": "Добавьте состояние FanOn и поддержку команд FAN для вентилятора сауны или дополнительного освещения\nДобавьте скрипт patch-ps-tree для совместимости с сервером разработки с Windows 11\nОбновите переопределения зависимостей для устранения рекомендаций по безопасности",
+        "pt": "Adicione o estado FanOn e o comando FAN para sauna ou luz secundária\nAdicione o script patch-ps-tree para Windows 11\nAtualize dependências para resolver alertas de segurança",
+        "nl": "Voeg ondersteuning voor de status FanOn en het FAN-commando toe voor de saunaflator of de secundaire verlichting\nPatch-ps-tree script toevoegen voor compatibiliteit met Windows 11 voor dev-server\nUpdate-afhankelijkheidsoverschrijvingen om beveiligingsadviezen op te lossen",
+        "fr": "Ajout de l'état et de la commande FANon au ventilateur de sauna ou à la lampe secondaire\nAjouter un script Patch-PS-Tree pour le rendre compatible avec Windows 11\nRésolvez les alertes de sécurité à jour",
+        "it": "Aggiungere lo stato e il comando FAN per sauna o luce secondaria\nAggiungere uno script patch-ps-tree per Windows 11\nAggiorna le dipendenze per risolvere gli avvisi di sicurezza",
+        "es": "Añada el estado FanOn y el comando FAN para el ventilador de la sauna o la luz secundaria\nAñada el script patch-ps-tree para que sea compatible con Windows 11 con el servidor de desarrollo\nActualice las anulaciones de dependencia para resolver los avisos",
+        "pl": "Dodaj obsługę stanu FanOn i polecenia FAN dla wentylatora sauny lub światła wtórnego\nDodaj skrypt patch-ps-tree dla zgodności dev-server z systemem Windows 11\nAktualizuj nadpisania zależności, aby rozwiązać zalecenia dotyczące zabezpieczeń",
+        "uk": "Додайте стан FanOn та підтримку команд FAN для вентилятора сауни або вторинного освітлення\nДодайте скрипт patch-ps-tree для сумісності dev-сервера Windows 11\nОновіть перевизначення залежностей, щоб вирішити рекомендації щодо безпеки",
+        "zh-cn": "为桑拿风扇或辅助灯添加 FanOn 状态和 FAN 命令支持\n为开发服务器 Windows 11 兼容性添加补丁 patch-ps-tree 脚本\n更新依赖关系覆盖以解决安全建议"
+      },
       "1.1.2": {
         "en": "Fix potential infinite loop in auth retry logic\nUpdate @iobroker/testing to 6.3.0 (W0037)\nUse adapter timer methods in push client (S5005)",
         "de": "Mögliche Endlosschleife in Auth Retry Logic behoben\nUpdate @iobroker /test auf 6.3.0 (W0037)\nAdaptertimer im Push-Client verwenden (S5005)",
@@ -106,19 +119,6 @@
         "pl": "Zastąp logo adaptera niestandardowym logo hołdu MyFenix\nZaktualizuj @iobroker /adapter-core do wersji 3.4.3 i @iobroker /testing do wersji 6.2.1\nNapraw instancję Mocha 12 w jednostkowym biegaczu testowym na węźle 22",
         "uk": "Замініть логотип адаптера на спеціальний логотип шани MyFenix\nОновити @iobroker /адаптер-ядро до 3.4.3 та @iobroker /тестування до 6.2.1\nВиправте інстанціацію Mocha 12 у тестовому запуску одиниць на вузлі 22",
         "zh-cn": "使用自定义 myFenix 致敬徽标替换适配器徽标\n将 @iobroker /adapter-core 更新到 3.4.3 和 @iobroker /testing 更新到 6.2.1\n修复节点 22 单元测试运行器中的 Mocha 12 实例化问题"
-      },
-      "0.5.0": {
-        "en": "Add bidirectional heating anomaly detection (too slow / fast)\nUpdate @alcalzone/release-script-plugin-license to 5.2.2\nAdd Node.js 26 to test matrix",
-        "de": "Bidirektionale Hitzeerkennung hinzufügen (zu lang/schnell)\n@alcalzone /release-script-plugin-license auf 5.2.2 updaten\nFüge Node.js 26 zur Testmatrix",
-        "ru": "Добавьте двунаправленное обнаружение аномалий нагрева (слишком медленное/быстрое)\nОбновите лицензию плагина @alcalzone /release-script-plugin-до версии 5.2.2\nДобавьте Node.js 26 в тестовую матрицу",
-        "pt": "Adicionar anomalia bidirecional (muito lenta/rápida)\nAtualize a licença @alcalzone /release-script-plugin para 5.2.2\nTeste o Node.js 26 na matriz",
-        "nl": "Voeg bidirectionele detectie van verwarmingsafwijkingen toe (te langzaam/snel)\n@alcalzone /release-script-plugin-license updaten naar 5.2.2\nNode.js 26 aan de testmatrix toevoegen",
-        "fr": "Ajouter la détection bidirectionnelle du chauffage (trop lente/trop rapide)\nPassez à la 5.2.2 de @alcalzone /release-script-plugin-license\nAjouter Node.js 26 au test Matrix",
-        "it": "Aggiungere un sensore bidirezionale (troppo lento/veloce)\nAggiorna @alcalzone /release-script-plugin-license a 5.2.2\nAggiunga Node.js 26 al test",
-        "es": "Añada detección bidireccional de anomalías de calor (muy lento/rápido)\nActualice @alcalzone /release-script-plugin-license a 5.2.2\nAñada Node.js 26 a test matrix",
-        "pl": "Dodaj dwukierunkowe wykrywanie anomalii ogrzewania (zbyt wolne/szybkie)\nZaktualizuj licencję @alcalzone /release-script-plugin-license do wersji 5.2.2\nDodaj Node.js 26 do macierzy testowej",
-        "uk": "Додайте двонаправлене виявлення аномалії нагрівання (занадто повільно/швидке)\nОновити @alcalzone /реліз-сценарія-плагін-ліцензія до 5.2.2\nДодати Node.js 26 до тестової матриці",
-        "zh-cn": "添加双向加热异常检测（太慢/太快）\n将 @alcalzone /release-script-plugin-license 更新到 5.2.\n将 Node.js 26 添加到测试矩阵"
       }
     },
     "authors": [

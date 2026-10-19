@@ -234,6 +234,8 @@ on({ id: 'harvia-fenix.0.info.heatingAnomaly', change: 'ne', val: true }, functi
 ## Änderungsprotokoll (Changelog)
 
 ### **WORK IN PROGRESS**
+
+### 1.2.0 (2026-10-19)
 * (meistermopper) Datenpunkt fanOn und FAN-Befehl fuer Saunaluefter / Zweitbeleuchtung ergaenzt
 * (meistermopper) patch-ps-tree-Skript fuer dev-server Windows-11-Kompatibilitaet hinzugefuegt
 * (meistermopper) Abhaengigkeiten und Overrides fuer Sicherheitshinweise aktualisiert
@@ -256,17 +258,6 @@ on({ id: 'harvia-fenix.0.info.heatingAnomaly', change: 'ne', val: true }, functi
 ### 1.0.0 (2026-09-17)
 * (meistermopper) AWS AppSync WebSocket Real-Time Push-Client hinzugefuegt
 * (meistermopper) Token-Aktualisierung ueber /auth/refresh mit refreshToken
-
-### 0.6.0 (2026-09-16)
-* (meistermopper) Datenpunkte readyAt, readyAtMessage und timeToTargetFormatted ergänzt
-* (meistermopper) Harvia-Heizkurvenberechnung mit 13 Intervallen implementiert
-* (meistermopper) Saunaprofile (profiles, activeProfile) und Standby-Prognose ergänzt
-* (meistermopper) Logo-Anzeigegroesse in den README-Dateien auf 200px verdoppelt
-* (meistermopper) Breaking-Changes-Hinweise und Altrelease-Support für Release-Notes
-* (meistermopper) Automatische Generierung von Release Notes für GitHub eingerichtet
-* (meistermopper) check:repo Skript hinzugefügt und in test:local integriert
-* (meistermopper) E-Mail in Lizenz-Copyrightzeilen wiederhergestellt (S4050, S4051)
-* (meistermopper) Lizenzabschnitt in README gemäß Repochecker-Regel W6034 korrigiert
 
 [Ältere Einträge können hier gefunden werden](../../CHANGELOG_OLD.md)
 
