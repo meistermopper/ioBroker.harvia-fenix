@@ -78,12 +78,20 @@ This file defines style guidelines, constraints, and general instructions for AI
 ## 10. Git Commit & Push Authorization and Workflow
 - **Constraint:** AI agents MUST NEVER perform `git commit` or `git push` operations automatically without explicit, prior user approval in the chat.
 - **Workflow:** Always prepare code modifications locally and ask the user for explicit confirmation before staging, committing, or pushing changes to remote repositories.
+- **Co-Author Attribution:** Every commit created or suggested with AI assistance must include the Git trailer:
+  ```git
+  Co-authored-by: Gemini <noreply@google.com>
+  ```
+  Example:
+  ```bash
+  git commit -m "feat: add remote control status" -m "Co-authored-by: Gemini <noreply@google.com>"
+  ```
 - **Standard Commit & Push Procedure:** Once explicit user approval is received, execute the following steps in sequence:
   1. **Maintain WIP:** Ensure both [README.md](file:///c:/Users/thoma/dev/active/ioBroker.harvia-fenix/README.md) and [README_de.md](file:///c:/Users/thoma/dev/active/ioBroker.harvia-fenix/README_de.md) have entries under `### **WORK IN PROGRESS**` (< 100 chars/line).
   2. **Synchronize Docs:** Run `node scripts/sync-docs.js` to update `docs/`.
   3. **Verify WIP:** Run `node scripts/check-wip.js` to ensure the changelog check passes.
   4. **Run Verification / Tests:** Run `npm run test:local` to ensure Biome, TypeScript compiler, and tests all pass cleanly.
-  5. **Stage & Commit:** Stage all modified and generated files (`git add -A`) and commit with a Conventional Commit message (e.g. `fix: ...`, `feat: ...`, `docs: ...`). Note: The `pre-commit` Husky hook will execute `npm run lint`.
+  5. **Stage & Commit:** Stage all modified and generated files (`git add -A`) and commit with a Conventional Commit message including the co-author trailer (e.g. `git commit -m "fix: ..." -m "Co-authored-by: Gemini <noreply@google.com>"`). Note: The `pre-commit` Husky hook will execute `npm run lint`.
   6. **Push to Remote:** Run `git push`. Note: The `pre-push` Husky hook will execute `npm run test:local`. If rejected due to upstream changes (`non-fast-forward`), run `git pull --rebase` and push again.
 
 ## 11. Active Links for References (Commits, Releases, Issues, Files)
