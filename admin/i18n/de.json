@@ -11,7 +11,5 @@
     "Partner ID (Optional)": "Partner-ID (Optional)",
     "Partner ID Help": "Nur für freigegebene/geteilte Konten nötig. Tragen Sie hier die Partner-ID des Hauptnutzers ein (z. B. ORG/prod:0:1234).",
     "Password": "Passwort",
-    "Polling Interval (seconds)": "Abfrageintervall (Sekunden)",
-    "Polling Interval Help": "Mindestens 30s, Standard 60s. Hinweis: Bei mehreren Instanzen sollte das Intervall nicht zu kurz gewählt werden, um Cloud-Sperren (HTTP 429) zu vermeiden.",
     "Username / Email": "Benutzername / E-Mail"
 }

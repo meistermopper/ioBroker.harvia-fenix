@@ -7,7 +7,6 @@ declare global {
 			username: string;
 			password: string;
 			deviceId: string;
-			pollInterval: number;
 			partnerId: string;
 			maxDuration: number;
 			minTemp: number;

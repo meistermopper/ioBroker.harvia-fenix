@@ -930,10 +930,8 @@ export class HarviaFenix extends utils.Adapter {
 		} finally {
 			// Only schedule next poll if adapter is not unloading
 			if (!this.isUnloading) {
-				const rawInterval = this.config.pollInterval || 60;
-				const standardInterval = Math.max(30, Math.min(600, rawInterval)) * 1000;
-				// If push is active and connected, relax polling interval to 5 minutes as safety heartbeat
-				const interval = this.isPushConnected ? 300 * 1000 : standardInterval;
+				// Use 5 minutes as safety heartbeat when push is active, or 60 seconds as fallback
+				const interval = this.isPushConnected ? 300 * 1000 : 60 * 1000;
 				this.updateInterval = this.setTimeout(() => this.updateStatus(), interval);
 			}
 		}

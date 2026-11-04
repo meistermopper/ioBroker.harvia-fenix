@@ -11,7 +11,5 @@
     "Partner ID (Optional)": "ID Partnera (Opcjonalnie)",
     "Partner ID Help": "Wymagane tylko dla kont udostępnionych/gości. Wprowadź ID Partnera właściciela tutaj (np. ORG/prod:0:1234).",
     "Password": "Hasło",
-    "Polling Interval (seconds)": "Interwał odpytywania (sekundy)",
-    "Polling Interval Help": "Minimum 30 s, domyślnie 60 s. Uwaga: Przy uruchamianiu wielu instancji nie ustawiaj tego zbyt nisko, aby uniknąć limitów chmury Harvia (HTTP 429).",
     "Username / Email": "Nazwa użytkownika / E-mail"
 }

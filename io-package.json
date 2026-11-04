@@ -146,7 +146,7 @@
     "type": "climate-control",
     "compact": true,
     "connectionType": "cloud",
-    "dataSource": "poll",
+    "dataSource": "push",
     "adminUI": {
       "config": "json"
     },
@@ -166,7 +166,6 @@
     "password": "",
     "deviceId": "",
     "partnerId": "",
-    "pollInterval": 60,
     "maxDuration": 360,
     "minTemp": 40,
     "maxTemp": 110

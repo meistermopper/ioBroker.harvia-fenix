@@ -11,7 +11,5 @@
     "Partner ID (Optional)": "Partner ID (Optional)",
     "Partner ID Help": "Only needed for shared/guest accounts. Enter the Owner's Partner ID here (e.g. ORG/prod:0:1234).",
     "Password": "Password",
-    "Polling Interval (seconds)": "Polling Interval (seconds)",
-    "Polling Interval Help": "Minimum 30s, default 60s. Note: When running multiple instances, do not set this too low to avoid Harvia Cloud rate limiting (HTTP 429).",
     "Username / Email": "Username / Email"
 }

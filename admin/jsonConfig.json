@@ -44,19 +44,6 @@
 					"lg": 4,
 					"xl": 4
 				},
-				"pollInterval": {
-					"type": "number",
-					"label": "Polling Interval (seconds)",
-					"help": "Polling Interval Help",
-					"min": 30,
-					"max": 600,
-					"default": 60,
-					"xs": 12,
-					"sm": 6,
-					"md": 4,
-					"lg": 4,
-					"xl": 4
-				},
 				"minTemp": {
 					"type": "number",
 					"label": "Minimum Temperature Limit (°C)",
