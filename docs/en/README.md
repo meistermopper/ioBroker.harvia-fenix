@@ -232,7 +232,7 @@ on({ id: 'harvia-fenix.0.info.heatingAnomaly', change: 'ne', val: true }, functi
 ---
 
 ## Changelog
-### **WORK IN PROGRESS**
+### 1.2.1 (2026-11-05)
 * (meistermopper) Remove obsolete pollInterval setting from instance configuration
 * (meistermopper) Update dependency overrides to resolve Dependabot security alerts
 
@@ -255,10 +255,6 @@ on({ id: 'harvia-fenix.0.info.heatingAnomaly', change: 'ne', val: true }, functi
 * (meistermopper) Add safety trip detection, alarm indicators, and sliding history
 * (meistermopper) Fix activeProfile endpoint to use PATCH /devices/profile per API spec
 * (meistermopper) Document profiles and activeProfile switching behavior in README
-
-### 1.0.0 (2026-09-17)
-* (meistermopper) Add AWS AppSync WebSocket real-time push client
-* (meistermopper) Add token refresh via /auth/refresh using refreshToken
 
 [Older changelog entries](../../CHANGELOG_OLD.md)
 

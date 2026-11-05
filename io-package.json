@@ -1,7 +1,7 @@
 {
   "common": {
     "name": "harvia-fenix",
-    "version": "1.2.0",
+    "version": "1.2.1",
     "titleLang": {
       "en": "Harvia-Fenix Sauna Control",
       "de": "Harvia-Fenix Saunasteuerung",
@@ -29,6 +29,19 @@
       "zh-cn": "通过 MyHarvia 云端控制 Harvia Fenix 桑拿房"
     },
     "news": {
+      "1.2.1": {
+        "en": "Remove obsolete pollInterval setting from instance configuration\nUpdate dependency overrides to resolve Dependabot security alerts",
+        "de": "Veraltete PollInterval-Einstellung aus Instanzkonfiguration entfernen\nAktualisieren Sie Dependabot-Sicherheitswarnungen",
+        "ru": "Удалите устаревшую настройку PollInterval из конфигурации экземпляра\nОбновите переопределения зависимостей для устранения предупреждений безопасности Dependabot",
+        "pt": "Remover a configuração obsoleta de PollInterval da instância\nAtualize substituições para resolver alertas de segurança",
+        "nl": "Verouderde PollInterval-instelling verwijderen uit de instantieconfiguratie\nAfhankelijkheidsoverschrijvingen bijwerken om de beveiligingswaarschuwingen van Dependabot op te lossen",
+        "fr": "Supprimer le paramètre PollInterval obsolète de la configuration de l'instance\nRésolvez les alertes de sécurité de Dependabot à jour",
+        "it": "Rimuovi l'impostazione PollInterval obsoleta dall'istanza\nAggiorna le dipendenze per risolvere gli avvisi di sicurezza",
+        "es": "Eliminar el ajuste obsoleto de PollInterval de la configuración de instancia\nActualice las anulaciones de dependencia para resolver las alertas",
+        "pl": "Usuń przestarzałe ustawienie PollInterval z konfiguracji instancji\nAktualizuj nadpisania zależności, aby rozwiązać alerty bezpieczeństwa Dependabot",
+        "uk": "Видаліть застарілі налаштування PollInterval з конфігурації екзе\nОновіть перевизначення залежностей, щоб вирішити сповіщення про безпеку Dependabot",
+        "zh-cn": "从实例配置中移除过时的 pollInterval 设置\n更新依赖项覆盖以解决 Dependabot 安全警报"
+      },
       "1.2.0": {
         "en": "Add fanOn state and FAN command support for sauna fan or secondary light\nAdd patch-ps-tree script for dev-server Windows 11 compatibility\nUpdate dependency overrides to resolve security advisories",
         "de": "Fügt Lüfterstatus und FAN-Befehl für Saunalüfter oder Sekundärlicht hinzu\nPatch-PS-Tree-Skript für Dev-Server mit Windows 11 hinzufügen\nUpdate Dependency-Overrides, um Sicherheitshinweise zu lösen",
@@ -106,19 +119,6 @@
         "pl": "Dodaj ReadYat, ReadyatMessage, TimetoTargetsformatted states\nWdrożenie natywnej 13-interwałowej krzywej ogrzewania Harvia\nDodawanie profili, ActiveProfile i prognozy czasu czuwania\nZwiększ rozmiar wyświetlacza logo adaptera w plikach README do 200px\nDodaj objaśnienia dotyczące zmian przerywających i obsługę starszych tagów do notatek o wydaniu\nDodaj automatyczny generator notatek o wydaniu dla wersji GitHub\nDodaj skrypt check:repo i zintegruj repochecker z test:local\nPrzywracanie wiadomości e-mail w wierszach praw autorskich licencji (S4050, S4051)\nNapraw sekcję licencji w README, aby spełnić regułę sprawdzania repo-checker W6034",
         "uk": "Додавання форматованих станів readYat, ReadyAtMessage, TimeToTarget\nРеалізуйте власний 13-інтервальний розрахунок кривої нагріву Harvia\nДодавання профілів, ActiveProfile та прогнозу часу очікування\nЗбільшити розмір відображення логотипу адаптера у файлах README до 200px\nДодайте примітки щодо змін та підтримку старих тегів до приміток до випуску\nДодайте автоматичний генератор нотаток до випуску для релізів GitHub\nДодайте скрипт check:repo та інтегруйте repochecker в test:local\nВідновлення електронної пошти в рядках авторських прав ліцензії (S4050, S4051)\nВиправте розділ ліцензії в README, щоб задовольнити правило перевірки репо W6034",
         "zh-cn": "添加 ReadyAt、ReadyAt 消息、TimeToTarget 格式的状态\n实现 Harvia 原生 13 间隔加热曲线计算\n添加配置文件、ActiveProfile 和待机时间预测\n将 README 文件中的适配器徽标显示大小增加到 200px\n在发行说明中添加重大变更标注和旧标签支持\n为 GitHub 版本添加自动发行说明生成器\n添加 check: repo 脚本并将 repochecker 集成到 test: local\n恢复许可证版权行中的电子邮件（S4050、S4051）\n修复 README 中的许可证部分以满足 repo-checker 规则 W6034"
-      },
-      "0.5.1": {
-        "en": "Replace adapter logo with custom MyFenix homage logo\nUpdate @iobroker/adapter-core to 3.4.3 and @iobroker/testing to 6.2.1\nFix Mocha 12 instantiation in unit test runner on Node 22",
-        "de": "Adapter-Logo durch MyFenix-Hommage ersetzen\nUpdate @iobroker /adapter-core auf 3.4.3 und @iobroker /testing auf 6.2.1\nFix Mocha 12 im Unit-Test-Runner auf Node 22",
-        "ru": "Замените логотип адаптера на собственный логотип MyFenix homage\nОбновите @iobroker /adapter-core до 3.4.3 и @iobroker /testing до 6.2.1\nИсправьте создание экземпляра Mocha 12 в программе запуска модульных тестов на узле 22",
-        "pt": "Substitua o adaptador pelo logotipo MyFenix\nAtualize @iobroker /adapter-core à 3.4.3 e @iobroker /testing à 6.2.1\nCorrige a instanciação do Mocha 12 no Unit Test Runner no Node 22",
-        "nl": "Vervang het adapterlogo door een aangepast MyFenix-hommage-logo\nUpdate @iobroker /adapter-core naar 3.4.3 en @iobroker /testing naar 6.2.1\nDe instantiatie van Mocha 12 in de testrunner van de unit op Node 22 repareren",
-        "fr": "Remplacer le logo de l'adaptateur par un logo MyFenix personnalisé\nPassez @iobroker /adapter-core à 3.4.3 et @iobroker /testing à 6.2.1\nCorriger l'instanciation de Mocha 12 dans Unit Test Runner sur Node 22",
-        "it": "Sostituire il logo dell'adattatore con MyFenix\nAggiorna @iobroker /adapter-core a 3.4.3 e @iobroker /testing a 6.2.1\nCorreggi l'istanza Mocha 12 in Unit Test Runner sul Nodo 22",
-        "es": "Sustituir el logotipo del adaptador por el de MyFenix\nActualice @iobroker /adapter-core a 3.4.3 y @iobroker /testing a 6.2.1\nArregle la instancia de Mocha 12 en el corredor de pruebas del nodo 22",
-        "pl": "Zastąp logo adaptera niestandardowym logo hołdu MyFenix\nZaktualizuj @iobroker /adapter-core do wersji 3.4.3 i @iobroker /testing do wersji 6.2.1\nNapraw instancję Mocha 12 w jednostkowym biegaczu testowym na węźle 22",
-        "uk": "Замініть логотип адаптера на спеціальний логотип шани MyFenix\nОновити @iobroker /адаптер-ядро до 3.4.3 та @iobroker /тестування до 6.2.1\nВиправте інстанціацію Mocha 12 у тестовому запуску одиниць на вузлі 22",
-        "zh-cn": "使用自定义 myFenix 致敬徽标替换适配器徽标\n将 @iobroker /adapter-core 更新到 3.4.3 和 @iobroker /testing 更新到 6.2.1\n修复节点 22 单元测试运行器中的 Mocha 12 实例化问题"
       }
     },
     "authors": [
