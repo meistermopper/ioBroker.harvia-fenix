@@ -101,3 +101,8 @@ This file defines style guidelines, constraints, and general instructions for AI
   - Releases: `[v0.5.1](https://github.com/meistermopper/ioBroker.harvia-fenix/releases/tag/v0.5.1)`
   - Issues / PRs: `[#69](https://github.com/meistermopper/ioBroker.harvia-fenix/issues/69)`
   - Files: Clickable markdown links (e.g. `[admin/fenix.png](file:///c:/Users/thoma/dev/active/ioBroker.harvia-fenix/admin/fenix.png)` in chat or GitHub file link in remote notes).
+
+## 12. Obsidian Vault Documentation (`save_note`)
+- **Mandatory Automatic Note Updates:** Whenever a bug/problem is resolved, a setting/architecture is adjusted, or a new feature is added:
+  - You MUST automatically update the corresponding project note in the Obsidian Vault using `obsidian-vault:save_note` (specifically `10_Projects/meistermopper.ioBroker.harvia-fenix/meistermopper.ioBroker.harvia-fenix.md`).
+  - Do NOT wait for the user to ask for `save_note` — execute it proactively and independently as part of wrapping up the task.
