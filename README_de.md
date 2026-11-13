@@ -234,6 +234,7 @@ on({ id: 'harvia-fenix.0.info.heatingAnomaly', change: 'ne', val: true }, functi
 ## Änderungsprotokoll (Changelog)
 
 ### **WORK IN PROGRESS**
+* (meistermopper) @iobroker/testing auf 6.3.2 aktualisiert (W0037)
 
 ### 1.2.1 (2026-11-05)
 * (meistermopper) Obsoletes Abfrageintervall (pollInterval) aus Instanz-Konfiguration entfernt

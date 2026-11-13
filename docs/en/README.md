@@ -232,6 +232,9 @@ on({ id: 'harvia-fenix.0.info.heatingAnomaly', change: 'ne', val: true }, functi
 ---
 
 ## Changelog
+### **WORK IN PROGRESS**
+* (meistermopper) Update @iobroker/testing to 6.3.2 (W0037)
+
 ### 1.2.1 (2026-11-05)
 * (meistermopper) Remove obsolete pollInterval setting from instance configuration
 * (meistermopper) Update dependency overrides to resolve Dependabot security alerts
