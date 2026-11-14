@@ -47,6 +47,10 @@ This file defines style guidelines, constraints, and general instructions for AI
 - **Translation:** Never write direct/hardcoded translations in `jsonConfig`. Always configure `"i18n": true` and use standard language translation keys corresponding to files in the `admin/i18n` directory.
 - **User Text Output:** All text output displayed to users must either use pure English text or support at least English and German text (via i18n).
 - **News & Metadata Translations (`io-package.json`):** Every entry under `common.news` in `io-package.json` MUST be fully translated into all supported languages (`en`, `de`, `ru`, `pt`, `nl`, `fr`, `it`, `es`, `pl`, `uk`, `zh-cn`). Never leave non-English keys identical to English text, as ioBroker repochecker flags untranslated `common.news` entries as error `[E1144]`.
+- **Weblate Translation Workflow (`admin/i18n/*.json`):**
+  - `admin/i18n/en.json` is the source of truth; non-English files (`de.json`, `es.json`, etc.) are managed by **Weblate** (`ioBrokerTranslator`) and `npm run translate`.
+  - **NEVER** change the indentation of `admin/i18n/*.json` (Weblate uses **4-space indentation**) or edit non-English `admin/i18n/*.json` files directly on `main` unless explicitly requested, as this causes Weblate rebase merge conflicts.
+  - **NEVER** use `Squash and merge`, `Rebase and merge`, or `git push --force` on `ioBrokerTranslator` PRs — always use **Create a merge commit** to keep GitHub and Weblate history in sync.
 
 ## 7. Local Code Verification
 - **Workflow:** Before finishing any code modification or pushing, run:
