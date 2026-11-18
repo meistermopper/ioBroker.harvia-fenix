@@ -235,6 +235,7 @@ on({ id: 'harvia-fenix.0.info.heatingAnomaly', change: 'ne', val: true }, functi
 ## Änderungsprotokoll (Changelog)
 
 ### **WORK IN PROGRESS**
+* (meistermopper) node-forge Override auf ^1.4.3 aktualisiert (Dependabot)
 * (meistermopper) Weblate-Badge in README ergänzt und deutsche i18n synchronisiert
 * (meistermopper) @iobroker/testing auf 6.3.2 aktualisiert (W0037)
 
